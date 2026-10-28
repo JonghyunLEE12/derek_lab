@@ -1,0 +1,119 @@
+---
+import DiagramFrame from '../../insights/diagrams/DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '전처리를 거친 질의가 BM25와 k-NN을 병렬로 타고 RRF로 융합된 뒤, 거절 게이트에서 기준 미달 후보가 떨어진다.' } = Astro.props;
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 720 310" role="img" aria-label="질의가 전처리, BM25와 k-NN 병렬 실행, RRF 융합, 거절 게이트를 거쳐 결과로 이어지는 검색 경로입니다.">
+    <g>
+      <rect class="box" x="10" y="112" width="80" height="76" rx="9" />
+      <text class="label" x="50" y="155">질의</text>
+    </g>
+    <path class="flow" d="M92 150 h18" />
+    <path class="arrow" d="m102 145 6 5 -6 5" />
+    <g>
+      <rect class="box" x="115" y="100" width="150" height="100" rx="9" />
+      <text class="label" x="190" y="128">전처리</text>
+      <text class="small" x="190" y="152">locale 정규화</text>
+      <text class="small" x="190" y="172">사전·동의어 확장</text>
+    </g>
+    <path class="flow" d="M267 150 C290 150 292 64 312 64" />
+    <path class="arrow" d="m304 59 6 5 -6 5" />
+    <path class="flow" d="M267 150 C290 150 292 236 312 236" />
+    <path class="arrow" d="m304 231 6 5 -6 5" />
+    <g>
+      <rect class="box" x="316" y="26" width="120" height="76" rx="9" />
+      <text class="label" x="376" y="56">BM25</text>
+      <text class="small" x="376" y="80">엄격·완화 매칭</text>
+    </g>
+    <g>
+      <rect class="box" x="316" y="198" width="120" height="76" rx="9" />
+      <text class="label" x="376" y="228">k-NN</text>
+      <text class="small" x="376" y="252">질의 벡터 캐시</text>
+    </g>
+    <path class="flow" d="M438 64 C462 64 464 150 480 150" />
+    <path class="flow" d="M438 236 C462 236 464 150 480 150" />
+    <path class="arrow" d="m472 145 6 5 -6 5" />
+    <g>
+      <rect class="box" x="484" y="112" width="92" height="76" rx="9" />
+      <text class="label" x="530" y="142">RRF</text>
+      <text class="small" x="530" y="166">순위 융합</text>
+    </g>
+    <path class="flow" d="M578 150 h18" />
+    <path class="arrow" d="m588 145 6 5 -6 5" />
+    <g class="pulse" style="--delay: 2s">
+      <rect class="accent-box" x="602" y="100" width="12" height="100" rx="5" />
+    </g>
+    <text class="small" x="608" y="88">거절 게이트</text>
+    <circle class="blocked" cx="608" cy="238" r="5" />
+    <text class="small" x="608" y="264">기준 미달 차단</text>
+    <path class="flow" d="M616 150 h20" />
+    <path class="arrow" d="m628 145 6 5 -6 5" />
+    <g>
+      <rect class="box" x="640" y="112" width="70" height="76" rx="9" />
+      <text class="label" x="675" y="155">결과</text>
+    </g>
+    <text class="small" x="360" y="302">엄격 BM25 0건인 의미 질의만 벡터 경로 · ko 벡터 기준 0.735는 표본 보정 임시값</text>
+  </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 650" role="img" aria-label="질의가 전처리, BM25와 k-NN, RRF, 거절 게이트를 거쳐 결과로 이어지는 검색 경로입니다.">
+    <g>
+      <rect class="box" x="40" y="10" width="240" height="70" rx="9" />
+      <text class="label" x="160" y="50">질의</text>
+    </g>
+    <path class="flow" d="M160 82 v22" />
+    <path class="arrow" d="m155 95 5 6 5 -6" />
+    <g>
+      <rect class="box" x="40" y="118" width="240" height="96" rx="9" />
+      <text class="label" x="160" y="148">전처리</text>
+      <text class="small" x="160" y="172">locale 정규화</text>
+      <text class="small" x="160" y="192">사전·동의어 확장</text>
+    </g>
+    <path class="flow" d="M160 216 C160 234 88 230 88 246" />
+    <path class="arrow" d="m83 238 5 6 5 -6" />
+    <path class="flow" d="M160 216 C160 234 232 230 232 246" />
+    <path class="arrow" d="m227 238 5 6 5 -6" />
+    <g>
+      <rect class="box" x="24" y="250" width="128" height="84" rx="9" />
+      <text class="label" x="88" y="282">BM25</text>
+      <text class="small" x="88" y="306">엄격·완화</text>
+    </g>
+    <g>
+      <rect class="box" x="168" y="250" width="128" height="84" rx="9" />
+      <text class="label" x="232" y="282">k-NN</text>
+      <text class="small" x="232" y="306">벡터 캐시</text>
+    </g>
+    <path class="flow" d="M88 336 C88 354 160 352 160 370" />
+    <path class="flow" d="M232 336 C232 354 160 352 160 370" />
+    <path class="arrow" d="m155 361 5 6 5 -6" />
+    <g>
+      <rect class="box" x="40" y="374" width="240" height="76" rx="9" />
+      <text class="label" x="160" y="404">RRF</text>
+      <text class="small" x="160" y="430">BM25·k-NN 순위 융합</text>
+    </g>
+    <path class="flow" d="M160 452 v14" />
+    <path class="arrow" d="m155 457 5 6 5 -6" />
+    <text class="small" x="160" y="481">거절 게이트</text>
+    <g class="pulse" style="--delay: 2s">
+      <rect class="accent-box" x="70" y="488" width="180" height="12" rx="5" />
+    </g>
+    <circle class="blocked" cx="256" cy="510" r="5" />
+    <text class="small" x="256" y="528">기준 미달</text>
+    <path class="flow" d="M160 504 v26" />
+    <path class="arrow" d="m155 519 5 6 5 -6" />
+    <g>
+      <rect class="box" x="40" y="534" width="240" height="70" rx="9" />
+      <text class="label" x="160" y="574">결과</text>
+    </g>
+    <text class="small" x="160" y="634">ko 기준 0.735 · 표본 보정 임시값</text>
+  </svg>
+</DiagramFrame>
+<style>
+  .blocked { fill: var(--muted); animation: drop 5s ease-in infinite; }
+  @keyframes drop {
+    0%, 50% { opacity: 0; transform: translateY(-30px); }
+    58% { opacity: 1; transform: translateY(-18px); }
+    88% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 0; transform: translateY(8px); }
+  }
+  @media (prefers-reduced-motion: reduce) { .blocked { animation: none; opacity: .8; transform: none; } }
+</style>

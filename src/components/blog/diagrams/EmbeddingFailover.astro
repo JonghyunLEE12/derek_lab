@@ -1,0 +1,85 @@
+---
+import DiagramFrame from '../../insights/diagrams/DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '임베딩 provider가 죽어 circuit이 열려도 lexical 색인은 계속 흐른다. 벡터 작업만 PENDING으로 연기하고 백오프로 재시도한다.' } = Astro.props;
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 720 305" role="img" aria-label="문서 변경이 lexical 색인으로는 즉시 흐르고, 장애가 난 임베딩 경로는 circuit이 열린 채 백오프 재시도로 연기되는 모습입니다.">
+    <g>
+      <rect class="box" x="10" y="108" width="130" height="84" rx="9" />
+      <text class="label" x="75" y="142">문서 변경</text>
+      <text class="small" x="75" y="166">원본 커밋</text>
+    </g>
+    <path class="flow" d="M142 150 C168 150 180 70 208 70" />
+    <path class="arrow" d="m200 65 6 5 -6 5" />
+    <path class="flow" d="M142 150 C168 150 180 225 208 225" />
+    <path class="arrow" d="m200 220 6 5 -6 5" />
+    <g>
+      <rect class="box" x="212" y="30" width="165" height="80" rx="9" />
+      <text class="label" x="294" y="60">lexical 색인</text>
+      <text class="small" x="294" y="85">이름·키워드 즉시 반영</text>
+    </g>
+    <path class="flow" d="M379 70 H556" />
+    <path class="arrow" d="m548 65 6 5 -6 5" />
+    <g>
+      <rect class="accent-box" x="560" y="30" width="150" height="80" rx="9" />
+      <text class="label" x="635" y="60">OpenSearch</text>
+      <text class="small" x="635" y="85">검색은 계속 동작</text>
+    </g>
+    <g class="pulse" style="--delay: 1s">
+      <rect class="box" x="212" y="185" width="165" height="92" rx="9" />
+      <text class="label" x="294" y="213">임베딩 provider</text>
+      <text class="small" x="294" y="236">연속 3회 실패</text>
+      <text class="small accent-text" x="294" y="258">circuit OPEN · Redis 공유</text>
+    </g>
+    <path class="route deferred" d="M379 230 H430" />
+    <path class="deferred-arrow" d="m424 225 6 5 -6 5" />
+    <g>
+      <rect class="box" x="434" y="192" width="230" height="76" rx="9" />
+      <text class="small" x="549" y="220">벡터만 PENDING으로 연기</text>
+      <text class="small" x="549" y="244">재시도 61초 → 2분 → 10분 → 30분</text>
+    </g>
+    <path class="route deferred" d="M595 190 C600 160 618 136 636 116" />
+    <path class="deferred-arrow" d="m633 124 3 -9 -9 -3" />
+    <text class="small" x="360" y="297">circuit이 열려도 클레임·삭제·lexical 색인은 계속한다 — 임베딩 호출만 건너뛴다</text>
+  </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 672" role="img" aria-label="문서 변경이 lexical 색인과 OpenSearch로 즉시 흐르고, 임베딩 경로는 circuit이 열린 채 백오프로 연기됩니다.">
+    <g>
+      <rect class="box" x="40" y="10" width="240" height="96" rx="9" />
+      <text class="label" x="160" y="48">문서 변경</text>
+      <text class="small" x="160" y="72">원본 커밋</text>
+    </g>
+    <path class="flow" d="M160 108 v24" />
+    <path class="arrow" d="m155 123 5 6 5 -6" />
+    <g>
+      <rect class="box" x="40" y="142" width="240" height="96" rx="9" />
+      <text class="label" x="160" y="174">lexical 색인</text>
+      <text class="small" x="160" y="198">이름·키워드 즉시 반영</text>
+    </g>
+    <path class="flow" d="M160 240 v24" />
+    <path class="arrow" d="m155 255 5 6 5 -6" />
+    <g>
+      <rect class="accent-box" x="40" y="274" width="240" height="96" rx="9" />
+      <text class="label" x="160" y="306">OpenSearch</text>
+      <text class="small" x="160" y="330">검색은 계속 동작</text>
+    </g>
+    <text class="small" x="160" y="412">같은 시간, 임베딩 경로</text>
+    <g class="pulse" style="--delay: 1s">
+      <rect class="box" x="40" y="426" width="240" height="108" rx="9" />
+      <text class="label" x="160" y="456">임베딩 provider</text>
+      <text class="small" x="160" y="478">연속 3회 실패</text>
+      <text class="small accent-text" x="160" y="500">circuit OPEN · Redis 공유</text>
+    </g>
+    <path class="route deferred" d="M160 536 v30" />
+    <path class="deferred-arrow" d="m155 553 5 6 5 -6" />
+    <g>
+      <rect class="box" x="40" y="570" width="240" height="84" rx="9" />
+      <text class="small" x="160" y="598">벡터만 PENDING 연기</text>
+      <text class="small" x="160" y="622">61초 → 2분 → 10분 → 30분</text>
+    </g>
+  </svg>
+</DiagramFrame>
+<style>
+  .deferred { stroke-dasharray: 6 6; }
+  .deferred-arrow { fill: none; stroke: var(--muted); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+</style>
