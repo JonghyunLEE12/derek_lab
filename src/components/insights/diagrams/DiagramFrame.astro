@@ -1,0 +1,37 @@
+---
+interface Props { caption: string; }
+const { caption } = Astro.props;
+---
+<figure class="architecture-diagram">
+  <div class="drawing"><slot /></div>
+  <figcaption>{caption}</figcaption>
+</figure>
+<style>
+  .architecture-diagram { margin: 2rem 0; min-width: 0; }
+  .drawing { padding: 16px 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  figcaption { color: var(--muted); font-size: .85rem; line-height: 1.7; margin-top: .7rem; }
+  .drawing :global(svg) { display: block; width: 100%; height: auto; overflow: visible; }
+  .drawing :global(.mobile-diagram) { display: none; }
+  .drawing :global(text) { fill: currentColor; font-family: inherit; font-size: 16px; text-anchor: middle; }
+  .drawing :global(.small) { font-size: 14px; fill: var(--muted); }
+  .drawing :global(.label) { font-weight: 650; }
+  .drawing :global(.box) { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+  .drawing :global(.accent-box) { fill: var(--surface); stroke: var(--accent); stroke-width: 1.5; }
+  .drawing :global(.route) { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+  .drawing :global(.flow) { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1 13; animation: stream 3s linear infinite; }
+  .drawing :global(.arrow) { fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .drawing :global(.pulse) { animation: highlight 8s ease-in-out infinite; animation-delay: var(--delay, 0s); }
+  .drawing :global(.pulse .box) { stroke: var(--accent); }
+  .drawing :global(.accent-text) { fill: var(--accent); }
+  @keyframes stream { to { stroke-dashoffset: -56; } }
+  @keyframes highlight { 0%, 22%, 100% { opacity: .65; } 5%, 17% { opacity: 1; } }
+  @media (max-width: 600px) {
+    .drawing { padding: 14px 6px; }
+    .drawing :global(.desktop-diagram) { display: none; }
+    .drawing :global(.mobile-diagram) { display: block; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .drawing :global(*), .drawing :global(*::before), .drawing :global(*::after) { animation: none !important; transition: none !important; opacity: 1; }
+    .drawing :global(.flow) { stroke-dasharray: none; stroke-width: 1.5; }
+  }
+</style>

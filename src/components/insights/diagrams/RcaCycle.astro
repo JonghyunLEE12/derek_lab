@@ -1,0 +1,32 @@
+---
+import DiagramFrame from './DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = 'RCA는 문제를 인지한 뒤, 납득할 결과가 나올 때까지 자료 수집부터 가설 검증까지 반복합니다.' } = Astro.props;
+const steps = ['문제 인지', '자료 수집', '특이점 파악', '가설 생성', '가설 검증'];
+---
+<DiagramFrame caption={caption}>
+  {[false, true].map(mobile => (
+    <svg class={mobile ? 'mobile-diagram' : 'desktop-diagram'} viewBox={mobile ? '0 0 320 560' : '0 0 720 220'} role="img" aria-label="문제 인지에서 시작해 자료 수집, 특이점 파악, 가설 생성, 가설 검증을 거치고, 검증에서 자료 수집으로 돌아가 반복합니다.">
+      {steps.map((step, i) => {
+        const x = mobile ? 58 : 12 + i * 142;
+        const y = mobile ? 16 + i * 90 : 34;
+        return <>
+          <g class={i ? 'pulse' : 'initial-step'} style={`--delay: ${(i - 1) * 2}s`}>
+            <rect class={i ? 'box' : 'accent-box'} x={x} y={y} width={mobile ? 204 : 128} height="58" rx="9" />
+            <text class="small" x={x + (mobile ? 102 : 64)} y={y + 20}>0{i + 1}</text>
+            <text class="label" x={x + (mobile ? 102 : 64)} y={y + 43}>{step}</text>
+          </g>
+          {i < 4 && <>
+            <path class="flow" d={mobile ? `M160 ${y + 60} v28` : `M${x + 130} 63 h10`} />
+            <path class="arrow" d={mobile ? `m155 ${y + 81} 5 6 5 -6` : `m${x + 134} 58 6 5 -6 5`} />
+          </>}
+        </>;
+      })}
+      <path class="route" d={mobile ? 'M262 405 H292 V135 H264' : 'M644 94 V137 H218 V94'} />
+      <path class="flow" d={mobile ? 'M262 405 H292 V135 H264' : 'M644 94 V137 H218 V94'} />
+      <path class="arrow" d={mobile ? 'm270 130 -6 5 6 5' : 'm213 100 5 -6 5 6'} />
+      <text class="small" x={mobile ? 160 : 431} y={mobile ? 484 : 174}>납득할 결과가 나올 때까지 반복</text>
+      {mobile && <text class="small" x="160" y="510">가설 검증 → 자료 수집</text>}
+    </svg>
+  ))}
+</DiagramFrame>

@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  caption: string;
+  time: string;
+  videoUrl: string;
+}
+const { src, alt, caption, time, videoUrl } = Astro.props;
+const seconds = time.split(':').reduce((total, part) => total * 60 + Number(part), 0);
+const timestampUrl = new URL(videoUrl);
+timestampUrl.searchParams.set('t', `${seconds}s`);
+const width = Math.min(src.width, 1280);
+const widths = [...new Set([480, 768, 1024, width].filter(size => size <= width))];
+---
+<figure class="video-frame">
+  <Image src={src} alt={alt} width={width} widths={widths} sizes="(max-width: 800px) calc(100vw - 40px), 760px" loading="lazy" />
+  <figcaption>{caption} <a href={timestampUrl.href} target="_blank" rel="noopener noreferrer">영상 {time}<span class="sr-only"> (새 탭)</span></a></figcaption>
+</figure>
+<style>
+  .video-frame { margin: 2rem 0; }
+  .video-frame img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+  figcaption { margin-top: .7rem; color: var(--muted); font-size: .85rem; line-height: 1.7; }
+  figcaption a { display: inline-block; margin-left: .35em; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+</style>

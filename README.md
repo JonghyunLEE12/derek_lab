@@ -50,7 +50,7 @@ category: 'Flutter'
 
 ## 인사이트 글 쓰기
 
-`src/content/insights/`에 Markdown 파일을 추가하면 `/derek_lab/insights/파일명/`에 표시됩니다. 출처 제목은 목록과 상세에 표시되며, YouTube 출처는 영상 ID가 유효하면 개인정보 보호 강화 모드로 임베드됩니다.
+`src/content/insights/`에 `.md` 또는 `.mdx` 파일을 추가하면 `/derek_lab/insights/파일명/`에 표시됩니다. 출처 제목은 목록과 상세에 표시되며, YouTube 출처는 영상 ID가 유효하면 개인정보 보호 강화 모드로 임베드됩니다. 일반 글 컬렉션도 두 확장자를 지원하며, 같은 이름의 `.md`와 `.mdx`를 함께 두지 않습니다.
 
 ```markdown
 ---
@@ -70,6 +70,32 @@ source:
 ```
 
 `updatedDate`와 `source.author`는 선택이고 나머지는 필수입니다. `source.type`은 `youtube`, `article`, `talk`, `book` 중 하나입니다. 인사이트 목록은 최신순이며 태그 페이지와 RSS에는 일반 글과 인사이트가 함께 나타납니다. 컬렉션에 글이 없어도 목록 페이지가 생성됩니다.
+
+### MDX에서 이미지와 다이어그램 사용하기
+
+컴포넌트가 필요한 글은 `.mdx`로 작성합니다. 위 frontmatter 다음에 import를 넣고 본문에서 컴포넌트를 사용합니다. 캡처 이미지는 `src/assets/insights/` 아래에 저장하고 실제 파일명으로 import합니다.
+
+```mdx
+import VideoFrame from '../../components/insights/VideoFrame.astro';
+import RcaCycle from '../../components/insights/diagrams/RcaCycle.astro';
+import FlinkAlertPipeline from '../../components/insights/diagrams/FlinkAlertPipeline.astro';
+import ChangeHistoryAggregator from '../../components/insights/diagrams/ChangeHistoryAggregator.astro';
+import NodeConnectionAgent from '../../components/insights/diagrams/NodeConnectionAgent.astro';
+import ConntrackCase from '../../components/insights/diagrams/ConntrackCase.astro';
+import frame from '../../assets/insights/toss-rca/xxx.png';
+
+<VideoFrame src={frame} alt="화면에 담긴 내용을 설명합니다." caption="발표의 핵심 장면" time="03:33" videoUrl="https://www.youtube.com/watch?v=mdmZr2QERP4" />
+
+<RcaCycle />
+<FlinkAlertPipeline />
+<ChangeHistoryAggregator />
+<NodeConnectionAgent />
+<ConntrackCase caption="본문 맥락에 맞춘 선택 캡션" />
+```
+
+`VideoFrame`의 다섯 props는 모두 필수입니다. `src`는 import한 이미지 메타데이터이며, 최대 1280px 반응형 이미지로 지연 로딩됩니다. `time`은 `분:초` 또는 `시:분:초`이고, 캡션 뒤의 영상 링크는 해당 시각을 초 단위 `t` 파라미터로 연결하여 새 탭에서 엽니다.
+
+다이어그램 다섯 개는 모두 선택적인 `caption` prop과 기본 캡션을 제공합니다. SVG와 CSS만 사용하며 화면 폭 600px 이하에서는 세로로 배치됩니다. 운영체제의 모션 감소 설정에서는 흐름과 하이라이트 애니메이션이 멈추고, conntrack 게이지는 가득 찬 상태와 개선 후 안정화 상태를 정적으로 보여줍니다. 색상은 사이트의 라이트·다크 테마를 따릅니다.
 
 ## GitHub Pages 배포
 

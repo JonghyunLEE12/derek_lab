@@ -1,0 +1,65 @@
+---
+import DiagramFrame from './DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '사례 2회차: Redis pipeline의 커넥션 생성과 종료 반복으로 conntrack이 차올랐고, pipeline 로직 제거 후 연결 수가 80K에서 1.7K로 안정화됐습니다.' } = Astro.props;
+const steps = [
+  ['getConnection', '신규 커넥션 생성'],
+  ['SYN', ''],
+  ['인증', ''],
+  ['요청 처리', ''],
+  ['releaseConnection', '커넥션 종료'],
+];
+---
+<DiagramFrame caption={caption}>
+  <div class="phases">
+    <svg viewBox="0 0 320 730" role="img" aria-label="Redis pipeline 사용 시 신규 커넥션 생성, SYN, 인증, 요청 처리, 종료가 반복되며 Redis 노드의 nf_conntrack 테이블이 260k 한도에 차면 신규 커넥션 패킷이 드랍되어 connection timeout이 발생합니다.">
+      <text class="label" x="160" y="28">01 · Redis pipeline 사용</text>
+      {steps.map((step, i) => <>
+        <g class="pulse" style={`--delay: ${i * 1.6}s`}>
+          <rect class="box" x="38" y={50 + i * 83} width="244" height="60" rx="8" />
+          <text class="label" x="160" y={step[1] ? 75 + i * 83 : 86 + i * 83}>{step[0]}</text>
+          {step[1] && <text class="small" x="160" y={97 + i * 83}>{step[1]}</text>}
+        </g>
+        {i < 4 && <>
+          <path class="flow" d={`M160 ${112 + i * 83} v19`} />
+          <path class="arrow" d={`m155 ${125 + i * 83} 5 6 5 -6`} />
+        </>}
+      </>)}
+      <path class="flow" d="M284 412 H302 V80 H284" />
+      <path class="arrow" d="m290 75 -6 5 6 5" />
+      <text class="small" x="160" y="476">생성과 종료 반복</text>
+      <text class="label" x="160" y="516">Redis 노드 nf_conntrack</text>
+      <text class="small" x="160" y="542">테이블 한도 260k</text>
+      <rect class="box" x="30" y="560" width="260" height="22" rx="5" />
+      <rect class="gauge" x="32" y="562" width="256" height="18" rx="3" />
+      <g class="overflow-result">
+        <text class="small" x="160" y="614">가득 차면 신규 커넥션 패킷 드랍</text>
+        <path class="arrow" d="M160 628 v24 m-5 -6 5 6 5 -6" />
+        <text class="label accent-text" x="160" y="684">connection timeout</text>
+      </g>
+    </svg>
+    <svg viewBox="0 0 320 380" role="img" aria-label="Redis pipeline 로직을 제거한 뒤 연결 수가 80K에서 1.7K로 감소해 안정화됐습니다.">
+      <text class="label" x="160" y="28">02 · pipeline 로직 제거 후</text>
+      <rect class="accent-box" x="24" y="58" width="272" height="284" rx="10" />
+      <text class="small" x="160" y="98">연결 수 변화</text>
+      <text class="result accent-text" x="160" y="142">80K → 1.7K</text>
+      <text class="small" x="64" y="188">제거 전</text>
+      <rect class="before-bar" x="102" y="172" width="166" height="20" rx="3" />
+      <text class="small" x="64" y="232">제거 후</text>
+      <rect class="after-bar" x="102" y="216" width="3.53" height="20" rx="1" />
+      <text class="label accent-text" x="160" y="294">1.7K로 안정화</text>
+    </svg>
+  </div>
+</DiagramFrame>
+<style>
+  .phases { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 16px; }
+  .gauge { fill: var(--accent); transform-box: fill-box; transform-origin: left; animation: fill-table 10s ease-in-out infinite; }
+  .overflow-result { animation: overflow 10s ease-in-out infinite; }
+  .before-bar { fill: var(--muted); opacity: .65; }
+  .after-bar { fill: var(--accent); }
+  .phases .result { font-size: 28px; font-weight: 700; }
+  @keyframes fill-table { 0%, 10% { transform: scaleX(.31); } 70%, 100% { transform: scaleX(1); } }
+  @keyframes overflow { 0%, 55% { opacity: .55; } 70%, 100% { opacity: 1; } }
+  @media (max-width: 600px) { .phases { grid-template-columns: 1fr; gap: 8px; } }
+  @media (prefers-reduced-motion: reduce) { .gauge { animation: none; transform: scaleX(1); } .overflow-result { animation: none; opacity: 1; } }
+</style>

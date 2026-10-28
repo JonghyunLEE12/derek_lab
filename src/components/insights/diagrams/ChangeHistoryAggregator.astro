@@ -1,0 +1,39 @@
+---
+import DiagramFrame from './DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '배포와 인프라 작업 이력을 aggregator로 모아 중앙 DB에 저장하고, 네 섹션으로 구성된 알람에 연결합니다.' } = Astro.props;
+const sources = ['프런트엔드 배포', '백엔드 배포', '인프라 작업 이력'];
+const sections = ['에러 통계', '전송 시각', '서비스 배포 이력', '인프라 작업 이력'];
+---
+<DiagramFrame caption={caption}>
+  {[false, true].map(mobile => (
+    <svg class={mobile ? 'mobile-diagram' : 'desktop-diagram'} viewBox={mobile ? '0 0 320 740' : '0 0 720 400'} role="img" aria-label="프런트엔드 배포, 백엔드 배포, 인프라 작업 이력이 aggregator와 체인지 스토리 중앙 DB를 거쳐 네 섹션의 알람으로 연결됩니다.">
+      {sources.map((source, i) => <>
+        <rect class="box" x={mobile ? 60 : 12} y={mobile ? 12 + i * 64 : 20 + i * 80} width={mobile ? 200 : 170} height="48" rx="8" />
+        <text class="label" x={mobile ? 160 : 97} y={mobile ? 42 + i * 64 : 50 + i * 80}>{source}</text>
+        <path class="flow" d={mobile ? `M260 ${36 + i * 64} H286 V208 H160 V230` : `M182 ${44 + i * 80} H210 V124 H240`} />
+      </>)}
+      <path class="arrow" d={mobile ? 'm155 224 5 6 5 -6' : 'm234 119 6 5 -6 5'} />
+      <g class="pulse">
+        <rect class="accent-box" x={mobile ? 60 : 242} y={mobile ? 232 : 94} width={mobile ? 200 : 160} height="60" rx="9" />
+        <text class="label" x={mobile ? 160 : 322} y={mobile ? 268 : 130}>aggregator 레이어</text>
+      </g>
+      <path class="flow" d={mobile ? 'M160 294 V330' : 'M404 124 H444'} />
+      <path class="arrow" d={mobile ? 'm155 324 5 6 5 -6' : 'm438 119 6 5 -6 5'} />
+      <rect class="accent-box" x={mobile ? 60 : 446} y={mobile ? 332 : 94} width={mobile ? 200 : 170} height="60" rx="9" />
+      <text class="label" x={mobile ? 160 : 531} y={mobile ? 357 : 119}>체인지 스토리</text>
+      <text class="small" x={mobile ? 160 : 531} y={mobile ? 379 : 141}>중앙 DB</text>
+      <path class="flow" d={mobile ? 'M160 394 V430' : 'M531 156 V248 H360 V270'} />
+      <path class="arrow" d={mobile ? 'm155 424 5 6 5 -6' : 'm355 264 5 6 5 -6'} />
+      <text class="label" x={mobile ? 160 : 360} y={mobile ? 458 : 295}>알람 시스템</text>
+      {sections.map((section, i) => {
+        const x = mobile ? 46 : 18 + i * 174;
+        const y = mobile ? 478 + i * 56 : 314;
+        return <g class="pulse" style={`--delay: ${i * 2}s`}>
+          <rect class="box" x={x} y={y} width={mobile ? 228 : 162} height="44" rx="8" />
+          <text x={x + (mobile ? 114 : 81)} y={y + 28}>{section}</text>
+        </g>;
+      })}
+    </svg>
+  ))}
+</DiagramFrame>
