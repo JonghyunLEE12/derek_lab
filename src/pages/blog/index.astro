@@ -1,0 +1,7 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts } from '../../lib/posts';
+const posts = await getPosts();
+---
+<Base title="글 목록"><header class="page-heading"><h1>글 목록</h1><p>배움의 과정을 담은 {posts.length}개의 기록입니다.</p></header><PostList posts={posts} /></Base>

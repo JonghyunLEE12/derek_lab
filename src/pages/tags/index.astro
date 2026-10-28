@@ -1,0 +1,8 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllPosts, tagUrl } from '../../lib/posts';
+const counts = new Map<string, number>();
+for (const post of await getAllPosts()) for (const tag of new Set(post.data.tags)) counts.set(tag, (counts.get(tag) ?? 0) + 1);
+const tags = [...counts].sort(([a], [b]) => a.localeCompare(b, 'ko'));
+---
+<Base title="태그"><header class="page-heading"><h1>태그</h1><p>관심 있는 주제로 기록을 찾아보세요.</p></header><ul class="tag-index">{tags.map(([tag, count]) => <li><a href={tagUrl(tag)}>#{tag}<span>{count}개의 글</span></a></li>)}</ul></Base>

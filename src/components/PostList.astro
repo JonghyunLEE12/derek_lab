@@ -1,0 +1,15 @@
+---
+import { formatDate, postUrl, tagUrl, type Post } from '../lib/posts';
+interface Props { posts: Post[]; }
+const { posts } = Astro.props;
+---
+<ul class="post-list">
+  {posts.map(({ id, data, collection }) => <li>
+    <div class="meta"><span>{collection === 'insights' ? '인사이트' : '글'}</span>{'category' in data && <span>{data.category}</span>}<time datetime={data.pubDate.toISOString()}>{formatDate(data.pubDate)}</time></div>
+    <h2><a href={postUrl(id, collection)}>{data.title}</a></h2>
+    <p>{data.description}</p>
+    {'source' in data && <p class="source-title">출처: {data.source.title}</p>}
+    <ul class="tags" aria-label="글 태그">{[...new Set(data.tags)].map(tag => <li><a href={tagUrl(tag)}>#{tag}</a></li>)}</ul>
+  </li>)}
+</ul>
+{posts.length === 0 && <p class="muted">아직 등록된 글이 없습니다.</p>}

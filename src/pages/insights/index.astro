@@ -1,0 +1,7 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import { getInsights } from '../../lib/posts';
+const posts = await getInsights();
+---
+<Base title="인사이트"><header class="page-heading"><h1>인사이트</h1><p>영상과 글, 강연과 책에서 얻은 {posts.length}개의 기록입니다.</p></header><PostList posts={posts} /></Base>

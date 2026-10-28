@@ -1,0 +1,28 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getInsights, formatDate, tagUrl, siteUrl, youtubeId } from '../../lib/posts';
+export async function getStaticPaths() {
+  return (await getInsights()).map(post => ({ params: { slug: post.id }, props: { post } }));
+}
+interface Props { post: CollectionEntry<'insights'>; }
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, updatedDate, tags, source } = post.data;
+const videoId = source.type === 'youtube' ? youtubeId(source.url) : undefined;
+---
+<Base title={title} description={description}>
+  <article>
+    <header class="page-heading"><a class="back-link" href={siteUrl('insights/')}>← 인사이트 목록</a><p class="eyebrow">인사이트</p><h1>{title}</h1><p>{description}</p>
+      <div class="meta"><span>작성 <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time></span>{updatedDate && <span>수정 <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time></span>}</div>
+      <ul class="tags" aria-label="글 태그">{[...new Set(tags)].map(tag => <li><a href={tagUrl(tag)}>#{tag}</a></li>)}</ul>
+    </header>
+    <aside class="source-box" aria-label="원본 출처">
+      <h2>출처</h2><p>{source.title}</p>
+      {source.author && <p>채널 / 발표자: {source.author}</p>}
+      <a href={source.url} target="_blank" rel="noopener noreferrer">원본 보기 (새 탭)</a>
+    </aside>
+    {videoId && <div class="video-embed"><iframe src={`https://www.youtube-nocookie.com/embed/${videoId}`} title={source.title} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen /></div>}
+    <div class="prose"><Content /></div>
+  </article>
+</Base>

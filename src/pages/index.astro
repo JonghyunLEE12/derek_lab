@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { siteUrl, getPosts } from '../lib/posts';
+const posts = (await getPosts()).slice(0, 5);
+---
+<Base>
+  <section class="intro"><p class="eyebrow">Derek의 공부 기록</p><h1>오늘 배운 것을<br />내일의 나에게.</h1><p>Derek이 공부하며 배운 것을 차곡차곡 기록하는 공간입니다.</p></section>
+  <section aria-labelledby="recent"><div class="section-heading"><h2 id="recent">최근 글</h2><a href={siteUrl('blog/')}>전체 글 보기 →</a></div><PostList posts={posts} /></section>
+</Base>
