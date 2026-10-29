@@ -1,0 +1,300 @@
+---
+title: '추천 파운데이션 모델 초석 놓기 - 토스 TASTE 발표 정리'
+description: '토스 Applied AI 팀이 추천 파운데이션 모델 TASTE를 만들어 온 과정을 설명한 유튜브 발표를 정리했다. 공동 학습, 규모 확대, 도메인 확장, 목적 분리, 목적별 설계의 다섯 단계와 임베딩 재사용, TASTE Bench까지 영상 캡처와 다이어그램으로 담았다.'
+pubDate: 2026-10-29
+tags: [추천시스템, 파운데이션모델, 유저임베딩, MMoE, PLE, Transformer, 토스]
+source:
+  title: '토스 추천 파운데이션 모델 TASTE 개발기 | SlashLive'
+  url: 'https://www.youtube.com/watch?v=b-6ZgPmz4x8'
+  author: 'Toss Challengers'
+  type: 'youtube'
+---
+
+import VideoFrame from '../../components/insights/VideoFrame.astro';
+import TasteSharedEncoder from '../../components/insights/diagrams/taste/TasteSharedEncoder.astro';
+import TasteFusionModel from '../../components/insights/diagrams/taste/TasteFusionModel.astro';
+import TasteModelSplit from '../../components/insights/diagrams/taste/TasteModelSplit.astro';
+import TasteFrozenEmbedding from '../../components/insights/diagrams/taste/TasteFrozenEmbedding.astro';
+import TasteBenchLoop from '../../components/insights/diagrams/taste/TasteBenchLoop.astro';
+import tasteOverview from '../../assets/insights/toss-taste/taste-overview.png';
+import improvementSteps from '../../assets/insights/toss-taste/improvement-steps.png';
+import mmoeHeads from '../../assets/insights/toss-taste/mmoe-189-heads.png';
+import spendingAdded from '../../assets/insights/toss-taste/spending-added.png';
+import fusionPleVsLattice from '../../assets/insights/toss-taste/fusion-ple-vs-lattice.png';
+import autoTargeting from '../../assets/insights/toss-taste/auto-targeting.png';
+import tasteBench from '../../assets/insights/toss-taste/taste-bench.png';
+import embeddingServing from '../../assets/insights/toss-taste/embedding-serving-analysis.png';
+
+export const videoUrl = 'https://www.youtube.com/watch?v=b-6ZgPmz4x8';
+
+Toss Challengers 채널의 SlashLive 발표 영상을 하나 더 봤다. 토스 Applied AI Team의 박재휘 님이 추천 파운데이션 모델 TASTE를 어떻게 만들어 왔는지 설명하는 영상이다. 참고로 18분짜리인데 모델 구조 이야기가 많아서 지난 RCA 글보다 정리에 시간이 더 걸렸다.
+
+TASTE는 Toss Automated Standard Targeting Engine의 줄임말이다. 발표자는 이 프로젝트가 완성된 시스템은 아니라고 먼저 말한다. 의미 있는 초기 성과를 확인했고 프로젝트의 정체성과 방향을 잡아 가는 과정을 공유하는 자리다. 이 글은 발표 순서를 그대로 따른다. 그림으로 봐야 이해가 빠른 구조는 다이어그램으로 다시 그렸고 캡처는 발표 슬라이드 원본이다. 캡션의 시각을 누르면 영상의 해당 구간으로 간다.
+
+<details>
+<summary>영상 구간별 시각</summary>
+<ol>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=32s" target="_blank" rel="noopener noreferrer">00:32</a> TASTE가 다루는 범위 (세 파이프라인)</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=72s" target="_blank" rel="noopener noreferrer">01:12</a> 토스의 목표는 슈퍼앱, 문제의식</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=181s" target="_blank" rel="noopener noreferrer">03:01</a> 접근법: 공통 유저 표현</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=201s" target="_blank" rel="noopener noreferrer">03:21</a> 1단계 공동 학습 (MMoE, 189개 헤드)</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=291s" target="_blank" rel="noopener noreferrer">04:51</a> 2단계 규모 확대 (전체 유저, 앱이벤트 시퀀스)</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=396s" target="_blank" rel="noopener noreferrer">06:36</a> 3단계 도메인 확장 (소비 추가)</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=470s" target="_blank" rel="noopener noreferrer">07:50</a> 4단계 목적 분리 (세 모델)</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=509s" target="_blank" rel="noopener noreferrer">08:29</a> 5단계 목적별 설계 (Fusion + PLE, Lattice)</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=561s" target="_blank" rel="noopener noreferrer">09:21</a> 공통 모델이 만든 변화 (배치 작업, 자원)</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=587s" target="_blank" rel="noopener noreferrer">09:47</a> IM Auto Targeting</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=668s" target="_blank" rel="noopener noreferrer">11:08</a> 기존 마케팅 모델과의 비교</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=705s" target="_blank" rel="noopener noreferrer">11:45</a> 예측값 활용에서 임베딩 재사용으로</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=793s" target="_blank" rel="noopener noreferrer">13:13</a> 임베딩을 피처로 추가한 결과</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=853s" target="_blank" rel="noopener noreferrer">14:13</a> 다음 임베딩도 도움이 될까, TASTE Bench</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=912s" target="_blank" rel="noopener noreferrer">15:12</a> 최근 방향성</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=982s" target="_blank" rel="noopener noreferrer">16:22</a> 임베딩 생성과 서빙 분석</li>
+<li><a href="https://www.youtube.com/watch?v=b-6ZgPmz4x8&t=1017s" target="_blank" rel="noopener noreferrer">16:57</a> 발표자의 소감</li>
+</ol>
+</details>
+
+## TASTE가 다루는 범위
+
+TASTE의 업무 범위는 세 파이프라인으로 요약된다.
+
+- General pipeline. 유저 임베딩(embedding)과 업스트림 확률(upstream probs)을 만들어 제공한다. 임베딩은 Embedding Registry로 가고 타깃별 예측 확률은 Feature Pool로 간다.
+- On-demand pipeline. 이미 준비된 도구만으로 필요한 확률값을 바로 생성한다.
+- Experiment pipeline. 빠른 실험 반복을 위한 파이프라인이다. 뒤에 나오는 TASTE Bench가 여기에 붙는다.
+
+세 파이프라인 모두 UEO(User Embedding Operator)라는 대규모 모델 학습과 추론 기능 위에서 돈다. 결과물은 Feature Service와 Aerospike를 거쳐 애즈, 쇼핑, 금융중개, Apps in Toss, 결제 같은 다운스트림(downstream) 도메인으로 간다. 타깃 세그먼트를 만드는 TUBA와 메시지 발송 허브 IM도 이 결과를 쓴다. 발표에서 다루는 건 이 중 General pipeline이다.
+
+<VideoFrame src={tasteOverview} alt="발표 슬라이드 'TASTE Overview'. 점선 상자 TASTE Scope 안에 UEO, General pipeline, Embedding, Upstream probs, On-demand pipeline, Experiment Pipeline, TASTE Bench가 있다. 밖으로 Embedding Registry, Feature Pool, Feature Service, Aerospike, TUBA, IM이 이어지고 오른쪽에 Downstream Domains로 애즈, 쇼핑, 금융중개, Apps in Toss, 결제가 있다." caption="TASTE 전체 범위. 점선 안이 TASTE의 범위이고 오른쪽 끝이 결과를 쓰는 다운스트림 도메인이다." time="00:35" videoUrl={videoUrl} />
+
+## 문제의식: 유저 표현을 제각각 학습
+
+토스의 목표는 슈퍼앱이다. 금융중개, 광고, 쇼핑, 결제가 한 앱에 모여 있다. 운영 입장에서는 서비스가 늘수록 클릭, 구매, 전환을 예측하는 모델도 같이 는다. 보험 비교를 새로 시작하면 보험 비교 모델이 필요하고 새 광고 상품이 생기면 그 상품을 위한 모델이 필요하다. 쇼핑에 전용관이 생겨도 마찬가지다.
+
+발표자가 꼽은 문제는 두 가지다.
+
+첫째, 같은 유저를 모델마다 다시 학습하고 있었다. 토스의 유저는 어떤 서비스를 쓰는지만 다를 뿐 같은 유저다. 유저를 표현하는 피처도 동일하다. 그런데 모델 A, 모델 B, 모델 C가 같은 피처를 각자의 인코더(encoder)로 따로 이해하고 있었다. 개발 비용과 학습 비용이 중복된다.
+
+둘째, 방대한 이종 데이터를 충분히 쓰기 어려웠다. 서버 로그, 마이데이터, MMP 데이터는 분석 동의 조건부터 다르다. 토스는 MAU가 2천만이 넘어서 서버 로그가 하루 수십억 로우씩 쌓인다. 마이데이터는 수십 가지 API별로 테이블이 따로 쌓이고 입수 지연과 커버리지도 제각각이다. MMP 데이터는 너무 많거나 너무 희소하다. 개별 모델이 매번 이 데이터를 한 번에 잘 이해할 수는 없다는 게 문제의식이었다.
+
+## 접근법: 공통 유저 표현
+
+접근법 자체는 간단하다. 개별 모델이 유저를 각각 인코딩하던 구조를, 커다란 인코더 하나가 유저 정보를 공통 표현으로 만들고 그 표현으로 여러 가지를 예측하는 구조로 바꾼다. 발표에서는 이걸 Shared Encoder 모델이라고 부른다.
+
+<TasteSharedEncoder caption="왼쪽은 대출, 보험, 결제 모델이 각자 Encoder로 같은 유저 정보를 따로 인코딩한다. 오른쪽은 Shared Encoder 하나가 공통 유저 표현을 만들고 세 Head가 그 위에서 예측한다." />
+
+왼쪽이 기존 구조다. 대출 모델, 보험 모델, 결제 모델이 각자 Encoder와 Prediction Head를 가진다. 오른쪽에서는 Shared Encoder 하나가 공통 유저 표현을 만들고 대출 Head, 보험 Head, 결제 Head가 그 위에 붙는다.
+
+## 초기 개선 과정 다섯 단계
+
+발표는 모델 개선 과정을 다섯 단계로 나눈다. 공동 학습, 규모 확대, 도메인 확장, 목적 분리, 목적별 설계 순서다. 이 글도 같은 순서로 따라간다.
+
+<VideoFrame src={improvementSteps} alt="발표 슬라이드 '주요 초기 개선 과정'. 01 공동 학습(189개 앱이벤트 공동 예측), 02 규모 확대(전체 가용 유저로 학습), 03 도메인 확장(앱이벤트·소비 공동 학습으로), 04 목적 분리(모델 하나에서 목적별 모델로), 05 목적별 설계(목적에 맞는 구조로) 다섯 열이 작은 구조도와 함께 있다." caption="다섯 단계 요약. 각 열 아래의 작은 그림이 그 단계의 모델 구조다." time="03:15" videoUrl={videoUrl} />
+
+### 1단계: 공동 학습
+
+가장 먼저 한 일은 단순하다. 예측해야 하는 주요 앱이벤트를 전부 한 번에 예측해 본다. 일반적인 딥러닝으로는 잘 안 돼서 MMoE(Multi-gate Mixture-of-Experts) 구조를 썼다. 공통 입력은 연령, OS, 앱 이용 같은 Static features와 앱이벤트 이력을 미리 계산한 256차원 임베딩이다. 전체 task가 공유하는 expert E1부터 E8을 두고 그 위에 앱이벤트별 Gate와 MLP Head가 189개 붙는다. 출력은 189개 앱이벤트 확률이다.
+
+<VideoFrame src={mmoeHeads} alt="발표 슬라이드 '유저 한 명의 여러 앱이벤트 발생 확률을 함께 예측합니다'. 공통 입력(Static features, 사전 계산 임베딩 256D)이 MMoE의 E1부터 E8 expert로 들어가고 결제 Gate와 MLP Head, 만보기 Gate와 MLP Head, Gate 184와 MLP Head처럼 앱이벤트별 Head를 거쳐 전체 출력 189 앱이벤트 확률이 나온다." caption="1단계 구조. 공유 expert 8개 위에 앱이벤트별 Gate와 MLP Head가 189개 붙는다." time="03:30" videoUrl={videoUrl} />
+
+초기에는 빠른 반복을 위해 유저 100만 명만 샘플링해서 학습했다. 샘플링 때문에 성능이 떨어질 테니 그 감소분을 따로 재야 했다. 그래서 기존 모델과 같은 아키텍처인 LightGBM을 같은 샘플로 개별 학습 구조로 학습했다. 기존 모델과 LightGBM을 비교하면 샘플링으로 인한 감소분이 나오고 LightGBM과 MMoE DNN을 비교하면 공통 학습 구조와 개별 학습 구조의 차이가 나온다.
+
+<table>
+<thead>
+<tr><th scope="col">모델</th><th scope="col">학습 유저</th><th scope="col">평균 AUC</th><th scope="col">기존 대비</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">기존 모델</th><td>1,700만</td><td>0.9218</td><td>기준</td></tr>
+<tr><th scope="row">LightGBM</th><td>100만</td><td>0.9086</td><td>ΔAUC -0.0132</td></tr>
+<tr><th scope="row">MMoE DNN</th><td>100만</td><td>0.9023</td><td>ΔAUC -0.0195</td></tr>
+</tbody>
+</table>
+
+공통 앱이벤트 24개를 OOT로 평가한 값이다. 샘플링된 유저 기준으로는 공통 학습한 DNN이 개별 학습 모델보다 조금 떨어졌다. 189개 모델을 하나하나 학습하는 것보다 189개 헤드를 한 번에 학습하는 쪽이 훨씬 효율적이니 이 정도 갭이면 나쁘지 않다고 할 수도 있었다. 하지만 성능이 빠지면 비즈니스에서 쓸 수 없다. 개선이 필요했다.
+
+### 2단계: 규모 확대
+
+여기서 가설을 세웠다. 성능이 빠진 이유는 헤드를 한 번에 학습해서가 아니라 샘플링된 유저를 써서가 아닐까. 한 번에 여러 가지를 잘 예측하려면 정보를 더 많이 밀어 넣어야 하지 않을까.
+
+그래서 입력과 학습 유저를 둘 다 키웠다. 스태틱 피처는 약 1천 개에서 약 2,100개로 늘리고 DCN-V2로 인코딩했다. 앱이벤트 시퀀스는 업스트림 모델 안에서 Causal Transformer가 직접 학습한다. 두 벡터를 Gated Fusion으로 묶어 192차원 유저 표현을 만들고 PLE(Progressive Layered Extraction) 구조로 189개 앱이벤트 확률을 한 번에 예측한다. 학습 유저는 샘플링하지 않았다. MAU 2천만 중 동의 등을 고려해 학습할 수 있는 모든 유저, 1,700만 명을 썼다.
+
+<TasteFusionModel caption="유저 요약 정보는 DCN-V2로, 시간순 앱이벤트는 6층 Causal Transformer로 각각 192차원 벡터가 된다. Gated Fusion이 둘을 묶어 192차원 유저 표현을 만들고 PLE가 189개 앱이벤트 확률을 낸다." />
+
+정보가 충분해지자 기존 모델을 큰 차이로 이겼다. 시퀀스 모듈이 꼭 필요한지도 확인했다. 스태틱 피처를 2,100개 넘게 넣었으니 시퀀스는 필요 없는 게 아닌가 싶어서 떼 봤더니 성능이 약 7.6% 빠졌다. 시퀀스 모듈이 스태틱 피처가 줄 수 없는 정보를 주고 있다는 뜻이다.
+
+<table>
+<thead>
+<tr><th scope="col">실험</th><th scope="col">조건</th><th scope="col">값</th><th scope="col">차이</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row" rowspan="2">운영 모델 대비 (공통 앱이벤트 38개, Macro Recall@5k, OOT 평가)</th><td>기존 모델</td><td>16.43%</td><td rowspan="2">+35.1%</td></tr>
+<tr><td>TASTE</td><td>22.19%</td></tr>
+<tr><th scope="row" rowspan="2">시퀀스 제거 실험 (공통 앱이벤트 51개, OOT 평가)</th><td>시퀀스 포함 (정적 피처 + 앱이벤트 시퀀스)</td><td>100</td><td rowspan="2">-7.6%</td></tr>
+<tr><td>시퀀스 제외 (정적 피처만)</td><td>92.4</td></tr>
+</tbody>
+</table>
+
+### 3단계: 도메인 확장
+
+앱이벤트 189개를 한 번에 예측하고 나니 자신감이 붙었다. 회사가 중요하게 보는 브랜드와 카테고리가 약 213개 있었다. 189개를 했으니 400개도 되지 않을까 해서 소비 헤드 213개를 과감하게 추가했다. 소비를 잘 예측하려면 소비 시퀀스도 넣어야 하니 결제 시퀀스에도 Causal Transformer를 같은 구조로 붙였다. 예측 과제는 189개에서 402개가 됐다.
+
+<VideoFrame src={spendingAdded} alt="발표 슬라이드 '소비를 입력에도 예측 목적에도 추가했습니다'. 유저 요약 정보는 DCN-V2 192D로, 앱이벤트 시퀀스와 소비 시퀀스는 각각 Causal TF 6L로 들어가 Gated Fusion, 192D 유저 표현, PLE를 거친다. 출력은 앱이벤트 189 heads와 미래 소비 예측 소비 213 heads이고 아래에 예측 과제 189에서 402개라고 적혀 있다." caption="3단계 구조. 소비 시퀀스 입력과 소비 213 heads가 추가됐다." time="06:50" videoUrl={videoUrl} />
+
+소비 관련 헤드의 성능은 기존보다 월등히 높아졌다. 그런데 앱이벤트는 189개만 예측할 때보다 소폭 빠졌다. 한 번에 400개를 예측하는데 이 정도면 괜찮다고 할 수도 있다. 하지만 비즈니스 쪽은 성능이 조금이라도 빠지면 그 모델을 쓰고 싶어 하지 않는다. 추가 개선이 필요했다.
+
+<table>
+<thead>
+<tr><th scope="col">과제</th><th scope="col">Macro Recall@5k 상대 개선율</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">앱이벤트 예측</th><td>-8.7%</td></tr>
+<tr><th scope="row">소비·브랜드</th><td>+27.3%</td></tr>
+<tr><th scope="row">소비·중분류</th><td>+97.6%</td></tr>
+<tr><th scope="row">소비·소분류</th><td>+48.2%</td></tr>
+</tbody>
+</table>
+
+앱이벤트와 소비 461개 과제 기준이다.
+
+### 4단계: 목적 분리
+
+돌아보니 너무 과감했다고 한다. 앱이벤트와 소비는 레이블 입수 지연부터 다르고 속성도 크게 다르다. 그래서 모델을 앱이벤트 예측 모델과 소비 예측 모델로 나눴다. 하나 더 있다. 금융중개 도메인에서만 쓸 수 있는 데이터가 있는데 이 데이터가 아주 강력하다. 그래서 그 데이터를 쓸 수 있는 금융중개 앱이벤트 모델을 따로 분리했다. 결과적으로 모델은 세 개가 됐다.
+
+<TasteModelSplit caption="앱이벤트·소비 이력과 요약 정보라는 공통 입력을 앱이벤트 예측 모델, 소비 예측 모델, FMD ActType 모델이 각각 받는다. FMD ActType 모델만 금융중개 전용 입력을 추가로 받는다." />
+
+세 모델의 공통 입력은 앱이벤트·소비 이력과 요약 정보다. FMD ActType 모델만 금융중개 전용 입력을 추가로 받는다. 손실 함수도 앱이벤트 loss, 소비 loss, FMD 앱이벤트 loss로 각각 분리된다.
+
+### 5단계: 목적별 설계
+
+모델을 분리했으니 같은 구조를 쓸 이유가 없다. 각 모델에 맞는 구조를 탐색했다. 앱이벤트 모델은 크게 바뀌지 않았다. 앱이벤트 벡터, 소비 벡터, 요약 벡터를 먼저 만들고 Gated Fusion으로 결합한 다음 Shared expert와 Task expert를 둔 PLE로 예측한다. 소비 모델은 Meta의 Lattice 논문을 바탕으로 인코더를 다시 구성했다. 앱이벤트와 소비 이력을 행동 이력 토큰 H로 두고 초기 latent S₀가 Cross-Attention으로 H를 읽어 latent를 갱신한다. 유저 속성 C₀는 Fusion으로 context를 갱신한다. 이 층을 8번 반복하고 latent와 context를 합쳐 256차원으로 만든 뒤 소비를 예측한다. 입력도 늘렸다. 앱이벤트 이력은 512개에서 1,024개로 늘렸고 소비 이력 512개와 유저 요약 정보를 같이 쓴다.
+
+<VideoFrame src={fusionPleVsLattice} alt="발표 슬라이드 '같은 정보를 목적에 맞는 방식으로 학습합니다'. 왼쪽 앱이벤트는 Fusion + PLE로, 앱이벤트 벡터와 소비 벡터, 요약 벡터가 Gated Fusion을 거쳐 PLE(Shared + Task experts)로 간다. 오른쪽 소비는 Lattice Based로, 행동 이력 토큰 H를 초기 latent S0가 Cross-Attention으로 읽고 유저 속성 C0는 Fusion으로 갱신하며 8층 반복 뒤 latent + context가 256D로 합쳐져 소비 예측으로 간다." caption="5단계 구조. 왼쪽이 앱이벤트 모델, 오른쪽이 Lattice 기반 소비 모델이다." time="08:30" videoUrl={videoUrl} />
+
+결과는 단일 모델 TASTE 대비 누적 개선으로 보여줬다. 소비 헤드뿐 아니라 앱이벤트 성능도 기존보다 올랐다.
+
+<table>
+<thead>
+<tr><th scope="col">과제</th><th scope="col">Macro Recall@5k, 단일 모델 TASTE 대비</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">앱이벤트</th><td>+8.7%</td></tr>
+<tr><th scope="row">소비·브랜드</th><td>+33.9%</td></tr>
+<tr><th scope="row">소비·중분류</th><td>+111%</td></tr>
+<tr><th scope="row">소비·소분류</th><td>+65.8%</td></tr>
+</tbody>
+</table>
+
+슬라이드에 표시하지는 못했지만 금융중개 앱이벤트 성능은 이보다 훨씬 높다고 한다. 그 도메인에서만 쓸 수 있는 정보를 썼기 때문이다.
+
+## 공통 모델이 만든 변화
+
+후반부는 모델의 활용과 확장이다. 슬라이드는 공통 모델이 만든 변화, 예측값 활용에서 임베딩 재사용으로, 다른 모델에서도 도움이 될까, 추천 파운데이션 모델을 향해 네 꼭지로 나눈다.
+
+### 배치 작업과 자원 절감
+
+중복 작업을 모델 하나로 통합했기 때문에, 목표 중 일부만 통합 모델로 넘겼는데도 데이터 준비, 학습, 추론 배치 작업이 많이 줄었다. 슬라이드 수치는 배치 작업 100개 이상 정리, CPU 약 3,700 vCPU·시간/일 절감, 메모리 약 27 TiB·시간/일 절감이다. 일일 절감량 추정이고 Spark를 포함한 값이다. 인프라뿐 아니라 운영 관점의 휴먼 리소스도 줄었다.
+
+### IM Auto Targeting
+
+토스에는 IM이라는 메시지 발송 허브가 있다. 홈 상단 배너, 푸시, SMS를 보내는 곳이다. 푸시를 보내려면 마케터가 어떤 유저에게 보낼지 세그먼트를 지정해야 한다. 효율적인 세그먼트여야 결과가 좋기 때문에 마케터, PM, DA가 세그먼트를 어떻게 만들지 고민을 많이 한다.
+
+이번에 주요 앱이벤트를 대거 예측해 뒀기 때문에 어떤 유저에게 어떤 메시지를 보내면 되는지 미리 알 수 있다. 그래서 IM에 Auto Targeting 기능이 들어갔다. 목표 앱이벤트를 고르고 전환 확률 상위 몇 명까지 보낼지 정하면 대상이 자동으로 잡힌다. 기능은 2026년 8월 7일에 들어갔다.
+
+<VideoFrame src={autoTargeting} alt="발표 슬라이드 '마케팅을 위한 타깃 선정 운영 리소스를 줄였습니다'. 왼쪽은 IM의 발송 세그먼트 선택 화면으로 Auto Targeting 토글, 목표 앱이벤트 '내게 맞는 대출 찾기', 전환 확률 '상위 300만 명'이 있다. 오른쪽 Push 캠페인 관측 결과는 클릭률 CTR 일반 4.39%, 오토 타기팅 5.19%, 발송 대비 전환율 CTCVR 일반 0.25%, 오토 타기팅 2.70%다." caption="IM의 Auto Targeting 화면과 푸시 캠페인 결과. 클릭률은 소폭, 발송 대비 전환율은 10배 이상 차이가 난다." time="10:15" videoUrl={videoUrl} />
+
+그 이후 푸시 캠페인 성과를 보면 클릭률(CTR)은 일반 캠페인 4.39%, Auto Targeting 캠페인 5.19%로 소폭 올랐다. 발송 대비 전환율(CTCVR)은 0.25%에서 2.70%로 10배 이상 좋았다. 운영 리소스를 줄이면서 성과도 같이 나온 셈이다.
+
+### 기존 마케팅 모델과의 비교
+
+마케팅 관점에서 운영하던 기존 모델도 있었다. 그 모델과 일대일로 비교한 온라인 실험이 두 개 있다.
+
+<table>
+<thead>
+<tr><th scope="col">서비스</th><th scope="col">채널</th><th scope="col">지표</th><th scope="col">기존 모델</th><th scope="col">TASTE</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row" rowspan="2">대출 관련 서비스</th><td rowspan="2">LMS 발송 온라인 A/B 테스트</td><td>발송 수</td><td>19.2만 건</td><td>12.5만 건 (약 35% 적음)</td></tr>
+<tr><td>대출 실행 수</td><td>82건</td><td>115건 (약 40% 많음)</td></tr>
+<tr><th scope="row" rowspan="2">보험 관련 서비스</th><td rowspan="2">홈 상단 배너 온라인 A/B 테스트</td><td>클릭률</td><td>1.00</td><td>1.72배</td></tr>
+<tr><td>최종 전환율</td><td>1.00</td><td>4.75배</td></tr>
+</tbody>
+</table>
+
+대출 쪽은 발송을 약 35% 줄이고도 대출 실행이 약 40% 많았다. 보험 쪽은 기존 모델이 고른 대상보다 TASTE가 고른 대상의 클릭률이 1.72배, 최종 전환율이 4.75배였다.
+
+## 예측값 활용에서 임베딩 재사용으로
+
+헤드에 둔 이벤트는 Shared Encoder 구조가 아주 잘 학습한다는 걸 알게 됐다. 그러자 헤드에 두지 않았던 이벤트, 예를 들어 푸시 클릭이나 미니앱 추천 클릭도 같이 잘할 수 없을까 궁금해졌다.
+
+### 새 Head를 붙이면 생기는 문제
+
+헤드에 붙이면 잘하니까 헤드에 붙이면 된다고 생각하면 운영에서 문제가 생긴다. 새 Head의 gradient가 공통 Encoder까지 갱신하기 때문에 새 이벤트를 붙이는 순간 기존 헤드가 여전히 잘 작동하는지 다시 평가해야 한다. 한두 번은 괜찮지만 새로운 이벤트는 계속 생긴다. 헤드를 계속 붙여 나가는 방식은 운영상 지속 가능하지 않다고 판단했다.
+
+### 유저 표현은 가져오고 새 목적은 따로 학습
+
+그래서 최초에 정의한 주요 앱이벤트를 고정했다. TASTE 모델은 건드리지 않고 거기서 나온 유저 임베딩을 다운스트림 모델에 피처로 제공하는 구조를 택했다. 푸시 모델은 원래 쓰던 문구와 발송 시각 피처에 TASTE 유저 임베딩을 추가한다. 미니앱 추천 모델도 미니앱 정보와 노출 맥락은 그대로 쓰면서 유저 임베딩을 피처로 더한다.
+
+<TasteFrozenEmbedding caption="왼쪽 TASTE는 가중치를 고정하고 유저 임베딩만 추출한다. 오른쪽 푸시 모델과 미니앱 추천 모델은 자기 피처에 이 임베딩을 더해 따로 학습한다. 새 목적의 gradient는 Shared Encoder로 돌아가지 않는다." />
+
+### 오프라인과 온라인 결과
+
+토스에는 마케팅 CRM 관련 주요 모델이 있다. 홈 상단 배너의 클릭이나 전환, 푸시의 클릭이나 전환을 예측하는 모델들이다. 기존 피처에 임베딩을 더하자 오프라인 실험에서 여덟 개 모델 모두 AUC가 올랐다. 유저 피처 일부를 임베딩으로 대체하는 쪽은 8개 중 4개에서 개선됐다.
+
+<table>
+<thead>
+<tr><th scope="col">모델</th><th scope="col">ΔAUC (기존 피처 + 임베딩)</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">홈 상단 배너 전환 ①</th><td>+0.0100</td></tr>
+<tr><th scope="row">홈 상단 배너 전환 ②</th><td>+0.0035</td></tr>
+<tr><th scope="row">홈 상단 배너 클릭</th><td>+0.0058</td></tr>
+<tr><th scope="row">푸시 클릭 ①</th><td>+0.0049</td></tr>
+<tr><th scope="row">푸시 클릭 ②</th><td>+0.0014</td></tr>
+<tr><th scope="row">푸시 전환</th><td>+0.0013</td></tr>
+<tr><th scope="row">리스트 배너 클릭</th><td>+0.0052</td></tr>
+<tr><th scope="row">혜택 지면 배너 클릭</th><td>+0.0151</td></tr>
+</tbody>
+</table>
+
+온라인 A/B 테스트에서도 눈에 띄는 결과가 있었다. 전체탭·앱인토스 지면의 클릭률 모델은 기존안 CTR 1.56%, TASTE 임베딩을 쓴 모델 2.77%로 77.1% 높았다. 최근 더보기·이런 건 어때요 지면에서는 3.51%에서 10.85%로 209% 높았다. 잘 만든 임베딩이 여러 다운스트림에 도움이 된다는 걸 여기서 확인했다.
+
+## 다음 임베딩도 도움이 될까: TASTE Bench
+
+임베딩을 계속 고도화하려고 했는데 문제가 하나 있다. 임베딩 v2가 나왔을 때 이게 어떤 다운스트림에 얼마나 도움이 되는지 알아차리기 어렵다. 다운스트림 모델에 가서 피처를 제공하고 다시 학습하고 실서비스에서 검증한 다음 피드백을 들어야 하는데 비용이 크고 피드백이 늦다. 이대로면 임베딩 개선 반복이 너무 느릴 거라고 봤다.
+
+그래서 TASTE Bench를 만들었다. 실제 다운스트림 모델을 모방한 프록시(proxy) 모델을 만들어 놓고 새 임베딩 후보가 나오면 그 후보가 타깃하는 다운스트림만 골라서 빠르게 실험을 돌린다. 거기서 나온 효과로 임베딩이 좋은지 나쁜지, 다음에 어떻게 해야 할지 피드백을 빠르게 받는다.
+
+<TasteBenchLoop caption="임베딩 후보가 나오면 실제 다운스트림을 모방한 TASTE Bench의 평가 Task를 골라 Baseline, ADD, REPLACE 조건으로 학습하고 평가한다. 과제별 전이 효과를 보고 다음 임베딩 개선으로 돌아간다." />
+
+슬라이드의 예시는 이렇다. 평가 Task로 앱이벤트 발생, 푸시 클릭, 광고 클릭을 고르고 소비 이벤트 발생은 뺐다. 비교 조건은 세 가지다. Baseline은 기존 입력만, ADD는 기존 입력에 임베딩을 더한 것, REPLACE는 유저 피처를 임베딩으로 바꾼 것이다. 같은 조건에서 학습하고 평가해서 과제별 metric으로 전이 효과를 추정한다. 발표자는 이 기능을 임베딩 개발에 적극적으로 쓰고 있다고 했다.
+
+<VideoFrame src={tasteBench} alt="발표 슬라이드 '실제 downstream을 모방해, 임베딩의 효과를 가늠합니다'. 왼쪽 임베딩 후보가 가운데 TASTE Bench로 들어간다. Bench 안에는 실제 downstream을 모방한 평가 Task로 앱이벤트 발생, 푸시 클릭, 광고 클릭이 체크되어 있고 소비 이벤트 발생은 체크가 없다. 아래에 Baseline 기존 입력, ADD 기존 입력 + 임베딩, REPLACE 유저 피처를 임베딩으로, 같은 조건에서 학습·평가가 있다. 오른쪽 전이 효과 추정에는 앱이벤트 발생과 푸시 클릭이 위 화살표, 광고 클릭이 아래 화살표다." caption="TASTE Bench 슬라이드. 오른쪽 전이 효과 추정은 기준 대비 예시다." time="15:05" videoUrl={videoUrl} />
+
+## 최근 방향성
+
+최근에는 두 가지에 집중한다. 지식을 더 많이 주입하는 것, 그리고 주입한 지식을 더 잘 쓰는 것이다. 슬라이드에서는 Knowledge Expansion과 Knowledge Transfer로 부른다. 입력 쪽의 도메인 A, B, C가 공통 임베딩으로 들어가고 공통 임베딩이 다운스트림 모델 A, B, C로 나간다.
+
+### 입력 도메인 확장
+
+토스에는 데이터가 아주 많은데 지금 모델은 그중 일부만 쓴다. 지금 입력은 소비와 앱 행동이다. 추가할 도메인 예시로 광고, 쇼핑, 금융 거래를 들었다. Multi-domain Encoder가 여러 행동과 맥락을 함께 학습하고 Sharable Embeddings를 만든다. 다운스트림 확장 목표 예시는 광고의 클릭과 전환, 쇼핑의 상품과 콘텐츠 추천, Apps in Toss의 발견과 사용, 금융 서비스의 Targeting이다. 이 과정에서 스케일업 같은 모델 진화는 자연스럽게 일어날 거라고 기대하고 있다.
+
+### 유저, 아이템, 상호작용까지
+
+핵심 도메인에서는 유저 임베딩에 더해 같이 학습한 아이템 임베딩과 둘을 결합하는 Interaction module까지 다운스트림 모델에 직접 제공하는 것을 준비하고 있다. User tower는 행동과 유저 속성에서, Item tower는 속성과 콘텐츠에서 임베딩을 만든다. 오프라인 실험을 준비하고 진행 중이다.
+
+### 임베딩 생성과 서빙 분석
+
+임베딩을 생성하는 체크포인트는 계속 바뀐다. 새 체크포인트가 나왔을 때 임베딩을 얼마나 생성해서 어떻게 서빙하고 다운스트림에 어떻게 제공할지도 분석하고 있다. 슬라이드에는 입력 시점과 생성 모델의 조합이 표로 있다. Seed ckpt 고정, 학습 창 고정, 매일 최신 세 가지 방식이고 입력 x₁, x₂, x₃를 어떤 파라미터로 만드는지가 다르다. 그 뒤에 좌표 후처리 후보(없음, 표준화, 좌표 정렬, 평균)와 날짜 파티션 조인 비교(날짜별, 창별, 단일 파티션)를 거쳐 학습과 서빙의 좌표 차이가 영향 없는 수준인지 본다. 임베딩 모델을 만드는 데서 끝내지 않고 정보 손실 없이 다운스트림에 전달하는 것까지 신경 쓰고 있다.
+
+<VideoFrame src={embeddingServing} alt="발표 슬라이드 '임베딩의 생성·서빙 방안을 분석합니다'. 왼쪽 표는 입력 시점 x1, x2, x3와 생성 모델 Seed ckpt 고정, 학습 창 고정, 매일 최신의 조합이다. 오른쪽은 좌표 후처리 후보(없음, 표준화, 좌표 정렬, 평균), 날짜 파티션 조인 비교(날짜별, 창별, 단일 파티션), 그리고 학습과 서빙 상자 사이에 학습·서빙 좌표의 차이가 영향 없는 수준인가라는 질문이 있다." caption="임베딩 생성과 서빙 분석 슬라이드. 발표에서는 짧게 지나가지만 슬라이드에 검토 항목이 자세히 있다." time="16:30" videoUrl={videoUrl} />
+
+## 발표자의 소감
+
+공동 학습으로 시작한 TASTE가 모델에서 나온 지식을 재사용하고 재사용이 효과가 있음을 확인하고 어떻게 하면 더 빨리 개선할지까지 온 과정이 이번 발표였다. 마지막 슬라이드는 공동 학습, 지식 재사용, Benchmark 세 지점을 한 줄에 두고 학습한 지식을 여러 문제에서 재사용하고 검증하는 것이 추천 파운데이션 모델의 초석이라고 적었다.
+
+최종 목표 기준으로 보면 아직 얼리 스테이지에 가깝다고 한다. 하지만 1년을 보내면서 프로젝트 방향이 동료들과 잘 맞춰졌고 벤치마크와 실험 파이프라인 같은 기반을 잘 닦아 뒀기 때문에 글로벌 레벨로 빠르게 발전할 수 있을 거라고 믿는다고 했다. 좋은 성과가 나오면 테크 세션이나 테크 블로그로 다시 공유하고 싶다는 말로 끝났다.
+
+## 내 생각
+
+이 발표에서 가장 자주 나온 말은 성능이 조금이라도 빠지면 비즈니스에서 쓸 수 없다는 것이었다. 1단계에서 2단계로 간 이유도, 3단계에서 4단계로 간 이유도 이 제약이었다. 공통 학습이 효율적이라는 건 분명한데 그 효율 때문에 성능을 양보할 수는 없으니 결국 데이터를 더 넣고 목적을 나누는 쪽으로 갔다. 앱이벤트와 소비처럼 레이블 성격이 다른 걸 한 모델에 넣었다가 너무 과감했다고 돌아본 대목이 기억에 남는다.
+
+임베딩을 고정하고 다운스트림에 넘기는 결정도 성능보다 운영을 본 선택이다. 새 Head를 붙일 때마다 기존 헤드를 재평가하는 비용이 쌓이면 못 버티니까 Encoder를 Frozen으로 두는 대신 TASTE Bench로 개선 속도를 확보했다. 지난 RCA 글에서 장애 대응 속도가 평소에 쌓아 둔 자료에서 갈렸던 것처럼, 여기서는 임베딩 개선 속도가 미리 만들어 둔 벤치마크에서 갈린다.

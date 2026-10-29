@@ -1,0 +1,166 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '임베딩 후보가 나오면 실제 다운스트림을 모방한 TASTE Bench의 평가 Task를 골라 Baseline, ADD, REPLACE 조건으로 학습하고 평가한다. 과제별 전이 효과를 보고 다음 임베딩 개선으로 돌아간다.' } = Astro.props;
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 720 362" role="img" aria-label="임베딩 후보가 실제 다운스트림을 모방한 TASTE Bench로 들어가 앱이벤트 발생, 푸시 클릭, 광고 클릭 같은 평가 Task에서 Baseline, ADD, REPLACE 조건으로 학습과 평가를 거치고, 과제별 전이 효과 추정이 다음 임베딩 개선으로 되돌아가는 반복 구조입니다.">
+    <text class="label" x="64" y="91">임베딩 후보</text>
+    <g class="pulse" style="--delay: 9s">
+    <rect class="vector-bar" x="38" y="131" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="46" y="121" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="54" y="111" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="62" y="103" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="70" y="111" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="78" y="121" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="86" y="131" width="5" height="12" rx="2" />
+    </g>
+    <text class="small" x="64" y="168">임베딩 v2</text>
+    <path class="route" d="M120 132 L152 132" />
+    <path class="flow" style="--delay: 0s" d="M120 132 L152 132" />
+    <path class="arrow" d="M147 128 l5 4 -5 4" />
+    <rect class="accent-box" x="156" y="18" width="370" height="246" rx="7" />
+    <text class="label" x="341" y="45">TASTE Bench</text>
+    <text class="small" x="341" y="68">실제 downstream을 모방한 평가 Task</text>
+    <g class="pulse" style="--delay: 1.5s">
+    <rect class="box" x="170" y="86" width="166" height="34" rx="7" />
+    <text class="small" x="253" y="109" style="font-size: 14px">✓ 앱이벤트 발생</text>
+    </g>
+    <g class="unchecked">
+    <rect class="box" x="346" y="86" width="166" height="34" rx="7" />
+    <text class="small" x="429" y="109" style="font-size: 14px">소비 이벤트 발생</text>
+    </g>
+    <g class="pulse" style="--delay: 2.3s">
+    <rect class="box" x="170" y="132" width="166" height="34" rx="7" />
+    <text class="small" x="253" y="155" style="font-size: 14px">✓ 푸시 클릭</text>
+    </g>
+    <g class="pulse" style="--delay: 3.1s">
+    <rect class="box" x="346" y="132" width="166" height="34" rx="7" />
+    <text class="small" x="429" y="155" style="font-size: 14px">✓ 광고 클릭</text>
+    </g>
+    <g class="pulse" style="--delay: 4.0s">
+    <text class="label" x="219" y="200" style="font-size: 14px">Baseline</text>
+    <text class="small" x="219" y="223" style="font-size: 12px">기존 입력</text>
+    </g>
+    <g class="pulse" style="--delay: 4.6s">
+    <text class="label" x="341" y="200" style="font-size: 14px">ADD</text>
+    <text class="small" x="341" y="223" style="font-size: 12px">기존 입력 + 임베딩</text>
+    </g>
+    <g class="pulse" style="--delay: 5.2s">
+    <text class="label" x="463" y="200" style="font-size: 14px">REPLACE</text>
+    <text class="small" x="463" y="223" style="font-size: 12px">유저 피처 → 임베딩</text>
+    </g>
+    <text class="small" x="341" y="250">같은 조건에서 학습·평가</text>
+    <path class="route" d="M528 132 L556 132" />
+    <path class="flow" style="--delay: 6s" d="M528 132 L556 132" />
+    <path class="arrow" d="M551 128 l5 4 -5 4" />
+    <text class="label" x="636" y="61">전이 효과 추정</text>
+    <text class="small" x="636" y="84">기준 대비 · 예시</text>
+    <text class="small" x="622" y="121">앱이벤트 발생</text>
+    <g class="result-arrow" style="--delay: 6.0s">
+    <text class="accent-text" x="699" y="121" style="font-size: 20px">↑</text>
+    </g>
+    <text class="small" x="622" y="163">푸시 클릭</text>
+    <g class="result-arrow" style="--delay: 6.4s">
+    <text class="accent-text" x="699" y="163" style="font-size: 20px">↑</text>
+    </g>
+    <text class="small" x="622" y="205">광고 클릭</text>
+    <g class="result-arrow" style="--delay: 6.8s">
+    <text class="small" x="699" y="205" style="font-size: 20px">↓</text>
+    </g>
+    <path class="route" d="M636 224 V298 H64 V188" />
+    <path class="flow" style="--delay: 7.5s" d="M636 224 V298 H64 V188" />
+    <path class="arrow" d="M60 193 l4 -5 4 5" />
+    <text class="small" x="360" y="324">이 반복을 더 빠르게</text>
+    <text class="small" x="360" y="347">더 빠른 검증, 더 빠른 임베딩 개선</text>
+  </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 764" role="img" aria-label="임베딩 후보가 실제 다운스트림을 모방한 TASTE Bench로 들어가 앱이벤트 발생, 푸시 클릭, 광고 클릭 같은 평가 Task에서 Baseline, ADD, REPLACE 조건으로 학습과 평가를 거치고, 과제별 전이 효과 추정이 다음 임베딩 개선으로 되돌아가는 반복 구조입니다.">
+    <text class="label" x="140" y="24">임베딩 후보</text>
+    <g class="pulse" style="--delay: 9s">
+    <rect class="vector-bar" x="114" y="60" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="122" y="50" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="130" y="40" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="138" y="32" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="146" y="40" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="154" y="50" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="162" y="60" width="5" height="12" rx="2" />
+    </g>
+    <text class="small" x="140" y="94">임베딩 v2</text>
+    <path class="route" d="M140 103 L140 124" />
+    <path class="flow" style="--delay: 0s" d="M140 103 L140 124" />
+    <path class="arrow" d="M136 119 l4 5 4 -5" />
+    <rect class="accent-box" x="10" y="127" width="274" height="364" rx="7" />
+    <text class="label" x="147" y="155">TASTE Bench</text>
+    <text class="small" x="147" y="178" style="font-size: 13px">실제 downstream을 모방한 평가 Task</text>
+    <g class="pulse" style="--delay: 1.5s">
+    <rect class="box" x="20" y="196" width="122" height="38" rx="7" />
+    <text class="small" x="81" y="221" style="font-size: 14px">앱이벤트 발생</text>
+    <text class="accent-text" x="30" y="208" style="font-size: 11px">✓</text>
+    </g>
+    <g class="unchecked">
+    <rect class="box" x="152" y="196" width="122" height="38" rx="7" />
+    <text class="small" x="213" y="221" style="font-size: 14px">소비 이벤트 발생</text>
+    </g>
+    <g class="pulse" style="--delay: 2.3s">
+    <rect class="box" x="20" y="244" width="122" height="38" rx="7" />
+    <text class="small" x="81" y="269" style="font-size: 14px">푸시 클릭</text>
+    <text class="accent-text" x="30" y="256" style="font-size: 11px">✓</text>
+    </g>
+    <g class="pulse" style="--delay: 3.1s">
+    <rect class="box" x="152" y="244" width="122" height="38" rx="7" />
+    <text class="small" x="213" y="269" style="font-size: 14px">광고 클릭</text>
+    <text class="accent-text" x="162" y="256" style="font-size: 11px">✓</text>
+    </g>
+    <g class="pulse" style="--delay: 4.0s">
+    <text class="label" x="147" y="309">Baseline</text>
+    <text class="small" x="147" y="332">기존 입력</text>
+    </g>
+    <g class="pulse" style="--delay: 4.6s">
+    <text class="label" x="147" y="364">ADD</text>
+    <text class="small" x="147" y="387">기존 입력 + 임베딩</text>
+    </g>
+    <g class="pulse" style="--delay: 5.2s">
+    <text class="label" x="147" y="419">REPLACE</text>
+    <text class="small" x="147" y="442">유저 피처 → 임베딩</text>
+    </g>
+    <text class="small" x="147" y="474">같은 조건에서 학습·평가</text>
+    <path class="route" d="M147 491 L147 515" />
+    <path class="flow" style="--delay: 6s" d="M147 491 L147 515" />
+    <path class="arrow" d="M143 510 l4 5 4 -5" />
+    <text class="label" x="147" y="541">전이 효과 추정</text>
+    <text class="small" x="147" y="566">기준 대비 · 예시</text>
+    <text class="small" x="130" y="599">앱이벤트 발생</text>
+    <g class="result-arrow" style="--delay: 6.0s">
+    <text class="accent-text" x="226" y="599" style="font-size: 20px">↑</text>
+    </g>
+    <text class="small" x="130" y="632">푸시 클릭</text>
+    <g class="result-arrow" style="--delay: 6.4s">
+    <text class="accent-text" x="226" y="632" style="font-size: 20px">↑</text>
+    </g>
+    <text class="small" x="130" y="665">광고 클릭</text>
+    <g class="result-arrow" style="--delay: 6.8s">
+    <text class="small" x="226" y="665" style="font-size: 20px">↓</text>
+    </g>
+    <path class="route" d="M147 681 V696 H306 V52 H186" />
+    <path class="flow" style="--delay: 7.5s" d="M147 681 V696 H306 V52 H186" />
+    <path class="arrow" d="M191 48 l-5 4 5 4" />
+    <text class="small" x="147" y="724">이 반복을 더 빠르게</text>
+    <text class="small" x="147" y="747" style="font-size: 14px">더 빠른 검증, 더 빠른 임베딩 개선</text>
+  </svg>
+</DiagramFrame>
+<style>
+  /* Keep the routes readable; only their accent overlays move during each stage. */
+  svg .pulse { animation: taste-highlight 12s ease-in-out infinite; animation-delay: var(--delay, 0s); }
+  svg .flow { opacity: 0; animation: taste-stream 12s linear infinite; animation-delay: var(--delay, 0s); }
+  svg .pulse .box { stroke: var(--line); }
+  .vector-bar { fill: var(--accent); }
+  .inactive { opacity: .6 !important; }
+  @keyframes taste-highlight { 0%, 12%, 100% { opacity: .65; } 3%, 8% { opacity: 1; } }
+  @keyframes taste-stream { 0%, 18%, 100% { opacity: 0; stroke-dashoffset: 0; } 2% { opacity: 1; } 16% { opacity: 1; stroke-dashoffset: -42; } }
+  .unchecked { opacity: .5 !important; }
+  .result-arrow { animation: result-reveal 12s ease-out infinite; animation-delay: var(--delay); opacity: 0; }
+  @keyframes result-reveal { 0% { opacity: 0; } 4%, 45% { opacity: 1; } 48%, 100% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    svg .pulse, svg .flow, svg .grow, svg .result-arrow { animation: none; opacity: 1; transform: none; }
+  }
+</style>

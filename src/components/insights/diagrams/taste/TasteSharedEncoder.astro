@@ -1,0 +1,211 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '왼쪽은 대출, 보험, 결제 모델이 각자 Encoder로 같은 유저 정보를 따로 인코딩한다. 오른쪽은 Shared Encoder 하나가 공통 유저 표현을 만들고 세 Head가 그 위에서 예측한다.' } = Astro.props;
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 720 300" role="img" aria-label="왼쪽은 대출, 보험, 결제 모델이 각자 Encoder와 Prediction Head로 유저 정보를 따로 인코딩하고, 오른쪽은 Shared Encoder 하나가 공통 유저 표현을 만들어 대출 Head, 보험 Head, 결제 Head가 예측합니다.">
+    <text class="small" x="165.0" y="20">개별 모델</text>
+    <rect class="box" x="8.0" y="40" width="94" height="30" rx="7" />
+    <text class="small" x="55.0" y="60">유저 정보</text>
+    <path class="route" d="M55.0 70 L55.0 94" />
+    <path class="arrow" d="M51.0 89 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 0.0s">
+    <rect class="box" x="8.0" y="96" width="94" height="62" rx="7" />
+    <text class="small" x="55.0" y="117">대출 모델</text>
+    <text class="label" x="55.0" y="141">Encoder</text>
+    </g>
+    <path class="route" d="M55.0 158 L55.0 186" />
+    <path class="arrow" d="M51.0 181 l4 5 4 -5" />
+    <rect class="box" x="8.0" y="188" width="94" height="47" rx="7" />
+    <text class="small" x="55.0" y="207" style="font-size: 14px">Prediction</text>
+    <text class="small" x="55.0" y="225" style="font-size: 14px">Head</text>
+    <path class="route" d="M55.0 235 L55.0 258" />
+    <path class="arrow" d="M51.0 253 l4 5 4 -5" />
+    <text class="small" x="55.0" y="280">대출 예측</text>
+    <rect class="box" x="118.0" y="40" width="94" height="30" rx="7" />
+    <text class="small" x="165.0" y="60">유저 정보</text>
+    <path class="route" d="M165.0 70 L165.0 94" />
+    <path class="arrow" d="M161.0 89 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 1.2s">
+    <rect class="box" x="118.0" y="96" width="94" height="62" rx="7" />
+    <text class="small" x="165.0" y="117">보험 모델</text>
+    <text class="label" x="165.0" y="141">Encoder</text>
+    </g>
+    <path class="route" d="M165.0 158 L165.0 186" />
+    <path class="arrow" d="M161.0 181 l4 5 4 -5" />
+    <rect class="box" x="118.0" y="188" width="94" height="47" rx="7" />
+    <text class="small" x="165.0" y="207" style="font-size: 14px">Prediction</text>
+    <text class="small" x="165.0" y="225" style="font-size: 14px">Head</text>
+    <path class="route" d="M165.0 235 L165.0 258" />
+    <path class="arrow" d="M161.0 253 l4 5 4 -5" />
+    <text class="small" x="165.0" y="280">보험 예측</text>
+    <rect class="box" x="228.0" y="40" width="94" height="30" rx="7" />
+    <text class="small" x="275.0" y="60">유저 정보</text>
+    <path class="route" d="M275.0 70 L275.0 94" />
+    <path class="arrow" d="M271.0 89 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 2.4s">
+    <rect class="box" x="228.0" y="96" width="94" height="62" rx="7" />
+    <text class="small" x="275.0" y="117">결제 모델</text>
+    <text class="label" x="275.0" y="141">Encoder</text>
+    </g>
+    <path class="route" d="M275.0 158 L275.0 186" />
+    <path class="arrow" d="M271.0 181 l4 5 4 -5" />
+    <rect class="box" x="228.0" y="188" width="94" height="47" rx="7" />
+    <text class="small" x="275.0" y="207" style="font-size: 14px">Prediction</text>
+    <text class="small" x="275.0" y="225" style="font-size: 14px">Head</text>
+    <path class="route" d="M275.0 235 L275.0 258" />
+    <path class="arrow" d="M271.0 253 l4 5 4 -5" />
+    <text class="small" x="275.0" y="280">결제 예측</text>
+    <text class="small" x="555.0" y="20">Shared Encoder 모델</text>
+    <rect class="box" x="400" y="40" width="310" height="30" rx="7" />
+    <text class="small" x="555.0" y="60">유저 정보</text>
+    <path class="route" d="M555.0 70 L555.0 94" />
+    <path class="flow" style="--delay: 0s" d="M555.0 70 L555.0 94" />
+    <path class="arrow" d="M551.0 89 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 2s">
+    <rect class="accent-box" x="410" y="96" width="290" height="62" rx="7" />
+    <text class="label" x="555.0" y="121">Shared Encoder</text>
+    <text class="small" x="555.0" y="143">공통 유저 표현</text>
+    </g>
+    <path class="route" d="M555.0 158 V173 H445.0 V186" />
+    <path class="flow" style="--delay: 3s" d="M555.0 158 V173 H445.0 V186" />
+    <path class="arrow" d="M441.0 181 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 5s">
+    <rect class="box" x="398.0" y="188" width="94" height="47" rx="7" />
+    <text class="small" x="445.0" y="216" style="font-size: 14px">대출 Head</text>
+    </g>
+    <path class="route" d="M445.0 235 L445.0 258" />
+    <path class="arrow" d="M441.0 253 l4 5 4 -5" />
+    <text class="small" x="445.0" y="280">대출 예측</text>
+    <path class="route" d="M555.0 158 V173 H555.0 V186" />
+    <path class="flow" style="--delay: 3s" d="M555.0 158 V173 H555.0 V186" />
+    <path class="arrow" d="M551.0 181 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 5s">
+    <rect class="box" x="508.0" y="188" width="94" height="47" rx="7" />
+    <text class="small" x="555.0" y="216" style="font-size: 14px">보험 Head</text>
+    </g>
+    <path class="route" d="M555.0 235 L555.0 258" />
+    <path class="arrow" d="M551.0 253 l4 5 4 -5" />
+    <text class="small" x="555.0" y="280">보험 예측</text>
+    <path class="route" d="M555.0 158 V173 H665.0 V186" />
+    <path class="flow" style="--delay: 3s" d="M555.0 158 V173 H665.0 V186" />
+    <path class="arrow" d="M661.0 181 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 5s">
+    <rect class="box" x="618.0" y="188" width="94" height="47" rx="7" />
+    <text class="small" x="665.0" y="216" style="font-size: 14px">결제 Head</text>
+    </g>
+    <path class="route" d="M665.0 235 L665.0 258" />
+    <path class="arrow" d="M661.0 253 l4 5 4 -5" />
+    <text class="small" x="665.0" y="280">결제 예측</text>
+  </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 610" role="img" aria-label="왼쪽은 대출, 보험, 결제 모델이 각자 Encoder와 Prediction Head로 유저 정보를 따로 인코딩하고, 오른쪽은 Shared Encoder 하나가 공통 유저 표현을 만들어 대출 Head, 보험 Head, 결제 Head가 예측합니다.">
+    <text class="small" x="160.0" y="20">개별 모델</text>
+    <rect class="box" x="6.333333333333336" y="40" width="94" height="30" rx="7" />
+    <text class="small" x="53.333333333333336" y="60">유저 정보</text>
+    <path class="route" d="M53.333333333333336 70 L53.333333333333336 94" />
+    <path class="arrow" d="M49.333333333333336 89 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 0.0s">
+    <rect class="box" x="6.333333333333336" y="96" width="94" height="62" rx="7" />
+    <text class="small" x="53.333333333333336" y="117">대출 모델</text>
+    <text class="label" x="53.333333333333336" y="141">Encoder</text>
+    </g>
+    <path class="route" d="M53.333333333333336 158 L53.333333333333336 186" />
+    <path class="arrow" d="M49.333333333333336 181 l4 5 4 -5" />
+    <rect class="box" x="6.333333333333336" y="188" width="94" height="47" rx="7" />
+    <text class="small" x="53.333333333333336" y="207" style="font-size: 14px">Prediction</text>
+    <text class="small" x="53.333333333333336" y="225" style="font-size: 14px">Head</text>
+    <path class="route" d="M53.333333333333336 235 L53.333333333333336 258" />
+    <path class="arrow" d="M49.333333333333336 253 l4 5 4 -5" />
+    <text class="small" x="53.333333333333336" y="280">대출 예측</text>
+    <rect class="box" x="113.0" y="40" width="94" height="30" rx="7" />
+    <text class="small" x="160.0" y="60">유저 정보</text>
+    <path class="route" d="M160.0 70 L160.0 94" />
+    <path class="arrow" d="M156.0 89 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 1.2s">
+    <rect class="box" x="113.0" y="96" width="94" height="62" rx="7" />
+    <text class="small" x="160.0" y="117">보험 모델</text>
+    <text class="label" x="160.0" y="141">Encoder</text>
+    </g>
+    <path class="route" d="M160.0 158 L160.0 186" />
+    <path class="arrow" d="M156.0 181 l4 5 4 -5" />
+    <rect class="box" x="113.0" y="188" width="94" height="47" rx="7" />
+    <text class="small" x="160.0" y="207" style="font-size: 14px">Prediction</text>
+    <text class="small" x="160.0" y="225" style="font-size: 14px">Head</text>
+    <path class="route" d="M160.0 235 L160.0 258" />
+    <path class="arrow" d="M156.0 253 l4 5 4 -5" />
+    <text class="small" x="160.0" y="280">보험 예측</text>
+    <rect class="box" x="219.66666666666669" y="40" width="94" height="30" rx="7" />
+    <text class="small" x="266.6666666666667" y="60">유저 정보</text>
+    <path class="route" d="M266.6666666666667 70 L266.6666666666667 94" />
+    <path class="arrow" d="M262.6666666666667 89 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 2.4s">
+    <rect class="box" x="219.66666666666669" y="96" width="94" height="62" rx="7" />
+    <text class="small" x="266.6666666666667" y="117">결제 모델</text>
+    <text class="label" x="266.6666666666667" y="141">Encoder</text>
+    </g>
+    <path class="route" d="M266.6666666666667 158 L266.6666666666667 186" />
+    <path class="arrow" d="M262.6666666666667 181 l4 5 4 -5" />
+    <rect class="box" x="219.66666666666669" y="188" width="94" height="47" rx="7" />
+    <text class="small" x="266.6666666666667" y="207" style="font-size: 14px">Prediction</text>
+    <text class="small" x="266.6666666666667" y="225" style="font-size: 14px">Head</text>
+    <path class="route" d="M266.6666666666667 235 L266.6666666666667 258" />
+    <path class="arrow" d="M262.6666666666667 253 l4 5 4 -5" />
+    <text class="small" x="266.6666666666667" y="280">결제 예측</text>
+    <text class="small" x="160.0" y="330">Shared Encoder 모델</text>
+    <rect class="box" x="10" y="350" width="300" height="30" rx="7" />
+    <text class="small" x="160.0" y="370">유저 정보</text>
+    <path class="route" d="M160.0 380 L160.0 404" />
+    <path class="flow" style="--delay: 0s" d="M160.0 380 L160.0 404" />
+    <path class="arrow" d="M156.0 399 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 2s">
+    <rect class="accent-box" x="20" y="406" width="280" height="62" rx="7" />
+    <text class="label" x="160.0" y="431">Shared Encoder</text>
+    <text class="small" x="160.0" y="453">공통 유저 표현</text>
+    </g>
+    <path class="route" d="M160.0 468 V483 H53.333333333333336 V496" />
+    <path class="flow" style="--delay: 3s" d="M160.0 468 V483 H53.333333333333336 V496" />
+    <path class="arrow" d="M49.333333333333336 491 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 5s">
+    <rect class="box" x="6.333333333333336" y="498" width="94" height="47" rx="7" />
+    <text class="small" x="53.333333333333336" y="526" style="font-size: 14px">대출 Head</text>
+    </g>
+    <path class="route" d="M53.333333333333336 545 L53.333333333333336 568" />
+    <path class="arrow" d="M49.333333333333336 563 l4 5 4 -5" />
+    <text class="small" x="53.333333333333336" y="590">대출 예측</text>
+    <path class="route" d="M160.0 468 V483 H160.0 V496" />
+    <path class="flow" style="--delay: 3s" d="M160.0 468 V483 H160.0 V496" />
+    <path class="arrow" d="M156.0 491 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 5s">
+    <rect class="box" x="113.0" y="498" width="94" height="47" rx="7" />
+    <text class="small" x="160.0" y="526" style="font-size: 14px">보험 Head</text>
+    </g>
+    <path class="route" d="M160.0 545 L160.0 568" />
+    <path class="arrow" d="M156.0 563 l4 5 4 -5" />
+    <text class="small" x="160.0" y="590">보험 예측</text>
+    <path class="route" d="M160.0 468 V483 H266.6666666666667 V496" />
+    <path class="flow" style="--delay: 3s" d="M160.0 468 V483 H266.6666666666667 V496" />
+    <path class="arrow" d="M262.6666666666667 491 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 5s">
+    <rect class="box" x="219.66666666666669" y="498" width="94" height="47" rx="7" />
+    <text class="small" x="266.6666666666667" y="526" style="font-size: 14px">결제 Head</text>
+    </g>
+    <path class="route" d="M266.6666666666667 545 L266.6666666666667 568" />
+    <path class="arrow" d="M262.6666666666667 563 l4 5 4 -5" />
+    <text class="small" x="266.6666666666667" y="590">결제 예측</text>
+  </svg>
+</DiagramFrame>
+<style>
+  /* Keep the routes readable; only their accent overlays move during each stage. */
+  svg .pulse { animation: taste-highlight 10s ease-in-out infinite; animation-delay: var(--delay, 0s); }
+  svg .flow { opacity: 0; animation: taste-stream 10s linear infinite; animation-delay: var(--delay, 0s); }
+  svg .pulse .box { stroke: var(--line); }
+  .vector-bar { fill: var(--accent); }
+  .inactive { opacity: .6 !important; }
+  @keyframes taste-highlight { 0%, 12%, 100% { opacity: .65; } 3%, 8% { opacity: 1; } }
+  @keyframes taste-stream { 0%, 18%, 100% { opacity: 0; stroke-dashoffset: 0; } 2% { opacity: 1; } 16% { opacity: 1; stroke-dashoffset: -42; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    svg .pulse, svg .flow, svg .grow, svg .result-arrow { animation: none; opacity: 1; transform: none; }
+  }
+</style>

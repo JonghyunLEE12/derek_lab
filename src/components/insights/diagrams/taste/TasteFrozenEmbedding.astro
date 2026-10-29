@@ -1,0 +1,169 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '왼쪽 TASTE는 가중치를 고정하고 유저 임베딩만 추출한다. 오른쪽 푸시 모델과 미니앱 추천 모델은 자기 피처에 이 임베딩을 더해 따로 학습한다. 새 목적의 gradient는 Shared Encoder로 돌아가지 않는다.' } = Astro.props;
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 720 344" role="img" aria-label="가중치를 고정한 TASTE의 Shared Encoder가 유저 정보에서 유저 임베딩을 추출하고, 그 임베딩이 입력 피처로 푸시 모델과 미니앱 추천 모델에 들어갑니다. 다운스트림 모델만 따로 학습하며 기존 대출, 보험, 결제 Head는 그대로입니다.">
+    <text class="small" x="160" y="20">TASTE · Frozen</text>
+    <rect class="box" x="28" y="36" width="264" height="30" rx="7" />
+    <text class="small" x="160" y="57">유저 정보</text>
+    <path class="route" d="M160 66 L160 86" />
+    <path class="flow" style="--delay: 0s" d="M160 66 L160 86" />
+    <path class="arrow" d="M156 81 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 0.8s">
+    <rect class="accent-box" x="28" y="88" width="264" height="60" rx="7" />
+    <text class="label" x="160" y="113">Shared Encoder</text>
+    <text class="small" x="160" y="136" style="font-size: 14px">가중치 고정 · 학습된 표현 추출</text>
+    </g>
+    <path class="route" d="M160 148 L160 168" />
+    <path class="flow" style="--delay: 2s" d="M160 148 L160 168" />
+    <path class="arrow" d="M156 163 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 2.4s">
+    <rect class="box" x="70" y="170" width="180" height="76" rx="7" />
+    <text class="label" x="160" y="194">유저 임베딩</text>
+    <rect class="vector-bar" x="134" y="223" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="142" y="213" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="150" y="203" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="158" y="195" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="166" y="203" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="174" y="213" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="182" y="223" width="5" height="12" rx="2" />
+    </g>
+    <g class="inactive">
+    <path class="route" d="M160 246 V257 H56 V271" />
+    <path class="arrow" d="M52 266 l4 5 4 -5" />
+    <rect class="box" x="8" y="273" width="96" height="32" rx="7" />
+    <text class="small" x="56" y="295">대출 Head</text>
+    <text class="small" x="56" y="326">대출 예측</text>
+    <path class="route" d="M160 246 V257 H160 V271" />
+    <path class="arrow" d="M156 266 l4 5 4 -5" />
+    <rect class="box" x="112" y="273" width="96" height="32" rx="7" />
+    <text class="small" x="160" y="295">보험 Head</text>
+    <text class="small" x="160" y="326">보험 예측</text>
+    <path class="route" d="M160 246 V257 H264 V271" />
+    <path class="arrow" d="M260 266 l4 5 4 -5" />
+    <rect class="box" x="216" y="273" width="96" height="32" rx="7" />
+    <text class="small" x="264" y="295">결제 Head</text>
+    <text class="small" x="264" y="326">결제 예측</text>
+    </g>
+    <path class="divider" d="M374 16 V336" />
+    <text class="small" x="554" y="20">Downstream · Trainable</text>
+    <path class="route" d="M250 208 H404 V111 H470" />
+    <path class="flow" style="--delay: 3s" d="M250 208 H404 V111 H470" />
+    <path class="arrow" d="M465 107 l5 4 -5 4" />
+    <path class="route" d="M250 208 H404 V277 H470" />
+    <path class="flow" style="--delay: 4s" d="M250 208 H404 V277 H470" />
+    <path class="arrow" d="M465 273 l5 4 -5 4" />
+    <text class="small" x="368" y="178" style="font-size: 13px">임베딩을</text>
+    <text class="small" x="368" y="197" style="font-size: 13px">입력 피처로 결합</text>
+    <rect class="box" x="474" y="40" width="230" height="28" rx="7" />
+    <text class="small" x="589" y="59">문구 · 발송 시각</text>
+    <path class="route" d="M589 68 L589 88" />
+    <path class="flow" style="--delay: 4.5s" d="M589 68 L589 88" />
+    <path class="arrow" d="M585 83 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 4.5s">
+    <rect class="accent-box" x="474" y="90" width="230" height="42" rx="7" />
+    <text class="label" x="589" y="117">푸시 모델</text>
+    </g>
+    <text class="small" x="589" y="155">이번 푸시를 클릭할까?</text>
+    <rect class="box" x="474" y="206" width="230" height="28" rx="7" />
+    <text class="small" x="589" y="225">미니앱 정보 · 노출 맥락</text>
+    <path class="route" d="M589 234 L589 254" />
+    <path class="flow" style="--delay: 5.5s" d="M589 234 L589 254" />
+    <path class="arrow" d="M585 249 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 5.5s">
+    <rect class="accent-box" x="474" y="256" width="230" height="42" rx="7" />
+    <text class="label" x="589" y="283">미니앱 추천 모델</text>
+    </g>
+    <text class="small" x="589" y="321">어떤 미니앱을 추천할까?</text>
+  </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 738" role="img" aria-label="가중치를 고정한 TASTE의 Shared Encoder가 유저 정보에서 유저 임베딩을 추출하고, 그 임베딩이 입력 피처로 푸시 모델과 미니앱 추천 모델에 들어갑니다. 다운스트림 모델만 따로 학습하며 기존 대출, 보험, 결제 Head는 그대로입니다.">
+    <text class="small" x="160" y="20">TASTE · Frozen</text>
+    <rect class="box" x="28" y="36" width="264" height="30" rx="7" />
+    <text class="small" x="160" y="57">유저 정보</text>
+    <path class="route" d="M160 66 L160 86" />
+    <path class="flow" style="--delay: 0s" d="M160 66 L160 86" />
+    <path class="arrow" d="M156 81 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 0.8s">
+    <rect class="accent-box" x="28" y="88" width="264" height="60" rx="7" />
+    <text class="label" x="160" y="113">Shared Encoder</text>
+    <text class="small" x="160" y="136" style="font-size: 14px">가중치 고정 · 학습된 표현 추출</text>
+    </g>
+    <path class="route" d="M160 148 L160 168" />
+    <path class="flow" style="--delay: 2s" d="M160 148 L160 168" />
+    <path class="arrow" d="M156 163 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 2.4s">
+    <rect class="box" x="70" y="170" width="180" height="76" rx="7" />
+    <text class="label" x="160" y="194">유저 임베딩</text>
+    <rect class="vector-bar" x="134" y="223" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="142" y="213" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="150" y="203" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="158" y="195" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="166" y="203" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="174" y="213" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="182" y="223" width="5" height="12" rx="2" />
+    </g>
+    <g class="inactive">
+    <path class="route" d="M160 246 V257 H56 V271" />
+    <path class="arrow" d="M52 266 l4 5 4 -5" />
+    <rect class="box" x="8" y="273" width="96" height="32" rx="7" />
+    <text class="small" x="56" y="295">대출 Head</text>
+    <text class="small" x="56" y="326">대출 예측</text>
+    <path class="route" d="M160 246 V257 H160 V271" />
+    <path class="arrow" d="M156 266 l4 5 4 -5" />
+    <rect class="box" x="112" y="273" width="96" height="32" rx="7" />
+    <text class="small" x="160" y="295">보험 Head</text>
+    <text class="small" x="160" y="326">보험 예측</text>
+    <path class="route" d="M160 246 V257 H264 V271" />
+    <path class="arrow" d="M260 266 l4 5 4 -5" />
+    <rect class="box" x="216" y="273" width="96" height="32" rx="7" />
+    <text class="small" x="264" y="295">결제 Head</text>
+    <text class="small" x="264" y="326">결제 예측</text>
+    </g>
+    <path class="divider" d="M10 354 H310" />
+    <text class="small" x="152" y="384">Downstream · Trainable</text>
+    <path class="route" d="M250 208 H305 V512 H268" />
+    <path class="flow" style="--delay: 3s" d="M250 208 H305 V512 H268" />
+    <path class="arrow" d="M273 508 l-5 4 5 4" />
+    <path class="route" d="M305 512 V672 H268" />
+    <path class="flow" style="--delay: 4s" d="M305 512 V672 H268" />
+    <path class="arrow" d="M273 668 l-5 4 5 4" />
+    <text class="small" x="168" y="410">임베딩을</text>
+    <text class="small" x="168" y="430">입력 피처로 결합</text>
+    <rect class="box" x="28" y="440" width="240" height="30" rx="7" />
+    <text class="small" x="148" y="461">문구 · 발송 시각</text>
+    <path class="route" d="M148 470 L148 488" />
+    <path class="flow" style="--delay: 4.5s" d="M148 470 L148 488" />
+    <path class="arrow" d="M144 483 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 4.5s">
+    <rect class="accent-box" x="28" y="490" width="240" height="44" rx="7" />
+    <text class="label" x="148" y="518">푸시 모델</text>
+    </g>
+    <text class="small" x="148" y="558">이번 푸시를 클릭할까?</text>
+    <rect class="box" x="28" y="600" width="240" height="30" rx="7" />
+    <text class="small" x="148" y="621">미니앱 정보 · 노출 맥락</text>
+    <path class="route" d="M148 630 L148 648" />
+    <path class="flow" style="--delay: 5.5s" d="M148 630 L148 648" />
+    <path class="arrow" d="M144 643 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 5.5s">
+    <rect class="accent-box" x="28" y="650" width="240" height="44" rx="7" />
+    <text class="label" x="148" y="678">미니앱 추천 모델</text>
+    </g>
+    <text class="small" x="148" y="718">어떤 미니앱을 추천할까?</text>
+  </svg>
+</DiagramFrame>
+<style>
+  /* Keep the routes readable; only their accent overlays move during each stage. */
+  svg .pulse { animation: taste-highlight 10s ease-in-out infinite; animation-delay: var(--delay, 0s); }
+  svg .flow { opacity: 0; animation: taste-stream 10s linear infinite; animation-delay: var(--delay, 0s); }
+  svg .pulse .box { stroke: var(--line); }
+  .vector-bar { fill: var(--accent); }
+  .inactive { opacity: .6 !important; }
+  @keyframes taste-highlight { 0%, 12%, 100% { opacity: .65; } 3%, 8% { opacity: 1; } }
+  @keyframes taste-stream { 0%, 18%, 100% { opacity: 0; stroke-dashoffset: 0; } 2% { opacity: 1; } 16% { opacity: 1; stroke-dashoffset: -42; } }
+  .divider { fill: none; stroke: var(--line); stroke-width: 1.5; stroke-dasharray: 5 6; }
+  @media (prefers-reduced-motion: reduce) {
+    svg .pulse, svg .flow, svg .grow, svg .result-arrow { animation: none; opacity: 1; transform: none; }
+  }
+</style>

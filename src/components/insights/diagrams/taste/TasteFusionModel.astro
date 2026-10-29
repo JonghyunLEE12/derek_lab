@@ -1,0 +1,210 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '유저 요약 정보는 DCN-V2로, 시간순 앱이벤트는 6층 Causal Transformer로 각각 192차원 벡터가 된다. Gated Fusion이 둘을 묶어 192차원 유저 표현을 만들고 PLE가 189개 앱이벤트 확률을 낸다.' } = Astro.props;
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 720 334" role="img" aria-label="유저 요약 정보는 DCN-V2 인코더로, 시간순 앱이벤트 시퀀스는 6층 Causal Transformer로 각각 192차원 벡터가 되고, Gated Fusion이 둘을 묶어 192차원 유저 표현을 만든 뒤 PLE가 189개 앱이벤트 확률을 출력합니다.">
+    <text class="small" x="90" y="40">유저 요약 정보</text>
+    <text class="small" x="90" y="61" style="font-size: 12px">잔액 · 신용 · 소비 집계</text>
+    <rect class="box" x="15" y="80" width="160" height="62" rx="7" />
+    <text class="small" x="95" y="105" style="font-size: 15px">요약 정보 인코더</text>
+    <text class="small" x="95" y="127">DCN-V2 → 192D</text>
+    <path class="route" d="M90 65 L90 78" />
+    <path class="arrow" d="M86 73 l4 5 4 -5" />
+    <text class="small" x="95" y="173">시간순 앱이벤트</text>
+    <g class="pulse" style="--delay: 0.0s">
+    <rect class="box" x="13" y="186" width="28" height="26" rx="7" />
+    <text class="small" x="27" y="204">e₁</text>
+    </g>
+    <g class="pulse" style="--delay: 0.3s">
+    <rect class="box" x="47" y="186" width="28" height="26" rx="7" />
+    <text class="small" x="61" y="204">e₂</text>
+    </g>
+    <g class="pulse" style="--delay: 0.6s">
+    <rect class="box" x="81" y="186" width="28" height="26" rx="7" />
+    <text class="small" x="95" y="204">e₃</text>
+    </g>
+    <g class="pulse" style="--delay: 0.8999999999999999s">
+    <rect class="box" x="115" y="186" width="28" height="26" rx="7" />
+    <text class="small" x="129" y="204">…</text>
+    </g>
+    <g class="pulse" style="--delay: 1.2s">
+    <rect class="box" x="149" y="186" width="28" height="26" rx="7" />
+    <text class="small" x="163" y="204">eₜ</text>
+    </g>
+    <path class="route" d="M20 220 L170 220" />
+    <path class="arrow" d="M165 216 l5 4 -5 4" />
+    <path class="route" d="M95 222 L95 236" />
+    <path class="arrow" d="M91 231 l4 5 4 -5" />
+    <rect class="accent-box" x="15" y="238" width="160" height="75" rx="7" />
+    <text class="label" x="95" y="260" style="font-size: 15px">Causal TF · 6L</text>
+    <text class="small" x="95" y="282">d=192 · 6 heads</text>
+    <text class="small" x="95" y="302">Last token → 192D</text>
+    <path class="route" d="M175 111 H204 V178 H230" />
+    <path class="flow" style="--delay: 1.5s" d="M175 111 H204 V178 H230" />
+    <path class="arrow" d="M225 174 l5 4 -5 4" />
+    <path class="route" d="M175 276 H214 V198 H230" />
+    <path class="flow" style="--delay: 1.5s" d="M175 276 H214 V198 H230" />
+    <path class="arrow" d="M225 194 l5 4 -5 4" />
+    <g class="pulse" style="--delay: 3s">
+    <rect class="box" x="232" y="161" width="120" height="54" rx="7" />
+    <text class="small" x="292" y="193" style="font-size: 15px">Gated Fusion</text>
+    </g>
+    <path class="route" d="M352 188 L386 188" />
+    <path class="flow" style="--delay: 3.5s" d="M352 188 L386 188" />
+    <path class="arrow" d="M381 184 l5 4 -5 4" />
+    <text class="label" x="414" y="150">192D</text>
+    <g class="grow" style="--delay: 3.5s">
+    <rect class="vector-bar" x="388" y="198" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="396" y="188" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="404" y="178" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="412" y="170" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="420" y="178" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="428" y="188" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="436" y="198" width="5" height="12" rx="2" />
+    </g>
+    <text class="small" x="414" y="236">유저 표현</text>
+    <path class="route" d="M443 188 L485 188" />
+    <path class="flow" style="--delay: 4s" d="M443 188 L485 188" />
+    <path class="arrow" d="M480 184 l5 4 -5 4" />
+    <g class="pulse" style="--delay: 4.5s">
+    <rect class="box" x="487" y="161" width="68" height="54" rx="7" />
+    <text class="label" x="521" y="194">PLE</text>
+    </g>
+    <path class="route" d="M555 188 H581 V127 H620" />
+    <path class="flow" style="--delay: 5.0s" d="M555 188 H581 V127 H620" />
+    <path class="arrow" d="M615 123 l5 4 -5 4" />
+    <g class="pulse" style="--delay: 5.0s">
+    <rect class="box" x="622" y="110" width="72" height="34" rx="7" />
+    <text class="small" x="658" y="133">p₁</text>
+    </g>
+    <path class="route" d="M555 188 H581 V185 H620" />
+    <path class="flow" style="--delay: 5.65s" d="M555 188 H581 V185 H620" />
+    <path class="arrow" d="M615 181 l5 4 -5 4" />
+    <g class="pulse" style="--delay: 5.65s">
+    <rect class="box" x="622" y="168" width="72" height="34" rx="7" />
+    <text class="small" x="658" y="191">p₂</text>
+    </g>
+    <path class="route" d="M555 188 H581 V267 H620" />
+    <path class="flow" style="--delay: 6.3s" d="M555 188 H581 V267 H620" />
+    <path class="arrow" d="M615 263 l5 4 -5 4" />
+    <g class="pulse" style="--delay: 6.3s">
+    <rect class="box" x="622" y="250" width="72" height="34" rx="7" />
+    <text class="small" x="658" y="273">p₁₈₉</text>
+    </g>
+    <text class="small" x="658" y="231">⋮</text>
+    <text class="small" x="622" y="312" style="font-size: 13px">189개 앱이벤트 확률</text>
+    <text class="small" x="292" y="277">학습 유저</text>
+    <text class="small" x="292" y="301" style="font-size: 15px">100만 → 1,700만</text>
+  </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 715" role="img" aria-label="유저 요약 정보는 DCN-V2 인코더로, 시간순 앱이벤트 시퀀스는 6층 Causal Transformer로 각각 192차원 벡터가 되고, Gated Fusion이 둘을 묶어 192차원 유저 표현을 만든 뒤 PLE가 189개 앱이벤트 확률을 출력합니다.">
+    <text class="small" x="160" y="20">유저 요약 정보</text>
+    <text class="small" x="160" y="42">잔액 · 신용 · 소비 집계</text>
+    <path class="route" d="M160 50 L160 65" />
+    <path class="arrow" d="M156 60 l4 5 4 -5" />
+    <rect class="box" x="58" y="68" width="204" height="56" rx="7" />
+    <text class="label" x="160" y="91">요약 정보 인코더</text>
+    <text class="small" x="160" y="113">DCN-V2 → 192D</text>
+    <text class="small" x="160" y="155">시간순 앱이벤트</text>
+    <g class="pulse" style="--delay: 0.0s">
+    <rect class="box" x="48" y="168" width="40" height="28" rx="7" />
+    <text class="small" x="68" y="188">e₁</text>
+    </g>
+    <g class="pulse" style="--delay: 0.3s">
+    <rect class="box" x="94" y="168" width="40" height="28" rx="7" />
+    <text class="small" x="114" y="188">e₂</text>
+    </g>
+    <g class="pulse" style="--delay: 0.6s">
+    <rect class="box" x="140" y="168" width="40" height="28" rx="7" />
+    <text class="small" x="160" y="188">e₃</text>
+    </g>
+    <g class="pulse" style="--delay: 0.8999999999999999s">
+    <rect class="box" x="186" y="168" width="40" height="28" rx="7" />
+    <text class="small" x="206" y="188">…</text>
+    </g>
+    <g class="pulse" style="--delay: 1.2s">
+    <rect class="box" x="232" y="168" width="40" height="28" rx="7" />
+    <text class="small" x="252" y="188">eₜ</text>
+    </g>
+    <path class="route" d="M50 207 L270 207" />
+    <path class="arrow" d="M265 203 l5 4 -5 4" />
+    <path class="route" d="M160 210 L160 226" />
+    <path class="arrow" d="M156 221 l4 5 4 -5" />
+    <rect class="accent-box" x="58" y="228" width="204" height="76" rx="7" />
+    <text class="label" x="160" y="251">Causal TF · 6L</text>
+    <text class="small" x="160" y="273">d=192 · 6 heads</text>
+    <text class="small" x="160" y="294">Last token → 192D</text>
+    <path class="route" d="M58 96 H24 V346 H66" />
+    <path class="flow" style="--delay: 1.5s" d="M58 96 H24 V346 H66" />
+    <path class="arrow" d="M61 342 l5 4 -5 4" />
+    <path class="route" d="M160 304 L160 324" />
+    <path class="flow" style="--delay: 1.5s" d="M160 304 L160 324" />
+    <path class="arrow" d="M156 319 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 3s">
+    <rect class="box" x="68" y="326" width="184" height="44" rx="7" />
+    <text class="label" x="160" y="353">Gated Fusion</text>
+    </g>
+    <path class="route" d="M160 370 L160 391" />
+    <path class="flow" style="--delay: 3.5s" d="M160 370 L160 391" />
+    <path class="arrow" d="M156 386 l4 5 4 -5" />
+    <text class="label" x="160" y="410">192D</text>
+    <g class="grow" style="--delay: 3.5s">
+    <rect class="vector-bar" x="134" y="445" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="142" y="435" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="150" y="425" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="158" y="417" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="166" y="425" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="174" y="435" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="182" y="445" width="5" height="12" rx="2" />
+    </g>
+    <text class="small" x="160" y="479">유저 표현</text>
+    <path class="route" d="M160 486 L160 505" />
+    <path class="flow" style="--delay: 4s" d="M160 486 L160 505" />
+    <path class="arrow" d="M156 500 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 4.5s">
+    <rect class="box" x="108" y="507" width="104" height="38" rx="7" />
+    <text class="label" x="160" y="532">PLE</text>
+    </g>
+    <path class="route" d="M160 545 V562 H64 V578" />
+    <path class="flow" style="--delay: 5.0s" d="M160 545 V562 H64 V578" />
+    <path class="arrow" d="M60 573 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 5.0s">
+    <rect class="box" x="30" y="580" width="68" height="34" rx="7" />
+    <text class="small" x="64" y="603">p₁</text>
+    </g>
+    <path class="route" d="M160 545 V562 H160 V578" />
+    <path class="flow" style="--delay: 5.65s" d="M160 545 V562 H160 V578" />
+    <path class="arrow" d="M156 573 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 5.65s">
+    <rect class="box" x="126" y="580" width="68" height="34" rx="7" />
+    <text class="small" x="160" y="603">p₂</text>
+    </g>
+    <path class="route" d="M160 545 V562 H256 V578" />
+    <path class="flow" style="--delay: 6.3s" d="M160 545 V562 H256 V578" />
+    <path class="arrow" d="M252 573 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 6.3s">
+    <rect class="box" x="222" y="580" width="68" height="34" rx="7" />
+    <text class="small" x="256" y="603">p₁₈₉</text>
+    </g>
+    <text class="small" x="210" y="603">⋯</text>
+    <text class="small" x="160" y="639">189개 앱이벤트 확률</text>
+    <text class="small" x="160" y="674">학습 유저</text>
+    <text class="label" x="160" y="698">100만 → 1,700만</text>
+  </svg>
+</DiagramFrame>
+<style>
+  /* Keep the routes readable; only their accent overlays move during each stage. */
+  svg .pulse { animation: taste-highlight 10s ease-in-out infinite; animation-delay: var(--delay, 0s); }
+  svg .flow { opacity: 0; animation: taste-stream 10s linear infinite; animation-delay: var(--delay, 0s); }
+  svg .pulse .box { stroke: var(--line); }
+  .vector-bar { fill: var(--accent); }
+  .inactive { opacity: .6 !important; }
+  @keyframes taste-highlight { 0%, 12%, 100% { opacity: .65; } 3%, 8% { opacity: 1; } }
+  @keyframes taste-stream { 0%, 18%, 100% { opacity: 0; stroke-dashoffset: 0; } 2% { opacity: 1; } 16% { opacity: 1; stroke-dashoffset: -42; } }
+  .grow { transform-box: fill-box; transform-origin: bottom; animation: vector-grow 10s ease-out infinite; animation-delay: var(--delay); }
+  @keyframes vector-grow { 0% { transform: scaleY(.35); } 6%, 100% { transform: scaleY(1); } }
+  @media (prefers-reduced-motion: reduce) {
+    svg .pulse, svg .flow, svg .grow, svg .result-arrow { animation: none; opacity: 1; transform: none; }
+  }
+</style>

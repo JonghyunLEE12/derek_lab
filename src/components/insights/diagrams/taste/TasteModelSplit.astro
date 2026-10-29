@@ -1,0 +1,212 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '앱이벤트·소비 이력과 요약 정보라는 공통 입력을 앱이벤트 예측 모델, 소비 예측 모델, FMD ActType 모델이 각각 받는다. FMD ActType 모델만 금융중개 전용 입력을 추가로 받는다.' } = Astro.props;
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 720 308" role="img" aria-label="앱이벤트 heads와 소비 heads를 함께 두던 단일 모델을 앱이벤트 예측 모델, 소비 예측 모델, FMD ActType 모델 세 개로 나눕니다. 세 모델은 앱이벤트·소비 이력과 요약 정보를 공통 입력으로 받고, FMD ActType 모델만 금융중개 전용 입력을 추가로 받습니다.">
+    <text class="small" x="100" y="20">단일 모델</text>
+    <rect class="box" x="4" y="38" width="192" height="34" rx="7" />
+    <text class="small" x="100" y="60" style="font-size: 12px">앱이벤트 · 소비 · 요약 정보</text>
+    <path class="route" d="M100 72 L100 92" />
+    <path class="flow" style="--delay: 0s" d="M100 72 L100 92" />
+    <path class="arrow" d="M96 87 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 0.8s">
+    <rect class="box" x="18" y="94" width="164" height="88" rx="7" />
+    <text class="label" x="100" y="118">공유 표현 학습</text>
+    <rect class="vector-bar" x="74" y="156" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="82" y="146" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="90" y="136" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="98" y="128" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="106" y="136" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="114" y="146" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="122" y="156" width="5" height="12" rx="2" />
+    </g>
+    <path class="route" d="M100 182 V196 H50.0 V210" />
+    <path class="flow" style="--delay: 1.5s" d="M100 182 V196 H50.0 V210" />
+    <path class="arrow" d="M46.0 205 l4 5 4 -5" />
+    <rect class="box" x="4" y="212" width="92" height="35" rx="7" />
+    <text class="small" x="50.0" y="234" style="font-size: 12px">앱이벤트 heads</text>
+    <path class="route" d="M100 182 V196 H150.0 V210" />
+    <path class="flow" style="--delay: 1.5s" d="M100 182 V196 H150.0 V210" />
+    <path class="arrow" d="M146.0 205 l4 5 4 -5" />
+    <rect class="box" x="104" y="212" width="92" height="35" rx="7" />
+    <text class="small" x="150.0" y="234" style="font-size: 12px">소비 heads</text>
+    <path class="route" d="M208 166 L270 166" />
+    <path class="flow" style="--delay: 3s" d="M208 166 L270 166" />
+    <path class="arrow" d="M265 162 l5 4 -5 4" />
+    <text class="small" x="239" y="190" style="font-size: 12px">모델 분리</text>
+    <text class="small" x="498" y="20">목적·도메인별 모델</text>
+    <rect class="box" x="280" y="38" width="432" height="52" rx="7" />
+    <text class="small" x="326" y="60">공통 입력</text>
+    <text class="small" x="532" y="60" style="font-size: 13px">앱이벤트·소비 이력 + 요약 정보</text>
+    <rect class="accent-box" x="570" y="103" width="142" height="28" rx="7" />
+    <text class="small" x="641" y="122" style="font-size: 12px">금융중개 전용 입력</text>
+    <path class="route" d="M498 90 V98 H346 V166" />
+    <path class="flow" style="--delay: 4.0s" d="M498 90 V98 H346 V166" />
+    <path class="arrow" d="M342 161 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 4.5s">
+    <rect class="accent-box" x="280" y="168" width="132" height="124" rx="7" />
+    <text class="label" x="346" y="193" style="font-size: 13px">앱이벤트 예측 모델</text>
+    <text class="small" x="346" y="214" style="font-size: 13px">acttype_only</text>
+    <rect class="vector-bar" x="320" y="250" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="328" y="240" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="336" y="230" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="344" y="222" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="352" y="230" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="360" y="240" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="368" y="250" width="5" height="12" rx="2" />
+    <text class="small" x="346" y="282" style="font-size: 12px">앱이벤트 loss</text>
+    </g>
+    <path class="route" d="M498 90 V98 H492 V166" />
+    <path class="flow" style="--delay: 5.5s" d="M498 90 V98 H492 V166" />
+    <path class="arrow" d="M488 161 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 6.0s">
+    <rect class="accent-box" x="426" y="168" width="132" height="124" rx="7" />
+    <text class="label" x="492" y="193" style="font-size: 13px">소비 예측 모델</text>
+    <text class="small" x="492" y="214" style="font-size: 13px">spending_only</text>
+    <rect class="vector-bar" x="466" y="250" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="474" y="240" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="482" y="230" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="490" y="222" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="498" y="230" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="506" y="240" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="514" y="250" width="5" height="12" rx="2" />
+    <text class="small" x="492" y="282" style="font-size: 12px">소비 loss</text>
+    </g>
+    <path class="route" d="M498 90 V98 H558 V147 H638 V166" />
+    <path class="flow" style="--delay: 7.0s" d="M498 90 V98 H558 V147 H638 V166" />
+    <path class="arrow" d="M634 161 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 7.5s">
+    <rect class="accent-box" x="572" y="168" width="132" height="124" rx="7" />
+    <text class="label" x="638" y="193" style="font-size: 13px">FMD ActType 모델</text>
+    <text class="small" x="638" y="214" style="font-size: 13px">금융중개</text>
+    <rect class="vector-bar" x="612" y="250" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="620" y="240" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="628" y="230" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="636" y="222" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="644" y="230" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="652" y="240" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="660" y="250" width="5" height="12" rx="2" />
+    <text class="small" x="638" y="282" style="font-size: 12px">FMD 앱이벤트 loss</text>
+    </g>
+    <path class="route" d="M688 131 L688 147" />
+    <path class="flow" style="--delay: 8s" d="M688 131 L688 147" />
+    
+    <path class="route" d="M688 147 H638" />
+    <path class="flow" style="--delay: 8s" d="M688 147 H638" />
+    <g class="pulse" style="--delay: 8s">
+    <circle class="accent-box" cx="638" cy="147" r="9" />
+    <text class="accent-text" x="638" y="152" style="font-size: 16px">⊕</text>
+    </g>
+  </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 784" role="img" aria-label="앱이벤트 heads와 소비 heads를 함께 두던 단일 모델을 앱이벤트 예측 모델, 소비 예측 모델, FMD ActType 모델 세 개로 나눕니다. 세 모델은 앱이벤트·소비 이력과 요약 정보를 공통 입력으로 받고, FMD ActType 모델만 금융중개 전용 입력을 추가로 받습니다.">
+    <text class="small" x="160" y="20">단일 모델</text>
+    <rect class="box" x="28" y="38" width="264" height="34" rx="7" />
+    <text class="small" x="160" y="60" style="font-size: 14px">앱이벤트 · 소비 · 요약 정보</text>
+    <path class="route" d="M160 72 L160 92" />
+    <path class="flow" style="--delay: 0s" d="M160 72 L160 92" />
+    <path class="arrow" d="M156 87 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 0.8s">
+    <rect class="box" x="78" y="94" width="164" height="88" rx="7" />
+    <text class="label" x="160" y="118">공유 표현 학습</text>
+    <rect class="vector-bar" x="134" y="156" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="142" y="146" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="150" y="136" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="158" y="128" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="166" y="136" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="174" y="146" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="182" y="156" width="5" height="12" rx="2" />
+    </g>
+    <path class="route" d="M160 182 V196 H94.0 V210" />
+    <path class="flow" style="--delay: 1.5s" d="M160 182 V196 H94.0 V210" />
+    <path class="arrow" d="M90.0 205 l4 5 4 -5" />
+    <rect class="box" x="40" y="212" width="108" height="35" rx="7" />
+    <text class="small" x="94.0" y="234" style="font-size: 14px">앱이벤트 heads</text>
+    <path class="route" d="M160 182 V196 H226.0 V210" />
+    <path class="flow" style="--delay: 1.5s" d="M160 182 V196 H226.0 V210" />
+    <path class="arrow" d="M222.0 205 l4 5 4 -5" />
+    <rect class="box" x="172" y="212" width="108" height="35" rx="7" />
+    <text class="small" x="226.0" y="234" style="font-size: 14px">소비 heads</text>
+    <path class="route" d="M160 256 L160 286" />
+    <path class="flow" style="--delay: 3s" d="M160 256 L160 286" />
+    <path class="arrow" d="M156 281 l4 5 4 -5" />
+    <text class="small" x="211" y="277">모델 분리</text>
+    <text class="small" x="160" y="316">목적·도메인별 모델</text>
+    <rect class="box" x="22" y="332" width="276" height="56" rx="7" />
+    <text class="label" x="160" y="354">공통 입력</text>
+    <text class="small" x="160" y="377">앱이벤트·소비 이력 + 요약 정보</text>
+    <path class="route" d="M160 388 V400 H14 V464 H36" />
+    <path class="flow" style="--delay: 4.0s" d="M160 388 V400 H14 V464 H36" />
+    <path class="arrow" d="M31 460 l5 4 -5 4" />
+    <g class="pulse" style="--delay: 4.5s">
+    <rect class="accent-box" x="38" y="412" width="190" height="108" rx="7" />
+    <text class="label" x="133" y="435">앱이벤트 예측 모델</text>
+    <text class="small" x="133" y="456">acttype_only</text>
+    <rect class="vector-bar" x="107" y="488" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="115" y="478" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="123" y="468" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="131" y="460" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="139" y="468" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="147" y="478" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="155" y="488" width="5" height="12" rx="2" />
+    <text class="small" x="133" y="514">앱이벤트 loss</text>
+    </g>
+    <path class="route" d="M160 388 V400 H14 V588 H36" />
+    <path class="flow" style="--delay: 5.5s" d="M160 388 V400 H14 V588 H36" />
+    <path class="arrow" d="M31 584 l5 4 -5 4" />
+    <g class="pulse" style="--delay: 6.0s">
+    <rect class="accent-box" x="38" y="536" width="190" height="108" rx="7" />
+    <text class="label" x="133" y="559">소비 예측 모델</text>
+    <text class="small" x="133" y="580">spending_only</text>
+    <rect class="vector-bar" x="107" y="612" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="115" y="602" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="123" y="592" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="131" y="584" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="139" y="592" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="147" y="602" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="155" y="612" width="5" height="12" rx="2" />
+    <text class="small" x="133" y="638">소비 loss</text>
+    </g>
+    <path class="route" d="M160 388 V400 H14 V648 H208 V658" />
+    <path class="flow" style="--delay: 7.0s" d="M160 388 V400 H14 V648 H208 V658" />
+    <path class="arrow" d="M204 653 l4 5 4 -5" />
+    <g class="pulse" style="--delay: 7.5s">
+    <rect class="accent-box" x="38" y="660" width="190" height="108" rx="7" />
+    <text class="label" x="133" y="683">FMD ActType 모델</text>
+    <text class="small" x="133" y="704">금융중개</text>
+    <rect class="vector-bar" x="107" y="736" width="5" height="12" rx="2" />
+    <rect class="vector-bar" x="115" y="726" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="123" y="716" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="131" y="708" width="5" height="40" rx="2" />
+    <rect class="vector-bar" x="139" y="716" width="5" height="32" rx="2" />
+    <rect class="vector-bar" x="147" y="726" width="5" height="22" rx="2" />
+    <rect class="vector-bar" x="155" y="736" width="5" height="12" rx="2" />
+    <text class="small" x="133" y="762">FMD 앱이벤트 loss</text>
+    </g>
+    <rect class="accent-box" x="236" y="610" width="78" height="63" rx="7" />
+    <text class="small" x="275" y="633">금융중개</text>
+    <text class="small" x="275" y="656">전용 입력</text>
+    <path class="route" d="M236 642 H208 V648" />
+    <path class="flow" style="--delay: 8s" d="M236 642 H208 V648" />
+    
+    <g class="pulse" style="--delay: 8s">
+    <circle class="accent-box" cx="208" cy="648" r="9" />
+    <text class="accent-text" x="208" y="653" style="font-size: 16px">⊕</text>
+    </g>
+  </svg>
+</DiagramFrame>
+<style>
+  /* Keep the routes readable; only their accent overlays move during each stage. */
+  svg .pulse { animation: taste-highlight 12s ease-in-out infinite; animation-delay: var(--delay, 0s); }
+  svg .flow { opacity: 0; animation: taste-stream 12s linear infinite; animation-delay: var(--delay, 0s); }
+  svg .pulse .box { stroke: var(--line); }
+  .vector-bar { fill: var(--accent); }
+  .inactive { opacity: .6 !important; }
+  @keyframes taste-highlight { 0%, 12%, 100% { opacity: .65; } 3%, 8% { opacity: 1; } }
+  @keyframes taste-stream { 0%, 18%, 100% { opacity: 0; stroke-dashoffset: 0; } 2% { opacity: 1; } 16% { opacity: 1; stroke-dashoffset: -42; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    svg .pulse, svg .flow, svg .grow, svg .result-arrow { animation: none; opacity: 1; transform: none; }
+  }
+</style>
