@@ -1,0 +1,225 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '텍스트가 Acoustic Model을 거쳐 Mel-spectrogram이 되고 Vocoder가 그걸 Waveform으로 바꾼다. 가운데 Mel-spectrogram을 중간 표현으로 쓰는 2단계 구조다.' } = Astro.props;
+const description = '텍스트 안녕하세요가 Tacotron2나 FastSpeech2 같은 Acoustic Model을 거쳐 Mel-spectrogram이 되고, HiFi-GAN 같은 Vocoder가 그 Mel-spectrogram을 Waveform 음성으로 바꾸는 2단계 TTS 구조입니다.';
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 720 200" role="img" aria-label={description}>
+    <path class="route" d="M128 100 H150" />
+    <path class="flow stream-0-0-1-5" d="M128 100 H150" />
+    <path class="arrow" d="M145 96 l5 4 -5 4" />
+    <text class="small" x="68" y="44">Text</text>
+    <rect class="box" x="8" y="60" width="120" height="80" rx="7" />
+    <text class="label" x="68.0" y="105.0" style="font-size: 14px">안녕하세요.</text>
+    <path class="route" d="M272 100 H294" />
+    <path class="flow stream-1-5-1-5" d="M272 100 H294" />
+    <path class="arrow" d="M289 96 l5 4 -5 4" />
+    <g class="pulse highlight-0">
+    <rect class="box" x="152" y="60" width="120" height="80" rx="7" />
+    <text class="label" x="212.0" y="82" style="font-size: 14px">Acoustic Model</text>
+    <text class="small" x="212.0" y="102" style="font-size: 12px">Tacotron2</text>
+    <text class="small" x="212.0" y="120" style="font-size: 12px">FastSpeech2</text>
+    </g>
+    <path class="route" d="M416 100 H438" />
+    <path class="flow stream-3-0-1-5" d="M416 100 H438" />
+    <path class="arrow" d="M433 96 l5 4 -5 4" />
+    <text class="small" x="356" y="44" style="font-size: 13px">Mel-spectrogram</text>
+    <rect class="accent-box" x="296" y="60" width="120" height="80" rx="7" />
+    <rect class="mel-cell mel-column-0" x="318" y="80" width="9" height="5" rx="1" style="opacity: 0.3" />
+    <rect class="mel-cell mel-column-0" x="318" y="87" width="9" height="5" rx="1" style="opacity: 0.6" />
+    <rect class="mel-cell mel-column-0" x="318" y="94" width="9" height="5" rx="1" style="opacity: 0.9" />
+    <rect class="mel-cell mel-column-0" x="318" y="101" width="9" height="5" rx="1" style="opacity: 0.5" />
+    <rect class="mel-cell mel-column-0" x="318" y="108" width="9" height="5" rx="1" style="opacity: 0.8" />
+    <rect class="mel-cell mel-column-0" x="318" y="115" width="9" height="5" rx="1" style="opacity: 0.4" />
+    <rect class="mel-cell mel-column-1" x="329" y="80" width="9" height="5" rx="1" style="opacity: 0.4" />
+    <rect class="mel-cell mel-column-1" x="329" y="87" width="9" height="5" rx="1" style="opacity: 0.7" />
+    <rect class="mel-cell mel-column-1" x="329" y="94" width="9" height="5" rx="1" style="opacity: 0.3" />
+    <rect class="mel-cell mel-column-1" x="329" y="101" width="9" height="5" rx="1" style="opacity: 0.6" />
+    <rect class="mel-cell mel-column-1" x="329" y="108" width="9" height="5" rx="1" style="opacity: 0.9" />
+    <rect class="mel-cell mel-column-1" x="329" y="115" width="9" height="5" rx="1" style="opacity: 0.5" />
+    <rect class="mel-cell mel-column-2" x="340" y="80" width="9" height="5" rx="1" style="opacity: 0.5" />
+    <rect class="mel-cell mel-column-2" x="340" y="87" width="9" height="5" rx="1" style="opacity: 0.8" />
+    <rect class="mel-cell mel-column-2" x="340" y="94" width="9" height="5" rx="1" style="opacity: 0.4" />
+    <rect class="mel-cell mel-column-2" x="340" y="101" width="9" height="5" rx="1" style="opacity: 0.7" />
+    <rect class="mel-cell mel-column-2" x="340" y="108" width="9" height="5" rx="1" style="opacity: 0.3" />
+    <rect class="mel-cell mel-column-2" x="340" y="115" width="9" height="5" rx="1" style="opacity: 0.6" />
+    <rect class="mel-cell mel-column-3" x="351" y="80" width="9" height="5" rx="1" style="opacity: 0.6" />
+    <rect class="mel-cell mel-column-3" x="351" y="87" width="9" height="5" rx="1" style="opacity: 0.9" />
+    <rect class="mel-cell mel-column-3" x="351" y="94" width="9" height="5" rx="1" style="opacity: 0.5" />
+    <rect class="mel-cell mel-column-3" x="351" y="101" width="9" height="5" rx="1" style="opacity: 0.8" />
+    <rect class="mel-cell mel-column-3" x="351" y="108" width="9" height="5" rx="1" style="opacity: 0.4" />
+    <rect class="mel-cell mel-column-3" x="351" y="115" width="9" height="5" rx="1" style="opacity: 0.7" />
+    <rect class="mel-cell mel-column-4" x="362" y="80" width="9" height="5" rx="1" style="opacity: 0.7" />
+    <rect class="mel-cell mel-column-4" x="362" y="87" width="9" height="5" rx="1" style="opacity: 0.3" />
+    <rect class="mel-cell mel-column-4" x="362" y="94" width="9" height="5" rx="1" style="opacity: 0.6" />
+    <rect class="mel-cell mel-column-4" x="362" y="101" width="9" height="5" rx="1" style="opacity: 0.9" />
+    <rect class="mel-cell mel-column-4" x="362" y="108" width="9" height="5" rx="1" style="opacity: 0.5" />
+    <rect class="mel-cell mel-column-4" x="362" y="115" width="9" height="5" rx="1" style="opacity: 0.8" />
+    <rect class="mel-cell mel-column-5" x="373" y="80" width="9" height="5" rx="1" style="opacity: 0.8" />
+    <rect class="mel-cell mel-column-5" x="373" y="87" width="9" height="5" rx="1" style="opacity: 0.4" />
+    <rect class="mel-cell mel-column-5" x="373" y="94" width="9" height="5" rx="1" style="opacity: 0.7" />
+    <rect class="mel-cell mel-column-5" x="373" y="101" width="9" height="5" rx="1" style="opacity: 0.3" />
+    <rect class="mel-cell mel-column-5" x="373" y="108" width="9" height="5" rx="1" style="opacity: 0.6" />
+    <rect class="mel-cell mel-column-5" x="373" y="115" width="9" height="5" rx="1" style="opacity: 0.9" />
+    <rect class="mel-cell mel-column-6" x="384" y="80" width="9" height="5" rx="1" style="opacity: 0.9" />
+    <rect class="mel-cell mel-column-6" x="384" y="87" width="9" height="5" rx="1" style="opacity: 0.5" />
+    <rect class="mel-cell mel-column-6" x="384" y="94" width="9" height="5" rx="1" style="opacity: 0.8" />
+    <rect class="mel-cell mel-column-6" x="384" y="101" width="9" height="5" rx="1" style="opacity: 0.4" />
+    <rect class="mel-cell mel-column-6" x="384" y="108" width="9" height="5" rx="1" style="opacity: 0.7" />
+    <rect class="mel-cell mel-column-6" x="384" y="115" width="9" height="5" rx="1" style="opacity: 0.3" />
+    <path class="route" d="M560 100 H582" />
+    <path class="flow stream-4-5-1-5" d="M560 100 H582" />
+    <path class="arrow" d="M577 96 l5 4 -5 4" />
+    <g class="pulse highlight-3">
+    <rect class="box" x="440" y="60" width="120" height="80" rx="7" />
+    <text class="label" x="500.0" y="82" style="font-size: 14px">Vocoder</text>
+    <text class="small" x="500.0" y="102" style="font-size: 12px">HiFi-GAN</text>
+    </g>
+    <text class="small" x="644" y="44">Waveform</text>
+    <rect class="box" x="584" y="60" width="120" height="80" rx="7" />
+    <line class="wave-bar wave-4-5-4" x1="624" x2="624" y1="97.0" y2="103.0" />
+    <line class="wave-bar wave-4-5-3" x1="629" x2="629" y1="94.0" y2="106.0" />
+    <line class="wave-bar wave-4-5-2" x1="634" x2="634" y1="90.0" y2="110.0" />
+    <line class="wave-bar wave-4-5-1" x1="639" x2="639" y1="93.0" y2="107.0" />
+    <line class="wave-bar wave-4-5-0" x1="644" x2="644" y1="88.0" y2="112.0" />
+    <line class="wave-bar wave-4-5-1" x1="649" x2="649" y1="92.0" y2="108.0" />
+    <line class="wave-bar wave-4-5-2" x1="654" x2="654" y1="95.0" y2="105.0" />
+    <line class="wave-bar wave-4-5-3" x1="659" x2="659" y1="91.0" y2="109.0" />
+    <line class="wave-bar wave-4-5-4" x1="664" x2="664" y1="96.0" y2="104.0" />
+    <path class="route" d="M152 160 H560" />
+    <text class="small" x="356" y="185">Mel-spectrogram을 중간 표현으로 쓰는 2단계 구조</text>
+  </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 520" role="img" aria-label={description}>
+    <path class="route" d="M160 84 V99" />
+    <path class="flow stream-0-0-1-5" d="M160 84 V99" />
+    <path class="arrow" d="M156 94 l4 5 4 -5" />
+    <text class="small" x="160" y="18">Text</text>
+    <rect class="box" x="60" y="28" width="200" height="56" rx="7" />
+    <text class="label" x="160.0" y="61.0" style="font-size: 14px">안녕하세요.</text>
+    <path class="route" d="M160 193 V201" />
+    <path class="flow stream-1-5-1-5" d="M160 193 V201" />
+    <path class="arrow" d="M156 196 l4 5 4 -5" />
+    <g class="pulse highlight-0">
+    <rect class="box" x="60" y="117" width="200" height="76" rx="7" />
+    <text class="label" x="160.0" y="139" style="font-size: 14px">Acoustic Model</text>
+    <text class="small" x="160.0" y="159" style="font-size: 12px">Tacotron2</text>
+    <text class="small" x="160.0" y="177" style="font-size: 12px">FastSpeech2</text>
+    </g>
+    <path class="route" d="M160 283 V298" />
+    <path class="flow stream-3-0-1-5" d="M160 283 V298" />
+    <path class="arrow" d="M156 293 l4 5 4 -5" />
+    <text class="small" x="160" y="220">Mel-spectrogram</text>
+    <rect class="accent-box" x="60" y="227" width="200" height="56" rx="7" />
+    <rect class="mel-cell mel-column-0" x="122" y="235" width="9" height="5" rx="1" style="opacity: 0.3" />
+    <rect class="mel-cell mel-column-0" x="122" y="242" width="9" height="5" rx="1" style="opacity: 0.6" />
+    <rect class="mel-cell mel-column-0" x="122" y="249" width="9" height="5" rx="1" style="opacity: 0.9" />
+    <rect class="mel-cell mel-column-0" x="122" y="256" width="9" height="5" rx="1" style="opacity: 0.5" />
+    <rect class="mel-cell mel-column-0" x="122" y="263" width="9" height="5" rx="1" style="opacity: 0.8" />
+    <rect class="mel-cell mel-column-0" x="122" y="270" width="9" height="5" rx="1" style="opacity: 0.4" />
+    <rect class="mel-cell mel-column-1" x="133" y="235" width="9" height="5" rx="1" style="opacity: 0.4" />
+    <rect class="mel-cell mel-column-1" x="133" y="242" width="9" height="5" rx="1" style="opacity: 0.7" />
+    <rect class="mel-cell mel-column-1" x="133" y="249" width="9" height="5" rx="1" style="opacity: 0.3" />
+    <rect class="mel-cell mel-column-1" x="133" y="256" width="9" height="5" rx="1" style="opacity: 0.6" />
+    <rect class="mel-cell mel-column-1" x="133" y="263" width="9" height="5" rx="1" style="opacity: 0.9" />
+    <rect class="mel-cell mel-column-1" x="133" y="270" width="9" height="5" rx="1" style="opacity: 0.5" />
+    <rect class="mel-cell mel-column-2" x="144" y="235" width="9" height="5" rx="1" style="opacity: 0.5" />
+    <rect class="mel-cell mel-column-2" x="144" y="242" width="9" height="5" rx="1" style="opacity: 0.8" />
+    <rect class="mel-cell mel-column-2" x="144" y="249" width="9" height="5" rx="1" style="opacity: 0.4" />
+    <rect class="mel-cell mel-column-2" x="144" y="256" width="9" height="5" rx="1" style="opacity: 0.7" />
+    <rect class="mel-cell mel-column-2" x="144" y="263" width="9" height="5" rx="1" style="opacity: 0.3" />
+    <rect class="mel-cell mel-column-2" x="144" y="270" width="9" height="5" rx="1" style="opacity: 0.6" />
+    <rect class="mel-cell mel-column-3" x="155" y="235" width="9" height="5" rx="1" style="opacity: 0.6" />
+    <rect class="mel-cell mel-column-3" x="155" y="242" width="9" height="5" rx="1" style="opacity: 0.9" />
+    <rect class="mel-cell mel-column-3" x="155" y="249" width="9" height="5" rx="1" style="opacity: 0.5" />
+    <rect class="mel-cell mel-column-3" x="155" y="256" width="9" height="5" rx="1" style="opacity: 0.8" />
+    <rect class="mel-cell mel-column-3" x="155" y="263" width="9" height="5" rx="1" style="opacity: 0.4" />
+    <rect class="mel-cell mel-column-3" x="155" y="270" width="9" height="5" rx="1" style="opacity: 0.7" />
+    <rect class="mel-cell mel-column-4" x="166" y="235" width="9" height="5" rx="1" style="opacity: 0.7" />
+    <rect class="mel-cell mel-column-4" x="166" y="242" width="9" height="5" rx="1" style="opacity: 0.3" />
+    <rect class="mel-cell mel-column-4" x="166" y="249" width="9" height="5" rx="1" style="opacity: 0.6" />
+    <rect class="mel-cell mel-column-4" x="166" y="256" width="9" height="5" rx="1" style="opacity: 0.9" />
+    <rect class="mel-cell mel-column-4" x="166" y="263" width="9" height="5" rx="1" style="opacity: 0.5" />
+    <rect class="mel-cell mel-column-4" x="166" y="270" width="9" height="5" rx="1" style="opacity: 0.8" />
+    <rect class="mel-cell mel-column-5" x="177" y="235" width="9" height="5" rx="1" style="opacity: 0.8" />
+    <rect class="mel-cell mel-column-5" x="177" y="242" width="9" height="5" rx="1" style="opacity: 0.4" />
+    <rect class="mel-cell mel-column-5" x="177" y="249" width="9" height="5" rx="1" style="opacity: 0.7" />
+    <rect class="mel-cell mel-column-5" x="177" y="256" width="9" height="5" rx="1" style="opacity: 0.3" />
+    <rect class="mel-cell mel-column-5" x="177" y="263" width="9" height="5" rx="1" style="opacity: 0.6" />
+    <rect class="mel-cell mel-column-5" x="177" y="270" width="9" height="5" rx="1" style="opacity: 0.9" />
+    <rect class="mel-cell mel-column-6" x="188" y="235" width="9" height="5" rx="1" style="opacity: 0.9" />
+    <rect class="mel-cell mel-column-6" x="188" y="242" width="9" height="5" rx="1" style="opacity: 0.5" />
+    <rect class="mel-cell mel-column-6" x="188" y="249" width="9" height="5" rx="1" style="opacity: 0.8" />
+    <rect class="mel-cell mel-column-6" x="188" y="256" width="9" height="5" rx="1" style="opacity: 0.4" />
+    <rect class="mel-cell mel-column-6" x="188" y="263" width="9" height="5" rx="1" style="opacity: 0.7" />
+    <rect class="mel-cell mel-column-6" x="188" y="270" width="9" height="5" rx="1" style="opacity: 0.3" />
+    <path class="route" d="M160 372 V394" />
+    <path class="flow stream-4-5-1-5" d="M160 372 V394" />
+    <path class="arrow" d="M156 389 l4 5 4 -5" />
+    <g class="pulse highlight-3">
+    <rect class="box" x="60" y="316" width="200" height="56" rx="7" />
+    <text class="label" x="160.0" y="338" style="font-size: 14px">Vocoder</text>
+    <text class="small" x="160.0" y="358" style="font-size: 12px">HiFi-GAN</text>
+    </g>
+    <text class="small" x="160" y="413">Waveform</text>
+    <rect class="box" x="60" y="420" width="200" height="56" rx="7" />
+    <line class="wave-bar wave-4-5-4" x1="140" x2="140" y1="445.0" y2="451.0" />
+    <line class="wave-bar wave-4-5-3" x1="145" x2="145" y1="442.0" y2="454.0" />
+    <line class="wave-bar wave-4-5-2" x1="150" x2="150" y1="438.0" y2="458.0" />
+    <line class="wave-bar wave-4-5-1" x1="155" x2="155" y1="441.0" y2="455.0" />
+    <line class="wave-bar wave-4-5-0" x1="160" x2="160" y1="436.0" y2="460.0" />
+    <line class="wave-bar wave-4-5-1" x1="165" x2="165" y1="440.0" y2="456.0" />
+    <line class="wave-bar wave-4-5-2" x1="170" x2="170" y1="443.0" y2="453.0" />
+    <line class="wave-bar wave-4-5-3" x1="175" x2="175" y1="439.0" y2="457.0" />
+    <line class="wave-bar wave-4-5-4" x1="180" x2="180" y1="444.0" y2="452.0" />
+    <text class="small" x="160" y="496" style="font-size: 13px">Mel-spectrogram을 중간 표현으로 쓰는</text>
+    <text class="small" x="160" y="514" style="font-size: 13px">2단계 구조</text>
+  </svg>
+</DiagramFrame>
+<style>
+  /* Static routes remain readable throughout the timed accent sequence. */
+  svg .flow { opacity: 0; }
+  svg .pulse .box { stroke: var(--line); }
+  .wave-bar { stroke: var(--muted); stroke-width: 2; stroke-linecap: round; transform-box: fill-box; transform-origin: center; }
+  svg .stream-0-0-1-5 { animation: stream-0-0-1-5 10s linear infinite; }
+  @keyframes stream-0-0-1-5 { 0%, 0.0000%, 15.0000%, 100% { opacity: 0; stroke-dashoffset: 0; } 0.1000% { opacity: 1; } 14.9000% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .stream-1-5-1-5 { animation: stream-1-5-1-5 10s linear infinite; }
+  @keyframes stream-1-5-1-5 { 0%, 15.0000%, 30.0000%, 100% { opacity: 0; stroke-dashoffset: 0; } 15.1000% { opacity: 1; } 29.9000% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .highlight-0 { animation: highlight-0 10s ease-in-out infinite; }
+  @keyframes highlight-0 { 0%, 0.0000%, 15.0000%, 100% { opacity: .65; } 7.5000% { opacity: 1; } }
+  svg .stream-3-0-1-5 { animation: stream-3-0-1-5 10s linear infinite; }
+  @keyframes stream-3-0-1-5 { 0%, 30.0000%, 45.0000%, 100% { opacity: 0; stroke-dashoffset: 0; } 30.1000% { opacity: 1; } 44.9000% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .mel-column-0 { animation: mel-column-0 10s ease-in-out infinite; }
+  @keyframes mel-column-0 { 0%, 15%, 18%, 100% { opacity: .3; } 16.5% { opacity: .9; } }
+  svg .mel-column-1 { animation: mel-column-1 10s ease-in-out infinite; }
+  @keyframes mel-column-1 { 0%, 16.5%, 19.5%, 100% { opacity: .3; } 18% { opacity: .9; } }
+  svg .mel-column-2 { animation: mel-column-2 10s ease-in-out infinite; }
+  @keyframes mel-column-2 { 0%, 18%, 21%, 100% { opacity: .3; } 19.5% { opacity: .9; } }
+  svg .mel-column-3 { animation: mel-column-3 10s ease-in-out infinite; }
+  @keyframes mel-column-3 { 0%, 19.5%, 22.5%, 100% { opacity: .3; } 21% { opacity: .9; } }
+  svg .mel-column-4 { animation: mel-column-4 10s ease-in-out infinite; }
+  @keyframes mel-column-4 { 0%, 21%, 24%, 100% { opacity: .3; } 22.5% { opacity: .9; } }
+  svg .mel-column-5 { animation: mel-column-5 10s ease-in-out infinite; }
+  @keyframes mel-column-5 { 0%, 22.5%, 25.5%, 100% { opacity: .3; } 24% { opacity: .9; } }
+  svg .mel-column-6 { animation: mel-column-6 10s ease-in-out infinite; }
+  @keyframes mel-column-6 { 0%, 24%, 27%, 100% { opacity: .3; } 25.5% { opacity: .9; } }
+  svg .stream-4-5-1-5 { animation: stream-4-5-1-5 10s linear infinite; }
+  @keyframes stream-4-5-1-5 { 0%, 45.0000%, 60.0000%, 100% { opacity: 0; stroke-dashoffset: 0; } 45.1000% { opacity: 1; } 59.9000% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .highlight-3 { animation: highlight-3 10s ease-in-out infinite; }
+  @keyframes highlight-3 { 0%, 30.0000%, 45.0000%, 100% { opacity: .65; } 37.5000% { opacity: 1; } }
+  svg .wave-4-5-4 { animation: wave-4-5-4 10s ease-in-out infinite; }
+  @keyframes wave-4-5-4 { 0%, 47.4000%, 53.4000%, 100% { transform: scaleY(1); } 50.4000% { transform: scaleY(1.15); } }
+  svg .wave-4-5-3 { animation: wave-4-5-3 10s ease-in-out infinite; }
+  @keyframes wave-4-5-3 { 0%, 46.8000%, 52.8000%, 100% { transform: scaleY(1); } 49.8000% { transform: scaleY(1.15); } }
+  svg .wave-4-5-2 { animation: wave-4-5-2 10s ease-in-out infinite; }
+  @keyframes wave-4-5-2 { 0%, 46.2000%, 52.2000%, 100% { transform: scaleY(1); } 49.2000% { transform: scaleY(1.15); } }
+  svg .wave-4-5-1 { animation: wave-4-5-1 10s ease-in-out infinite; }
+  @keyframes wave-4-5-1 { 0%, 45.6000%, 51.6000%, 100% { transform: scaleY(1); } 48.6000% { transform: scaleY(1.15); } }
+  svg .wave-4-5-0 { animation: wave-4-5-0 10s ease-in-out infinite; }
+  @keyframes wave-4-5-0 { 0%, 45.0000%, 51.0000%, 100% { transform: scaleY(1); } 48.0000% { transform: scaleY(1.15); } }
+  .mel-cell { fill: var(--muted); }
+  @media (prefers-reduced-motion: reduce) {
+    svg * { animation: none !important; transform: none !important; opacity: 1; }
+    svg .mel-cell { opacity: .9 !important; }
+  }
+</style>

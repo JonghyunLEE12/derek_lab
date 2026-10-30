@@ -1,0 +1,329 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '음성이 인코더를 지나 연속 벡터가 되고 VQ layer가 코드북에서 가장 가까운 코드로 바꾼다. 디코더가 복원한 음성과 원본의 복원 오차로 학습한다. 학습이 끝나면 음성은 코드 번호의 시퀀스가 되고 LLM이 텍스트 토큰처럼 학습한다.' } = Astro.props;
+const description = '음성이 인코더를 지나 연속 벡터가 되고 VQ layer가 코드북에서 가장 가까운 코드로 양자화한 뒤 디코더가 복원 음성을 만들며, 원본과의 복원 오차로 학습합니다. 학습이 끝나면 같은 VQ layer가 음성을 1, 2, 3 같은 코드 번호의 토큰 시퀀스로 바꾸고 LLM이 그 시퀀스를 텍스트 토큰처럼 학습합니다.';
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 720 400" role="img" aria-label={description}>
+    <text class="small" x="148" y="20">학습 · 복원 오차로 학습</text>
+    <path class="route" d="M664 80 V50 H54 V80" stroke-dasharray="3 3" />
+    <path class="flow stream-5-1-5" d="M664 80 V50 H54 V80" />
+    <text class="small loss-label" x="360" y="42">복원 오차로 학습</text>
+    <rect class="box" x="8" y="82" width="92" height="64" rx="7" />
+    <text class="label" x="54.0" y="104" style="font-size: 14px">음성</text>
+    <line class="wave-bar" x1="34.0" x2="34.0" y1="125.0" y2="131.0" />
+    <line class="wave-bar" x1="39.0" x2="39.0" y1="122.0" y2="134.0" />
+    <line class="wave-bar" x1="44.0" x2="44.0" y1="118.0" y2="138.0" />
+    <line class="wave-bar" x1="49.0" x2="49.0" y1="121.0" y2="135.0" />
+    <line class="wave-bar" x1="54.0" x2="54.0" y1="116.0" y2="140.0" />
+    <line class="wave-bar" x1="59.0" x2="59.0" y1="120.0" y2="136.0" />
+    <line class="wave-bar" x1="64.0" x2="64.0" y1="123.0" y2="133.0" />
+    <line class="wave-bar" x1="69.0" x2="69.0" y1="119.0" y2="137.0" />
+    <line class="wave-bar" x1="74.0" x2="74.0" y1="124.0" y2="132.0" />
+    <polygon class="box" points="142,82 234,92 234,136 142,146" />
+    <text class="label" x="188.0" y="119.0" style="font-size: 14px">인코더</text>
+    <g class="pulse highlight-1-5">
+    <rect class="accent-box" x="322" y="82" width="100" height="64" rx="7" />
+    <text class="label" x="372.0" y="104" style="font-size: 14px">VQ layer</text>
+    <text class="small" x="372.0" y="124" style="font-size: 12px">양자화</text>
+    </g>
+    <polygon class="box" points="504,92 596,82 596,146 504,136" />
+    <text class="label" x="550.0" y="119.0" style="font-size: 14px">디코더</text>
+    <rect class="box" x="620" y="82" width="92" height="64" rx="7" />
+    <text class="label" x="666.0" y="104" style="font-size: 14px">복원 음성</text>
+    <line class="wave-bar wave-4-4" x1="646" x2="646" y1="125.0" y2="131.0" />
+    <line class="wave-bar wave-4-3" x1="651" x2="651" y1="122.0" y2="134.0" />
+    <line class="wave-bar wave-4-2" x1="656" x2="656" y1="118.0" y2="138.0" />
+    <line class="wave-bar wave-4-1" x1="661" x2="661" y1="121.0" y2="135.0" />
+    <line class="wave-bar wave-4-0" x1="666" x2="666" y1="116.0" y2="140.0" />
+    <line class="wave-bar wave-4-1" x1="671" x2="671" y1="120.0" y2="136.0" />
+    <line class="wave-bar wave-4-2" x1="676" x2="676" y1="123.0" y2="133.0" />
+    <line class="wave-bar wave-4-3" x1="681" x2="681" y1="119.0" y2="137.0" />
+    <line class="wave-bar wave-4-4" x1="686" x2="686" y1="124.0" y2="132.0" />
+    <path class="route" d="M100 114 H140" />
+    <path class="flow stream-0-1" d="M100 114 H140" />
+    <path class="arrow" d="M135 110 l5 4 -5 4" />
+    <path class="route" d="M234 114 H320" />
+    <path class="flow stream-1-1" d="M234 114 H320" />
+    <path class="arrow" d="M315 110 l5 4 -5 4" />
+    <path class="route" d="M422 114 H502" />
+    <path class="flow stream-3-1" d="M422 114 H502" />
+    <path class="arrow" d="M497 110 l5 4 -5 4" />
+    <path class="route" d="M596 114 H618" />
+    <path class="flow stream-4-1" d="M596 114 H618" />
+    <path class="arrow" d="M613 110 l5 4 -5 4" />
+    <text class="small" x="278" y="95" style="font-size: 12px">연속 벡터</text>
+    <text class="small" x="464" y="95" style="font-size: 12px">코드북 벡터</text>
+    <text class="small" x="220" y="169" style="font-size: 12px">high-dimensional continuous</text>
+    <path class="route" d="M372 146 V166" stroke-dasharray="3 3" />
+    <text class="small" x="372" y="182" style="font-size: 12px">코드북 (학습됨)</text>
+    <g class="token">
+    <rect class="box" x="339" y="192" width="18" height="18" rx="4" />
+    <text class="small" x="348" y="205" style="font-size: 12px">1</text>
+    </g>
+    <g class="code-selection">
+    <rect class="box" x="363" y="192" width="18" height="18" rx="4" />
+    <text class="small" x="372" y="205" style="font-size: 12px">2</text>
+    </g>
+    <g class="token">
+    <rect class="box" x="387" y="192" width="18" height="18" rx="4" />
+    <text class="small" x="396" y="205" style="font-size: 12px">3</text>
+    </g>
+    <path class="route" d="M372 212 V294" stroke-dasharray="3 3" />
+    <path class="flow stream-6-5-0-5" d="M372 212 V294" />
+    <text class="small" x="413" y="253" style="font-size: 12px">같은 모듈</text>
+    <text class="small" x="157" y="246">학습 후 · 데이터 토큰화에 사용</text>
+    <rect class="box" x="8" y="296" width="92" height="64" rx="7" />
+    <text class="label" x="54.0" y="318" style="font-size: 14px">음성</text>
+    <line class="wave-bar" x1="34.0" x2="34.0" y1="339.0" y2="345.0" />
+    <line class="wave-bar" x1="39.0" x2="39.0" y1="336.0" y2="348.0" />
+    <line class="wave-bar" x1="44.0" x2="44.0" y1="332.0" y2="352.0" />
+    <line class="wave-bar" x1="49.0" x2="49.0" y1="335.0" y2="349.0" />
+    <line class="wave-bar" x1="54.0" x2="54.0" y1="330.0" y2="354.0" />
+    <line class="wave-bar" x1="59.0" x2="59.0" y1="334.0" y2="350.0" />
+    <line class="wave-bar" x1="64.0" x2="64.0" y1="337.0" y2="347.0" />
+    <line class="wave-bar" x1="69.0" x2="69.0" y1="333.0" y2="351.0" />
+    <line class="wave-bar" x1="74.0" x2="74.0" y1="338.0" y2="346.0" />
+    <polygon class="box" points="142,296 234,306 234,350 142,360" />
+    <text class="label" x="188.0" y="333.0" style="font-size: 14px">인코더</text>
+    <rect class="box" x="322" y="296" width="100" height="64" rx="7" />
+    <text class="label" x="372.0" y="333.0" style="font-size: 14px">VQ layer</text>
+    <g class="pulse highlight-10">
+    <rect class="box" x="630" y="296" width="82" height="64" rx="7" />
+    <text class="label" x="671.0" y="333.0" style="font-size: 14px">LLM</text>
+    </g>
+    <path class="route" d="M100 328 H140" />
+    <path class="flow stream-7-1" d="M100 328 H140" />
+    <path class="arrow" d="M135 324 l5 4 -5 4" />
+    <path class="route" d="M234 328 H320" />
+    <path class="flow stream-8-1" d="M234 328 H320" />
+    <path class="arrow" d="M315 324 l5 4 -5 4" />
+    <path class="route" d="M422 328 H452" />
+    <path class="flow stream-9-0-5" d="M422 328 H452" />
+    <path class="arrow" d="M447 324 l5 4 -5 4" />
+    <path class="route" d="M594 328 H628" />
+    <path class="flow stream-10-1" d="M594 328 H628" />
+    <path class="arrow" d="M623 324 l5 4 -5 4" />
+    <text class="small" x="524" y="303" style="font-size: 12px">음성 토큰 시퀀스</text>
+    <text class="small" x="524" y="362">discrete</text>
+    <text class="small" x="593" y="388" style="font-size: 12px">텍스트 토큰처럼 순서대로 학습</text>
+    <g class="token-reveal-0">
+    <rect class="box" x="456" y="319" width="18" height="18" rx="4" />
+    <text class="small" x="465" y="332" style="font-size: 12px">3</text>
+    </g>
+    <g class="token-reveal-1">
+    <rect class="box" x="480" y="319" width="18" height="18" rx="4" />
+    <text class="small" x="489" y="332" style="font-size: 12px">1</text>
+    </g>
+    <g class="token-reveal-2">
+    <rect class="box" x="504" y="319" width="18" height="18" rx="4" />
+    <text class="small" x="513" y="332" style="font-size: 12px">1</text>
+    </g>
+    <g class="token-reveal-3">
+    <rect class="box" x="528" y="319" width="18" height="18" rx="4" />
+    <text class="small" x="537" y="332" style="font-size: 12px">2</text>
+    </g>
+    <g class="token-reveal-4">
+    <rect class="box" x="552" y="319" width="18" height="18" rx="4" />
+    <text class="small" x="561" y="332" style="font-size: 12px">3</text>
+    </g>
+    <g class="token-reveal-5">
+    <rect class="box" x="576" y="319" width="18" height="18" rx="4" />
+    <text class="small" x="585" y="332" style="font-size: 12px">2</text>
+    </g>
+  </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 760" role="img" aria-label={description}>
+    <text class="small" x="160" y="19">학습 · 복원 오차로 학습</text>
+    <text class="small loss-label" x="160" y="40" style="font-size: 12px">복원 오차로 학습</text>
+    <path class="route" d="M70 368 H22 V65 H70" stroke-dasharray="3 3" />
+    <path class="flow stream-5-1-5" d="M70 368 H22 V65 H70" />
+    <rect class="box" x="70" y="48" width="154" height="48" rx="7" />
+    <text class="label" x="147.0" y="64" style="font-size: 14px">음성</text>
+    <line class="wave-bar" x1="127" x2="127" y1="77.0" y2="83.0" />
+    <line class="wave-bar" x1="132" x2="132" y1="74.0" y2="86.0" />
+    <line class="wave-bar" x1="137" x2="137" y1="70.0" y2="90.0" />
+    <line class="wave-bar" x1="142" x2="142" y1="73.0" y2="87.0" />
+    <line class="wave-bar" x1="147" x2="147" y1="68.0" y2="92.0" />
+    <line class="wave-bar" x1="152" x2="152" y1="72.0" y2="88.0" />
+    <line class="wave-bar" x1="157" x2="157" y1="75.0" y2="85.0" />
+    <line class="wave-bar" x1="162" x2="162" y1="71.0" y2="89.0" />
+    <line class="wave-bar" x1="167" x2="167" y1="76.0" y2="84.0" />
+    <polygon class="box" points="70,124 224,134 224,158 70,168" />
+    <text class="label" x="147.0" y="151.0" style="font-size: 14px">인코더</text>
+    <g class="pulse highlight-1-5">
+    <rect class="accent-box" x="70" y="212" width="154" height="48" rx="7" />
+    <text class="label" x="147.0" y="234" style="font-size: 14px">VQ layer</text>
+    <text class="small" x="147.0" y="254" style="font-size: 12px">양자화</text>
+    </g>
+    <polygon class="box" points="70,302 224,292 224,336 70,326" />
+    <text class="label" x="147.0" y="319.0" style="font-size: 14px">디코더</text>
+    <rect class="box" x="70" y="348" width="154" height="48" rx="7" />
+    <text class="label" x="147.0" y="364" style="font-size: 14px">복원 음성</text>
+    <line class="wave-bar wave-4-4" x1="127" x2="127" y1="377.0" y2="383.0" />
+    <line class="wave-bar wave-4-3" x1="132" x2="132" y1="374.0" y2="386.0" />
+    <line class="wave-bar wave-4-2" x1="137" x2="137" y1="370.0" y2="390.0" />
+    <line class="wave-bar wave-4-1" x1="142" x2="142" y1="373.0" y2="387.0" />
+    <line class="wave-bar wave-4-0" x1="147" x2="147" y1="368.0" y2="392.0" />
+    <line class="wave-bar wave-4-1" x1="152" x2="152" y1="372.0" y2="388.0" />
+    <line class="wave-bar wave-4-2" x1="157" x2="157" y1="375.0" y2="385.0" />
+    <line class="wave-bar wave-4-3" x1="162" x2="162" y1="371.0" y2="389.0" />
+    <line class="wave-bar wave-4-4" x1="167" x2="167" y1="376.0" y2="384.0" />
+    <path class="route" d="M147 96 V122" />
+    <path class="flow stream-0-1" d="M147 96 V122" />
+    <path class="arrow" d="M143 117 l4 5 4 -5" />
+    <path class="route" d="M147 168 V210" />
+    <path class="flow stream-1-1" d="M147 168 V210" />
+    <path class="arrow" d="M143 205 l4 5 4 -5" />
+    <path class="route" d="M147 260 V290" />
+    <path class="flow stream-3-1" d="M147 260 V290" />
+    <path class="arrow" d="M143 285 l4 5 4 -5" />
+    <path class="route" d="M147 336 V346" />
+    <path class="flow stream-4-1" d="M147 336 V346" />
+    <path class="arrow" d="M143 341 l4 5 4 -5" />
+    <text class="small" x="207" y="183" style="font-size: 12px">연속 벡터</text>
+    <text class="small" x="78" y="192" style="font-size: 11px">high-dimensional</text>
+    <text class="small" x="78" y="205" style="font-size: 11px">continuous</text>
+    <text class="small" x="205" y="278" style="font-size: 12px">코드북 벡터</text>
+    <path class="route" d="M224 236 H263" stroke-dasharray="3 3" />
+    <text class="small" x="270" y="192" style="font-size: 12px">코드북</text>
+    <text class="small" x="270" y="207" style="font-size: 11px">(학습됨)</text>
+    <g class="token">
+    <rect class="box" x="261" y="218" width="18" height="18" rx="4" />
+    <text class="small" x="270" y="231" style="font-size: 12px">1</text>
+    </g>
+    <g class="code-selection">
+    <rect class="box" x="261" y="242" width="18" height="18" rx="4" />
+    <text class="small" x="270" y="255" style="font-size: 12px">2</text>
+    </g>
+    <g class="token">
+    <rect class="box" x="261" y="266" width="18" height="18" rx="4" />
+    <text class="small" x="270" y="279" style="font-size: 12px">3</text>
+    </g>
+    <path class="route" d="M224 256 H240 V286 H304 V582 H224" stroke-dasharray="3 3" />
+    <path class="flow stream-6-5-0-5" d="M224 256 H240 V286 H304 V582 H224" />
+    <text class="small" x="269" y="415" style="font-size: 12px">같은 모듈</text>
+    <text class="small" x="151" y="439" style="font-size: 13px">학습 후 · 데이터 토큰화에 사용</text>
+    <rect class="box" x="70" y="454" width="154" height="48" rx="7" />
+    <text class="label" x="147.0" y="470" style="font-size: 14px">음성</text>
+    <line class="wave-bar" x1="127" x2="127" y1="483.0" y2="489.0" />
+    <line class="wave-bar" x1="132" x2="132" y1="480.0" y2="492.0" />
+    <line class="wave-bar" x1="137" x2="137" y1="476.0" y2="496.0" />
+    <line class="wave-bar" x1="142" x2="142" y1="479.0" y2="493.0" />
+    <line class="wave-bar" x1="147" x2="147" y1="474.0" y2="498.0" />
+    <line class="wave-bar" x1="152" x2="152" y1="478.0" y2="494.0" />
+    <line class="wave-bar" x1="157" x2="157" y1="481.0" y2="491.0" />
+    <line class="wave-bar" x1="162" x2="162" y1="477.0" y2="495.0" />
+    <line class="wave-bar" x1="167" x2="167" y1="482.0" y2="490.0" />
+    <polygon class="box" points="70,518 224,528 224,542 70,552" />
+    <text class="label" x="147.0" y="540.0" style="font-size: 14px">인코더</text>
+    <rect class="box" x="70" y="566" width="154" height="36" rx="7" />
+    <text class="label" x="147.0" y="589.0" style="font-size: 14px">VQ layer</text>
+    <path class="route" d="M147 502 V516" />
+    <path class="flow stream-7-1" d="M147 502 V516" />
+    <path class="arrow" d="M143 511 l4 5 4 -5" />
+    <path class="route" d="M147 552 V564" />
+    <path class="flow stream-8-1" d="M147 552 V564" />
+    <path class="arrow" d="M143 559 l4 5 4 -5" />
+    <path class="route" d="M147 602 V630" />
+    <path class="flow stream-9-0-5" d="M147 602 V630" />
+    <path class="arrow" d="M143 625 l4 5 4 -5" />
+    <text class="small" x="225" y="623" style="font-size: 12px">음성 토큰 시퀀스</text>
+    <g class="token-reveal-0">
+    <rect class="box" x="114" y="636" width="18" height="18" rx="4" />
+    <text class="small" x="123" y="649" style="font-size: 12px">3</text>
+    </g>
+    <g class="token-reveal-1">
+    <rect class="box" x="138" y="636" width="18" height="18" rx="4" />
+    <text class="small" x="147" y="649" style="font-size: 12px">1</text>
+    </g>
+    <g class="token-reveal-2">
+    <rect class="box" x="162" y="636" width="18" height="18" rx="4" />
+    <text class="small" x="171" y="649" style="font-size: 12px">1</text>
+    </g>
+    <g class="token-reveal-3">
+    <rect class="box" x="114" y="660" width="18" height="18" rx="4" />
+    <text class="small" x="123" y="673" style="font-size: 12px">2</text>
+    </g>
+    <g class="token-reveal-4">
+    <rect class="box" x="138" y="660" width="18" height="18" rx="4" />
+    <text class="small" x="147" y="673" style="font-size: 12px">3</text>
+    </g>
+    <g class="token-reveal-5">
+    <rect class="box" x="162" y="660" width="18" height="18" rx="4" />
+    <text class="small" x="171" y="673" style="font-size: 12px">2</text>
+    </g>
+    <text class="small" x="222" y="669" style="font-size: 12px">discrete</text>
+    <path class="route" d="M147 678 V699" />
+    <path class="flow stream-10-1" d="M147 678 V699" />
+    <path class="arrow" d="M143 694 l4 5 4 -5" />
+    <g class="pulse highlight-10">
+    <rect class="box" x="70" y="701" width="154" height="32" rx="7" />
+    <text class="label" x="147.0" y="722.0" style="font-size: 14px">LLM</text>
+    </g>
+    <text class="small" x="147" y="752" style="font-size: 12px">텍스트 토큰처럼 순서대로 학습</text>
+  </svg>
+</DiagramFrame>
+<style>
+  /* Static routes remain readable throughout the timed accent sequence. */
+  svg .flow { opacity: 0; }
+  svg .pulse .box { stroke: var(--line); }
+  .wave-bar { stroke: var(--muted); stroke-width: 2; stroke-linecap: round; transform-box: fill-box; transform-origin: center; }
+  svg .stream-5-1-5 { animation: stream-5-1-5 12s linear infinite; }
+  @keyframes stream-5-1-5 { 0%, 41.6667%, 54.1667%, 100% { opacity: 0; stroke-dashoffset: 0; } 41.7667% { opacity: 1; } 54.0667% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .highlight-1-5 { animation: highlight-1-5 12s ease-in-out infinite; }
+  @keyframes highlight-1-5 { 0%, 12.5000%, 25.0000%, 100% { opacity: .65; } 18.7500% { opacity: 1; } }
+  svg .wave-4-4 { animation: wave-4-4 12s ease-in-out infinite; }
+  @keyframes wave-4-4 { 0%, 35.3333%, 40.3333%, 100% { transform: scaleY(1); } 37.8333% { transform: scaleY(1.15); } }
+  svg .wave-4-3 { animation: wave-4-3 12s ease-in-out infinite; }
+  @keyframes wave-4-3 { 0%, 34.8333%, 39.8333%, 100% { transform: scaleY(1); } 37.3333% { transform: scaleY(1.15); } }
+  svg .wave-4-2 { animation: wave-4-2 12s ease-in-out infinite; }
+  @keyframes wave-4-2 { 0%, 34.3333%, 39.3333%, 100% { transform: scaleY(1); } 36.8333% { transform: scaleY(1.15); } }
+  svg .wave-4-1 { animation: wave-4-1 12s ease-in-out infinite; }
+  @keyframes wave-4-1 { 0%, 33.8333%, 38.8333%, 100% { transform: scaleY(1); } 36.3333% { transform: scaleY(1.15); } }
+  svg .wave-4-0 { animation: wave-4-0 12s ease-in-out infinite; }
+  @keyframes wave-4-0 { 0%, 33.3333%, 38.3333%, 100% { transform: scaleY(1); } 35.8333% { transform: scaleY(1.15); } }
+  svg .stream-0-1 { animation: stream-0-1 12s linear infinite; }
+  @keyframes stream-0-1 { 0%, 0.0000%, 8.3333%, 100% { opacity: 0; stroke-dashoffset: 0; } 0.1000% { opacity: 1; } 8.2333% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .stream-1-1 { animation: stream-1-1 12s linear infinite; }
+  @keyframes stream-1-1 { 0%, 8.3333%, 16.6667%, 100% { opacity: 0; stroke-dashoffset: 0; } 8.4333% { opacity: 1; } 16.5667% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .stream-3-1 { animation: stream-3-1 12s linear infinite; }
+  @keyframes stream-3-1 { 0%, 25.0000%, 33.3333%, 100% { opacity: 0; stroke-dashoffset: 0; } 25.1000% { opacity: 1; } 33.2333% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .stream-4-1 { animation: stream-4-1 12s linear infinite; }
+  @keyframes stream-4-1 { 0%, 33.3333%, 41.6667%, 100% { opacity: 0; stroke-dashoffset: 0; } 33.4333% { opacity: 1; } 41.5667% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .code-selection { animation: code-selection 12s ease-in-out infinite; }
+  @keyframes code-selection { 0%, 16.6667%, 25.0000%, 100% { opacity: .65; } 20.8333% { opacity: 1; } }
+  svg .stream-6-5-0-5 { animation: stream-6-5-0-5 12s linear infinite; }
+  @keyframes stream-6-5-0-5 { 0%, 54.1667%, 58.3333%, 100% { opacity: 0; stroke-dashoffset: 0; } 54.2667% { opacity: 1; } 58.2333% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .highlight-10 { animation: highlight-10 12s ease-in-out infinite; }
+  @keyframes highlight-10 { 0%, 83.3333%, 95.8333%, 100% { opacity: .65; } 89.5833% { opacity: 1; } }
+  svg .stream-7-1 { animation: stream-7-1 12s linear infinite; }
+  @keyframes stream-7-1 { 0%, 58.3333%, 66.6667%, 100% { opacity: 0; stroke-dashoffset: 0; } 58.4333% { opacity: 1; } 66.5667% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .stream-8-1 { animation: stream-8-1 12s linear infinite; }
+  @keyframes stream-8-1 { 0%, 66.6667%, 75.0000%, 100% { opacity: 0; stroke-dashoffset: 0; } 66.7667% { opacity: 1; } 74.9000% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .stream-9-0-5 { animation: stream-9-0-5 12s linear infinite; }
+  @keyframes stream-9-0-5 { 0%, 75.0000%, 79.1667%, 100% { opacity: 0; stroke-dashoffset: 0; } 75.1000% { opacity: 1; } 79.0667% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .stream-10-1 { animation: stream-10-1 12s linear infinite; }
+  @keyframes stream-10-1 { 0%, 83.3333%, 91.6667%, 100% { opacity: 0; stroke-dashoffset: 0; } 83.4333% { opacity: 1; } 91.5667% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .token-reveal-0 { animation: token-reveal-0 12s ease-in-out infinite; }
+  @keyframes token-reveal-0 { 0%, 70.8333% { opacity: .35; } 75.0000%, 99% { opacity: 1; } 100% { opacity: .35; } }
+  svg .token-reveal-1 { animation: token-reveal-1 12s ease-in-out infinite; }
+  @keyframes token-reveal-1 { 0%, 72.9167% { opacity: .35; } 77.0833%, 99% { opacity: 1; } 100% { opacity: .35; } }
+  svg .token-reveal-2 { animation: token-reveal-2 12s ease-in-out infinite; }
+  @keyframes token-reveal-2 { 0%, 75.0000% { opacity: .35; } 79.1667%, 99% { opacity: 1; } 100% { opacity: .35; } }
+  svg .token-reveal-3 { animation: token-reveal-3 12s ease-in-out infinite; }
+  @keyframes token-reveal-3 { 0%, 77.0833% { opacity: .35; } 81.2500%, 99% { opacity: 1; } 100% { opacity: .35; } }
+  svg .token-reveal-4 { animation: token-reveal-4 12s ease-in-out infinite; }
+  @keyframes token-reveal-4 { 0%, 79.1667% { opacity: .35; } 83.3333%, 99% { opacity: 1; } 100% { opacity: .35; } }
+  svg .token-reveal-5 { animation: token-reveal-5 12s ease-in-out infinite; }
+  @keyframes token-reveal-5 { 0%, 81.2500% { opacity: .35; } 85.4167%, 99% { opacity: 1; } 100% { opacity: .35; } }
+
+  svg .loss-label { animation: loss-feedback 12s ease-in-out infinite; }
+  @keyframes loss-feedback { 0%, 41.6667%, 54.1667%, 100% { opacity: .6; } 47.9167% { opacity: 1; } }
+  svg .code-selection .box { animation: selected-code 12s ease-in-out infinite; }
+  @keyframes selected-code { 0%, 16.6667%, 25%, 100% { stroke: var(--line); } 20.8333% { stroke: var(--accent); } }
+  @media (prefers-reduced-motion: reduce) {
+    svg * { animation: none !important; transform: none !important; opacity: 1; }
+    svg .mel-cell { opacity: .9 !important; }
+  }
+</style>

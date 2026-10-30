@@ -1,0 +1,152 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '고객의 음성이 STT를 거쳐 텍스트가 되고 LLM이 응답 텍스트를 만든다. TTS가 합성 음성을 만들어 AI 상담원이 고객에게 들려준다. 통화가 끝날 때까지 반복한다. 발표는 이 중 TTS 이야기다.' } = Astro.props;
+const description = '고객의 음성이 STT를 거쳐 텍스트가 되고 LLM이 응답 텍스트를 만들면 TTS가 합성 음성을 만들어 AI 상담원이 고객에게 들려주며, 통화가 끝날 때까지 이 순환을 반복하는 보이스콜 에이전트 구조입니다.';
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 720 210" role="img" aria-label={description}>
+    <rect class="box" x="10" y="58" width="100" height="68" rx="7" />
+    <text class="label" x="60.0" y="81" style="font-size: 14px">고객</text>
+    <line class="wave-bar wave-0-4" x1="40" x2="40" y1="105.0" y2="111.0" />
+    <line class="wave-bar wave-0-3" x1="45" x2="45" y1="102.0" y2="114.0" />
+    <line class="wave-bar wave-0-2" x1="50" x2="50" y1="98.0" y2="118.0" />
+    <line class="wave-bar wave-0-1" x1="55" x2="55" y1="101.0" y2="115.0" />
+    <line class="wave-bar wave-0-0" x1="60" x2="60" y1="96.0" y2="120.0" />
+    <line class="wave-bar wave-0-1" x1="65" x2="65" y1="100.0" y2="116.0" />
+    <line class="wave-bar wave-0-2" x1="70" x2="70" y1="103.0" y2="113.0" />
+    <line class="wave-bar wave-0-3" x1="75" x2="75" y1="99.0" y2="117.0" />
+    <line class="wave-bar wave-0-4" x1="80" x2="80" y1="104.0" y2="112.0" />
+    <text class="small" x="135" y="43" style="font-size: 12px">음성</text>
+    <path class="route" d="M110 92 H158" />
+    <path class="flow stream-0-0-1-2" d="M110 92 H158" />
+    <path class="arrow" d="M153 88 l5 4 -5 4" />
+    <g class="pulse highlight-0-0">
+    <rect class="box" x="160" y="58" width="100" height="68" rx="7" />
+    <text class="label" x="210.0" y="97.0" style="font-size: 14px">STT</text>
+    </g>
+    <text class="small" x="285" y="43" style="font-size: 12px">텍스트</text>
+    <path class="route" d="M260 92 H308" />
+    <path class="flow stream-1-2-1-2" d="M260 92 H308" />
+    <path class="arrow" d="M303 88 l5 4 -5 4" />
+    <g class="pulse highlight-1-2">
+    <rect class="box" x="310" y="58" width="100" height="68" rx="7" />
+    <text class="label" x="360.0" y="97.0" style="font-size: 14px">LLM</text>
+    </g>
+    <text class="small" x="435" y="43" style="font-size: 12px">응답 텍스트</text>
+    <path class="route" d="M410 92 H458" />
+    <path class="flow stream-2-4-1-2" d="M410 92 H458" />
+    <path class="arrow" d="M453 88 l5 4 -5 4" />
+    <g class="pulse highlight-2-4">
+    <rect class="accent-box" x="460" y="58" width="100" height="68" rx="7" />
+    <text class="label" x="510.0" y="97.0" style="font-size: 14px">TTS</text>
+    </g>
+    <text class="small" x="585" y="43" style="font-size: 12px">합성 음성</text>
+    <path class="route" d="M560 92 H608" />
+    <path class="flow stream-3-5999999999999996-1-2" d="M560 92 H608" />
+    <path class="arrow" d="M603 88 l5 4 -5 4" />
+    <g class="pulse highlight-3-5999999999999996">
+    <rect class="box" x="610" y="58" width="100" height="68" rx="7" />
+    <text class="label" x="660.0" y="97.0" style="font-size: 14px">AI 상담원</text>
+    </g>
+    <path class="route" d="M660 126 V164 H60 V128" />
+    <path class="flow stream-4-8-2-2" d="M660 126 V164 H60 V128" />
+    <path class="arrow" d="M56 133 l4 -5 4 5" />
+    <g class="return-label return-highlight">
+    <text class="small" x="360" y="193">고객에게 음성으로 응답 · 통화가 끝날 때까지 반복</text>
+    </g>
+  </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 560" role="img" aria-label={description}>
+    <rect class="box" x="70" y="24" width="180" height="64" rx="7" />
+    <text class="label" x="160.0" y="47" style="font-size: 14px">고객</text>
+    <line class="wave-bar wave-0-4" x1="140" x2="140" y1="67.0" y2="73.0" />
+    <line class="wave-bar wave-0-3" x1="145" x2="145" y1="64.0" y2="76.0" />
+    <line class="wave-bar wave-0-2" x1="150" x2="150" y1="60.0" y2="80.0" />
+    <line class="wave-bar wave-0-1" x1="155" x2="155" y1="63.0" y2="77.0" />
+    <line class="wave-bar wave-0-0" x1="160" x2="160" y1="58.0" y2="82.0" />
+    <line class="wave-bar wave-0-1" x1="165" x2="165" y1="62.0" y2="78.0" />
+    <line class="wave-bar wave-0-2" x1="170" x2="170" y1="65.0" y2="75.0" />
+    <line class="wave-bar wave-0-3" x1="175" x2="175" y1="61.0" y2="79.0" />
+    <line class="wave-bar wave-0-4" x1="180" x2="180" y1="66.0" y2="74.0" />
+    <path class="route" d="M160 88 V118" />
+    <path class="flow stream-0-0-1-2" d="M160 88 V118" />
+    <path class="arrow" d="M156 113 l4 5 4 -5" />
+    <text class="small" x="213" y="108" style="font-size: 12px">음성</text>
+    <g class="pulse highlight-0-0">
+    <rect class="box" x="70" y="120" width="180" height="64" rx="7" />
+    <text class="label" x="160.0" y="157.0" style="font-size: 14px">STT</text>
+    </g>
+    <path class="route" d="M160 184 V214" />
+    <path class="flow stream-1-2-1-2" d="M160 184 V214" />
+    <path class="arrow" d="M156 209 l4 5 4 -5" />
+    <text class="small" x="213" y="204" style="font-size: 12px">텍스트</text>
+    <g class="pulse highlight-1-2">
+    <rect class="box" x="70" y="216" width="180" height="64" rx="7" />
+    <text class="label" x="160.0" y="253.0" style="font-size: 14px">LLM</text>
+    </g>
+    <path class="route" d="M160 280 V310" />
+    <path class="flow stream-2-4-1-2" d="M160 280 V310" />
+    <path class="arrow" d="M156 305 l4 5 4 -5" />
+    <text class="small" x="213" y="300" style="font-size: 12px">응답 텍스트</text>
+    <g class="pulse highlight-2-4">
+    <rect class="accent-box" x="70" y="312" width="180" height="64" rx="7" />
+    <text class="label" x="160.0" y="349.0" style="font-size: 14px">TTS</text>
+    </g>
+    <path class="route" d="M160 376 V406" />
+    <path class="flow stream-3-5999999999999996-1-2" d="M160 376 V406" />
+    <path class="arrow" d="M156 401 l4 5 4 -5" />
+    <text class="small" x="213" y="396" style="font-size: 12px">합성 음성</text>
+    <g class="pulse highlight-3-5999999999999996">
+    <rect class="box" x="70" y="408" width="180" height="64" rx="7" />
+    <text class="label" x="160.0" y="445.0" style="font-size: 14px">AI 상담원</text>
+    </g>
+    <path class="route" d="M160 472 V490 H30 V106 H90 V90" />
+    <path class="flow stream-4-8-2-2" d="M160 472 V490 H30 V106 H90 V90" />
+    <path class="arrow" d="M86 95 l4 -5 4 5" />
+    <g class="return-label return-highlight">
+    <text class="small" x="160" y="519">고객에게 음성으로 응답 ·</text>
+    <text class="small" x="160" y="542">통화가 끝날 때까지 반복</text>
+    </g>
+  </svg>
+</DiagramFrame>
+<style>
+  /* Static routes remain readable throughout the timed accent sequence. */
+  svg .flow { opacity: 0; }
+  svg .pulse .box { stroke: var(--line); }
+  .wave-bar { stroke: var(--muted); stroke-width: 2; stroke-linecap: round; transform-box: fill-box; transform-origin: center; }
+  svg .wave-0-4 { animation: wave-0-4 10s ease-in-out infinite; }
+  @keyframes wave-0-4 { 0%, 2.4000%, 8.4000%, 100% { transform: scaleY(1); } 5.4000% { transform: scaleY(1.15); } }
+  svg .wave-0-3 { animation: wave-0-3 10s ease-in-out infinite; }
+  @keyframes wave-0-3 { 0%, 1.8000%, 7.8000%, 100% { transform: scaleY(1); } 4.8000% { transform: scaleY(1.15); } }
+  svg .wave-0-2 { animation: wave-0-2 10s ease-in-out infinite; }
+  @keyframes wave-0-2 { 0%, 1.2000%, 7.2000%, 100% { transform: scaleY(1); } 4.2000% { transform: scaleY(1.15); } }
+  svg .wave-0-1 { animation: wave-0-1 10s ease-in-out infinite; }
+  @keyframes wave-0-1 { 0%, 0.6000%, 6.6000%, 100% { transform: scaleY(1); } 3.6000% { transform: scaleY(1.15); } }
+  svg .wave-0-0 { animation: wave-0-0 10s ease-in-out infinite; }
+  @keyframes wave-0-0 { 0%, 0.0000%, 6.0000%, 100% { transform: scaleY(1); } 3.0000% { transform: scaleY(1.15); } }
+  svg .stream-0-0-1-2 { animation: stream-0-0-1-2 10s linear infinite; }
+  @keyframes stream-0-0-1-2 { 0%, 0.0000%, 12.0000%, 100% { opacity: 0; stroke-dashoffset: 0; } 0.1000% { opacity: 1; } 11.9000% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .highlight-0-0 { animation: highlight-0-0 10s ease-in-out infinite; }
+  @keyframes highlight-0-0 { 0%, 0.0000%, 15.0000%, 100% { opacity: .65; } 7.5000% { opacity: 1; } }
+  svg .stream-1-2-1-2 { animation: stream-1-2-1-2 10s linear infinite; }
+  @keyframes stream-1-2-1-2 { 0%, 12.0000%, 24.0000%, 100% { opacity: 0; stroke-dashoffset: 0; } 12.1000% { opacity: 1; } 23.9000% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .highlight-1-2 { animation: highlight-1-2 10s ease-in-out infinite; }
+  @keyframes highlight-1-2 { 0%, 12.0000%, 27.0000%, 100% { opacity: .65; } 19.5000% { opacity: 1; } }
+  svg .stream-2-4-1-2 { animation: stream-2-4-1-2 10s linear infinite; }
+  @keyframes stream-2-4-1-2 { 0%, 24.0000%, 36.0000%, 100% { opacity: 0; stroke-dashoffset: 0; } 24.1000% { opacity: 1; } 35.9000% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .highlight-2-4 { animation: highlight-2-4 10s ease-in-out infinite; }
+  @keyframes highlight-2-4 { 0%, 24.0000%, 39.0000%, 100% { opacity: .65; } 31.5000% { opacity: 1; } }
+  svg .stream-3-5999999999999996-1-2 { animation: stream-3-5999999999999996-1-2 10s linear infinite; }
+  @keyframes stream-3-5999999999999996-1-2 { 0%, 36.0000%, 48.0000%, 100% { opacity: 0; stroke-dashoffset: 0; } 36.1000% { opacity: 1; } 47.9000% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .highlight-3-5999999999999996 { animation: highlight-3-5999999999999996 10s ease-in-out infinite; }
+  @keyframes highlight-3-5999999999999996 { 0%, 36.0000%, 51.0000%, 100% { opacity: .65; } 43.5000% { opacity: 1; } }
+  svg .stream-4-8-2-2 { animation: stream-4-8-2-2 10s linear infinite; }
+  @keyframes stream-4-8-2-2 { 0%, 48.0000%, 70.0000%, 100% { opacity: 0; stroke-dashoffset: 0; } 48.1000% { opacity: 1; } 69.9000% { opacity: 1; stroke-dashoffset: -42; } }
+  svg .return-highlight { animation: return-highlight 10s ease-in-out infinite; }
+  @keyframes return-highlight { 0%, 48.0000%, 70.0000%, 100% { opacity: .6; } 59.0000% { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    svg * { animation: none !important; transform: none !important; opacity: 1; }
+    svg .mel-cell { opacity: .9 !important; }
+  }
+</style>

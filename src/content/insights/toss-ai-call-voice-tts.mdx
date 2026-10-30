@@ -1,0 +1,215 @@
+---
+title: '전화 너머 사람 같은 AI 목소리 - 토스 AIOC TTS 발표 정리'
+description: '토스 Commerce AI Operation Center 팀이 AI 콜의 음성을 어떻게 사람 같은 대화로 바꿨는지 설명한 유튜브 발표를 정리했다. 2단계 TTS에서 LLM 기반 TTS로 온 배경, API 벤더와 오픈소스 LoRA의 한계, Full fine-tuning, Vector Quantization 병목 세 가지, 통화 지표 변화까지 영상 캡처와 다이어그램으로 담았다.'
+pubDate: 2026-10-30
+tags: [TTS, 음성합성, VectorQuantization, LoRA, 파인튜닝, 보이스에이전트, 토스]
+source:
+  title: '기계음 같던 AI 콜, 토스는 진짜 대화로 바꿨습니다 | SlashLive'
+  url: 'https://www.youtube.com/watch?v=j41oq_xbTgs'
+  author: 'Toss Challengers'
+  type: 'youtube'
+---
+
+import VideoFrame from '../../components/insights/VideoFrame.astro';
+import VoiceTwoStageTts from '../../components/insights/diagrams/voice/VoiceTwoStageTts.astro';
+import VoiceVqTokenizer from '../../components/insights/diagrams/voice/VoiceVqTokenizer.astro';
+import VoiceCallAgentLoop from '../../components/insights/diagrams/voice/VoiceCallAgentLoop.astro';
+import VoiceVqBottlenecks from '../../components/insights/diagrams/voice/VoiceVqBottlenecks.astro';
+import tortoiseTts from '../../assets/insights/toss-voice/tortoise-tts.png';
+import koreanDataShare from '../../assets/insights/toss-voice/korean-data-share.png';
+import blindTestLoraVsFullft from '../../assets/insights/toss-voice/blind-test-lora-vs-fullft.png';
+import semanticDistillationModels from '../../assets/insights/toss-voice/semantic-distillation-models.png';
+import blindTestWeakBottleneck from '../../assets/insights/toss-voice/blind-test-weak-bottleneck.png';
+import callDuration from '../../assets/insights/toss-voice/call-duration.png';
+import bargeInUtterance from '../../assets/insights/toss-voice/barge-in-utterance.png';
+import nextTalkTurnTaking from '../../assets/insights/toss-voice/next-talk-turn-taking.png';
+
+export const videoUrl = 'https://www.youtube.com/watch?v=j41oq_xbTgs';
+
+Toss Challengers 채널의 SlashLive 영상을 하나 더 정리한다. 아이언님이 추천해줬던 글을 다시 한번 요약해 봤다. 토스 Commerce AI Operation Center 팀의 AI 엔지니어 허담 님이 AI 콜의 음성, 그중에서도 TTS를 어떻게 적용하고 발전시켰는지 설명하는 영상이다. 참고로 19분짜리인데 앞 7분이 TTS 배경 지식이고 나머지가 토스 이야기다.
+
+발표는 두 부분이다. 1부는 TTS 연구의 역사와 흐름, 2부는 AIOC의 음성합성 모델 활용의 역사다. AIOC는 AI Operations Center의 줄임말이다. 이 글도 같은 순서로 간다. 구조 설명은 다이어그램으로 다시 그렸고 수치가 나오는 슬라이드는 캡처로 넣었다. 캡션 끝의 시각을 누르면 영상의 그 지점이 열린다.
+
+<details>
+<summary>영상 구간별 시각</summary>
+<ol>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=37s" target="_blank" rel="noopener noreferrer">00:37</a> 발표 순서</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=59s" target="_blank" rel="noopener noreferrer">00:59</a> TTS란, 중요한 세 가지</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=108s" target="_blank" rel="noopener noreferrer">01:48</a> 음향 특징 기반 TTS (2단계 구조)</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=207s" target="_blank" rel="noopener noreferrer">03:27</a> 오토인코더와 벡터 양자화</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=344s" target="_blank" rel="noopener noreferrer">05:44</a> TorToise-TTS</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=417s" target="_blank" rel="noopener noreferrer">06:57</a> 2부 시작, AIOC와 보이스콜 에이전트</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=488s" target="_blank" rel="noopener noreferrer">08:08</a> TTS API 벤더</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=561s" target="_blank" rel="noopener noreferrer">09:21</a> 오픈소스 모델과 LoRA</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=608s" target="_blank" rel="noopener noreferrer">10:08</a> 오픈소스 모델의 한계 (학습 데이터 분포)</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=653s" target="_blank" rel="noopener noreferrer">10:53</a> LoRA의 한계와 Full fine-tuning</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=707s" target="_blank" rel="noopener noreferrer">11:47</a> 블라인드 테스트 (LoRA 대 FullFT)</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=769s" target="_blank" rel="noopener noreferrer">12:49</a> 또 다른 병목, Vector Quantization</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=927s" target="_blank" rel="noopener noreferrer">15:27</a> 병목을 덜어낸 새 모델 블라인드 테스트</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=1015s" target="_blank" rel="noopener noreferrer">16:55</a> 실제 통화 지표</li>
+<li><a href="https://www.youtube.com/watch?v=j41oq_xbTgs&t=1112s" target="_blank" rel="noopener noreferrer">18:32</a> 마무리와 다음 이야기</li>
+</ol>
+</details>
+
+## 1부: TTS 연구의 역사와 흐름
+
+### TTS가 하는 일
+
+TTS는 Text-to-Speech의 줄임말이다. 텍스트를 음성으로 바꾸는 기술이다. "안녕하세요."라는 글자를 넣으면 TTS 모델이 사람이 들을 수 있는 음성을 만든다. 슬라이드에는 TTS 모델이 발음, 억양, 쉼, 목소리를 정한다고 적혀 있다.
+
+발표자는 TTS에서 중요한 것 세 가지를 꼽았다.
+
+1. 정확하게. 쓰인 그대로, 숫자와 영어와 고유명사까지 틀림없이 읽는다.
+2. 자연스럽게. 억양, 쉼, 속도가 기계가 아니라 사람처럼 들린다.
+3. 같은 목소리로. 원하는 화자의 톤을 발화 처음부터 끝까지 유지한다.
+
+### 음향 특징 기반 TTS
+
+처음의 TTS는 2단계 구조였다. 텍스트를 넣으면 먼저 멜 스펙트로그램(Mel-spectrogram)이라는 중간 음향 특징을 예측한다. 그다음 보코더(Vocoder)가 멜 스펙트로그램을 사람이 들을 수 있는 음성으로 바꾼다. 슬라이드의 예시는 Acoustic Model이 Tacotron2와 FastSpeech2, Vocoder가 HiFi-GAN이다.
+
+<VoiceTwoStageTts caption="텍스트가 Acoustic Model을 거쳐 Mel-spectrogram이 되고 Vocoder가 그걸 Waveform으로 바꾼다. 가운데 Mel-spectrogram을 중간 표현으로 쓰는 2단계 구조다." />
+
+이런 구조를 쓴 이유는 당시 기술의 한계였다. 음성은 1초에 샘플이 수만 개씩 나오는 표현이라 텍스트에서 음성을 바로 예측하는 건 그때 모델로는 너무 어려웠다. 학습 안정성을 위해 중간 표현을 둔 것이다. 멜 스펙트로그램은 인간이 고주파 대역을 잘 못 듣는다는 점을 반영해서 저주파 대역을 잘 표현한 음향 특징이다.
+
+한계도 여기서 나온다. 텍스트에서 멜 스펙트로그램의 실수값을 직접 예측하다 보니 모델이 안정적이고 평균적인 값을 내놓는다. 사람은 같은 "안녕하세요"도 여러 톤으로 말하는데 모델은 단조로운 쪽으로 간다. 우리가 아는 기계음 같은 TTS가 이 구조로 학습된 것이다.
+
+### 오토인코더와 벡터 양자화
+
+지금의 TTS는 사람처럼 자연스럽다. 여기까지 오는 데 필요했던 기술이 두 가지 있다. 오토인코더(Auto Encoder)와 벡터 양자화(Vector Quantization)다.
+
+오토인코더는 이미지를 아주 작은 차원으로 압축했다가 디코더로 다시 복원하는 구조다. 목표는 가운데 작은 차원에 불필요한 정보를 덜어내고 필요한 정보만 담는 것이다. 발표자가 더 중요하게 본 장점은 따로 있다. 레이블이 필요 없다. 이미지가 원숭이인지 고양이인지 적어 줄 필요 없이 이미지 하나, 음성 하나로 자기 자신을 복원하는 학습을 한다. 그래서 수많은 데이터로 음성 세계에 대한 이해를 쌓을 수 있다. 지금의 TTS가 엄청난 양의 데이터를 쓸 수 있게 된 출발점이다.
+
+벡터 양자화는 그다음이다. 음성을 복원하는 구조 중간에 VQ layer를 둬서 압축된 표현을 양자화한다. 고차원 연속 벡터가 이산 공간(discrete space)으로 바뀐다. 그러면 LLM이 텍스트 토큰을 순서대로 학습했던 것처럼 음성도 토큰 시퀀스로 바꿔서 LLM에게 학습시킬 수 있다.
+
+<VoiceVqTokenizer caption="음성이 인코더를 지나 연속 벡터가 되고 VQ layer가 코드북에서 가장 가까운 코드로 바꾼다. 디코더가 복원한 음성과 원본의 복원 오차로 학습한다. 학습이 끝나면 음성은 코드 번호의 시퀀스가 되고 LLM이 텍스트 토큰처럼 학습한다." />
+
+두 기술을 합치면 이렇게 된다. 오토인코더 덕분에 수많은 데이터로 학습하고 벡터 양자화로 이산화한 토큰을 LLM이 학습한다. 이전 TTS가 안정적이고 평균적인 값만 예측했다면 이제는 여러 프로소디(prosody)의 자연스러운 발화를 만들 수 있다.
+
+### TorToise-TTS
+
+지금의 자연스러운 TTS를 만든 기술 하나로 TorToise-TTS를 짚고 넘어간다. 발표자는 이 모델을 지금 여러 TTS가 가진 자연스러움의 시작으로 봤다. James Betker라는 연구자가 혼자서 1년 동안 적은 GPU 자원으로 만든 프로젝트다. 구성은 슬라이드에 네 줄로 있다. Speech LM은 GPT2이고 멜 스펙트로그램은 Vector Quantization으로 토큰화하며 VQ code는 Diffusion으로 다시 멜 스펙트로그램이 되고 마지막에 Vocoder가 파형을 만든다. GPT2라는 원시적인 LM 구조와 멜 스펙트로그램, 벡터 양자화로 음성 토큰 시퀀스를 만들어 토큰 예측 기반 TTS를 만든 것이다. 당시 이 모델의 음성이 너무 자연스러워서 업계에 큰 반향이 있었고 후속 연구가 이어졌다.
+
+<VideoFrame src={tortoiseTts} alt="발표 슬라이드 'LM-based TTS 혁신의 시작: TorToise-TTS'. 왼쪽에 논문 Better speech synthesis through scaling 표지와 neonbjb/tortoise-tts 저장소(Star 14.9k), 저자가 손으로 그린 구조도가 있다. 오른쪽에 Speech LM GPT2, Mel-spectrogram Vector Quantization, VQ code to Mel-spectrogram Diffusion, Mel-spectrogram to Waveform Vocoder 네 상자가 세로로 있다." caption="TorToise-TTS 슬라이드. 오른쪽 네 상자가 모델 구성이다. 맨 위 Speech LM이 GPT2다." time="06:10" videoUrl={videoUrl} />
+
+1부 요약은 한 문장이다. 안정적이고 단조로운 프로소디의 TTS에서 여러 톤을 내면서 한 사람의 음성을 모사할 수 있는 TTS가 됐다.
+
+## 2부: AIOC의 음성합성 모델 활용의 역사
+
+### AIOC와 보이스콜 에이전트
+
+AIOC는 텍스트와 보이스콜로 이루어진 모든 오퍼레이션을 AI로 수행하려는 조직이다. 발표자가 참여한 건 보이스콜 프로젝트다.
+
+보이스콜 에이전트는 모델 하나가 다 하는 구조가 아니다. 고객이 말하면 STT(음성인식)가 발화를 텍스트로 바꾸고 그 텍스트를 받은 LLM이 텍스트 레벨에서 대화를 맡는다. LLM의 응답 텍스트는 TTS로 넘어가 고객이 들을 음성이 된다. 앞에 세워 둔 AI 상담원이 그 음성을 고객에게 전달하는 식이다. 이 루프가 통화가 끝날 때까지 돈다.
+
+<VoiceCallAgentLoop caption="고객의 음성이 STT를 거쳐 텍스트가 되고 LLM이 응답 텍스트를 만든다. TTS가 합성 음성을 만들어 AI 상담원이 고객에게 들려준다. 통화가 끝날 때까지 반복한다. 발표는 이 중 TTS 이야기다." />
+
+이 중에서 팀이 중요하게 본 게 TTS다. 발표도 TTS 이야기다.
+
+### API 벤더로 시작
+
+시작은 API였다. STT, LLM, TTS 모두 잘되는 API가 많으니 조립부터 해 봤다. TTS 슬라이드에는 ElevenLabs, Cartesia, typecast, Fish Audio가 있다. 써 보니 한국어가 원하는 수준으로 나오지 않았다. 원하는 수준이란 고객이 AI인 줄 모르고 대화할 정도의 자연스러움이다.
+
+이유는 명확했다. 이 회사들은 시장 규모를 따져 글로벌 마켓을 타깃한다. 영어권과 중국어권 고객이 훨씬 많다. 그래서 한국어 성능이 영어, 중국어보다 떨어지는 건 어쩔 수 없었다. 결론은 자체 한국어 특화 모델을 직접 학습해서 서빙하자는 것이었다.
+
+### 오픈소스 모델과 LoRA
+
+직접 만든다면 처음 접근은 오픈소스 모델이다. 방식은 단순하다.
+
+1. 오픈소스 모델의 베이스 가중치를 가져온다.
+2. 모방할 화자의 음성을 10분 이상 모은다.
+3. LoRA로 가볍게 파인튜닝해서 LoRA 체크포인트를 얻는다.
+4. 서빙할 때 LoRA 체크포인트를 오픈소스 모델에 붙여 쓴다.
+
+LoRA는 저자원으로 가볍게 학습할 수 있는 파인튜닝 방법이다. 이러면 원하는 음성이 나올 것 같은데 API 벤더 때와 같은 한계를 느꼈다. 오픈소스 모델도 타깃이 글로벌 시장이다. 연구 성과를 글로벌하게 인정받아야 하기 때문이다. 슬라이드의 학습 데이터 분포 표를 보면 세 모델 모두 한국어 비중이 1.5% 아래다. 발표자 설명으로는 Inworld TTS-1은 20만 시간 중 한국어가 400시간이다.
+
+<VideoFrame src={koreanDataShare} alt="발표 슬라이드 '오픈소스 모델 LoRA 활용의 한계: 학습 데이터셋 분포'. OmniVoice (04.2026), CosyVoice 2 (05.2025), Inworld TTS-1 (06.2025) 세 모델의 총 학습데이터, 영어, 중국어, 일본어, 한국어 비중 표이고 한국어 열이 강조돼 있다. 한국어는 각각 8.6K (1.48%), 2.2K (1.31%), 400 (0.2%)이다." caption="오픈소스 TTS 모델 세 개의 학습 데이터 분포. 오른쪽 강조된 열이 한국어다." time="10:30" videoUrl={videoUrl} />
+
+<table>
+<thead>
+<tr><th scope="col">모델</th><th scope="col">총 학습데이터</th><th scope="col">영어</th><th scope="col">중국어</th><th scope="col">일본어</th><th scope="col">한국어</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">OmniVoice (04.2026)</th><td>581K</td><td>206K (35.45%)</td><td>125K (21.51%)</td><td>36.9K (6.35%)</td><td>8.6K (1.48%)</td></tr>
+<tr><th scope="row">CosyVoice 2 (05.2025)</th><td>166.8K</td><td>130K (77.93%)</td><td>30K (17.98%)</td><td>4.6K (2.75%)</td><td>2.2K (1.31%)</td></tr>
+<tr><th scope="row">Inworld TTS-1 (06.2025)</th><td>200K</td><td>143.7K (71.85%)</td><td>50.9K (25.45%)</td><td>2.1K (1.05%)</td><td>400 (0.2%)</td></tr>
+</tbody>
+</table>
+
+Inworld TTS-1의 비고에는 SFT 데이터라고 적혀 있다. 발표자의 비유가 있다. 30년을 산 사람이 그중 2, 3개월 영어를 공부했다고 영어를 잘할 수는 없다. 오픈소스 모델도 영어와 중국어를 잘하게 편향돼 있다는 결론이다.
+
+### LoRA의 한계와 Full fine-tuning
+
+LoRA를 적용하다 보니 LoRA의 특성이 그대로 드러났다. LoRA는 엄청난 데이터와 GPU 자원으로 학습된 모델의 능력을 유지하면서 특정 태스크만 조금 더 잘하게 만들 때 쓴다. 원래 능력을 덜 잊고 새로 배우는 것도 덜 배운다. 슬라이드의 개념도에는 LoRA가 Learns less, forgets less, Full Fine-tuning이 Learns more, forgets more로 적혀 있다. 타깃 태스크 학습 데이터가 적은 구간에서는 둘이 비슷하고 데이터가 풍부한 구간에서는 Full Fine-tuning이 앞선다. 개념도이고 실제 실험 수치는 아니라고 슬라이드에 적혀 있다.
+
+여기서는 LoRA의 장점이 단점이 됐다. 영어와 중국어를 잘하는 모델을 한국어를 잘하게 만들기에 LoRA는 충분하지 않았다. 1차 목표가 한국어이니 풀 파인튜닝(Full fine-tuning)으로 한국어 쪽으로 편향시키기로 했다.
+
+### 블라인드 테스트: LoRA 대 Full fine-tuning
+
+영상에서는 토스 상담팀이 대표님께 전화를 거는 첫 인사 문장을 두 모델의 음성으로 들려준다. A가 LoRA, B가 풀 파인튜닝이다. 내부 블라인드 테스트에서 B가 더 자연스럽다는 응답이 61.5%였다. A가 더 자연스럽다는 23.1%, 차이 없음은 15.4%다.
+
+<VideoFrame src={blindTestLoraVsFullft} alt="발표 슬라이드 '블라인드 테스트 결과'. 왼쪽에 A: LoRA와 B: FullFT 음성 파형이 있고 오른쪽 TTS 음성 자연스러움 선호도 막대그래프는 A (LoRA) 더 자연스러움 23.1%, 차이 없음 15.4%, B (FullFT) 더 자연스러움 61.5%다." caption="LoRA 음성과 Full fine-tuning 음성의 블라인드 테스트. B가 더 자연스럽다는 응답이 61.5%다." time="12:25" videoUrl={videoUrl} />
+
+그런데 풀 파인튜닝으로 방법이 확정됐다고 보고 데이터를 늘려 가며 학습을 계속했는데도 자연스러움이 특정 수준 이상으로 올라가지 않았다. 원하는 수준이 있었는데 거기에 닿지 않았다. 이것만으로는 해결이 안 되는 문제라고 보고 성능 개선의 병목이 무엇인지 찾기 시작했다.
+
+### 또 다른 병목: Vector Quantization
+
+1부와 이어지는 내용이다. LLM 기반 TTS에서 벡터 양자화 모델은 일종의 토크나이저(Speech Tokenizer)로 붙어서 LLM이 음성 생성을 학습하게 한다. 그러다 보니 이 모듈이 LLM의 정답처럼 작동하고 성능의 병목이 된다. 발표자가 꼽은 병목은 세 가지다.
+
+<VoiceVqBottlenecks caption="Speech Tokenizer가 LLM의 정답 역할을 하기 때문에 토크나이저의 한계가 그대로 TTS의 한계가 된다. 학습 데이터셋의 분포, 이산화, Semantic distillation 세 지점이 병목이다. 마지막은 영어로 학습된 Semantic teacher에서 온다." />
+
+첫째, 학습 데이터셋의 분포다. Speech Tokenizer 학습에 한국어 데이터가 적었다면 한국어 성능이 떨어질 수밖에 없다.
+
+둘째, 이산화(Discretization)다. 벡터 양자화는 음성이라는 dense한 표현을 이산 공간으로 바꾼다. 그 과정에서 필수적인 정보가 많이 사라질 수 있다.
+
+셋째, Semantic distillation인데 발표자는 이게 가장 치명적이었다고 했다. 음성에서 시맨틱(semantic)은 발화나 발음처럼 의미적으로 중요한 부분이다. 벡터 양자화를 학습할 때 시맨틱은 상당히 어려운 정보다. 그래서 연구자들은 시맨틱을 안정적으로 학습시키려고 Semantic distillation이라는 기법을 쓴다. 시맨틱을 알려 주는 티처(teacher) 모델이 따로 필요하다. 최근 모델들도 이 기법을 쓴다. 슬라이드에는 Spark-TTS, Llasa, Moshi, Qwen3-TTS가 있고 각각 wav2vec 2.0, Wav2Vec2-BERT, WavLM 같은 모델을 앞단에 둔다.
+
+<VideoFrame src={semanticDistillationModels} alt="발표 슬라이드 'Semantic distillation을 활용하는 모델들'. Spark-TTS (03.2025)는 wav2vec 2.0, Semantic Tokenizer, Decoder. Llasa (02.2025)는 Wav2Vec2-BERT, Semantic Encoder, VQ, Decoder. Moshi (10.2024)는 WavLM, Distillation / VQ, Neural decoder. Qwen3-TTS (01.2026)는 WavLM, Encoder / VQ·RVQ, Decoder. 각 모델 아래에 논문 그림이 작게 있다." caption="Semantic distillation을 쓰는 최근 모델 네 개. 각 줄의 첫 상자가 Semantic teacher다." time="14:55" videoUrl={videoUrl} />
+
+문제는 이 시맨틱 티처들이 거의 영어로 학습된 모델이라는 점인데 발표자 표현으로는 영어 원어민한테 한국어를 배우고 있는 상황이다. 한국에서 몇십 년 산 사람처럼 구어체로 자연스럽게 말할 수 없는 게 당연하다.
+
+### 병목을 덜어낸 새 모델
+
+그래서 이 병목들을 최대한 덜어낸 구조와 모델을 찾아 새로 학습했다. 영상에서는 대화를 모사한 음성을 두 벌 들려준다. 토스쇼핑 담당자가 판매자에게 전화해서 상품 가격 노출 건으로 가격 조정을 권하는 대화다. B가 앞서 개선했다는 풀 파인튜닝 음성이고 C가 병목을 줄인 새 모델이다. 슬라이드에서 C의 이름은 weak 병목, FullFT다.
+
+블라인드 테스트 결과는 C 쪽이 압도적이다. C가 더 자연스럽다 80.0%, C가 훨씬 더 자연스럽다 10.0%, B가 더 자연스럽다 10.0%다. B가 훨씬 더 자연스럽다와 차이 없음은 0%였다.
+
+<VideoFrame src={blindTestWeakBottleneck} alt="발표 슬라이드 '블라인드 테스트 결과'. 왼쪽에 B: FullFT와 C: weak 병목, FullFT 음성 파형이 있다. 오른쪽 TTS 음성 자연스러움 선호도는 B (FullFT) 훨씬 더 자연스러움 0.0%, B (FullFT) 더 자연스러움 10.0%, 차이 없음 0.0%, C (weak 병목) 더 자연스러움 80.0%, C (weak 병목) 훨씬 더 자연스러움 10.0%다." caption="풀 파인튜닝 음성과 병목을 줄인 새 모델의 블라인드 테스트. C 쪽 응답을 합치면 90%다." time="16:50" videoUrl={videoUrl} />
+
+### 실제 통화 지표
+
+지표뿐 아니라 실제로 나간 통화에서도 변화가 있었다. 발표자가 본 건 인게이지먼트, 고객이 통화를 끊지 않고 얼마나 계속하느냐다. 아웃바운드 통화는 원래 길어지기 어려운 환경이라 통화가 길어졌다면 고객 인게이지먼트를 끌어냈다고 볼 수 있다.
+
+슬라이드는 1차부터 5차까지 모델을 바꿔 가며 나간 통화를 비교한다. 1차가 LoRA, 2차부터 4차가 풀 파인튜닝, 5차가 병목을 줄인 새 모델이다.
+
+<table>
+<thead>
+<tr><th scope="col">차수</th><th scope="col">모델</th><th scope="col">3분 이상 통화</th><th scope="col">5분 이상 통화</th><th scope="col">고객 끼어들기 발생 통화</th><th scope="col">콜당 고객 발화량</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">1차</th><td>A (LoRA)</td><td>2.8%</td><td>0.3%</td><td>13.2%</td><td>68자</td></tr>
+<tr><th scope="row">2차</th><td>B (FullFT)</td><td>3.4%</td><td>1.7%</td><td>26.6%</td><td>59자</td></tr>
+<tr><th scope="row">3차</th><td>B (FullFT)</td><td>3.4%</td><td>0.0%</td><td>35.0%</td><td>52자</td></tr>
+<tr><th scope="row">4차</th><td>B (FullFT)</td><td>5.6%</td><td>0.6%</td><td>38.5%</td><td>51자</td></tr>
+<tr><th scope="row">5차</th><td>C (weak 병목, FullFT)</td><td>7.6%</td><td>4.1%</td><td>56.1%</td><td>80자</td></tr>
+</tbody>
+</table>
+
+3분 이상 통화 비율은 1차 2.8%에서 5차 7.6%가 됐다. 5분 이상 통화는 4.1%까지 늘었다. 실제로 10분, 20분씩 길어진 통화도 있어서 유의미한 변화였다고 한다.
+
+<VideoFrame src={callDuration} alt="발표 슬라이드 '통화 인게이지먼트 변화'. 왼쪽 3분 이상 통화 비율 막대그래프는 1차 A (LoRA) 2.8%, 2차 B (FullFT) 3.4%, 3차 3.4%, 4차 5.6%, 5차 C (weak 병목, FullFT) 7.6%다. 오른쪽 5분 이상 통화 비율은 1차 0.3%, 2차 1.7%, 3차 0.0%, 4차 0.6%, 5차 4.1%다." caption="통화 길이 변화. 5차가 병목을 줄인 새 모델이다." time="17:25" videoUrl={videoUrl} />
+
+고객 끼어들기는 AI가 말하는 도중에 고객이 끼어든 비율이다. 이전에는 고객이 ARS 음성이나 기계적인 안내음을 듣듯이 AI가 말을 마칠 때까지 기다렸다가 말했다. 이제는 정말 대화한다는 느낌을 받고 AI라는 불쾌함을 느끼지 않아서 고객이 주도적으로 대화에 참여한다. 끼어들기 발생 통화 비율은 13.2%에서 56.1%로 올랐다. 콜당 고객 발화량은 5차에서 평균 80자였다. 2차부터 4차는 51자에서 59자 사이였다.
+
+<VideoFrame src={bargeInUtterance} alt="발표 슬라이드 '통화 인게이지먼트 변화'. 왼쪽 고객 끼어들기 발생 통화 비율은 1차 13.2%, 2차 26.6%, 3차 35.0%, 4차 38.5%, 5차 56.1%다. 오른쪽 콜당 고객 발화량은 1차 68자, 2차 59자, 3차 52자, 4차 51자, 5차 80자다." caption="끼어들기와 고객 발화량 변화. 5차에서 둘 다 가장 높다." time="18:05" videoUrl={videoUrl} />
+
+### 다음 이야기
+
+팀은 TTS가 중요하다는 생각을 계속 해 왔고 이 발표는 그 성과를 공유한 자리다. 대화에서는 언제 말할지, 상대방 말을 언제까지 기다릴지, 내 말을 하다가 언제 끊을지도 중요하다. 이 부분도 개선한 게 많다고 했고 다음 발표에서 공유하고 싶다고 했다. 마지막 슬라이드에 그 구조가 미리 그려져 있다. 고객 음성이 VAD와 STT로 들어가고 SemVAD가 말이 끝났는지 판단한다. 턴 결정을 거쳐 LLM과 TTS로 간다. 고객 발화를 들어야 한다고 판단되면 중단하는 barge-in도 있다. 오늘 발표가 TTS였다면 다음은 더 잘 듣고 제때 말하기다.
+
+<VideoFrame src={nextTalkTurnTaking} alt="발표 슬라이드 '다음 이야기: 더 잘 듣고, 제때 말하기'. 고객 음성이 VAD(소리가 났나, 멈췄나?)와 STT(무슨 말을 했나?)로 들어가고 STT 텍스트가 SemVAD(말이 끝났나?)를 거쳐 턴 결정으로 간다. 턴 결정이 응답 생성 시작을 LLM에 보내고 TTS가 AI 상담원 음성을 고객에게 돌려준다. 위쪽 점선은 고객 발화를 들어야 된다고 판단되면 중단(barge-in)이다. 다음 발표 상자에 1 모델 고도화 VAD, STT와 2 통화 경험 설계 SemVAD, 턴 결정, barge-in이 적혀 있고 TTS 아래에 오늘 발표 체크가 있다." caption="다음 발표 예고 슬라이드. 오늘 다룬 TTS 외에 듣는 쪽과 턴 결정이 남아 있다." time="18:50" videoUrl={videoUrl} />
+
+## 내 생각
+
+API도 오픈소스도 한국어가 안 됐던 이유가 같았는데 둘 다 글로벌 시장을 보고 만들어서 학습 데이터에서 한국어가 1% 남짓이다. LoRA로 그 위에 한국어를 얹어 봐야 원래 잘하던 영어를 덜 잊는 만큼 한국어도 덜 배운다. 그래서 풀 파인튜닝으로 갔고 그걸로도 안 되니 토크나이저까지 내려가서 병목을 찾았다. 모델을 통째로 바꾸기 전에 어디가 막혔는지 한 단계씩 내려간 순서가 기억에 남는다.
+
+지표도 음성 품질 점수 대신 통화 길이와 끼어들기로 봤다. 고객이 AI 말을 끊고 들어오는 비율이 올랐다는 건 사람과 통화할 때처럼 행동했다는 뜻이다. 블라인드 테스트의 선호도보다 이 숫자가 더 와닿았다.
