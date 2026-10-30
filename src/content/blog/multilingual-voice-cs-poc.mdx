@@ -1,0 +1,253 @@
+---
+title: '다국어 AI 음성 상담 PoC, weak 병목 TTS 네 개를 로컬에서 비교하기'
+description: '토스 AI 콜 발표에서 본 Vector Quantization 병목 세 가지가 영어, 중국어 간체와 번체, 일본어 CS에도 보이는지 공개 TTS 모델 네 개로 확인했다. M4 Pro에서 API 키와 학습 없이 언어별 음성 비교, 발음 오류율, 속도, Whisper와 Ollama를 묶은 실시간 상담 데모까지 돌린 기록이다.'
+pubDate: 2026-10-30
+tags: [TTS, 음성합성, VoxCPM2, CosyVoice3, Qwen3-TTS, Kokoro, Whisper, Ollama, 보이스에이전트]
+category: '실험'
+---
+
+import AudioCompare from '../../components/insights/AudioCompare.astro';
+
+export const tossPost = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/insights/toss-ai-call-voice-tts/`;
+
+지난번에 <a href={tossPost}>토스 AIOC 팀의 AI 콜 TTS 발표</a>를 정리했다. 발표의 결론 하나는 LLM 기반 TTS의 Speech Tokenizer가 병목이라는 것이었다. 토크나이저 학습 데이터 분포, 이산화 손실, 영어로 학습된 semantic teacher 세 가지다. 토스는 한국어 이야기였다. ZIVO의 외국인 CS는 영어, 중국어 간체와 번체, 일본어다. 같은 병목이 이 네 언어에도 보이는지 궁금했다. 그래서 학습 없이 공개 모델만으로 확인하는 PoC를 돌렸다.
+
+범위를 먼저 적어 둔다. 이번에 만든 것은 모델이 아니라 파이프라인이다. TTS 네 개를 같은 조건으로 돌리는 벤치랑 블라인드 비교 페이지, Whisper랑 Ollama를 묶은 실시간 상담 데모까지 만들었지만 모델 가중치는 하나도 바꾸지 않았다. 결과도 그 범위 안에서만 읽어야 한다.
+
+## 실험 조건
+
+전부 로컬이다. M4 Pro, 통합 메모리 48GB, macOS 27.0.1에서 돌렸다. API 키는 쓰지 않았고 모델 학습도 하지 않았다. 모델 다운로드는 합계 20GB 이하로 제한했고 실제 합계는 16.94GB다. LLM은 이미 설치돼 있던 Ollama의 `qwen3.5:35b-a3b`(23GB)를 그대로 썼다.
+
+TTS 후보는 열 개를 조사해서 넷을 골랐다. 기준은 토스 발표의 병목 세 가지다. 참고로 B1, B2, B3는 설계서에서 붙인 이름이다.
+
+- B1 토크나이저 학습 데이터 분포. 음성을 토큰이나 잠재 표현으로 바꾸는 모듈이 en, zh, ja를 충분히 봤는가.
+- B2 이산화 정보 손실. 모델이 이산 토큰(VQ, RVQ, FSQ)을 예측하면서 정보를 잃는가.
+- B3 semantic distillation teacher. 토크나이저가 영어 위주 SSL 모델(wav2vec 2.0, WavLM)을 teacher로 쓰는가.
+
+| 역할 | 엔진 | 크기 | 예측 대상 | B1 분포 | B2 이산화 | B3 teacher |
+| --- | --- | --- | --- | --- | --- | --- |
+| weak 병목 1 | VoxCPM2 | 2B | 연속. 25Hz VAE 잠재 표현 | 미확인 | 약함 | 회피. teacher 없음 |
+| weak 병목 2 | Fun-CosyVoice3-0.5B | 0.5B | 이산. 25Hz FSQ 토큰 | 약함 | 있음 | 회피. 다국어 지도학습 530K시간 |
+| baseline | Qwen3-TTS-12Hz-1.7B | 1.7B | 이산. 12.5Hz, 16층 RVQ | 미확인 | 있음 | 있음. WavLM, 영어 94K시간 |
+| 대조군 | Kokoro-82M | 82M | 연속. 토크나이저 없음 | 해당 없음 | 해당 없음 | 미확인 |
+
+VoxCPM2는 이산 토큰 대신 연속 잠재 표현을 만들고 semantic teacher가 없는 반면 CosyVoice3는 이산화는 남아 있지만 영어 SSL teacher 대신 다국어 지도학습으로 토크나이저를 만들었다. 둘을 나란히 두면 이산화만의 효과를 가늠할 수 있다. Qwen3-TTS는 RVQ랑 영어 전용 WavLM teacher를 둘 다 가진 모델이다. 토스 발표 슬라이드에도 병목 사례로 나왔다. Kokoro는 82M짜리 경량 모델이고 속도 기준선이다. 넷 다 Apache-2.0이다. 표의 `미확인`은 공개 자료에서 근거를 못 찾은 칸이다. 추측으로 채우지 않았다.
+
+참조 음성은 FLEURS 테스트 발화(CC-BY-4.0)를 언어별로 하나씩 골라 제로샷 클로닝에 썼다. 클로닝이 되는 세 엔진은 같은 언어에서 같은 참조를 쓴다. Kokoro는 클로닝이 없어서 프리셋 화자를 썼다. 대만 억양 참조는 구하지 못했다. 그래서 zh-TW도 본토 보통화 참조를 그대로 쓴다. 이 글에서 대만 억양은 평가하지 않는다. 번체 글자를 제대로 읽는지만 본다.
+
+실행 경로는 VoxCPM2, Qwen3-TTS, Kokoro가 mlx-audio(MLX bf16)다. CosyVoice3는 PyTorch MPS인데 공식 저장소에 아직 안 합쳐진 Apple Silicon 패치(PR #1869)를 고정 커밋으로 가져왔다. 엔진마다 프로세스를 따로 띄우고 HTTP로 24kHz PCM을 받는다.
+
+## 언어별 음성 비교
+
+블라인드 세트는 언어별 CS 문장 8개(광둥어는 3개)를 전 엔진으로 합성한 134개 클립이다. 사전 치환과 숫자 읽기를 적용한 `full` 정규화 텍스트를 넣었다. 24kHz 모노, 앞뒤 무음 150ms, 라우드니스 -20 LUFS로 맞췄다. 음질 단서를 없애려고 VoxCPM2의 48kHz 출력도 24kHz로 내렸다.
+
+아래는 언어마다 예약 조회 결과 문장 하나씩이다. 예약 코드, 날짜, 고유명사가 다 들어 있어서 CS 문장 중 제일 까다롭다. 클립은 블라인드 세트 WAV를 그대로 m4a로 바꾼 것이다. 각 항목의 메모는 그 언어의 Whisper 재인식 오류율이다. 뒤의 표에서 다시 설명한다.
+
+### 영어
+
+원문: I found your booking. Your reservation number is ZV-4821, at Hanbit Stay Myeongdong.
+뜻: 예약을 찾았다. 예약번호는 ZV-4821, 한빛 스테이 명동이다.
+
+<AudioCompare
+  title="영어 · 같은 문장, 엔진 네 개"
+  items={[
+    { label: 'VoxCPM2 · weak 병목 1', src: 'audio/blog/voice-cs-poc/en-voxcpm2.m4a', note: 'Whisper 재인식 WER 7.9%' },
+    { label: 'CosyVoice3 · weak 병목 2', src: 'audio/blog/voice-cs-poc/en-cosyvoice3.m4a', note: 'Whisper 재인식 WER 9.5% (축소 측정)' },
+    { label: 'Qwen3-TTS · baseline', src: 'audio/blog/voice-cs-poc/en-qwen3tts.m4a', note: 'Whisper 재인식 WER 8.7%' },
+    { label: 'Kokoro · 대조군', src: 'audio/blog/voice-cs-poc/en-kokoro.m4a', note: 'Whisper 재인식 WER 6.2%' },
+  ]}
+  caption="TTS에 들어간 텍스트는 'Your reservation number is Z V four eight two one, at Hahn-bit Stay Myung-dong.'이다. 코드는 글자 단위로 풀고 호텔 이름은 사전의 발음 철자로 바꿨다."
+/>
+
+### 중국어 본토
+
+원문: 已经查到您的预订，预订号ZV-7305，11月7日晚上19:30从仁川国际机场出发。
+뜻: 예약을 확인했다. 예약번호 ZV-7305, 11월 7일 저녁 7시 30분 인천국제공항 출발이다.
+
+<AudioCompare
+  title="중국어 본토 · 같은 문장, 엔진 네 개"
+  items={[
+    { label: 'VoxCPM2 · weak 병목 1', src: 'audio/blog/voice-cs-poc/zh-cn-voxcpm2.m4a', note: 'Whisper 재인식 CER 1.2%' },
+    { label: 'CosyVoice3 · weak 병목 2', src: 'audio/blog/voice-cs-poc/zh-cn-cosyvoice3.m4a', note: 'Whisper 재인식 CER 2.4% (축소 측정)' },
+    { label: 'Qwen3-TTS · baseline', src: 'audio/blog/voice-cs-poc/zh-cn-qwen3tts.m4a', note: 'Whisper 재인식 CER 2.1%' },
+    { label: 'Kokoro · 대조군', src: 'audio/blog/voice-cs-poc/zh-cn-kokoro.m4a', note: 'Whisper 재인식 CER 4.7%' },
+  ]}
+  caption="TTS 입력은 '预订号Z V 七三零五，十一月七日晚上七点半从仁川国际机场出发'이다. 19:30을 七点半으로 바꿨다."
+/>
+
+### 중국어 대만
+
+원문: 已經查到您的訂房，訂單編號ZV-5196，11月10日入住漢江月光套房飯店。
+뜻: 예약을 확인했다. 주문번호 ZV-5196, 11월 10일 한강 문라이트 스위트 체크인이다.
+
+<AudioCompare
+  title="중국어 대만 · 같은 문장, 엔진 네 개"
+  items={[
+    { label: 'VoxCPM2 · weak 병목 1', src: 'audio/blog/voice-cs-poc/zh-tw-voxcpm2.m4a', note: 'Whisper 재인식 CER 3.4%' },
+    { label: 'CosyVoice3 · weak 병목 2', src: 'audio/blog/voice-cs-poc/zh-tw-cosyvoice3.m4a', note: 'Whisper 재인식 CER 3.4% (축소 측정)' },
+    { label: 'Qwen3-TTS · baseline', src: 'audio/blog/voice-cs-poc/zh-tw-qwen3tts.m4a', note: 'Whisper 재인식 CER 7.2%' },
+    { label: 'Kokoro · 대조군', src: 'audio/blog/voice-cs-poc/zh-tw-kokoro.m4a', note: 'Whisper 재인식 CER 5.7%' },
+  ]}
+  caption="세 클로닝 엔진은 본토 참조 음성을 썼고 Kokoro는 번체를 간체로 바꿔 넣었다. 대만 억양 비교가 아니다. 번체 어휘(訂房, 飯店)를 읽는지만 본다."
+/>
+
+### 일본어
+
+원문: ご予約を確認しました。予約番号ZV-2610、11月5日午前10時の景福宮韓服体験ツアーですね。
+뜻: 예약을 확인했다. 예약번호 ZV-2610, 11월 5일 오전 10시 경복궁 한복 체험 투어 맞으시죠.
+
+<AudioCompare
+  title="일본어 · 같은 문장, 엔진 네 개"
+  items={[
+    { label: 'VoxCPM2 · weak 병목 1', src: 'audio/blog/voice-cs-poc/ja-voxcpm2.m4a', note: 'Whisper 재인식 CER 7.3%, 가나 CER 8.8%' },
+    { label: 'CosyVoice3 · weak 병목 2', src: 'audio/blog/voice-cs-poc/ja-cosyvoice3.m4a', note: 'Whisper 재인식 CER 44.9%, 가나 CER 43.1% (축소 측정)' },
+    { label: 'Qwen3-TTS · baseline', src: 'audio/blog/voice-cs-poc/ja-qwen3tts.m4a', note: 'Whisper 재인식 CER 7.0%, 가나 CER 9.2%' },
+    { label: 'Kokoro · 대조군', src: 'audio/blog/voice-cs-poc/ja-kokoro.m4a', note: 'Whisper 재인식 CER 10.0%, 가나 CER 12.7%' },
+  ]}
+  caption="TTS 입력은 '予約番号ゼット ブイ に ろく いち ゼロ、じゅういちがつ いつか ごぜん じゅうじのキョンボックン ハンボク体験ツアーですね'이다. 한국 지명 한자를 그대로 넣으면 음독으로 읽을 위험이 있어 가타카나 독음으로 바꿨다."
+/>
+
+### 광둥어
+
+원문: 你嘅訂單編號係ZV-9034，十一月二十號入住明洞韓光酒店。
+뜻: 주문번호는 ZV-9034, 11월 20일 명동 한빛 스테이 체크인이다.
+
+<AudioCompare
+  title="광둥어 · 같은 문장, 지원 엔진 두 개"
+  items={[
+    { label: 'VoxCPM2 · weak 병목 1', src: 'audio/blog/voice-cs-poc/yue-voxcpm2.m4a', note: 'Whisper 재인식 CER 24.4%' },
+    { label: 'CosyVoice3 · weak 병목 2', src: 'audio/blog/voice-cs-poc/yue-cosyvoice3.m4a', note: 'Whisper 재인식 CER 37.3% (축소 측정)' },
+  ]}
+  caption="Qwen3-TTS와 Kokoro는 광둥어를 지원하지 않는다. 광둥어는 선택 항목이라 문장이 3개뿐이다."
+/>
+
+### 발음 오류율
+
+TTS 출력을 Whisper(`mlx-community/whisper-large-v3-turbo`)로 다시 인식해 원문과 비교했다. 영어는 WER(단어 오류율), 나머지는 CER(글자 오류율)이고 낮을수록 좋다. 소문자화, 문장부호 제거, 중국어 간체 통일, 숫자와 코드 역정규화를 거친 뒤 비교했다. `full` 정규화 결과의 문장별 평균이다. CosyVoice3는 속도가 느려서 문장당 1회만 측정했다. 나머지 셋은 3회다.
+
+| 엔진 | en WER | zh-CN CER | zh-TW CER | ja CER | ja 가나 CER | yue CER |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| VoxCPM2 | 7.9% | 1.2% | 3.4% | 7.3% | 8.8% | 24.4% |
+| CosyVoice3 (축소) | 9.5% | 2.4% | 3.4% | 44.9% | 43.1% | 37.3% |
+| Qwen3-TTS | 8.7% | 2.1% | 7.2% | 7.0% | 9.2% | 미지원 |
+| Kokoro | 6.2% | 4.7% | 5.7% | 10.0% | 12.7% | 미지원 |
+
+이 표는 보조 지표다. Whisper가 틀린 것과 TTS가 틀린 것을 이 숫자만으로 가를 수 없는데 특히 일본어는 한국 지명을 가타카나로 넣으면 Whisper가 소리를 다른 한자로 적어서 그렇다. 景福宮駅을 VoxCPM2 음성에서는 京北区駅으로, Kokoro 음성에서는 京牧訓駅으로 적었다. 소리는 맞는데 표기가 다른 경우다. 그래서 일본어는 pyopenjtalk로 양쪽을 가나로 바꿔 비교한 가나 CER도 같이 둔다.
+
+CosyVoice3의 일본어 44.9%는 Whisper 탓만은 아닌 것 같다. 집합 장소를 안내하는 문장(集合場所は景福宮駅の5番出口です。)의 Whisper 원문이 `地公罵送は京牧群へ 金の5番で 口です`였다. 위의 일본어 클립을 들어 보면 왜 그런지 감이 온다. 다만 원어민 확인은 못 했다.
+
+고유명사 적중률은 정규화의 효과가 언어마다 달랐다. 영어는 사전을 적용하니 VoxCPM2가 9개 중 6개에서 9개로 올랐다. 일본어는 반대다. 가타카나 독음을 넣으니 표기 기준 적중이 VoxCPM2 6개 중 5개에서 2개로, Kokoro 6개에서 2개로 내려갔다. Whisper가 소리를 한자로 적어서 생기는 일이라 발음이 나빠졌다고 단정할 수 없다. 정규화가 모든 언어에서 유리하다는 결론도 내리지 않았다.
+
+### 내 블라인드 투표
+
+블라인드 페이지는 서버가 쌍을 고르고 A/B 위치를 섞는 구조다. 브라우저는 엔진 이름을 모른다. 오디오 URL은 무작위 토큰이고 파일명, 헤더 단서도 없앴다. 둘 다 끝까지 들어야 투표 버튼이 켜진다.
+
+원어민 평가자가 아직 없어서 내가 임시로 28표를 넣었는데 나는 네 언어 중 어느 쪽 원어민도 아니고 헤드폰으로 들었다. 영어 13표, 본토 중국어 11표, 일본어 4표이고 대만 중국어와 광둥어는 아직 안 들었다. 승/패/무 집계는 이렇다.
+
+| 엔진 | 전체 | 영어 | 본토 중국어 | 일본어 |
+| --- | --- | --- | --- | --- |
+| VoxCPM2 | 5/4/3 | 0/3/1 | 5/1/1 | 0/0/1 |
+| CosyVoice3 | 10/5/0 | 7/0/0 | 3/3/0 | 0/2/0 |
+| Qwen3-TTS | 6/3/4 | 2/1/2 | 2/2/1 | 2/0/1 |
+| Kokoro | 3/12/1 | 2/7/1 | 0/4/0 | 1/1/0 |
+
+영어에서는 CosyVoice3가 7전 전승이었다. 본토 중국어에서는 VoxCPM2가 5승 1패 1무로 앞섰다. 일본어 4표에서는 Qwen3-TTS가 2승 1무다. 발음 오류 체크는 28표 중 VoxCPM2 한 번(12회 등장 중 1회)만 눌렀다.
+
+이 숫자로 우열을 말하면 안 된다. 쌍당 1표에서 5표라 통계적 유의성이 없다. 표가 제일 많은 영어 CosyVoice3 대 Kokoro 5:0도 부호검정 p값이 0.06이다. 그래도 한 가지는 적어 둘 만하다. 영어에서 내가 제일 자연스럽다고 고른 CosyVoice3는 Whisper WER로는 넷 중 제일 나빴다. 자연스러움과 발음 정확도는 다른 축이다. 토스 발표도 그 둘을 따로 봤다.
+
+## 속도와 메모리
+
+Ollama를 내리고 엔진 하나씩 띄워서 쟀다. RTF는 합성 시간을 생성된 오디오 길이로 나눈 값이다. 1보다 작아야 실시간보다 빠르다. 참고로 mlx-community의 VoxCPM2 카드는 반대 정의(1보다 크면 빠름)를 쓴다. 이 글은 전부 합성 시간/오디오 길이로 통일했다. TTFA는 요청부터 첫 오디오 바이트까지다. 스트리밍 엔진은 첫 청크, 아니면 문장 전체 합성 시간이다.
+
+| 엔진 | en RTF | zh-CN | zh-TW | ja | yue | TTFA 중앙값 | 로드 시간 | 최대 관측 메모리 |
+| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: |
+| Kokoro | 0.045 | 0.044 | 0.044 | 0.043 | 미지원 | 268~324ms, 문장 전체 | 1,194ms | 2.65GB |
+| Qwen3-TTS | 0.580 | 0.569 | 0.569 | 0.584 | 미지원 | 299~341ms, 스트리밍 | 4,083ms | 8.96GB |
+| VoxCPM2 | 1.794 | 1.753 | 1.805 | 1.799 | 1.800 | 9,240~11,229ms, 문장 전체 | 2,721ms | 9.02GB |
+| CosyVoice3 | 2.634 | 2.300 | 2.213 | 2.534 | 2.829 | 3,752~4,554ms, 스트리밍 | 10,264ms | 13.89GB |
+
+weak 병목 두 모델은 이 Mac에서 실시간이 안 된다. VoxCPM2는 5초짜리 문장에 9초가 걸리고 mlx-audio 구현이 한 번에 yield하기 때문에 문장 전체가 끝나야 오디오를 준다. CosyVoice3는 스트리밍이 되지만 첫 청크까지 4초 안팎이 걸린다. 그래서 실시간 데모는 Kokoro를 기본으로 두고 두 모델은 미리 합성하는 블라인드 비교에만 썼다. Qwen3-TTS는 RTF 0.58에 첫 청크 0.3초라 실시간 후보는 된다.
+
+메모리는 RSS와 backend allocation 중 큰 값이고 둘을 더하지 않았다. 설계 때는 큰 엔진 하나가 5~6GB일 거라고 봤는데 실측은 9GB에서 14GB였다. CosyVoice3 값에는 긴 배치의 누적 최고치가 섞여 있다.
+
+## 실시간 상담 데모
+
+구조는 한 줄이다. 브라우저 Silero VAD가 발화를 자르고 → 서버 Whisper가 글자로 바꾸고 → Ollama가 도구를 부르고 → 문장 단위로 정규화해서 → TTS 청크를 바로 재생한다. 답변 중에 말하면 재생을 끊는다(barge-in). 가짜 예약 DB에 코드 다섯 개를 넣고 조회, 취소 정책 안내, 상담원 연결 도구 세 개를 줬다. 실제 취소 실행 도구는 만들지 않았다. 도구 호출이 감지되면 미리 합성해 둔 안내음("Let me check that for you.")을 먼저 틀어 빈 시간을 메운다.
+
+아래 네 통화는 고객 질문을 macOS `say` 음성으로 만들고 서버에 보낸 것이다. 응답은 실제 Whisper → Ollama `qwen3.5:35b-a3b` → Kokoro 경로다. 고객이 예약 코드와 성을 말하고 조회를 요청하는 한 턴이다. 자연 발화가 아니고 녹음된 사람 목소리도 아니다.
+
+<AudioCompare
+  title="데모 통화 네 개 · 고객 질문과 AI 응답"
+  items={[
+    { label: 'en · 조회 성공', src: 'audio/blog/voice-cs-poc/demo-call-en.m4a', note: 'Whisper가 ZV4821과 Carter를 맞게 적었다. 안내음 뒤에 조회 결과를 읽는다.' },
+    { label: 'zh-CN · 조회 실패', src: 'audio/blog/voice-cs-poc/demo-call-zh-cn.m4a', note: 'Whisper가 ZV를 CV로 적었다. 모델이 도구를 부르지 않고 코드 형식 확인을 요청했다.' },
+    { label: 'zh-TW · 조회 성공', src: 'audio/blog/voice-cs-poc/demo-call-zh-tw.m4a', note: 'ZV5196과 陳을 맞게 적었다. 응답은 번체로 나왔다.' },
+    { label: 'ja · 조회 실패', src: 'audio/blog/voice-cs-poc/demo-call-ja.m4a', note: '名字(이름)를 行事(행사)로 적었다. 코드는 맞았는데 모델이 하이픈 형식 재입력을 요구했다.' },
+  ]}
+  caption="고객 음성과 서버 응답 음성을 한 파일로 이었다. TTS는 네 통화 모두 Kokoro다. 영어와 대만 통화에서는 안내음이 먼저 나온다."
+/>
+
+| 언어 | Whisper 인식 결과 | AI 응답 | 결과 |
+| --- | --- | --- | --- |
+| en | Hi, I'd like to check my hotel reservation. My booking number is ZV4821, and my last name is Carter. | Your reservation at Hanbit Stay Myeongdong is confirmed for check-in on November 3, 2026, and check-out on November 5, 2026. Would you like to know the cancellation policy? | 조회 성공 |
+| zh-CN | 你好,我想确认一下接机预定,预定号是CV7305,我姓王 | 您提供的预订号格式似乎有误，ZIVO的预订号应以ZV开头。请确认您的预订号是否正确，例如ZV-1234。 | 실패. ZV를 CV로 인식 |
+| zh-TW | 你好,我想確認飯店訂房, 訂房代號是ZV5196, 我姓陳 | 陳先生您好，您的訂房代號ZV-5196已確認，入住漢江月光套房飯店，入住日期為2026年11月10日至11月12日。請問您還需要查詢其他資訊嗎？ | 조회 성공 |
+| ja | こんにちは、ツアーの予約を確認したいです。予約番号はZV2610、行事は佐藤です。 | 予約番号は「ZV-2610」の形式で入力してください。 | 실패. 名字를 行事로 인식 |
+
+조회 성공은 4건 중 2건이다. 실패 두 건은 둘 다 STT 쪽이다. 본토 중국어는 코드 접두사 ZV가 CV로 바뀌었다. 일본어는 코드가 맞았는데 모델이 하이픈 형식을 다시 요구하며 도구를 안 불렀다. 응답 언어와 문자 체계는 네 통화 모두 맞았다. 대만 응답은 번체, 일본어 응답은 일본어다.
+
+지연은 Chrome에서 따로 쟀다. Whisper, Ollama, Kokoro를 워밍업한 뒤 언어별 1회다. 개발용 WAV 입력을 Web Audio로 재생했고 마이크 VAD는 우회했다. 단위는 ms다.
+
+| 언어 | STT | LLM 첫 토큰 | 문장 확정 | TTS 첫 오디오 | 첫 재생 − VAD 끝 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| en | 708.1 | 1,114.3 | 514.2 | 601.7 | 2,971.9 |
+| zh-CN | 823.7 | 2,613.9 | 375.8 | 841.3 | 4,681.9 |
+| zh-TW | 780.3 | 3,047.4 | 816.9 | 672.3 | 5,361.6 |
+| ja | 753.6 | 2,545.0 | 185.8 | 482.3 | 4,001.3 |
+
+목표는 1.5초였고 실측은 3.0초에서 5.4초다. 제일 큰 구간은 LLM 첫 토큰이다. 도구 호출이 토큰 스트림 뒤늦게 올 수 있어서 도구를 쓸 수 있는 라운드는 응답이 끝날 때까지 문장을 내보내지 않게 만들었기 때문이다. 안 그러면 "확인해 드릴게요"를 먼저 읽고 나서 도구 결과가 바뀌는 일이 생긴다. 안전한 대화 상태랑 응답 속도의 절충이고 아직 못 풀었다. 참고로 서버 쪽 barge-in 응답은 1.3ms에서 2.2ms였고 브라우저 재생 정지는 0.0ms였다. 끊는 건 빠른데 말을 시작하는 게 느리다.
+
+턴 결정에는 Smart Turn v3.2(CPU ONNX, 8.7MB)도 붙여 봤다. 발화가 끝났는지 모델이 판단하고 미완료면 최대 1.5초 더 기다려 다음 조각과 합친다. 완전한 문장인 중국어 입력 둘을 미완료로 판정해서 1.5초를 그냥 기다렸다. 정답 라벨이 없는 합성 입력이라 정확도는 산출하지 않았다.
+
+## 메모리 사고 한 번
+
+엔진 서버를 만들던 중에 모델 여러 개가 동시에 돌아간 적이 있다. 스왑 사용량이 47,413MiB까지 갔고 디스크 여유가 약 12GiB에서 163MiB로 떨어졌다. 작업을 바로 멈추고 프로세스를 다 내렸다. 그 뒤로 규칙을 세웠다. 모델은 한 번에 하나만 올리는 게 첫 규칙이다. MLX allocator 캐시는 256MiB로 제한한다. 생성 중 1초마다 디스크를 검사해서 5GB 아래면 507로 거절하고 추론 프로세스를 죽인다. 벤치와 실모델 검증 스크립트는 시작 대비 스왑 +4GiB, OS 메모리 압박 critical, 디스크 10GB 미만이면 자동으로 중단한다. 48GB라도 LLM 23GB에 TTS 14GB를 올리면 남는 게 없다.
+
+## 알게 된 것
+
+weak 병목 회피가 품질을 올린다는 가설은 이 실험만으로는 입증되지 않았다. 구조 판정과 실측을 나란히 두면 이렇다.
+
+| 엔진 | B2 | B3 | 실측으로 말할 수 있는 것 |
+| --- | --- | --- | --- |
+| VoxCPM2 | 약함 | 회피 | 본토와 대만 중국어 CER이 제일 낮다. 일본어는 baseline보다 낮지 않다. |
+| CosyVoice3 | 있음 | 회피 | 대만 중국어 CER은 낮다. 일본어 CER이 매우 높다. B3 회피만으로 품질이 보장되지 않는다. |
+| Qwen3-TTS | 있음 | 있음 | 일본어 CER이 넷 중 제일 낮다. 병목이 둘 다 있어도 순위가 예측대로 가지 않는다. |
+| Kokoro | 해당 없음 | 미확인 | 영어 WER과 속도에서 유리하다. 클로닝이 없어 화자 비교는 못 한다. |
+
+이건 B1, B2, B3 하나만 바꾼 절제 실험이 아니고 모델 크기, 학습 데이터, G2P, 디코더, 화자, 참조 음성이 같이 달라지는 관찰 비교다. 토스는 같은 데이터로 풀 파인튜닝까지 한 뒤에 토크나이저 차이를 봤다. 이 PoC는 공개 가중치를 제로샷으로 쓴 것이라 조건이 다르다.
+
+파이프라인 쪽에서 배운 건 더 분명하다. 데모 통화 4건 중 2건은 STT에서 망가졌다. 예약 코드 접두사 한 글자, 일본어 명사 하나가 틀리면 도구가 안 불린다. 텍스트만 돌린 상담 시나리오도 기본 16개 중 13개, 변형 포함 48개 중 39개, 다회차 대화 20개 중 8개만 통과했다. 상담원 연결 요청을 받고도 도구를 안 부르고 대기열 안내 문장만 말하는 경우가 중국어와 일본어에서 반복됐다. 음성 품질을 따지기 전에 이쪽이 먼저다.
+
+## 한계와 다음에 할 것
+
+남은 한계는 이렇다.
+
+1. 원어민 청취 평가가 0표다. 위 투표는 내 임시 표다. 대만 억양은 참조도 평가자도 없어서 아예 못 봤다.
+2. STT가 예약 코드와 이름을 틀린다. 화면이나 DTMF로 확인하는 경로가 필요하다.
+3. LLM이 상담원 연결, 정책 예외, 다회차 슬롯 보충에서 도구를 빼먹는다.
+4. 첫 재생 1.5초 목표를 못 맞췄다. LLM 첫 토큰, 라운드 보류, 비스트리밍 TTS가 겹친다.
+5. 표본이 작다. 실시간은 Kokoro 한 조합이고 CosyVoice3는 축소 측정이다.
+
+다음 순서는 이렇게 잡았다.
+
+1. 상담원 요청과 정책 예외는 모델 판단에 맡기지 않고 서버 정책으로 바로 연결한다. 실패한 발화를 회귀 세트로 고정한다.
+2. 코드와 성의 확인 질문을 넣고 자연 발화로 STT를 다시 잰다. 선택 항목인 Qwen3-ASR로 교차 채점한다.
+3. LLM 라운드를 줄이거나 작은 모델, API 대안을 같은 시나리오로 비교한다. 첫 토큰, 첫 유효 문장, 안내음, 첫 답변을 분리해서 잰다.
+4. Smart Turn은 정답이 있는 데이터로 ON/OFF 순서를 섞어 다시 잰다.
+5. 대만 화자 참조와 원어민 평가자를 구해서 블라인드 청취를 모은다. 그 뒤에 토스처럼 콜 단위 지표를 본다.
+
+## 내 생각
+
+토스 발표를 읽을 때는 토크나이저 병목이 꽤 깔끔한 이야기로 들렸다. 직접 돌려 보니 공개 모델을 제로샷으로 쓰는 조건에서는 그 차이가 다른 변수에 묻힌다. 병목이 둘 다 있는 Qwen3-TTS가 일본어에서 제일 정확했고 teacher를 피한 CosyVoice3가 일본어를 제일 못 읽었다. 토스가 풀 파인튜닝까지 다 한 다음에야 토크나이저를 바꿨던 순서가 이제 이해된다. 그 앞 단계를 건너뛰면 구조 차이가 보이지 않는다.
+
+더 와닿은 건 음성 앞뒤의 단계였다. 네 통화 중 둘이 STT 한 글자에 막혔고 응답이 느린 이유도 도구 호출을 기다리는 LLM 쪽에 있었다. 토스 발표의 다음 편이 더 잘 듣고 제때 말하기였던 이유를 이 PoC가 그대로 보여 준 셈이다. TTS 모델을 고르는 일은 그다음에 해도 늦지 않을 것 같다.
