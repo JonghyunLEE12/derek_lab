@@ -1,0 +1,59 @@
+---
+interface Props {
+  title: string;
+  items: { label: string; src: string; note?: string }[];
+  time: string;
+  videoUrl: string;
+  caption?: string;
+}
+const { title, items, time, videoUrl, caption } = Astro.props;
+const audioUrl = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+const seconds = time.split(':').reduce((total, part) => total * 60 + Number(part), 0);
+const timestampUrl = new URL(videoUrl);
+timestampUrl.searchParams.set('t', `${seconds}s`);
+---
+<figure class="audio-compare" aria-label={title}>
+  <div class="comparison">
+    <p class="title">{title}</p>
+    <div class="items">
+      {items.map(({ label, src, note }) => (
+        <div class="item">
+          <p class="label">{label}</p>
+          <audio controls preload="none" aria-label={`${title}: ${label}`}>
+            <source src={audioUrl(src)} type="audio/mp4" />
+          </audio>
+          {note && <p class="note">{note}</p>}
+        </div>
+      ))}
+    </div>
+  </div>
+  <figcaption>{caption} <a href={timestampUrl.href} target="_blank" rel="noopener noreferrer">원본 영상 {time}<span class="sr-only"> (새 탭)</span></a></figcaption>
+</figure>
+<script is:inline>
+  if (!document.documentElement.hasAttribute('data-audio-compare-listener')) {
+    document.documentElement.setAttribute('data-audio-compare-listener', '');
+    document.addEventListener('play', (event) => {
+      const active = event.target;
+      if (!(active instanceof HTMLAudioElement) || !active.closest('.audio-compare')) return;
+      document.querySelectorAll('.audio-compare audio').forEach((player) => {
+        if (player !== active) player.pause();
+      });
+    }, true);
+  }
+</script>
+<style>
+  .audio-compare { margin: 2rem 0; min-width: 0; }
+  .comparison { padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  .title { margin: 0 0 1rem; font-weight: 650; }
+  .items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .item { min-width: 0; }
+  .label { margin: 0 0 .5rem; font-weight: 650; }
+  audio { display: block; width: 100%; }
+  .note { margin: .5rem 0 0; color: var(--muted); font-size: .85rem; line-height: 1.7; }
+  figcaption { margin-top: .7rem; color: var(--muted); font-size: .85rem; line-height: 1.7; }
+  figcaption a { display: inline-block; margin-left: .35em; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  @media (max-width: 600px) {
+    .items { grid-template-columns: 1fr; }
+  }
+</style>

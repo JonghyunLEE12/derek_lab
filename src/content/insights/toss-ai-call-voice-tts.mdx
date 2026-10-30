@@ -10,6 +10,7 @@ source:
   type: 'youtube'
 ---
 
+import AudioCompare from '../../components/insights/AudioCompare.astro';
 import VideoFrame from '../../components/insights/VideoFrame.astro';
 import VoiceTwoStageTts from '../../components/insights/diagrams/voice/VoiceTwoStageTts.astro';
 import VoiceVqTokenizer from '../../components/insights/diagrams/voice/VoiceVqTokenizer.astro';
@@ -147,6 +148,8 @@ LoRA를 적용하다 보니 LoRA의 특성이 그대로 드러났다. LoRA는 �
 
 영상에서는 토스 상담팀이 대표님께 전화를 거는 첫 인사 문장을 두 모델의 음성으로 들려준다. A가 LoRA, B가 풀 파인튜닝이다. 내부 블라인드 테스트에서 B가 더 자연스럽다는 응답이 61.5%였다. A가 더 자연스럽다는 23.1%, 차이 없음은 15.4%다.
 
+<AudioCompare title="같은 첫 인사, 두 모델" items={[{label:'A · LoRA', src:'audio/insights/toss-voice/a-lora-greeting.m4a'},{label:'B · Full fine-tuning', src:'audio/insights/toss-voice/b-fullft-greeting.m4a'}]} time="11:57" videoUrl={videoUrl} caption="영상 속 블라인드 테스트 음성을 잘라 왔다. A를 먼저 듣고 B를 들어 보면 차이가 잘 들린다." />
+
 <VideoFrame src={blindTestLoraVsFullft} alt="발표 슬라이드 '블라인드 테스트 결과'. 왼쪽에 A: LoRA와 B: FullFT 음성 파형이 있고 오른쪽 TTS 음성 자연스러움 선호도 막대그래프는 A (LoRA) 더 자연스러움 23.1%, 차이 없음 15.4%, B (FullFT) 더 자연스러움 61.5%다." caption="LoRA 음성과 Full fine-tuning 음성의 블라인드 테스트. B가 더 자연스럽다는 응답이 61.5%다." time="12:25" videoUrl={videoUrl} />
 
 그런데 풀 파인튜닝으로 방법이 확정됐다고 보고 데이터를 늘려 가며 학습을 계속했는데도 자연스러움이 특정 수준 이상으로 올라가지 않았다. 원하는 수준이 있었는데 거기에 닿지 않았다. 이것만으로는 해결이 안 되는 문제라고 보고 성능 개선의 병목이 무엇인지 찾기 시작했다.
@@ -170,6 +173,8 @@ LoRA를 적용하다 보니 LoRA의 특성이 그대로 드러났다. LoRA는 �
 ### 병목을 덜어낸 새 모델
 
 그래서 이 병목들을 최대한 덜어낸 구조와 모델을 찾아 새로 학습했다. 영상에서는 대화를 모사한 음성을 두 벌 들려준다. 토스쇼핑 담당자가 판매자에게 전화해서 상품 가격 노출 건으로 가격 조정을 권하는 대화다. B가 앞서 개선했다는 풀 파인튜닝 음성이고 C가 병목을 줄인 새 모델이다. 슬라이드에서 C의 이름은 weak 병목, FullFT다.
+
+<AudioCompare title="같은 대화, 두 모델" items={[{label:'B · Full fine-tuning', src:'audio/insights/toss-voice/b-fullft-dialogue.m4a'},{label:'C · weak 병목, Full fine-tuning', src:'audio/insights/toss-voice/c-weak-bottleneck-dialogue.m4a'}]} time="15:37" videoUrl={videoUrl} caption="토스쇼핑 담당자가 판매자에게 전화하는 대화를 두 모델로 만든 음성이다. 영상 속 블라인드 테스트 음성을 잘라 왔다." />
 
 블라인드 테스트 결과는 C 쪽이 압도적이다. C가 더 자연스럽다 80.0%, C가 훨씬 더 자연스럽다 10.0%, B가 더 자연스럽다 10.0%다. B가 훨씬 더 자연스럽다와 차이 없음은 0%였다.
 
