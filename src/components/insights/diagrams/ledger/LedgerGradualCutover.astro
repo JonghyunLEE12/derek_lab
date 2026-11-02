@@ -1,0 +1,240 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '먼저 듀얼 리드로 두 경로의 응답을 비교한다. diff가 없으면 임직원, 1%, 5%, 25%, 100% 순으로 통합원장 경로의 비율을 올린다. 이상하면 폴백 스위치 한 번으로 원장 경로로 돌아간다.' } = Astro.props;
+const description = '고객 요청을 기존 원장 경로와 통합원장 경로로 같이 읽어 응답을 비교하는 듀얼 리드를 거친 뒤, 임직원, 1%, 5%, 25%, 100% 순으로 통합원장 경로의 비율을 올리고 이상이 있으면 폴백 스위치로 원장 경로로 되돌리는 전환 과정을 보여 주는 다이어그램입니다.';
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 900 470" role="img" aria-label={description}>
+    <path class="route" d="M164 130 H218 V70 H278" />
+    <g class="old-flow">
+    <path class="flow" d="M164 130 H218 V70 H278" />
+    </g>
+    <path class="arrow" d="M273 66 l5 4 -5 4" />
+    <path class="route" d="M164 130 H218 V194 H278" />
+    <g class="new-flow">
+    <path class="flow" d="M164 130 H218 V194 H278" />
+    </g>
+    <path class="arrow" d="M273 190 l5 4 -5 4" />
+    <path class="route" d="M500 70 H550 V130 H618" />
+    <g class="compare-flow">
+    <path class="flow" d="M500 70 H550 V130 H618" />
+    </g>
+    <path class="arrow" d="M613 126 l5 4 -5 4" />
+    <path class="route" d="M500 194 H550 V130 H618" />
+    <g class="compare-flow">
+    <path class="flow" d="M500 194 H550 V130 H618" />
+    </g>
+    <path class="arrow" d="M613 126 l5 4 -5 4" />
+    <path class="route" d="M280 52 H190 V108 H166" />
+    <g class="response-flow">
+    <path class="flow" d="M280 52 H190 V108 H166" />
+    </g>
+    <path class="arrow" d="M171 104 l-5 4 5 4" />
+    <text class="small" x="214" y="40" style="font-size: 12px">응답</text>
+    <path class="route" d="M814 334 H882 V12 H514 V52 H502" stroke-dasharray="4 5" />
+    <g class="fallback-flow">
+    <path class="flow" d="M814 334 H882 V12 H514 V52 H502" />
+    </g>
+    <path class="arrow" d="M507 48 l-5 4 5 4" />
+    <g class="">
+    <rect class="box" x="20" y="100" width="144" height="60" rx="7" />
+    <text class="label" x="92.0" y="135.0" style="font-size: 14px">고객 요청</text>
+    </g>
+    <g class="pulse old-box">
+    <rect class="box" x="280" y="40" width="220" height="60" rx="7" />
+    <text class="label" x="390.0" y="63" style="font-size: 14px">기존 원장 경로</text>
+    <text class="small" x="390.0" y="86" style="font-size: 12px">고객 응답은 이쪽 그대로</text>
+    </g>
+    <g class="pulse new-box">
+    <rect class="accent-box" x="280" y="164" width="220" height="60" rx="7" />
+    <text class="label" x="390.0" y="187" style="font-size: 14px">통합원장 경로</text>
+    <text class="small" x="390.0" y="210" style="font-size: 12px">같이 읽기만</text>
+    </g>
+    <g class="pulse compare-box">
+    <rect class="box" x="620" y="100" width="200" height="60" rx="7" />
+    <text class="label" x="720.0" y="123" style="font-size: 14px">응답 비교</text>
+    <text class="small" x="720.0" y="146" style="font-size: 12px">diff → 알람</text>
+    </g>
+    <path class="route" d="M70 294 H630" />
+    <path class="route" d="M70 294 V318" />
+    <g class="pulse stop-0">
+    <rect class="box" x="30" y="320" width="80" height="36" rx="7" />
+    <text class="label" x="70.0" y="343.0" style="font-size: 14px">임직원</text>
+    </g>
+    <text class="small" x="70" y="384" style="font-size: 12px">사내 먼저</text>
+    <path class="route" d="M210 294 V318" />
+    <g class="pulse stop-1">
+    <rect class="box" x="170" y="320" width="80" height="36" rx="7" />
+    <text class="label" x="210.0" y="343.0" style="font-size: 14px">1%</text>
+    </g>
+    <text class="small" x="210" y="384" style="font-size: 12px">이상 시 즉시 폴백</text>
+    <path class="route" d="M350 294 V318" />
+    <g class="pulse stop-2">
+    <rect class="box" x="310" y="320" width="80" height="36" rx="7" />
+    <text class="label" x="350.0" y="343.0" style="font-size: 14px">5%</text>
+    </g>
+    <path class="route" d="M490 294 V318" />
+    <g class="pulse stop-3">
+    <rect class="box" x="450" y="320" width="80" height="36" rx="7" />
+    <text class="label" x="490.0" y="343.0" style="font-size: 14px">25%</text>
+    </g>
+    <text class="small" x="490" y="384" style="font-size: 12px">듀얼 리드 비교 지속</text>
+    <path class="route" d="M630 294 V318" />
+    <g class="pulse stop-4">
+    <rect class="box" x="590" y="320" width="80" height="36" rx="7" />
+    <text class="label" x="630.0" y="343.0" style="font-size: 14px">100%</text>
+    </g>
+    <text class="small" x="630" y="384" style="font-size: 12px">유가잔고 → 주문 →</text>
+    <text class="small" x="630" y="404" style="font-size: 12px">거래내역</text>
+    <circle class="progress-marker" cx="630" cy="294" r="5" style="--start-x: -560px; --start-y: 0px; --step-x: 140px; --step-y: 0px;" />
+    <g class="pulse fallback-box">
+    <rect class="box" x="734" y="336" width="160" height="62" rx="7" />
+    <text class="label" x="814.0" y="359" style="font-size: 14px">폴백 스위치</text>
+    <text class="small" x="814.0" y="382" style="font-size: 12px">설정 한 번으로 원장으로</text>
+    </g>
+    <g class="pulse conclusion">
+    <text class="small" x="450" y="452" style="font-size: 13px">수십억 건 이관 · 서비스는 한 번도 안 멈춤</text>
+    </g>
+    </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 960" role="img" aria-label={description}>
+    <path class="route" d="M80 44 H32 V140 H62" />
+    <g class="old-flow">
+    <path class="flow" d="M80 44 H32 V140 H62" />
+    </g>
+    <path class="arrow" d="M57 136 l5 4 -5 4" />
+    <path class="route" d="M80 44 H32 V250 H62" />
+    <g class="new-flow">
+    <path class="flow" d="M80 44 H32 V250 H62" />
+    </g>
+    <path class="arrow" d="M57 246 l5 4 -5 4" />
+    <path class="route" d="M256 140 H300 V360 H258" />
+    <g class="compare-flow">
+    <path class="flow" d="M256 140 H300 V360 H258" />
+    </g>
+    <path class="arrow" d="M263 356 l-5 4 5 4" />
+    <path class="route" d="M256 250 H300 V360 H258" />
+    <g class="compare-flow">
+    <path class="flow" d="M256 250 H300 V360 H258" />
+    </g>
+    <path class="arrow" d="M263 356 l-5 4 5 4" />
+    <path class="route" d="M256 122 H280 V44 H242" />
+    <g class="response-flow">
+    <path class="flow" d="M256 122 H280 V44 H242" />
+    </g>
+    <path class="arrow" d="M247 40 l-5 4 5 4" />
+    <text class="small" x="250" y="88" style="font-size: 12px">응답</text>
+    <path class="route" d="M84 866 H12 V140 H62" stroke-dasharray="4 5" />
+    <g class="fallback-flow">
+    <path class="flow" d="M84 866 H12 V140 H62" />
+    </g>
+    <path class="arrow" d="M57 136 l5 4 -5 4" />
+    <g class="">
+    <rect class="box" x="80" y="20" width="160" height="48" rx="7" />
+    <text class="label" x="160.0" y="49.0" style="font-size: 14px">고객 요청</text>
+    </g>
+    <g class="pulse old-box">
+    <rect class="box" x="64" y="110" width="192" height="60" rx="7" />
+    <text class="label" x="160.0" y="133" style="font-size: 14px">기존 원장 경로</text>
+    <text class="small" x="160.0" y="156" style="font-size: 12px">고객 응답은 이쪽 그대로</text>
+    </g>
+    <g class="pulse new-box">
+    <rect class="accent-box" x="64" y="220" width="192" height="60" rx="7" />
+    <text class="label" x="160.0" y="243" style="font-size: 14px">통합원장 경로</text>
+    <text class="small" x="160.0" y="266" style="font-size: 12px">같이 읽기만</text>
+    </g>
+    <g class="pulse compare-box">
+    <rect class="box" x="64" y="330" width="192" height="60" rx="7" />
+    <text class="label" x="160.0" y="353" style="font-size: 14px">응답 비교</text>
+    <text class="small" x="160.0" y="376" style="font-size: 12px">diff → 알람</text>
+    </g>
+    <path class="route" d="M28 440 V778" />
+    <path class="route" d="M28 457 H46" />
+    <g class="pulse stop-0">
+    <rect class="box" x="46" y="440" width="76" height="34" rx="7" />
+    <text class="label" x="84.0" y="462.0" style="font-size: 14px">임직원</text>
+    </g>
+    <text class="small" x="218" y="461" style="font-size: 12px">사내 먼저</text>
+    <path class="route" d="M28 533 H46" />
+    <g class="pulse stop-1">
+    <rect class="box" x="46" y="516" width="76" height="34" rx="7" />
+    <text class="label" x="84.0" y="538.0" style="font-size: 14px">1%</text>
+    </g>
+    <text class="small" x="218" y="537" style="font-size: 12px">이상 시 즉시 폴백</text>
+    <path class="route" d="M28 609 H46" />
+    <g class="pulse stop-2">
+    <rect class="box" x="46" y="592" width="76" height="34" rx="7" />
+    <text class="label" x="84.0" y="614.0" style="font-size: 14px">5%</text>
+    </g>
+    <path class="route" d="M28 685 H46" />
+    <g class="pulse stop-3">
+    <rect class="box" x="46" y="668" width="76" height="34" rx="7" />
+    <text class="label" x="84.0" y="690.0" style="font-size: 14px">25%</text>
+    </g>
+    <text class="small" x="218" y="689" style="font-size: 12px">듀얼 리드 비교 지속</text>
+    <path class="route" d="M28 761 H46" />
+    <g class="pulse stop-4">
+    <rect class="box" x="46" y="744" width="76" height="34" rx="7" />
+    <text class="label" x="84.0" y="766.0" style="font-size: 14px">100%</text>
+    </g>
+    <text class="small" x="218" y="765" style="font-size: 12px">유가잔고 → 주문 →</text>
+    <text class="small" x="218" y="784" style="font-size: 12px">거래내역</text>
+    <circle class="progress-marker" cx="28" cy="761" r="5" style="--start-x: 0px; --start-y: -304px; --step-x: 0px; --step-y: 76px;" />
+    <g class="pulse fallback-box">
+    <rect class="box" x="84" y="836" width="216" height="62" rx="7" />
+    <text class="label" x="192.0" y="859" style="font-size: 14px">폴백 스위치</text>
+    <text class="small" x="192.0" y="882" style="font-size: 12px">설정 한 번으로 원장으로</text>
+    </g>
+    <g class="pulse conclusion">
+    <text class="small" x="160" y="932" style="font-size: 12px">수십억 건 이관 · 서비스는 한 번도 안 멈춤</text>
+    </g>
+    </svg>
+</DiagramFrame>
+<style>
+svg .label { fill: var(--muted); }
+svg .pulse .box { stroke: var(--line); }
+svg .flow { animation-duration: 16s; }
+svg .old-flow { animation: old-flow 16s ease-in-out infinite; }
+svg .new-flow { animation: new-flow 16s ease-in-out infinite; }
+@keyframes old-flow { 0%, 87.5%, 100% { opacity: 0; } 6%, 25% { opacity: 1; } 65%, 75% { opacity: .4; } 81% { opacity: 1; } }
+@keyframes new-flow { 0%, 87.5%, 100% { opacity: 0; } 6%, 25% { opacity: .4; } 65%, 75% { opacity: 1; } 81% { opacity: .4; } }
+svg .response-flow { animation: response-flow 16s ease-in-out infinite; }
+@keyframes response-flow { 0%, 25%, 100% { opacity: 0; } 8%, 17% { opacity: 1; } }
+svg .compare-flow { animation: compare-flow 16s ease-in-out infinite; }
+@keyframes compare-flow { 0%, 8%, 25%, 100% { opacity: 0; } 13%, 20% { opacity: 1; } }
+svg .old-box { animation: old-box 16s ease-in-out infinite; }
+@keyframes old-box { 0%, 25%, 75%, 87.5%, 100% { opacity: .65; } 10%, 81% { opacity: 1; } }
+svg .new-box { animation: new-box 16s ease-in-out infinite; }
+@keyframes new-box { 0%, 25%, 87.5%, 100% { opacity: .65; } 12%, 65%, 75% { opacity: 1; } }
+svg .compare-box { animation: compare-box 16s ease-in-out infinite; }
+@keyframes compare-box { 0%, 13%, 25%, 100% { opacity: .65; } 20% { opacity: 1; } }
+svg .fallback-flow { animation: fallback-flow 16s ease-in-out infinite; }
+@keyframes fallback-flow { 0%, 75%, 87.5%, 100% { opacity: 0; } 81% { opacity: 1; } }
+svg .fallback-box { animation: fallback-box 16s ease-in-out infinite; }
+@keyframes fallback-box { 0%, 75%, 87.5%, 100% { opacity: .65; } 81% { opacity: 1; } }
+svg .conclusion { animation: conclusion 16s ease-in-out infinite; }
+@keyframes conclusion { 0%, 87.5%, 100% { opacity: .65; } 94% { opacity: 1; } }
+.progress-marker { fill: var(--accent); animation: progress 16s ease-in-out infinite; }
+/* The base position is 100%, so reduced motion needs no animated state. */
+@keyframes progress {
+  0%, 25% { transform: translate(var(--start-x), var(--start-y)); opacity: 1; }
+  35% { transform: translate(calc(var(--start-x) + var(--step-x)), calc(var(--start-y) + var(--step-y))); opacity: 1; }
+  45% { transform: translate(calc(var(--start-x) + var(--step-x) * 2), calc(var(--start-y) + var(--step-y) * 2)); opacity: 1; }
+  55% { transform: translate(calc(var(--start-x) + var(--step-x) * 3), calc(var(--start-y) + var(--step-y) * 3)); opacity: 1; }
+  65%, 87.5% { transform: translate(0, 0); opacity: 1; }
+  92% { transform: translate(0, 0); opacity: 0; }
+  94% { transform: translate(var(--start-x), var(--start-y)); opacity: 0; }
+  100% { transform: translate(var(--start-x), var(--start-y)); opacity: 1; }
+}
+svg .stop-0 { animation: stop-0 16s ease-in-out infinite; }
+@keyframes stop-0 { 0%, 25%, 35%, 100% { opacity: .65; } 28% { opacity: 1; } }
+svg .stop-1 { animation: stop-1 16s ease-in-out infinite; }
+@keyframes stop-1 { 0%, 35%, 45%, 100% { opacity: .65; } 38% { opacity: 1; } }
+svg .stop-2 { animation: stop-2 16s ease-in-out infinite; }
+@keyframes stop-2 { 0%, 45%, 55%, 100% { opacity: .65; } 48% { opacity: 1; } }
+svg .stop-3 { animation: stop-3 16s ease-in-out infinite; }
+@keyframes stop-3 { 0%, 55%, 65%, 100% { opacity: .65; } 58% { opacity: 1; } }
+svg .stop-4 { animation: stop-4 16s ease-in-out infinite; }
+@keyframes stop-4 { 0%, 65%, 75%, 100% { opacity: .65; } 68% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { svg * { animation: none !important; opacity: 1; transform: none !important; } svg .old-flow, svg .new-flow { opacity: .65; } }
+</style>

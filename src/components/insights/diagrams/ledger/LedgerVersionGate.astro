@@ -1,0 +1,117 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '이벤트가 V1, V3, V2 순으로 뒤집혀 와도 통합원장은 저장된 버전보다 낮은 V2를 버린다. 순서가 바뀌어도 같은 이벤트가 두 번 와도 결과는 같다.' } = Astro.props;
+const description = '같은 계좌의 이벤트가 V1, V3, V2 순으로 뒤집혀 도착할 때 Version 게이트가 통합원장에 저장된 버전보다 낮은 V2를 버리고 통합원장은 V3를 유지하는 과정을 보여 주는 다이어그램입니다.';
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 780 320" role="img" aria-label={description}>
+    <text class="small" x="390" y="24" style="font-size: 14px">같은 계좌 &gt; 같은 파티션 · Kafka가 순서 보장</text>
+    <text class="small" x="140" y="86" style="font-size: 14px">도착 순서 · 뒤집혀 온다</text>
+    <path class="route" d="M60 128 H730" />
+    <path class="arrow" d="M305 124 l5 4 -5 4 M615 124 l5 4 -5 4" />
+    <g class="pulse gate">
+    <rect class="accent-box" x="310" y="102" width="220" height="108" rx="7" />
+    <text class="label" x="420" y="176" style="font-size: 14px">Version 게이트</text>
+    <text class="small" x="420" y="197" style="font-size: 13px">가진 것보다 낮으면 버림</text>
+    </g>
+    <g class="pulse stored">
+    <rect class="box" x="622" y="102" width="150" height="108" rx="7" />
+    <text class="label" x="697" y="176" style="font-size: 14px">통합원장</text>
+    <text class="small" x="697" y="197" style="font-size: 14px">현재 V3</text>
+    </g>
+    <path class="route" d="M420 210 V250" />
+    <path class="arrow" d="M416 242 l8 8 m-8 0 8 -8" />
+    <text class="small" x="420" y="274" style="font-size: 14px">늦게 온 V2는 버림 · 이미 V3</text>
+    <g class="pulse conclusion">
+    <text class="small" x="390" y="308" style="font-size: 14px">역전도, 같은 이벤트가 두 번 와도 결과는 같다</text>
+    </g>
+    <g class="chip chip-0" style="--gate-x: 360px; --gate-y: 0px; --end-x: 637px; --end-y: 0px; --discard-x: 360px; --discard-y: 116px;">
+    <rect class="box" x="40" y="114" width="40" height="28" rx="7" />
+    <text class="label" x="60" y="133" style="font-size: 14px">V1</text>
+    </g>
+    <g class="chip chip-1" style="--gate-x: 280px; --gate-y: 0px; --end-x: 557px; --end-y: 0px; --discard-x: 280px; --discard-y: 116px;">
+    <rect class="box" x="120" y="114" width="40" height="28" rx="7" />
+    <text class="label" x="140" y="133" style="font-size: 14px">V3</text>
+    </g>
+    <g class="chip chip-2" style="--gate-x: 200px; --gate-y: 0px; --end-x: 477px; --end-y: 0px; --discard-x: 200px; --discard-y: 116px;">
+    <rect class="accent-box" x="200" y="114" width="40" height="28" rx="7" />
+    <text class="label" x="220" y="133" style="font-size: 14px">V2</text>
+    </g>
+    </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 570" role="img" aria-label={description}>
+    <text class="small" x="160" y="20" style="font-size: 13px">같은 계좌 &gt; 같은 파티션 ·</text>
+    <text class="small" x="160" y="40" style="font-size: 13px">Kafka가 순서 보장</text>
+    <text class="small" x="160" y="87" style="font-size: 14px">도착 순서 · 뒤집혀 온다</text>
+    <path class="route" d="M80 124 V172 H160 V218 M160 124 V218 M240 124 V172 H160 M160 320 V346 M160 382 V396" />
+    <path class="arrow" d="M156 213 l4 5 4 -5 M156 391 l4 5 4 -5" />
+    <g class="pulse gate">
+    <rect class="accent-box" x="58" y="220" width="204" height="100" rx="7" />
+    <text class="label" x="160" y="282" style="font-size: 14px">Version 게이트</text>
+    <text class="small" x="160" y="304" style="font-size: 13px">가진 것보다 낮으면 버림</text>
+    </g>
+    <g class="pulse stored">
+    <rect class="box" x="58" y="398" width="204" height="96" rx="7" />
+    <text class="label" x="160" y="458" style="font-size: 14px">통합원장</text>
+    <text class="small" x="160" y="480" style="font-size: 14px">현재 V3</text>
+    </g>
+    <path class="route" d="M262 250 H288 V346" />
+    <path class="arrow" d="M284 337 l8 8 m-8 0 8 -8" />
+    <text class="small" x="160" y="372" style="font-size: 13px">늦게 온 V2는 버림 · 이미 V3</text>
+    <g class="pulse conclusion">
+    <text class="small" x="160" y="536" style="font-size: 13px">역전도, 같은 이벤트가 두 번 와도</text>
+    <text class="small" x="160" y="555" style="font-size: 13px">결과는 같다</text>
+    </g>
+    <g class="chip chip-0" style="--gate-x: 80px; --gate-y: 126px; --end-x: 80px; --end-y: 306px; --discard-x: 208px; --discard-y: 214px;">
+    <rect class="box" x="60" y="100" width="40" height="28" rx="7" />
+    <text class="label" x="80" y="119" style="font-size: 14px">V1</text>
+    </g>
+    <g class="chip chip-1" style="--gate-x: 0px; --gate-y: 126px; --end-x: 0px; --end-y: 306px; --discard-x: 128px; --discard-y: 214px;">
+    <rect class="box" x="140" y="100" width="40" height="28" rx="7" />
+    <text class="label" x="160" y="119" style="font-size: 14px">V3</text>
+    </g>
+    <g class="chip chip-2" style="--gate-x: -80px; --gate-y: 126px; --end-x: -80px; --end-y: 306px; --discard-x: 48px; --discard-y: 214px;">
+    <rect class="accent-box" x="220" y="100" width="40" height="28" rx="7" />
+    <text class="label" x="240" y="119" style="font-size: 14px">V2</text>
+    </g>
+    </svg>
+</DiagramFrame>
+<style>
+svg .label { fill: var(--muted); }
+svg .pulse .box { stroke: var(--line); }
+/* The chips travel through the empty upper lane of each box, clear of its label. */
+svg .chip { animation: accepted 14s ease-in-out infinite; }
+svg .chip-1 { animation-name: accepted-later; }
+svg .chip-2 { animation-name: rejected; }
+@keyframes accepted {
+  0% { transform: translate(0, 0); opacity: 1; }
+  11% { transform: translate(var(--gate-x), var(--gate-y)); opacity: 1; }
+  20% { transform: translate(var(--end-x), var(--end-y)); opacity: 0; }
+  80% { transform: translate(var(--end-x), var(--end-y)); opacity: 0; }
+  82% { transform: translate(0, 0); opacity: 0; }
+  94%, 100% { transform: translate(0, 0); opacity: 1; }
+}
+@keyframes accepted-later {
+  0%, 21.43% { transform: translate(0, 0); opacity: 1; }
+  32% { transform: translate(var(--gate-x), var(--gate-y)); opacity: 1; }
+  42% { transform: translate(var(--end-x), var(--end-y)); opacity: 0; }
+  80% { transform: translate(var(--end-x), var(--end-y)); opacity: 0; }
+  82% { transform: translate(0, 0); opacity: 0; }
+  94%, 100% { transform: translate(0, 0); opacity: 1; }
+}
+@keyframes rejected {
+  0%, 42.86% { transform: translate(0, 0); opacity: 1; }
+  54%, 59% { transform: translate(var(--gate-x), var(--gate-y)); opacity: 1; }
+  71.43%, 80% { transform: translate(var(--discard-x), var(--discard-y)); opacity: 0; }
+  82% { transform: translate(0, 0); opacity: 0; }
+  94%, 100% { transform: translate(0, 0); opacity: 1; }
+}
+svg .gate { animation: gate 14s ease-in-out infinite; }
+@keyframes gate { 0%, 5%, 16%, 26%, 37%, 47%, 71.43%, 100% { opacity: .65; } 11%, 32%, 54%, 59% { opacity: 1; } }
+svg .stored { animation: stored 14s ease-in-out infinite; }
+@keyframes stored { 0%, 15%, 21.43%, 36%, 42.86%, 100% { opacity: .65; } 18%, 40% { opacity: 1; } }
+svg .conclusion { animation: conclusion 14s ease-in-out infinite; }
+@keyframes conclusion { 0%, 71.43%, 100% { opacity: .65; } 85% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { svg * { animation: none !important; opacity: 1; transform: none !important; } }
+
+</style>

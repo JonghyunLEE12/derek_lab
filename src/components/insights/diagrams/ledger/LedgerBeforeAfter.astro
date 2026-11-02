@@ -1,0 +1,508 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '전환 전에는 소비처마다 원장 네 개를 각각 호출해서 복잡도가 N 곱하기 4였다. 전환 후에는 원장 네 개가 통합원장에 발행하고 소비처는 통합원장 하나만 본다. 연결이 N 더하기 4로 준다.' } = Astro.props;
+const description = '전환 전에는 국내주식, 미국주식, 옵션, 채권 원장 네 개가 채널 서비스, FDS, 데이터 분석, OpenAPI, 기타 소비처에 전부 직접 연결돼 복잡도가 N 곱하기 4였고, 전환 후에는 원장 네 개가 통합원장 하나로 발행하고 소비처는 통합원장만 봐서 연결이 N 더하기 4로 준 구조를 좌우로 비교한 다이어그램입니다.';
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 900 332" role="img" aria-label={description}>
+    <text class="label" x="195" y="22" style="font-size: 15px">전환 전 · 복잡도 N×4</text>
+    <path class="route" d="M120 70 L280 54" />
+    <g class="before-0">
+    <path class="flow" d="M120 70 L280 54" />
+    </g>
+    <path class="arrow" d="M275 50 l5 4 -5 4" />
+    <path class="route" d="M120 70 L280 108" />
+    <g class="before-1">
+    <path class="flow" d="M120 70 L280 108" />
+    </g>
+    <path class="arrow" d="M275 104 l5 4 -5 4" />
+    <path class="route" d="M120 70 L280 162" />
+    <g class="before-2">
+    <path class="flow" d="M120 70 L280 162" />
+    </g>
+    <path class="arrow" d="M275 158 l5 4 -5 4" />
+    <path class="route" d="M120 70 L280 216" />
+    <g class="before-3">
+    <path class="flow" d="M120 70 L280 216" />
+    </g>
+    <path class="arrow" d="M275 212 l5 4 -5 4" />
+    <path class="route" d="M120 70 L280 270" />
+    <g class="before-4">
+    <path class="flow" d="M120 70 L280 270" />
+    </g>
+    <path class="arrow" d="M275 266 l5 4 -5 4" />
+    <path class="route" d="M120 124 L280 54" />
+    <g class="before-0">
+    <path class="flow" d="M120 124 L280 54" />
+    </g>
+    <path class="arrow" d="M275 50 l5 4 -5 4" />
+    <path class="route" d="M120 124 L280 108" />
+    <g class="before-1">
+    <path class="flow" d="M120 124 L280 108" />
+    </g>
+    <path class="arrow" d="M275 104 l5 4 -5 4" />
+    <path class="route" d="M120 124 L280 162" />
+    <g class="before-2">
+    <path class="flow" d="M120 124 L280 162" />
+    </g>
+    <path class="arrow" d="M275 158 l5 4 -5 4" />
+    <path class="route" d="M120 124 L280 216" />
+    <g class="before-3">
+    <path class="flow" d="M120 124 L280 216" />
+    </g>
+    <path class="arrow" d="M275 212 l5 4 -5 4" />
+    <path class="route" d="M120 124 L280 270" />
+    <g class="before-4">
+    <path class="flow" d="M120 124 L280 270" />
+    </g>
+    <path class="arrow" d="M275 266 l5 4 -5 4" />
+    <path class="route" d="M120 178 L280 54" />
+    <g class="before-0">
+    <path class="flow" d="M120 178 L280 54" />
+    </g>
+    <path class="arrow" d="M275 50 l5 4 -5 4" />
+    <path class="route" d="M120 178 L280 108" />
+    <g class="before-1">
+    <path class="flow" d="M120 178 L280 108" />
+    </g>
+    <path class="arrow" d="M275 104 l5 4 -5 4" />
+    <path class="route" d="M120 178 L280 162" />
+    <g class="before-2">
+    <path class="flow" d="M120 178 L280 162" />
+    </g>
+    <path class="arrow" d="M275 158 l5 4 -5 4" />
+    <path class="route" d="M120 178 L280 216" />
+    <g class="before-3">
+    <path class="flow" d="M120 178 L280 216" />
+    </g>
+    <path class="arrow" d="M275 212 l5 4 -5 4" />
+    <path class="route" d="M120 178 L280 270" />
+    <g class="before-4">
+    <path class="flow" d="M120 178 L280 270" />
+    </g>
+    <path class="arrow" d="M275 266 l5 4 -5 4" />
+    <path class="route" d="M120 232 L280 54" />
+    <g class="before-0">
+    <path class="flow" d="M120 232 L280 54" />
+    </g>
+    <path class="arrow" d="M275 50 l5 4 -5 4" />
+    <path class="route" d="M120 232 L280 108" />
+    <g class="before-1">
+    <path class="flow" d="M120 232 L280 108" />
+    </g>
+    <path class="arrow" d="M275 104 l5 4 -5 4" />
+    <path class="route" d="M120 232 L280 162" />
+    <g class="before-2">
+    <path class="flow" d="M120 232 L280 162" />
+    </g>
+    <path class="arrow" d="M275 158 l5 4 -5 4" />
+    <path class="route" d="M120 232 L280 216" />
+    <g class="before-3">
+    <path class="flow" d="M120 232 L280 216" />
+    </g>
+    <path class="arrow" d="M275 212 l5 4 -5 4" />
+    <path class="route" d="M120 232 L280 270" />
+    <g class="before-4">
+    <path class="flow" d="M120 232 L280 270" />
+    </g>
+    <path class="arrow" d="M275 266 l5 4 -5 4" />
+    <g class="">
+    <rect class="box" x="12" y="54" width="108" height="32" rx="7" />
+    <text class="label" x="66.0" y="75.0" style="font-size: 13px">국내주식 원장</text>
+    </g>
+    <g class="">
+    <rect class="box" x="12" y="108" width="108" height="32" rx="7" />
+    <text class="label" x="66.0" y="129.0" style="font-size: 13px">미국주식 원장</text>
+    </g>
+    <g class="">
+    <rect class="box" x="12" y="162" width="108" height="32" rx="7" />
+    <text class="label" x="66.0" y="183.0" style="font-size: 13px">옵션 원장</text>
+    </g>
+    <g class="">
+    <rect class="box" x="12" y="216" width="108" height="32" rx="7" />
+    <text class="label" x="66.0" y="237.0" style="font-size: 13px">채권 원장</text>
+    </g>
+    <g class="pulse before-0">
+    <rect class="box" x="280" y="38" width="108" height="32" rx="7" />
+    <text class="label" x="334.0" y="59.0" style="font-size: 13px">채널 서비스</text>
+    </g>
+    <g class="pulse before-1">
+    <rect class="box" x="280" y="92" width="108" height="32" rx="7" />
+    <text class="label" x="334.0" y="113.0" style="font-size: 13px">FDS</text>
+    </g>
+    <g class="pulse before-2">
+    <rect class="box" x="280" y="146" width="108" height="32" rx="7" />
+    <text class="label" x="334.0" y="167.0" style="font-size: 13px">데이터 분석</text>
+    </g>
+    <g class="pulse before-3">
+    <rect class="box" x="280" y="200" width="108" height="32" rx="7" />
+    <text class="label" x="334.0" y="221.0" style="font-size: 13px">OpenAPI</text>
+    </g>
+    <g class="pulse before-4">
+    <rect class="box" x="280" y="254" width="108" height="32" rx="7" />
+    <text class="label" x="334.0" y="275.0" style="font-size: 13px">기타</text>
+    </g>
+    <text class="small" x="200" y="308" style="font-size: 12px">소비처마다 원장 4개의 로직을 각자 구현</text>
+    <text class="label" x="675" y="22" style="font-size: 15px">전환 후 · 연결 N+4</text>
+    <path class="route" d="M558 70 L594 156" />
+    <g class="inbound">
+    <path class="flow" d="M558 70 L594 156" />
+    </g>
+    <path class="arrow" d="M589 152 l5 4 -5 4" />
+    <g class="">
+    <rect class="box" x="450" y="54" width="108" height="32" rx="7" />
+    <text class="label" x="504.0" y="75.0" style="font-size: 13px">국내주식 원장</text>
+    </g>
+    <path class="route" d="M558 124 L594 156" />
+    <g class="inbound">
+    <path class="flow" d="M558 124 L594 156" />
+    </g>
+    <path class="arrow" d="M589 152 l5 4 -5 4" />
+    <g class="">
+    <rect class="box" x="450" y="108" width="108" height="32" rx="7" />
+    <text class="label" x="504.0" y="129.0" style="font-size: 13px">미국주식 원장</text>
+    </g>
+    <path class="route" d="M558 178 L594 156" />
+    <g class="inbound">
+    <path class="flow" d="M558 178 L594 156" />
+    </g>
+    <path class="arrow" d="M589 152 l5 4 -5 4" />
+    <g class="">
+    <rect class="box" x="450" y="162" width="108" height="32" rx="7" />
+    <text class="label" x="504.0" y="183.0" style="font-size: 13px">옵션 원장</text>
+    </g>
+    <path class="route" d="M558 232 L594 156" />
+    <g class="inbound">
+    <path class="flow" d="M558 232 L594 156" />
+    </g>
+    <path class="arrow" d="M589 152 l5 4 -5 4" />
+    <g class="">
+    <rect class="box" x="450" y="216" width="108" height="32" rx="7" />
+    <text class="label" x="504.0" y="237.0" style="font-size: 13px">채권 원장</text>
+    </g>
+    <path class="route" d="M744 156 L786 54" />
+    <g class="outbound">
+    <path class="flow" d="M744 156 L786 54" />
+    </g>
+    <path class="arrow" d="M781 50 l5 4 -5 4" />
+    <g class="pulse recipients">
+    <rect class="box" x="786" y="38" width="108" height="32" rx="7" />
+    <text class="label" x="840.0" y="59.0" style="font-size: 13px">채널 서비스</text>
+    </g>
+    <path class="route" d="M744 156 L786 108" />
+    <g class="outbound">
+    <path class="flow" d="M744 156 L786 108" />
+    </g>
+    <path class="arrow" d="M781 104 l5 4 -5 4" />
+    <g class="pulse recipients">
+    <rect class="box" x="786" y="92" width="108" height="32" rx="7" />
+    <text class="label" x="840.0" y="113.0" style="font-size: 13px">FDS</text>
+    </g>
+    <path class="route" d="M744 156 L786 162" />
+    <g class="outbound">
+    <path class="flow" d="M744 156 L786 162" />
+    </g>
+    <path class="arrow" d="M781 158 l5 4 -5 4" />
+    <g class="pulse recipients">
+    <rect class="box" x="786" y="146" width="108" height="32" rx="7" />
+    <text class="label" x="840.0" y="167.0" style="font-size: 13px">데이터 분석</text>
+    </g>
+    <path class="route" d="M744 156 L786 216" />
+    <g class="outbound">
+    <path class="flow" d="M744 156 L786 216" />
+    </g>
+    <path class="arrow" d="M781 212 l5 4 -5 4" />
+    <g class="pulse recipients">
+    <rect class="box" x="786" y="200" width="108" height="32" rx="7" />
+    <text class="label" x="840.0" y="221.0" style="font-size: 13px">OpenAPI</text>
+    </g>
+    <path class="route" d="M744 156 L786 270" />
+    <g class="outbound">
+    <path class="flow" d="M744 156 L786 270" />
+    </g>
+    <path class="arrow" d="M781 266 l5 4 -5 4" />
+    <g class="pulse recipients">
+    <rect class="box" x="786" y="254" width="108" height="32" rx="7" />
+    <text class="label" x="840.0" y="275.0" style="font-size: 13px">기타</text>
+    </g>
+    <g class="pulse hub">
+    <rect class="accent-box" x="594" y="126" width="150" height="60" rx="7" />
+    <text class="label" x="669.0" y="148" style="font-size: 13px">통합원장</text>
+    <text class="small" x="669.0" y="169" style="font-size: 11px">잔고·주문·체결·입출금</text>
+    </g>
+    <text class="small" x="675" y="308" style="font-size: 13px">소비처는 통합원장 하나만 본다</text>
+    </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 908" role="img" aria-label={description}>
+    <text class="label" x="160" y="22" style="font-size: 15px">전환 전 · 복잡도 N×4</text>
+    <path class="route" d="M108 70 L210 54" />
+    <g class="before-0">
+    <path class="flow" d="M108 70 L210 54" />
+    </g>
+    <path class="arrow" d="M205 50 l5 4 -5 4" />
+    <path class="route" d="M108 70 L210 108" />
+    <g class="before-1">
+    <path class="flow" d="M108 70 L210 108" />
+    </g>
+    <path class="arrow" d="M205 104 l5 4 -5 4" />
+    <path class="route" d="M108 70 L210 162" />
+    <g class="before-2">
+    <path class="flow" d="M108 70 L210 162" />
+    </g>
+    <path class="arrow" d="M205 158 l5 4 -5 4" />
+    <path class="route" d="M108 70 L210 216" />
+    <g class="before-3">
+    <path class="flow" d="M108 70 L210 216" />
+    </g>
+    <path class="arrow" d="M205 212 l5 4 -5 4" />
+    <path class="route" d="M108 70 L210 270" />
+    <g class="before-4">
+    <path class="flow" d="M108 70 L210 270" />
+    </g>
+    <path class="arrow" d="M205 266 l5 4 -5 4" />
+    <path class="route" d="M108 124 L210 54" />
+    <g class="before-0">
+    <path class="flow" d="M108 124 L210 54" />
+    </g>
+    <path class="arrow" d="M205 50 l5 4 -5 4" />
+    <path class="route" d="M108 124 L210 108" />
+    <g class="before-1">
+    <path class="flow" d="M108 124 L210 108" />
+    </g>
+    <path class="arrow" d="M205 104 l5 4 -5 4" />
+    <path class="route" d="M108 124 L210 162" />
+    <g class="before-2">
+    <path class="flow" d="M108 124 L210 162" />
+    </g>
+    <path class="arrow" d="M205 158 l5 4 -5 4" />
+    <path class="route" d="M108 124 L210 216" />
+    <g class="before-3">
+    <path class="flow" d="M108 124 L210 216" />
+    </g>
+    <path class="arrow" d="M205 212 l5 4 -5 4" />
+    <path class="route" d="M108 124 L210 270" />
+    <g class="before-4">
+    <path class="flow" d="M108 124 L210 270" />
+    </g>
+    <path class="arrow" d="M205 266 l5 4 -5 4" />
+    <path class="route" d="M108 178 L210 54" />
+    <g class="before-0">
+    <path class="flow" d="M108 178 L210 54" />
+    </g>
+    <path class="arrow" d="M205 50 l5 4 -5 4" />
+    <path class="route" d="M108 178 L210 108" />
+    <g class="before-1">
+    <path class="flow" d="M108 178 L210 108" />
+    </g>
+    <path class="arrow" d="M205 104 l5 4 -5 4" />
+    <path class="route" d="M108 178 L210 162" />
+    <g class="before-2">
+    <path class="flow" d="M108 178 L210 162" />
+    </g>
+    <path class="arrow" d="M205 158 l5 4 -5 4" />
+    <path class="route" d="M108 178 L210 216" />
+    <g class="before-3">
+    <path class="flow" d="M108 178 L210 216" />
+    </g>
+    <path class="arrow" d="M205 212 l5 4 -5 4" />
+    <path class="route" d="M108 178 L210 270" />
+    <g class="before-4">
+    <path class="flow" d="M108 178 L210 270" />
+    </g>
+    <path class="arrow" d="M205 266 l5 4 -5 4" />
+    <path class="route" d="M108 232 L210 54" />
+    <g class="before-0">
+    <path class="flow" d="M108 232 L210 54" />
+    </g>
+    <path class="arrow" d="M205 50 l5 4 -5 4" />
+    <path class="route" d="M108 232 L210 108" />
+    <g class="before-1">
+    <path class="flow" d="M108 232 L210 108" />
+    </g>
+    <path class="arrow" d="M205 104 l5 4 -5 4" />
+    <path class="route" d="M108 232 L210 162" />
+    <g class="before-2">
+    <path class="flow" d="M108 232 L210 162" />
+    </g>
+    <path class="arrow" d="M205 158 l5 4 -5 4" />
+    <path class="route" d="M108 232 L210 216" />
+    <g class="before-3">
+    <path class="flow" d="M108 232 L210 216" />
+    </g>
+    <path class="arrow" d="M205 212 l5 4 -5 4" />
+    <path class="route" d="M108 232 L210 270" />
+    <g class="before-4">
+    <path class="flow" d="M108 232 L210 270" />
+    </g>
+    <path class="arrow" d="M205 266 l5 4 -5 4" />
+    <g class="">
+    <rect class="box" x="4" y="54" width="104" height="32" rx="7" />
+    <text class="label" x="56.0" y="75.0" style="font-size: 13px">국내주식 원장</text>
+    </g>
+    <g class="">
+    <rect class="box" x="4" y="108" width="104" height="32" rx="7" />
+    <text class="label" x="56.0" y="129.0" style="font-size: 13px">미국주식 원장</text>
+    </g>
+    <g class="">
+    <rect class="box" x="4" y="162" width="104" height="32" rx="7" />
+    <text class="label" x="56.0" y="183.0" style="font-size: 13px">옵션 원장</text>
+    </g>
+    <g class="">
+    <rect class="box" x="4" y="216" width="104" height="32" rx="7" />
+    <text class="label" x="56.0" y="237.0" style="font-size: 13px">채권 원장</text>
+    </g>
+    <g class="pulse before-0">
+    <rect class="box" x="210" y="38" width="106" height="32" rx="7" />
+    <text class="label" x="263.0" y="59.0" style="font-size: 13px">채널 서비스</text>
+    </g>
+    <g class="pulse before-1">
+    <rect class="box" x="210" y="92" width="106" height="32" rx="7" />
+    <text class="label" x="263.0" y="113.0" style="font-size: 13px">FDS</text>
+    </g>
+    <g class="pulse before-2">
+    <rect class="box" x="210" y="146" width="106" height="32" rx="7" />
+    <text class="label" x="263.0" y="167.0" style="font-size: 13px">데이터 분석</text>
+    </g>
+    <g class="pulse before-3">
+    <rect class="box" x="210" y="200" width="106" height="32" rx="7" />
+    <text class="label" x="263.0" y="221.0" style="font-size: 13px">OpenAPI</text>
+    </g>
+    <g class="pulse before-4">
+    <rect class="box" x="210" y="254" width="106" height="32" rx="7" />
+    <text class="label" x="263.0" y="275.0" style="font-size: 13px">기타</text>
+    </g>
+    <text class="small" x="160" y="308" style="font-size: 12px">소비처마다 원장 4개의 로직을 각자 구현</text>
+    <text class="label" x="160" y="360" style="font-size: 15px">전환 후 · 연결 N+4</text>
+    <path class="route" d="M132 406 H152 V580" />
+    <g class="inbound">
+    <path class="flow" d="M132 406 H152 V580" />
+    </g>
+    <path class="arrow" d="M148 575 l4 5 4 -5" />
+    <g class="">
+    <rect class="box" x="12" y="390" width="120" height="32" rx="7" />
+    <text class="label" x="72.0" y="411.0" style="font-size: 13px">국내주식 원장</text>
+    </g>
+    <path class="route" d="M132 448 H152 V580" />
+    <g class="inbound">
+    <path class="flow" d="M132 448 H152 V580" />
+    </g>
+    <path class="arrow" d="M148 575 l4 5 4 -5" />
+    <g class="">
+    <rect class="box" x="12" y="432" width="120" height="32" rx="7" />
+    <text class="label" x="72.0" y="453.0" style="font-size: 13px">미국주식 원장</text>
+    </g>
+    <path class="route" d="M132 490 H152 V580" />
+    <g class="inbound">
+    <path class="flow" d="M132 490 H152 V580" />
+    </g>
+    <path class="arrow" d="M148 575 l4 5 4 -5" />
+    <g class="">
+    <rect class="box" x="12" y="474" width="120" height="32" rx="7" />
+    <text class="label" x="72.0" y="495.0" style="font-size: 13px">옵션 원장</text>
+    </g>
+    <path class="route" d="M132 532 H152 V580" />
+    <g class="inbound">
+    <path class="flow" d="M132 532 H152 V580" />
+    </g>
+    <path class="arrow" d="M148 575 l4 5 4 -5" />
+    <g class="">
+    <rect class="box" x="12" y="516" width="120" height="32" rx="7" />
+    <text class="label" x="72.0" y="537.0" style="font-size: 13px">채권 원장</text>
+    </g>
+    <g class="pulse hub">
+    <rect class="accent-box" x="70" y="582" width="180" height="60" rx="7" />
+    <text class="label" x="160.0" y="604" style="font-size: 13px">통합원장</text>
+    <text class="small" x="160.0" y="625" style="font-size: 11px">잔고·주문·체결·입출금</text>
+    </g>
+    <path class="route" d="M160 642 V652 H190 V682 H208" />
+    <g class="outbound">
+    <path class="flow" d="M160 642 V652 H190 V682 H208" />
+    </g>
+    <path class="arrow" d="M203 678 l5 4 -5 4" />
+    <g class="pulse recipients">
+    <rect class="box" x="208" y="666" width="108" height="32" rx="7" />
+    <text class="label" x="262.0" y="687.0" style="font-size: 13px">채널 서비스</text>
+    </g>
+    <path class="route" d="M160 642 V652 H190 V724 H208" />
+    <g class="outbound">
+    <path class="flow" d="M160 642 V652 H190 V724 H208" />
+    </g>
+    <path class="arrow" d="M203 720 l5 4 -5 4" />
+    <g class="pulse recipients">
+    <rect class="box" x="208" y="708" width="108" height="32" rx="7" />
+    <text class="label" x="262.0" y="729.0" style="font-size: 13px">FDS</text>
+    </g>
+    <path class="route" d="M160 642 V652 H190 V766 H208" />
+    <g class="outbound">
+    <path class="flow" d="M160 642 V652 H190 V766 H208" />
+    </g>
+    <path class="arrow" d="M203 762 l5 4 -5 4" />
+    <g class="pulse recipients">
+    <rect class="box" x="208" y="750" width="108" height="32" rx="7" />
+    <text class="label" x="262.0" y="771.0" style="font-size: 13px">데이터 분석</text>
+    </g>
+    <path class="route" d="M160 642 V652 H190 V808 H208" />
+    <g class="outbound">
+    <path class="flow" d="M160 642 V652 H190 V808 H208" />
+    </g>
+    <path class="arrow" d="M203 804 l5 4 -5 4" />
+    <g class="pulse recipients">
+    <rect class="box" x="208" y="792" width="108" height="32" rx="7" />
+    <text class="label" x="262.0" y="813.0" style="font-size: 13px">OpenAPI</text>
+    </g>
+    <path class="route" d="M160 642 V652 H190 V850 H208" />
+    <g class="outbound">
+    <path class="flow" d="M160 642 V652 H190 V850 H208" />
+    </g>
+    <path class="arrow" d="M203 846 l5 4 -5 4" />
+    <g class="pulse recipients">
+    <rect class="box" x="208" y="834" width="108" height="32" rx="7" />
+    <text class="label" x="262.0" y="855.0" style="font-size: 13px">기타</text>
+    </g>
+    <text class="small" x="160" y="894" style="font-size: 13px">소비처는 통합원장 하나만 본다</text>
+    </svg>
+</DiagramFrame>
+<style>
+/* Static routes remain visible under the timed stream overlays. */
+svg .label { fill: var(--muted); }
+svg .route { stroke-width: 1; opacity: .55; }
+svg .pulse .box { stroke: var(--line); }
+svg .flow { animation-duration: 12s; }
+svg .before-0 { animation: before-0 12s ease-in-out infinite; }
+@keyframes before-0 { 0%, 0%, 16.6667%, 100% { opacity: 0; } 8.33333% { opacity: 1; } }
+svg .pulse.before-0 { animation-name: pulse-before-0; }
+@keyframes pulse-before-0 { 0%, 0%, 16.6667%, 100% { opacity: .65; } 8.33333% { opacity: 1; } }
+svg .before-1 { animation: before-1 12s ease-in-out infinite; }
+@keyframes before-1 { 0%, 20%, 36.6667%, 100% { opacity: 0; } 28.3333% { opacity: 1; } }
+svg .pulse.before-1 { animation-name: pulse-before-1; }
+@keyframes pulse-before-1 { 0%, 20%, 36.6667%, 100% { opacity: .65; } 28.3333% { opacity: 1; } }
+svg .before-2 { animation: before-2 12s ease-in-out infinite; }
+@keyframes before-2 { 0%, 40%, 56.6667%, 100% { opacity: 0; } 48.3333% { opacity: 1; } }
+svg .pulse.before-2 { animation-name: pulse-before-2; }
+@keyframes pulse-before-2 { 0%, 40%, 56.6667%, 100% { opacity: .65; } 48.3333% { opacity: 1; } }
+svg .before-3 { animation: before-3 12s ease-in-out infinite; }
+@keyframes before-3 { 0%, 60%, 76.6667%, 100% { opacity: 0; } 68.3333% { opacity: 1; } }
+svg .pulse.before-3 { animation-name: pulse-before-3; }
+@keyframes pulse-before-3 { 0%, 60%, 76.6667%, 100% { opacity: .65; } 68.3333% { opacity: 1; } }
+svg .before-4 { animation: before-4 12s ease-in-out infinite; }
+@keyframes before-4 { 0%, 80%, 96.6667%, 100% { opacity: 0; } 88.3333% { opacity: 1; } }
+svg .pulse.before-4 { animation-name: pulse-before-4; }
+@keyframes pulse-before-4 { 0%, 80%, 96.6667%, 100% { opacity: .65; } 88.3333% { opacity: 1; } }
+svg .inbound { animation: inbound 12s ease-in-out infinite; }
+@keyframes inbound { 0%, 0%, 41.6667%, 100% { opacity: 0; } 20.8333% { opacity: 1; } }
+svg .pulse.inbound { animation-name: pulse-inbound; }
+@keyframes pulse-inbound { 0%, 0%, 41.6667%, 100% { opacity: .65; } 20.8333% { opacity: 1; } }
+svg .hub { animation: hub 12s ease-in-out infinite; }
+@keyframes hub { 0%, 33.3333%, 58.3333%, 100% { opacity: .65; } 45.8333% { opacity: 1; } }
+svg .pulse.hub { animation-name: pulse-hub; }
+@keyframes pulse-hub { 0%, 33.3333%, 58.3333%, 100% { opacity: .65; } 45.8333% { opacity: 1; } }
+svg .outbound { animation: outbound 12s ease-in-out infinite; }
+@keyframes outbound { 0%, 50%, 100%, 100% { opacity: 0; } 75% { opacity: 1; } }
+svg .pulse.outbound { animation-name: pulse-outbound; }
+@keyframes pulse-outbound { 0%, 50%, 100%, 100% { opacity: .65; } 75% { opacity: 1; } }
+svg .recipients { animation: recipients 12s ease-in-out infinite; }
+@keyframes recipients { 0%, 75%, 91.6667%, 100% { opacity: .65; } 83.3333% { opacity: 1; } }
+svg .pulse.recipients { animation-name: pulse-recipients; }
+@keyframes pulse-recipients { 0%, 75%, 91.6667%, 100% { opacity: .65; } 83.3333% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { svg * { animation: none !important; opacity: 1; transform: none !important; } }
+</style>

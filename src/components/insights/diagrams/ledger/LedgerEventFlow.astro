@@ -1,0 +1,254 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = '원장 네 개는 그대로 두고 이벤트 발행만 추가했다. 이벤트는 Kafka를 거쳐 통합원장의 Consumer, Vitess 4샤드, API 순으로 흐르고 소비처는 API만 본다. 체결 한 건이 적재되기까지 30ms다.' } = Astro.props;
+const description = '국내주식, 미국주식, 옵션, 채권 원장 네 개가 통합 스키마 이벤트를 Kafka 도메인별 토픽에 발행하고, 통합원장의 Consumer가 계좌별로 적재해 Vitess 4샤드에 저장하면 API가 내 계좌·홈, FDS·분석, OpenAPI 같은 소비처에 원장 대신 응답하는 흐름이며, 체결 발생부터 적재까지 30ms인 구조입니다.';
+---
+<DiagramFrame caption={caption}>
+  <svg class="desktop-diagram" viewBox="0 0 900 410" role="img" aria-label={description}>
+    <text class="small" x="75" y="30" style="font-size: 13px">원장 4개 · 그대로</text>
+    <path class="route" d="M142 82 L210 174" />
+    <g class="stage-0">
+    <path class="flow" d="M142 82 L210 174" />
+    </g>
+    <path class="arrow" d="M205 170 l5 4 -5 4" />
+    <g class="">
+    <rect class="box" x="8" y="62" width="134" height="40" rx="7" />
+    <text class="label" x="75.0" y="87.0" style="font-size: 14px">국내주식 원장</text>
+    </g>
+    <path class="route" d="M142 148 L210 174" />
+    <g class="stage-0">
+    <path class="flow" d="M142 148 L210 174" />
+    </g>
+    <path class="arrow" d="M205 170 l5 4 -5 4" />
+    <g class="">
+    <rect class="box" x="8" y="128" width="134" height="40" rx="7" />
+    <text class="label" x="75.0" y="153.0" style="font-size: 14px">미국주식 원장</text>
+    </g>
+    <path class="route" d="M142 214 L210 174" />
+    <g class="stage-0">
+    <path class="flow" d="M142 214 L210 174" />
+    </g>
+    <path class="arrow" d="M205 170 l5 4 -5 4" />
+    <g class="">
+    <rect class="box" x="8" y="194" width="134" height="40" rx="7" />
+    <text class="label" x="75.0" y="219.0" style="font-size: 14px">옵션 원장</text>
+    </g>
+    <path class="route" d="M142 280 L210 174" />
+    <g class="stage-0">
+    <path class="flow" d="M142 280 L210 174" />
+    </g>
+    <path class="arrow" d="M205 170 l5 4 -5 4" />
+    <g class="">
+    <rect class="box" x="8" y="260" width="134" height="40" rx="7" />
+    <text class="label" x="75.0" y="285.0" style="font-size: 14px">채권 원장</text>
+    </g>
+    <text class="small" x="234" y="122" style="font-size: 12px">잔고·주문·체결·입출금</text>
+    <g class="pulse highlight-0">
+    <rect class="accent-box" x="210" y="144" width="220" height="62" rx="7" />
+    <text class="label" x="320.0" y="166" style="font-size: 14px">Kafka</text>
+    <text class="small" x="320.0" y="188" style="font-size: 12px">도메인별 토픽 · key = 계좌번호</text>
+    </g>
+    <rect class="box" x="490" y="16" width="244" height="342" rx="10" />
+    <text class="small" x="612" y="43" style="font-size: 13px">통합원장 · 신규</text>
+    <path class="route" d="M430 174 H468 V99 H510" />
+    <g class="stage-1">
+    <path class="flow" d="M430 174 H468 V99 H510" />
+    </g>
+    <path class="arrow" d="M505 95 l5 4 -5 4" />
+    <text class="small" x="450" y="147" style="font-size: 13px">적재</text>
+    <g class="pulse highlight-1">
+    <rect class="box" x="512" y="68" width="200" height="62" rx="7" />
+    <text class="label" x="612.0" y="90" style="font-size: 14px">Consumer</text>
+    <text class="small" x="612.0" y="112" style="font-size: 12px">계좌별 병렬 적재</text>
+    </g>
+    <path class="route" d="M612 130 V144 M612 176 V190" />
+    <g class="stage-2">
+    <path class="flow" d="M612 130 V144 M612 176 V190" />
+    </g>
+    <path class="arrow" d="M608 185 l4 5 4 -5" />
+    <text class="small" x="612" y="165" style="font-size: 12px">version 비교 · upsert</text>
+    <g class="pulse highlight-2">
+    <rect class="box" x="512" y="192" width="200" height="44" rx="7" />
+    <text class="label" x="612.0" y="219.0" style="font-size: 14px">Vitess 4샤드</text>
+    </g>
+    <path class="route" d="M612 236 V274" />
+    <g class="stage-3">
+    <path class="flow" d="M612 236 V274" />
+    </g>
+    <path class="arrow" d="M608 269 l4 5 4 -5" />
+    <g class="pulse highlight-3">
+    <rect class="box" x="512" y="276" width="200" height="62" rx="7" />
+    <text class="label" x="612.0" y="298" style="font-size: 14px">API</text>
+    <text class="small" x="612.0" y="320" style="font-size: 12px">조회 서빙</text>
+    </g>
+    <text class="small" x="828" y="108" style="font-size: 13px">소비처</text>
+    <path class="route" d="M712 307 H754 V152 H768" />
+    <g class="stage-4">
+    <path class="flow" d="M712 307 H754 V152 H768" />
+    </g>
+    <path class="arrow" d="M763 148 l5 4 -5 4" />
+    <g class="pulse highlight-4">
+    <rect class="box" x="770" y="132" width="122" height="40" rx="7" />
+    <text class="label" x="831.0" y="157.0" style="font-size: 14px">내 계좌·홈</text>
+    </g>
+    <path class="route" d="M712 307 H754 V218 H768" />
+    <g class="stage-4">
+    <path class="flow" d="M712 307 H754 V218 H768" />
+    </g>
+    <path class="arrow" d="M763 214 l5 4 -5 4" />
+    <g class="pulse highlight-4">
+    <rect class="box" x="770" y="198" width="122" height="40" rx="7" />
+    <text class="label" x="831.0" y="223.0" style="font-size: 14px">FDS·분석</text>
+    </g>
+    <path class="route" d="M712 307 H754 V284 H768" />
+    <g class="stage-4">
+    <path class="flow" d="M712 307 H754 V284 H768" />
+    </g>
+    <path class="arrow" d="M763 280 l5 4 -5 4" />
+    <g class="pulse highlight-4">
+    <rect class="box" x="770" y="264" width="122" height="40" rx="7" />
+    <text class="label" x="831.0" y="289.0" style="font-size: 14px">OpenAPI ···</text>
+    </g>
+    <g class="pulse highlight-5">
+    <text class="small" x="450" y="395" style="font-size: 13px">체결 발생 T+0 → 통합원장 적재 T+30ms</text>
+    </g>
+    </svg>
+  <svg class="mobile-diagram" viewBox="0 0 320 920" role="img" aria-label={description}>
+    <text class="small" x="160" y="20" style="font-size: 13px">원장 4개 · 그대로</text>
+    <path class="route" d="M160 68 H284 V220 H160 V222 M160 246 V254" />
+    <g class="stage-0">
+    <path class="flow" d="M160 68 H284 V220 H160 V222 M160 246 V254" />
+    </g>
+    <path class="arrow" d="M156 249 l4 5 4 -5" />
+    <g class="">
+    <rect class="box" x="64" y="36" width="192" height="32" rx="7" />
+    <text class="label" x="160.0" y="57.0" style="font-size: 14px">국내주식 원장</text>
+    </g>
+    <path class="route" d="M160 110 H284 V220 H160 V222 M160 246 V254" />
+    <g class="stage-0">
+    <path class="flow" d="M160 110 H284 V220 H160 V222 M160 246 V254" />
+    </g>
+    <path class="arrow" d="M156 249 l4 5 4 -5" />
+    <g class="">
+    <rect class="box" x="64" y="78" width="192" height="32" rx="7" />
+    <text class="label" x="160.0" y="99.0" style="font-size: 14px">미국주식 원장</text>
+    </g>
+    <path class="route" d="M160 152 H284 V220 H160 V222 M160 246 V254" />
+    <g class="stage-0">
+    <path class="flow" d="M160 152 H284 V220 H160 V222 M160 246 V254" />
+    </g>
+    <path class="arrow" d="M156 249 l4 5 4 -5" />
+    <g class="">
+    <rect class="box" x="64" y="120" width="192" height="32" rx="7" />
+    <text class="label" x="160.0" y="141.0" style="font-size: 14px">옵션 원장</text>
+    </g>
+    <path class="route" d="M160 194 H284 V220 H160 V222 M160 246 V254" />
+    <g class="stage-0">
+    <path class="flow" d="M160 194 H284 V220 H160 V222 M160 246 V254" />
+    </g>
+    <path class="arrow" d="M156 249 l4 5 4 -5" />
+    <g class="">
+    <rect class="box" x="64" y="162" width="192" height="32" rx="7" />
+    <text class="label" x="160.0" y="183.0" style="font-size: 14px">채권 원장</text>
+    </g>
+    <text class="small" x="160" y="240" style="font-size: 12px">잔고·주문·체결·입출금</text>
+    <g class="pulse highlight-0">
+    <rect class="accent-box" x="32" y="256" width="256" height="62" rx="7" />
+    <text class="label" x="160.0" y="278" style="font-size: 14px">Kafka</text>
+    <text class="small" x="160.0" y="300" style="font-size: 12px">도메인별 토픽 · key = 계좌번호</text>
+    </g>
+    <rect class="box" x="24" y="362" width="272" height="330" rx="10" />
+    <text class="small" x="160" y="386" style="font-size: 13px">통합원장 · 신규</text>
+    <path class="route" d="M160 318 V358 M160 394 V402" />
+    <g class="stage-1">
+    <path class="flow" d="M160 318 V358 M160 394 V402" />
+    </g>
+    <path class="arrow" d="M156 397 l4 5 4 -5" />
+    <text class="small" x="188" y="344" style="font-size: 13px">적재</text>
+    <g class="pulse highlight-1">
+    <rect class="box" x="64" y="404" width="192" height="60" rx="7" />
+    <text class="label" x="160.0" y="426" style="font-size: 14px">Consumer</text>
+    <text class="small" x="160.0" y="448" style="font-size: 12px">계좌별 병렬 적재</text>
+    </g>
+    <path class="route" d="M160 464 V478 M160 508 V522" />
+    <g class="stage-2">
+    <path class="flow" d="M160 464 V478 M160 508 V522" />
+    </g>
+    <path class="arrow" d="M156 517 l4 5 4 -5" />
+    <text class="small" x="160" y="499" style="font-size: 12px">version 비교 · upsert</text>
+    <g class="pulse highlight-2">
+    <rect class="box" x="64" y="524" width="192" height="44" rx="7" />
+    <text class="label" x="160.0" y="551.0" style="font-size: 14px">Vitess 4샤드</text>
+    </g>
+    <path class="route" d="M160 568 V606" />
+    <g class="stage-3">
+    <path class="flow" d="M160 568 V606" />
+    </g>
+    <path class="arrow" d="M156 601 l4 5 4 -5" />
+    <g class="pulse highlight-3">
+    <rect class="box" x="64" y="608" width="192" height="60" rx="7" />
+    <text class="label" x="160.0" y="630" style="font-size: 14px">API</text>
+    <text class="small" x="160.0" y="652" style="font-size: 12px">조회 서빙</text>
+    </g>
+    <text class="small" x="160" y="722" style="font-size: 13px">소비처</text>
+    <path class="route" d="M256 638 H306 V757 H258" />
+    <g class="stage-4">
+    <path class="flow" d="M256 638 H306 V757 H258" />
+    </g>
+    <path class="arrow" d="M263 753 l-5 4 5 4" />
+    <g class="pulse highlight-4">
+    <rect class="box" x="64" y="740" width="192" height="34" rx="7" />
+    <text class="label" x="160.0" y="762.0" style="font-size: 14px">내 계좌·홈</text>
+    </g>
+    <path class="route" d="M256 638 H306 V801 H258" />
+    <g class="stage-4">
+    <path class="flow" d="M256 638 H306 V801 H258" />
+    </g>
+    <path class="arrow" d="M263 797 l-5 4 5 4" />
+    <g class="pulse highlight-4">
+    <rect class="box" x="64" y="784" width="192" height="34" rx="7" />
+    <text class="label" x="160.0" y="806.0" style="font-size: 14px">FDS·분석</text>
+    </g>
+    <path class="route" d="M256 638 H306 V845 H258" />
+    <g class="stage-4">
+    <path class="flow" d="M256 638 H306 V845 H258" />
+    </g>
+    <path class="arrow" d="M263 841 l-5 4 5 4" />
+    <g class="pulse highlight-4">
+    <rect class="box" x="64" y="828" width="192" height="34" rx="7" />
+    <text class="label" x="160.0" y="850.0" style="font-size: 14px">OpenAPI ···</text>
+    </g>
+    <g class="pulse highlight-5">
+    <text class="small" x="160" y="894" style="font-size: 12px">체결 발생 T+0 → 통합원장 적재 T+30ms</text>
+    </g>
+    </svg>
+</DiagramFrame>
+<style>
+svg .label { fill: var(--muted); }
+svg .pulse .box { stroke: var(--line); }
+svg .flow { animation-duration: 10s; }
+svg .stage-0 { animation: stage-0 10s ease-in-out infinite; }
+@keyframes stage-0 { 0%, 0%, 15%, 100% { opacity: 0; } 3%, 12% { opacity: 1; } }
+svg .highlight-0 { animation: highlight-0 10s ease-in-out infinite; }
+@keyframes highlight-0 { 0%, 0%, 15%, 100% { opacity: .65; } 7.5% { opacity: 1; } }
+svg .stage-1 { animation: stage-1 10s ease-in-out infinite; }
+@keyframes stage-1 { 0%, 15%, 30%, 100% { opacity: 0; } 18%, 27% { opacity: 1; } }
+svg .highlight-1 { animation: highlight-1 10s ease-in-out infinite; }
+@keyframes highlight-1 { 0%, 15%, 30%, 100% { opacity: .65; } 22.5% { opacity: 1; } }
+svg .stage-2 { animation: stage-2 10s ease-in-out infinite; }
+@keyframes stage-2 { 0%, 30%, 45%, 100% { opacity: 0; } 33%, 42% { opacity: 1; } }
+svg .highlight-2 { animation: highlight-2 10s ease-in-out infinite; }
+@keyframes highlight-2 { 0%, 30%, 45%, 100% { opacity: .65; } 37.5% { opacity: 1; } }
+svg .stage-3 { animation: stage-3 10s ease-in-out infinite; }
+@keyframes stage-3 { 0%, 45%, 60%, 100% { opacity: 0; } 48%, 57% { opacity: 1; } }
+svg .highlight-3 { animation: highlight-3 10s ease-in-out infinite; }
+@keyframes highlight-3 { 0%, 45%, 60%, 100% { opacity: .65; } 52.5% { opacity: 1; } }
+svg .stage-4 { animation: stage-4 10s ease-in-out infinite; }
+@keyframes stage-4 { 0%, 60%, 75%, 100% { opacity: 0; } 63%, 72% { opacity: 1; } }
+svg .highlight-4 { animation: highlight-4 10s ease-in-out infinite; }
+@keyframes highlight-4 { 0%, 60%, 75%, 100% { opacity: .65; } 67.5% { opacity: 1; } }
+svg .highlight-5 { animation: highlight-5 10s ease-in-out infinite; }
+@keyframes highlight-5 { 0%, 75%, 100%, 100% { opacity: .65; } 87.5% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { svg * { animation: none !important; opacity: 1; transform: none !important; } }
+</style>
