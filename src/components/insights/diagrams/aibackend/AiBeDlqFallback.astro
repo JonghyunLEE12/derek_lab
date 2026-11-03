@@ -1,0 +1,159 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "요약과 번역 추론이 실패하면 먼저 DLQ 토픽으로 보내 재시도한다. DLQ 재시도마저 실패하면 같은 품질을 내는 fallback 모델에 요청한다. 모델을 파이프라인의 외부 노드로 보면 익숙한 전략이 그대로 쓰인다." } = Astro.props;
+const description = "카프카 스크립트 토픽에서 요약/번역 컨슈머가 메시지를 받아 요약/번역 모델에 추론을 요청하고, 타임아웃 같은 실패가 나면 카프카 DLQ 토픽으로 보냈다가 다시 컨슈머로 돌려 재시도하며, DLQ 재시도마저 실패하면 최후 안전장치인 요약/번역 fallback 모델에 요청하는 복구 경로를 보여 주는 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 490" role="img" aria-label={description}>
+<path class="route " d="M200 110 H350" />
+<path class="arrow" d="M345 106 l5 4 -5 4" />
+<path class="route " d="M550 110 H708" />
+<path class="arrow" d="M703 106 l5 4 -5 4" />
+<path class="route accent-route" d="M450 142 V295" />
+<path class="arrow" d="M446 290 l4 5 4 -5" />
+<path class="route accent-route" d="M350 330 H280 V110 H350" />
+<path class="arrow" d="M345 106 l5 4 -5 4" />
+<path class="route accent-route" d="M550 125 H630 V330 H708" />
+<path class="arrow" d="M703 326 l5 4 -5 4" />
+<g class="">
+<rect class="box" x="20" y="75" width="180" height="70" rx="7" />
+<text class="label" x="110.0" y="105.0" style="font-size: 14px">
+<tspan x="110.0" dy="0">카프카</tspan>
+</text>
+<text class="small" x="110.0" y="126.0" style="font-size: 13px">
+<tspan x="110.0" dy="0">(스크립트 토픽)</tspan>
+</text>
+</g>
+<g class="">
+<rect class="box" x="350" y="82" width="200" height="60" rx="7" />
+<text class="label" x="450.0" y="117.0" style="font-size: 14px">
+<tspan x="450.0" dy="0">요약/번역 컨슈머</tspan>
+</text>
+</g>
+<g class="pulse normal">
+<circle class="box" cx="770" cy="110" r="62" />
+<text class="label" x="770" y="106" style="font-size: 13px">
+<tspan x="770" dy="0">요약/번역</tspan>
+<tspan x="770" dy="19">모델</tspan>
+</text>
+</g>
+<text class="small timeout" x="770" y="199" style="font-size: 13px">
+<tspan x="770" dy="0">타임아웃</tspan>
+</text>
+<g class="pulse retry">
+<rect class="accent-box" x="350" y="295" width="200" height="70" rx="7" />
+<text class="label" x="450.0" y="325.0" style="font-size: 14px">
+<tspan x="450.0" dy="0">카프카</tspan>
+</text>
+<text class="small" x="450.0" y="346.0" style="font-size: 13px">
+<tspan x="450.0" dy="0">(DLQ 토픽)</tspan>
+</text>
+</g>
+<text class="small retry" x="450" y="411" style="font-size: 12px">
+<tspan x="450" dy="0">요약/번역 실패 시 DLQ 를 활용하여 재시도</tspan>
+</text>
+<g class="pulse fallback">
+<circle class="accent-box" cx="770" cy="330" r="62" />
+<text class="label" x="770" y="326" style="font-size: 13px">
+<tspan x="770" dy="0">요약/번역</tspan>
+<tspan x="770" dy="19">fallback 모델</tspan>
+</text>
+</g>
+<text class="small fallback" x="770" y="435" style="font-size: 12px">
+<tspan x="770" dy="0">DLQ 과정 실패 시 fallback 모델에게 요청</tspan>
+<tspan x="770" dy="19">(최후 안전장치로 동작)</tspan>
+</text>
+<g class="d-message">
+<rect class="accent-box" x="98.0" y="122" width="24" height="18" rx="5" />
+</g>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 970" role="img" aria-label={description}>
+<path class="route " d="M160 94 V190" />
+<path class="arrow" d="M156 185 l4 5 4 -5" />
+<path class="route " d="M160 246 V324" />
+<path class="arrow" d="M156 319 l4 5 4 -5" />
+<path class="route accent-route" d="M84 218 H48 V584 H70" />
+<path class="arrow" d="M65 580 l5 4 -5 4" />
+<path class="route accent-route" d="M70 600 H24 V200 H70" />
+<path class="arrow" d="M65 196 l5 4 -5 4" />
+<path class="route accent-route" d="M250 218 H290 V784 H218" />
+<path class="arrow" d="M223 780 l-5 4 5 4" />
+<g class="">
+<rect class="box" x="70" y="24" width="180" height="70" rx="7" />
+<text class="label" x="160.0" y="54.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">카프카</tspan>
+</text>
+<text class="small" x="160.0" y="75.0" style="font-size: 13px">
+<tspan x="160.0" dy="0">(스크립트 토픽)</tspan>
+</text>
+</g>
+<g class="">
+<rect class="box" x="70" y="190" width="180" height="56" rx="7" />
+<text class="label" x="160.0" y="223.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">요약/번역 컨슈머</tspan>
+</text>
+</g>
+<g class="pulse normal">
+<circle class="box" cx="160" cy="380" r="56" />
+<text class="label" x="160" y="376" style="font-size: 13px">
+<tspan x="160" dy="0">요약/번역</tspan>
+<tspan x="160" dy="19">모델</tspan>
+</text>
+</g>
+<text class="small timeout" x="160" y="463" style="font-size: 13px">
+<tspan x="160" dy="0">타임아웃</tspan>
+</text>
+<g class="pulse retry">
+<rect class="accent-box" x="70" y="554" width="180" height="70" rx="7" />
+<text class="label" x="160.0" y="584.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">카프카</tspan>
+</text>
+<text class="small" x="160.0" y="605.0" style="font-size: 13px">
+<tspan x="160.0" dy="0">(DLQ 토픽)</tspan>
+</text>
+</g>
+<text class="small retry" x="160" y="660" style="font-size: 13px">
+<tspan x="160" dy="0">요약/번역 실패 시</tspan>
+<tspan x="160" dy="19">DLQ 를 활용하여 재시도</tspan>
+</text>
+<g class="pulse fallback">
+<circle class="accent-box" cx="160" cy="784" r="58" />
+<text class="label" x="160" y="780" style="font-size: 13px">
+<tspan x="160" dy="0">요약/번역</tspan>
+<tspan x="160" dy="19">fallback 모델</tspan>
+</text>
+</g>
+<text class="small fallback" x="160" y="886" style="font-size: 13px">
+<tspan x="160" dy="0">DLQ 과정 실패 시</tspan>
+<tspan x="160" dy="19">fallback 모델에게 요청</tspan>
+<tspan x="160" dy="19">(최후 안전장치로 동작)</tspan>
+</text>
+<g class="m-message">
+<rect class="accent-box" x="148.0" y="71" width="24" height="18" rx="5" />
+</g>
+</svg>
+</DiagramFrame>
+<style>
+svg .label { fill: var(--muted); }
+svg .pulse .box { stroke: var(--line); }
+svg .accent-route { stroke: var(--accent); }
+svg .flow { animation-duration: 16s; }
+svg .normal { animation: normal 16s ease-in-out infinite; }
+@keyframes normal {0%, 100% { opacity: .65; }12.5%, 18.75% { opacity: .65; }14.0625%, 17.1875% { opacity: 1; }43.75%, 50.0% { opacity: .65; }45.3125%, 48.4375% { opacity: 1; }}
+svg .retry { animation: retry 16s ease-in-out infinite; }
+@keyframes retry {0%, 100% { opacity: .65; }30.0%, 35.625% { opacity: .65; }31.40625%, 34.21875% { opacity: 1; }61.25%, 66.25% { opacity: .65; }62.5%, 65.0% { opacity: 1; }}
+svg .fallback { animation: fallback 16s ease-in-out infinite; }
+@keyframes fallback {0%, 100% { opacity: .65; }81.25%, 87.5% { opacity: .65; }82.8125%, 85.9375% { opacity: 1; }}
+svg .timeout { animation: timeout 16s ease-in-out infinite; }
+@keyframes timeout {0%, 100% { opacity: .65; }25.0%, 29.375% { opacity: .65; }26.09375%, 28.28125% { opacity: 1; }56.25%, 60.625% { opacity: .65; }57.34375%, 59.53125% { opacity: 1; }73.125%, 77.5% { opacity: .65; }74.21875%, 76.40625% { opacity: 1; }}
+svg .timeout { opacity: .5; }
+svg .d-message { animation: d-message 16s ease-in-out infinite; }
+@keyframes d-message {0.00000% { transform: translate(0px, 0px); opacity: 1; }5.62500% { transform: translate(340px, -1px); opacity: 1; }12.50000% { transform: translate(660px, 9px); opacity: 1; }17.50000% { transform: translate(660px, 9px); opacity: 0; }18.75000% { transform: translate(0px, 0px); opacity: 0; }19.37500% { transform: translate(0px, 0px); opacity: 1; }21.87500% { transform: translate(340px, -1px); opacity: 1; }25.00000% { transform: translate(660px, 9px); opacity: 1; }29.37500% { transform: translate(340px, -1px); opacity: 1; }31.56250% { transform: translate(340px, -1px); opacity: 1; }33.75000% { transform: translate(340px, 219px); opacity: 1; }35.12500% { transform: translate(240px, 219px); opacity: 1; }36.50000% { transform: translate(170px, 219px); opacity: 1; }37.87500% { transform: translate(170px, -21px); opacity: 1; }39.25000% { transform: translate(340px, -21px); opacity: 1; }40.62500% { transform: translate(340px, -1px); opacity: 1; }43.75000% { transform: translate(660px, 9px); opacity: 1; }48.75000% { transform: translate(660px, 9px); opacity: 0; }50.00000% { transform: translate(0px, 0px); opacity: 0; }50.62500% { transform: translate(0px, 0px); opacity: 1; }53.12500% { transform: translate(340px, -1px); opacity: 1; }56.25000% { transform: translate(660px, 9px); opacity: 1; }60.62500% { transform: translate(340px, -1px); opacity: 1; }62.50000% { transform: translate(340px, -1px); opacity: 1; }64.37500% { transform: translate(340px, 219px); opacity: 1; }65.37500% { transform: translate(240px, 219px); opacity: 1; }66.37500% { transform: translate(170px, 219px); opacity: 1; }67.37500% { transform: translate(170px, -21px); opacity: 1; }68.37500% { transform: translate(340px, -21px); opacity: 1; }69.37500% { transform: translate(340px, -1px); opacity: 1; }73.12500% { transform: translate(660px, 9px); opacity: 1; }77.50000% { transform: translate(340px, -1px); opacity: 1; }78.90625% { transform: translate(440px, -6px); opacity: 1; }80.31250% { transform: translate(520px, -6px); opacity: 1; }81.71875% { transform: translate(520px, 199px); opacity: 1; }83.12500% { transform: translate(660px, 229px); opacity: 1; }87.50000% { transform: translate(660px, 229px); opacity: 0; }98.75000% { transform: translate(0px, 0px); opacity: 0; }100.00000% { transform: translate(0px, 0px); opacity: 1; }}
+svg .m-message { animation: m-message 16s ease-in-out infinite; }
+@keyframes m-message {0.00000% { transform: translate(0px, 0px); opacity: 1; }5.62500% { transform: translate(0px, 150px); opacity: 1; }12.50000% { transform: translate(0px, 333px); opacity: 1; }17.50000% { transform: translate(0px, 333px); opacity: 0; }18.75000% { transform: translate(0px, 0px); opacity: 0; }19.37500% { transform: translate(0px, 0px); opacity: 1; }21.87500% { transform: translate(0px, 150px); opacity: 1; }25.00000% { transform: translate(0px, 333px); opacity: 1; }29.37500% { transform: translate(0px, 150px); opacity: 1; }30.46875% { transform: translate(-76px, 150px); opacity: 1; }31.56250% { transform: translate(-112px, 150px); opacity: 1; }32.65625% { transform: translate(-112px, 529px); opacity: 1; }33.75000% { transform: translate(0px, 529px); opacity: 1; }35.12500% { transform: translate(-90px, 529px); opacity: 1; }36.50000% { transform: translate(-136px, 529px); opacity: 1; }37.87500% { transform: translate(-136px, 120px); opacity: 1; }39.25000% { transform: translate(0px, 120px); opacity: 1; }40.62500% { transform: translate(0px, 150px); opacity: 1; }43.75000% { transform: translate(0px, 333px); opacity: 1; }48.75000% { transform: translate(0px, 333px); opacity: 0; }50.00000% { transform: translate(0px, 0px); opacity: 0; }50.62500% { transform: translate(0px, 0px); opacity: 1; }53.12500% { transform: translate(0px, 150px); opacity: 1; }56.25000% { transform: translate(0px, 333px); opacity: 1; }60.62500% { transform: translate(0px, 150px); opacity: 1; }61.56250% { transform: translate(-76px, 150px); opacity: 1; }62.50000% { transform: translate(-112px, 150px); opacity: 1; }63.43750% { transform: translate(-112px, 529px); opacity: 1; }64.37500% { transform: translate(0px, 529px); opacity: 1; }65.37500% { transform: translate(-90px, 529px); opacity: 1; }66.37500% { transform: translate(-136px, 529px); opacity: 1; }67.37500% { transform: translate(-136px, 120px); opacity: 1; }68.37500% { transform: translate(0px, 120px); opacity: 1; }69.37500% { transform: translate(0px, 150px); opacity: 1; }73.12500% { transform: translate(0px, 333px); opacity: 1; }77.50000% { transform: translate(0px, 150px); opacity: 1; }78.90625% { transform: translate(90px, 150px); opacity: 1; }80.31250% { transform: translate(130px, 150px); opacity: 1; }81.71875% { transform: translate(130px, 704px); opacity: 1; }83.12500% { transform: translate(0px, 735px); opacity: 1; }87.50000% { transform: translate(0px, 735px); opacity: 0; }98.75000% { transform: translate(0px, 0px); opacity: 0; }100.00000% { transform: translate(0px, 0px); opacity: 1; }}
+@media (prefers-reduced-motion: reduce) { svg * { animation: none !important; transform: none !important; opacity: 1; }
+svg .timeout { opacity: .5; }
+svg .d-message { transform: translate(-65px, 0) !important; }
+svg .m-message { transform: translate(-65px, 0) !important; } }
+</style>

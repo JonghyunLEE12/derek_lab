@@ -1,0 +1,280 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "다섯 가지 성질을 ISO 25010 품질 특성 셋에 연결한 그림. 비결정성과 부분 실패는 신뢰성, 레이턴시 분포와 비용은 효율성이다. 정답이 없는 SLO만 점선인데 지금은 유지보수성 쪽에서 접근하고 있다." } = Astro.props;
+const description = "AI 컴포넌트의 다섯 가지 성질 중 비결정성과 부분 실패는 신뢰성으로, 레이턴시 분포와 비용의 선형 증가는 효율성으로 연결되고, 정답이 없는 SLO는 100% 해결이 어렵다고 보고 지금은 유지보수성 쪽에서 접근한다는 ISO 25010 품질 특성 대응을 보여 주는 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 900 690" role="img" aria-label={description}>
+<text class="small" x="230" y="22" style="font-size: 13px">
+<tspan x="230" dy="0">AI 컴포넌트가 깨뜨리는 백엔드의 기본 가정</tspan>
+</text>
+<path class="route  " d="M133 100 H460 V180 H660" />
+<g class="path0">
+<path class="flow " d="M133 100 H460 V180 H660" />
+</g>
+<path class="arrow" d="M655 176 l5 4 -5 4" />
+<path class="route  " d="M133 215 H485 V350 H660" />
+<g class="path1">
+<path class="flow " d="M133 215 H485 V350 H660" />
+</g>
+<path class="arrow" d="M655 346 l5 4 -5 4" />
+<path class="route  " d="M133 330 H510 V180 H660" />
+<g class="path2">
+<path class="flow " d="M133 330 H510 V180 H660" />
+</g>
+<path class="arrow" d="M655 176 l5 4 -5 4" />
+<path class="route  " d="M133 445 H535 V350 H660" />
+<g class="path3">
+<path class="flow " d="M133 445 H535 V350 H660" />
+</g>
+<path class="arrow" d="M655 346 l5 4 -5 4" />
+<path class="route  dashed" d="M133 560 H560 V535 H660" />
+<g class="path4">
+<path class="flow slow" d="M133 560 H560 V535 H660" />
+</g>
+<path class="arrow" d="M655 531 l5 4 -5 4" />
+<g class="pulse source0">
+<circle class="box" cx="85" cy="100" r="46" />
+<text class="label" x="85" y="105" style="font-size: 13px">
+<tspan x="85" dy="0">비결정성</tspan>
+</text>
+</g>
+<text class="small" x="305" y="82" style="font-size: 13px">
+<tspan x="305" dy="0">같은 입력에 다른 출력</tspan>
+</text>
+<g class="pulse source1">
+<circle class="box" cx="85" cy="215" r="46" />
+<text class="label" x="85" y="220" style="font-size: 13px">
+<tspan x="85" dy="0">레이턴시 분포</tspan>
+</text>
+</g>
+<text class="small" x="305" y="197" style="font-size: 13px">
+<tspan x="305" dy="0">P99가 기본 초 단위</tspan>
+</text>
+<g class="pulse source2">
+<circle class="box" cx="85" cy="330" r="46" />
+<text class="label" x="85" y="335" style="font-size: 13px">
+<tspan x="85" dy="0">부분 실패</tspan>
+</text>
+</g>
+<text class="small" x="305" y="312" style="font-size: 13px">
+<tspan x="305" dy="0">응답은 200 OK인데 내용이 틀림</tspan>
+</text>
+<g class="pulse source3">
+<circle class="box" cx="85" cy="445" r="46" />
+<text class="label" x="85" y="441" style="font-size: 13px">
+<tspan x="85" dy="0">비용의</tspan>
+<tspan x="85" dy="19">선형 증가</tspan>
+</text>
+</g>
+<text class="small" x="305" y="427" style="font-size: 13px">
+<tspan x="305" dy="0">사용량에 비용이 비례</tspan>
+</text>
+<g class="pulse source4">
+<circle class="box" cx="85" cy="560" r="46" />
+<text class="label" x="85" y="556" style="font-size: 13px">
+<tspan x="85" dy="0">정답이 없는</tspan>
+<tspan x="85" dy="19">SLO</tspan>
+</text>
+</g>
+<text class="small" x="305" y="542" style="font-size: 13px">
+<tspan x="305" dy="0">출력 품질은 측정 장치를 직접 만들어야</tspan>
+</text>
+<text class="small" x="760" y="70" style="font-size: 13px">
+<tspan x="760" dy="0">ISO 25010 품질 특성</tspan>
+</text>
+<g class="pulse target0">
+<rect class="accent-box" x="660" y="153" width="200" height="54" rx="7" />
+<text class="label" x="760.0" y="185.0" style="font-size: 14px">
+<tspan x="760.0" dy="0">신뢰성</tspan>
+</text>
+</g>
+<text class="small" x="760" y="228" style="font-size: 13px">
+<tspan x="760" dy="0">사례 4</tspan>
+</text>
+<g class="pulse target1">
+<rect class="accent-box" x="660" y="323" width="200" height="54" rx="7" />
+<text class="label" x="760.0" y="355.0" style="font-size: 14px">
+<tspan x="760.0" dy="0">효율성</tspan>
+</text>
+</g>
+<text class="small" x="760" y="398" style="font-size: 13px">
+<tspan x="760" dy="0">사례 1, 2, 3</tspan>
+</text>
+<g class="pulse target2">
+<rect class="accent-box" x="660" y="508" width="200" height="54" rx="7" />
+<text class="label" x="760.0" y="540.0" style="font-size: 14px">
+<tspan x="760.0" dy="0">유지보수성</tspan>
+</text>
+</g>
+<text class="small" x="760" y="583" style="font-size: 13px">
+<tspan x="760" dy="0">사례 5, 6</tspan>
+</text>
+<text class="small slo-note" x="470" y="595" style="font-size: 12px">
+<tspan x="470" dy="0">100% 해결은 어렵다고 판단 · 지금은 유지보수성 쪽에서 접근</tspan>
+</text>
+<text class="small conclusion" x="450.0" y="655" style="font-size: 12px">
+<tspan x="450.0" dy="0">우리가 알고있던 소프트웨어 품질(ISO 25010) 요소와 크게 다르지 않다.</tspan>
+</text>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 1180" role="img" aria-label={description}>
+<text class="small" x="160" y="22" style="font-size: 13px">
+<tspan x="160" dy="0">AI 컴포넌트가 깨뜨리는</tspan>
+<tspan x="160" dy="19">백엔드의 기본 가정</tspan>
+</text>
+<path class="route  " d="M64 156 V164 H4 V830 H70" />
+<g class="path0">
+<path class="flow " d="M64 156 V164 H4 V830 H70" />
+</g>
+<path class="arrow" d="M65 826 l5 4 -5 4" />
+<path class="route  " d="M64 268 V276 H6 V940 H70" />
+<g class="path1">
+<path class="flow " d="M64 268 V276 H6 V940 H70" />
+</g>
+<path class="arrow" d="M65 936 l5 4 -5 4" />
+<path class="route  " d="M64 380 V388 H8 V830 H70" />
+<g class="path2">
+<path class="flow " d="M64 380 V388 H8 V830 H70" />
+</g>
+<path class="arrow" d="M65 826 l5 4 -5 4" />
+<path class="route  " d="M64 492 V500 H10 V940 H70" />
+<g class="path3">
+<path class="flow " d="M64 492 V500 H10 V940 H70" />
+</g>
+<path class="arrow" d="M65 936 l5 4 -5 4" />
+<path class="route  dashed" d="M64 604 V612 H12 V1050 H70" />
+<g class="path4">
+<path class="flow slow" d="M64 604 V612 H12 V1050 H70" />
+</g>
+<path class="arrow" d="M65 1046 l5 4 -5 4" />
+<g class="pulse source0">
+<circle class="box" cx="64" cy="110" r="46" />
+<text class="label" x="64" y="115" style="font-size: 13px">
+<tspan x="64" dy="0">비결정성</tspan>
+</text>
+</g>
+<text class="small" x="214" y="92" style="font-size: 12px">
+<tspan x="214" dy="0">같은 입력에 다른 출력</tspan>
+</text>
+<g class="pulse source1">
+<circle class="box" cx="64" cy="222" r="46" />
+<text class="label" x="64" y="227" style="font-size: 13px">
+<tspan x="64" dy="0">레이턴시 분포</tspan>
+</text>
+</g>
+<text class="small" x="214" y="204" style="font-size: 12px">
+<tspan x="214" dy="0">P99가 기본 초 단위</tspan>
+</text>
+<g class="pulse source2">
+<circle class="box" cx="64" cy="334" r="46" />
+<text class="label" x="64" y="339" style="font-size: 13px">
+<tspan x="64" dy="0">부분 실패</tspan>
+</text>
+</g>
+<text class="small" x="214" y="316" style="font-size: 12px">
+<tspan x="214" dy="0">응답은 200 OK인데</tspan>
+<tspan x="214" dy="19">내용이 틀림</tspan>
+</text>
+<g class="pulse source3">
+<circle class="box" cx="64" cy="446" r="46" />
+<text class="label" x="64" y="442" style="font-size: 13px">
+<tspan x="64" dy="0">비용의</tspan>
+<tspan x="64" dy="19">선형 증가</tspan>
+</text>
+</g>
+<text class="small" x="214" y="428" style="font-size: 12px">
+<tspan x="214" dy="0">사용량에 비용이 비례</tspan>
+</text>
+<g class="pulse source4">
+<circle class="box" cx="64" cy="558" r="46" />
+<text class="label" x="64" y="554" style="font-size: 13px">
+<tspan x="64" dy="0">정답이 없는</tspan>
+<tspan x="64" dy="19">SLO</tspan>
+</text>
+</g>
+<text class="small" x="214" y="540" style="font-size: 12px">
+<tspan x="214" dy="0">출력 품질은 측정 장치를</tspan>
+<tspan x="214" dy="19">직접 만들어야</tspan>
+</text>
+<text class="small" x="160" y="770" style="font-size: 13px">
+<tspan x="160" dy="0">ISO 25010 품질 특성</tspan>
+</text>
+<g class="pulse target0">
+<rect class="accent-box" x="70" y="803" width="180" height="54" rx="7" />
+<text class="label" x="160.0" y="835.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">신뢰성</tspan>
+</text>
+</g>
+<text class="small" x="160" y="878" style="font-size: 13px">
+<tspan x="160" dy="0">사례 4</tspan>
+</text>
+<g class="pulse target1">
+<rect class="accent-box" x="70" y="913" width="180" height="54" rx="7" />
+<text class="label" x="160.0" y="945.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">효율성</tspan>
+</text>
+</g>
+<text class="small" x="160" y="988" style="font-size: 13px">
+<tspan x="160" dy="0">사례 1, 2, 3</tspan>
+</text>
+<g class="pulse target2">
+<rect class="accent-box" x="70" y="1023" width="180" height="54" rx="7" />
+<text class="label" x="160.0" y="1055.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">유지보수성</tspan>
+</text>
+</g>
+<text class="small" x="160" y="1098" style="font-size: 13px">
+<tspan x="160" dy="0">사례 5, 6</tspan>
+</text>
+<text class="small slo-note" x="174" y="680" style="font-size: 12px">
+<tspan x="174" dy="0">100% 해결은 어렵다고 판단 ·</tspan>
+<tspan x="174" dy="19">지금은 유지보수성 쪽에서 접근</tspan>
+</text>
+<text class="small conclusion" x="160.0" y="1145" style="font-size: 12px">
+<tspan x="160.0" dy="0">우리가 알고있던 소프트웨어 품질(ISO 25010)</tspan>
+<tspan x="160.0" dy="19">요소와 크게 다르지 않다.</tspan>
+</text>
+</svg>
+</DiagramFrame>
+<style>
+svg .label { fill: var(--muted); }
+svg .pulse .box { stroke: var(--line); }
+svg .accent-route { stroke: var(--accent); }
+svg .dashed { stroke-dasharray: 5 6; }
+svg .flow { animation-duration: 14s; }
+svg .slow { animation-duration: 16s; }
+svg .source0 { animation: source0 14s ease-in-out infinite; }
+@keyframes source0 {0%, 100% { opacity: .65; }0.0%, 5.0% { opacity: .65; }1.25%, 3.75% { opacity: 1; }}
+svg .path0 { animation: path0 14s ease-in-out infinite; }
+@keyframes path0 {0%, 100% { opacity: 0; }5.0%, 12.14286% { opacity: 0; }6.78571%, 10.35714% { opacity: 1; }}
+svg .source2 { animation: source2 14s ease-in-out infinite; }
+@keyframes source2 {0%, 100% { opacity: .65; }17.14286%, 22.14286% { opacity: .65; }18.39286%, 20.89286% { opacity: 1; }}
+svg .path2 { animation: path2 14s ease-in-out infinite; }
+@keyframes path2 {0%, 100% { opacity: 0; }22.14286%, 29.28571% { opacity: 0; }23.92857%, 27.5% { opacity: 1; }}
+svg .source1 { animation: source1 14s ease-in-out infinite; }
+@keyframes source1 {0%, 100% { opacity: .65; }34.28571%, 39.28571% { opacity: .65; }35.53571%, 38.03571% { opacity: 1; }}
+svg .path1 { animation: path1 14s ease-in-out infinite; }
+@keyframes path1 {0%, 100% { opacity: 0; }39.28571%, 46.42857% { opacity: 0; }41.07143%, 44.64286% { opacity: 1; }}
+svg .source3 { animation: source3 14s ease-in-out infinite; }
+@keyframes source3 {0%, 100% { opacity: .65; }51.42857%, 56.42857% { opacity: .65; }52.67857%, 55.17857% { opacity: 1; }}
+svg .path3 { animation: path3 14s ease-in-out infinite; }
+@keyframes path3 {0%, 100% { opacity: 0; }56.42857%, 63.57143% { opacity: 0; }58.21429%, 61.78571% { opacity: 1; }}
+svg .source4 { animation: source4 14s ease-in-out infinite; }
+@keyframes source4 {0%, 100% { opacity: .65; }68.57143%, 73.57143% { opacity: .65; }69.82143%, 72.32143% { opacity: 1; }}
+svg .path4 { animation: path4 14s ease-in-out infinite; }
+@keyframes path4 {0%, 100% { opacity: 0; }73.57143%, 83.57143% { opacity: 0; }76.07143%, 81.07143% { opacity: 1; }}
+svg .target0 { animation: target0 14s ease-in-out infinite; }
+@keyframes target0 {0%, 100% { opacity: .65; }12.14286%, 17.14286% { opacity: .65; }13.39286%, 15.89286% { opacity: 1; }29.28571%, 34.28571% { opacity: .65; }30.53571%, 33.03571% { opacity: 1; }}
+svg .target1 { animation: target1 14s ease-in-out infinite; }
+@keyframes target1 {0%, 100% { opacity: .65; }46.42857%, 51.42857% { opacity: .65; }47.67857%, 50.17857% { opacity: 1; }63.57143%, 68.57143% { opacity: .65; }64.82143%, 67.32143% { opacity: 1; }}
+svg .target2 { animation: target2 14s ease-in-out infinite; }
+@keyframes target2 {0%, 100% { opacity: .65; }80.71429%, 88.57143% { opacity: .65; }82.67857%, 86.60714% { opacity: 1; }}
+svg .conclusion { animation: conclusion 14s ease-in-out infinite; }
+@keyframes conclusion {0%, 100% { opacity: .65; }88.57143%, 100.0% { opacity: .65; }91.42857%, 97.14286% { opacity: 1; }}
+svg .slo-note { animation: slo-note 14s ease-in-out infinite; }
+@keyframes slo-note {0%, 100% { opacity: .65; }78.57143%, 88.57143% { opacity: .65; }81.07143%, 86.07143% { opacity: 1; }}
+@media (prefers-reduced-motion: reduce) { svg * { animation: none !important; transform: none !important; opacity: 1; }
+svg .timeout { opacity: .5; }
+svg .dashed, svg .dashed + g .flow { stroke-dasharray: 5 6; } }
+</style>

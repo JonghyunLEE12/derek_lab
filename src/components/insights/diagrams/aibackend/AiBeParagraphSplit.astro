@@ -1,0 +1,268 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "위가 V1, 아래가 V2다. V1은 문단 전체를 통째로 모델에 보내서 추론이 오래 걸린다. V2는 폴링 서버 안의 문단 나누기 컴포넌트가 스크립트를 더 짧게 자르고 순서를 보장해서 보낸다." } = Astro.props;
+const description = "어닝콜 스크립트가 문단 단위로 들어올 때 스크립트 폴링 서버 V1은 문단 전체를 카프카와 요약/번역 컨슈머를 거쳐 요약/번역 모델에 통째로 보내 추론이 오래 걸리고, V2는 문단 나누기 컴포넌트로 스크립트를 더 짧게 잘라 순서를 보장해 보내서 추론 시간이 줄어드는 차이를 비교한 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 1060 510" role="img" aria-label={description}>
+<g class="">
+<rect class="box" x="10" y="120" width="190" height="180" rx="7" />
+<text class="label" x="105.0" y="215.0" style="font-size: 14px">
+<tspan x="105.0" dy="0">
+</tspan>
+</text>
+</g>
+<text class="label" x="105" y="147" style="font-size: 14px">
+<tspan x="105" dy="0">어닝콜 스크립트</tspan>
+</text>
+<text class="small" x="105" y="168" style="font-size: 13px">
+<tspan x="105" dy="0">(jsonl)</tspan>
+</text>
+<g class="pulse first">
+<rect class="box" x="30" y="180" width="150" height="30" rx="7" />
+<text class="label" x="105.0" y="200.0" style="font-size: 14px">
+<tspan x="105.0" dy="0">첫번째 문단</tspan>
+</text>
+</g>
+<g class="">
+<rect class="box" x="30" y="223" width="150" height="30" rx="7" />
+<text class="label" x="105.0" y="243.0" style="font-size: 14px">
+<tspan x="105.0" dy="0">두번째 문단</tspan>
+</text>
+</g>
+<text class="small" x="105" y="280" style="font-size: 13px">
+<tspan x="105" dy="0">이하 계속...</tspan>
+</text>
+<path class="route " d="M200 210 H222 V108 H250" />
+<path class="arrow" d="M245 104 l5 4 -5 4" />
+<path class="route " d="M222 210 V310 H250" />
+<path class="arrow" d="M245 306 l5 4 -5 4" />
+<path class="route " d="M450 108 H580 V185" />
+<path class="arrow" d="M576 180 l4 5 4 -5" />
+<path class="route accent-route" d="M450 310 H580 V235" />
+<path class="arrow" d="M576 240 l4 -5 4 5" />
+<path class="route " d="M650 210 H704" />
+<path class="arrow" d="M699 206 l5 4 -5 4" />
+<path class="route " d="M884 210 H934" />
+<path class="arrow" d="M929 206 l5 4 -5 4" />
+<g class="">
+<rect class="box" x="250" y="80" width="200" height="56" rx="7" />
+<text class="label" x="350.0" y="113.0" style="font-size: 14px">
+<tspan x="350.0" dy="0">스크립트 폴링 서버 V1</tspan>
+</text>
+</g>
+<g class="">
+<rect class="box" x="250" y="260" width="200" height="100" rx="7" />
+<text class="label" x="350.0" y="315.0" style="font-size: 14px">
+<tspan x="350.0" dy="0">
+</tspan>
+</text>
+</g>
+<text class="label" x="350" y="285" style="font-size: 14px">
+<tspan x="350" dy="0">스크립트 폴링 서버 V2</tspan>
+</text>
+<g class="pulse split">
+<rect class="accent-box" x="266" y="305" width="168" height="38" rx="7" />
+<text class="label" x="350.0" y="329.0" style="font-size: 14px">
+<tspan x="350.0" dy="0">문단 나누기 컴포넌트</tspan>
+</text>
+</g>
+<g class="">
+<rect class="box" x="510" y="185" width="140" height="50" rx="7" />
+<text class="label" x="580.0" y="215.0" style="font-size: 14px">
+<tspan x="580.0" dy="0">카프카</tspan>
+</text>
+</g>
+<g class="">
+<rect class="box" x="704" y="185" width="180" height="50" rx="7" />
+<text class="label" x="794.0" y="215.0" style="font-size: 14px">
+<tspan x="794.0" dy="0">요약/번역 컨슈머</tspan>
+</text>
+</g>
+<g class="pulse model">
+<circle class="box" cx="990" cy="210" r="56" />
+<text class="label" x="990" y="206" style="font-size: 13px">
+<tspan x="990" dy="0">요약/번역</tspan>
+<tspan x="990" dy="19">모델</tspan>
+</text>
+</g>
+<text class="small" x="530" y="420" style="font-size: 14px">
+<tspan x="530" dy="0">1. 데이터 벤더가 제공하는 스크립트를 더 짧게 자름</tspan>
+</text>
+<text class="small benefit" x="530" y="450" style="font-size: 14px">
+<tspan x="530" dy="0">2. 순서를 보장하여 요약/번역 모델에 전달하여 추론 시간을 줄임</tspan>
+</text>
+<text class="small" x="530" y="480" style="font-size: 14px">
+<tspan x="530" dy="0">3. 사용자에게 더 나은 요약/번역 경험을 제공</tspan>
+</text>
+<g class="d-whole">
+<rect class="accent-box" x="478.0" y="99" width="44" height="18" rx="5" />
+</g>
+<g class="d-part0">
+<rect class="accent-box" x="468.0" y="301" width="24" height="18" rx="5" />
+<text class="small" x="480" y="314" style="font-size: 11px">
+<tspan x="480" dy="0">1</tspan>
+</text>
+</g>
+<g class="d-part1">
+<rect class="accent-box" x="499.0" y="301" width="24" height="18" rx="5" />
+<text class="small" x="511" y="314" style="font-size: 11px">
+<tspan x="511" dy="0">2</tspan>
+</text>
+</g>
+<g class="d-part2">
+<rect class="accent-box" x="530.0" y="301" width="24" height="18" rx="5" />
+<text class="small" x="542" y="314" style="font-size: 11px">
+<tspan x="542" dy="0">3</tspan>
+</text>
+</g>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 1060" role="img" aria-label={description}>
+<g class="">
+<rect class="box" x="55" y="14" width="210" height="160" rx="7" />
+<text class="label" x="160.0" y="99.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">
+</tspan>
+</text>
+</g>
+<text class="label" x="160" y="40" style="font-size: 14px">
+<tspan x="160" dy="0">어닝콜 스크립트</tspan>
+</text>
+<text class="small" x="160" y="61" style="font-size: 13px">
+<tspan x="160" dy="0">(jsonl)</tspan>
+</text>
+<g class="pulse first">
+<rect class="box" x="85" y="75" width="150" height="28" rx="7" />
+<text class="label" x="160.0" y="94.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">첫번째 문단</tspan>
+</text>
+</g>
+<g class="">
+<rect class="box" x="85" y="110" width="150" height="28" rx="7" />
+<text class="label" x="160.0" y="129.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">두번째 문단</tspan>
+</text>
+</g>
+<text class="small" x="160" y="159" style="font-size: 13px">
+<tspan x="160" dy="0">이하 계속...</tspan>
+</text>
+<path class="route " d="M160 174 V193 H26 V248 H66" />
+<path class="arrow" d="M61 244 l5 4 -5 4" />
+<path class="route " d="M160 193 H26 V392 H66" />
+<path class="arrow" d="M61 388 l5 4 -5 4" />
+<path class="route " d="M254 248 H286 V550 H160 V575" />
+<path class="arrow" d="M156 570 l4 5 4 -5" />
+<path class="route accent-route" d="M254 392 H270 V530 H160 V575" />
+<path class="arrow" d="M156 570 l4 5 4 -5" />
+<path class="route " d="M160 625 V675" />
+<path class="arrow" d="M156 670 l4 5 4 -5" />
+<path class="route " d="M160 725 V779" />
+<path class="arrow" d="M156 774 l4 5 4 -5" />
+<g class="">
+<rect class="box" x="66" y="220" width="188" height="56" rx="7" />
+<text class="label" x="160.0" y="253.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">스크립트 폴링 서버 V1</tspan>
+</text>
+</g>
+<g class="">
+<rect class="box" x="66" y="350" width="188" height="100" rx="7" />
+<text class="label" x="160.0" y="405.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">
+</tspan>
+</text>
+</g>
+<text class="label" x="160" y="377" style="font-size: 14px">
+<tspan x="160" dy="0">스크립트 폴링 서버 V2</tspan>
+</text>
+<g class="pulse split">
+<rect class="accent-box" x="76" y="395" width="168" height="38" rx="7" />
+<text class="label" x="160.0" y="419.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">문단 나누기 컴포넌트</tspan>
+</text>
+</g>
+<g class="">
+<rect class="box" x="70" y="575" width="180" height="50" rx="7" />
+<text class="label" x="160.0" y="605.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">카프카</tspan>
+</text>
+</g>
+<g class="">
+<rect class="box" x="70" y="675" width="180" height="50" rx="7" />
+<text class="label" x="160.0" y="705.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">요약/번역 컨슈머</tspan>
+</text>
+</g>
+<g class="pulse model">
+<circle class="box" cx="160" cy="835" r="56" />
+<text class="label" x="160" y="831" style="font-size: 13px">
+<tspan x="160" dy="0">요약/번역</tspan>
+<tspan x="160" dy="19">모델</tspan>
+</text>
+</g>
+<text class="small" x="160" y="931" style="font-size: 12px">
+<tspan x="160" dy="0">1. 데이터 벤더가 제공하는 스크립트를</tspan>
+<tspan x="160" dy="19">더 짧게 자름</tspan>
+</text>
+<text class="small benefit" x="160" y="977" style="font-size: 12px">
+<tspan x="160" dy="0">2. 순서를 보장하여 요약/번역 모델에</tspan>
+<tspan x="160" dy="19">전달하여 추론 시간을 줄임</tspan>
+</text>
+<text class="small" x="160" y="1023" style="font-size: 12px">
+<tspan x="160" dy="0">3. 사용자에게 더 나은 요약/번역 경험을 제공</tspan>
+</text>
+<g class="m-whole">
+<rect class="accent-box" x="264.0" y="297" width="44" height="18" rx="5" />
+</g>
+<g class="m-part0">
+<rect class="accent-box" x="258.0" y="466" width="24" height="18" rx="5" />
+<text class="small" x="270" y="479" style="font-size: 11px">
+<tspan x="270" dy="0">1</tspan>
+</text>
+</g>
+<g class="m-part1">
+<rect class="accent-box" x="258.0" y="489" width="24" height="18" rx="5" />
+<text class="small" x="270" y="502" style="font-size: 11px">
+<tspan x="270" dy="0">2</tspan>
+</text>
+</g>
+<g class="m-part2">
+<rect class="accent-box" x="258.0" y="512" width="24" height="18" rx="5" />
+<text class="small" x="270" y="525" style="font-size: 11px">
+<tspan x="270" dy="0">3</tspan>
+</text>
+</g>
+</svg>
+</DiagramFrame>
+<style>
+svg .label { fill: var(--muted); }
+svg .pulse .box { stroke: var(--line); }
+svg .accent-route { stroke: var(--accent); }
+svg .flow { animation-duration: 14s; }
+svg .first { animation: first 14s ease-in-out infinite; }
+@keyframes first {0%, 100% { opacity: .65; }0.0%, 7.14286% { opacity: .65; }1.78571%, 5.35714% { opacity: 1; }}
+svg .split { animation: split 14s ease-in-out infinite; }
+@keyframes split {0%, 100% { opacity: .65; }50.0%, 57.14286% { opacity: .65; }51.78571%, 55.35714% { opacity: 1; }}
+svg .model { animation: model 14s ease-in-out infinite; }
+@keyframes model {0%, 100% { opacity: .65; }25.0%, 46.42857% { opacity: .65; }30.35714%, 41.07143% { opacity: 1; }65.0%, 69.28571% { opacity: .65; }66.07143%, 68.21429% { opacity: 1; }73.57143%, 77.85714% { opacity: .65; }74.64286%, 76.78571% { opacity: 1; }82.14286%, 86.42857% { opacity: .65; }83.21429%, 85.35714% { opacity: 1; }}
+svg .benefit { animation: benefit 14s ease-in-out infinite; }
+@keyframes benefit {0%, 100% { opacity: .65; }89.28571%, 100.0% { opacity: .65; }91.96429%, 97.32143% { opacity: 1; }}
+svg .d-whole { animation: d-whole 14s ease-in-out infinite; }
+@keyframes d-whole {0.00000% { transform: translate(-50px, 0px); opacity: 0; }7.14286% { transform: translate(-50px, 0px); opacity: 1; }11.60714% { transform: translate(80px, 0px); opacity: 1; }16.07143% { transform: translate(80px, 102px); opacity: 1; }20.53571% { transform: translate(294px, 102px); opacity: 1; }25.00000% { transform: translate(490px, 127px); opacity: 1; }42.85714% { transform: translate(490px, 127px); opacity: 0.3; }46.42857% { transform: translate(490px, 127px); opacity: 0; }49.28571% { transform: translate(-395px, 87px); opacity: 0; }50.00000% { transform: translate(-395px, 87px); opacity: 1; }50.85714% { transform: translate(-278px, 87px); opacity: 1; }51.71429% { transform: translate(-278px, 202px); opacity: 1; }52.85714% { transform: translate(-150px, 216px); opacity: 1; }53.92857% { transform: translate(-150px, 216px); opacity: 0; }100.00000% { transform: translate(-50px, 0px); opacity: 0; }}
+svg .d-part0 { animation: d-part0 14s ease-in-out infinite; }
+@keyframes d-part0 {0.00000% { transform: translate(-130px, 14px); opacity: 0; }51.78571% { transform: translate(-130px, 14px); opacity: 0; }52.85714% { transform: translate(-130px, 14px); opacity: 1; }55.28571% { transform: translate(-30px, 0px); opacity: 1; }57.71429% { transform: translate(100px, 0px); opacity: 1; }60.14286% { transform: translate(100px, -100px); opacity: 1; }62.57143% { transform: translate(314px, -100px); opacity: 1; }65.00000% { transform: translate(510px, -75px); opacity: 1; }69.28571% { transform: translate(510px, -75px); opacity: 0; }100.00000% { transform: translate(-130px, 14px); opacity: 0; }}
+svg .d-part1 { animation: d-part1 14s ease-in-out infinite; }
+@keyframes d-part1 {0.00000% { transform: translate(-161px, 14px); opacity: 0; }60.35714% { transform: translate(-161px, 14px); opacity: 0; }61.42857% { transform: translate(-161px, 14px); opacity: 1; }63.85714% { transform: translate(-61px, 0px); opacity: 1; }66.28571% { transform: translate(69px, 0px); opacity: 1; }68.71429% { transform: translate(69px, -100px); opacity: 1; }71.14286% { transform: translate(283px, -100px); opacity: 1; }73.57143% { transform: translate(479px, -75px); opacity: 1; }77.85714% { transform: translate(479px, -75px); opacity: 0; }100.00000% { transform: translate(-161px, 14px); opacity: 0; }}
+svg .d-part2 { animation: d-part2 14s ease-in-out infinite; }
+@keyframes d-part2 {0.00000% { transform: translate(-192px, 14px); opacity: 0; }68.92857% { transform: translate(-192px, 14px); opacity: 0; }70.00000% { transform: translate(-192px, 14px); opacity: 1; }72.42857% { transform: translate(-92px, 0px); opacity: 1; }74.85714% { transform: translate(38px, 0px); opacity: 1; }77.28571% { transform: translate(38px, -100px); opacity: 1; }79.71429% { transform: translate(252px, -100px); opacity: 1; }82.14286% { transform: translate(448px, -75px); opacity: 1; }86.42857% { transform: translate(448px, -75px); opacity: 0; }100.00000% { transform: translate(-192px, 14px); opacity: 0; }}
+svg .m-whole { animation: m-whole 14s ease-in-out infinite; }
+@keyframes m-whole {0.00000% { transform: translate(-32px, -58px); opacity: 0; }7.14286% { transform: translate(-32px, -58px); opacity: 1; }10.11905% { transform: translate(0px, -58px); opacity: 1; }13.09524% { transform: translate(0px, 244px); opacity: 1; }16.07143% { transform: translate(-126px, 244px); opacity: 1; }19.04762% { transform: translate(-126px, 294px); opacity: 1; }22.02381% { transform: translate(-126px, 394px); opacity: 1; }25.00000% { transform: translate(-126px, 554px); opacity: 1; }42.85714% { transform: translate(-126px, 554px); opacity: 0.3; }46.42857% { transform: translate(-126px, 554px); opacity: 0; }49.28571% { transform: translate(-126px, -216px); opacity: 0; }50.00000% { transform: translate(-126px, -216px); opacity: 1; }50.71429% { transform: translate(-260px, -113px); opacity: 1; }51.78571% { transform: translate(-260px, 86px); opacity: 1; }52.85714% { transform: translate(-126px, 108px); opacity: 1; }53.92857% { transform: translate(-126px, 108px); opacity: 0; }100.00000% { transform: translate(-32px, -58px); opacity: 0; }}
+svg .m-part0 { animation: m-part0 14s ease-in-out infinite; }
+@keyframes m-part0 {0.00000% { transform: translate(-110px, -61px); opacity: 0; }51.78571% { transform: translate(-110px, -61px); opacity: 0; }52.85714% { transform: translate(-110px, -61px); opacity: 1; }54.59184% { transform: translate(-16px, -61px); opacity: 1; }56.32653% { transform: translate(0px, -61px); opacity: 1; }58.06122% { transform: translate(0px, 55px); opacity: 1; }59.79592% { transform: translate(-110px, 55px); opacity: 1; }61.53061% { transform: translate(-110px, 125px); opacity: 1; }63.26531% { transform: translate(-110px, 225px); opacity: 1; }65.00000% { transform: translate(-110px, 385px); opacity: 1; }69.28571% { transform: translate(-110px, 385px); opacity: 0; }100.00000% { transform: translate(-110px, -61px); opacity: 0; }}
+svg .m-part1 { animation: m-part1 14s ease-in-out infinite; }
+@keyframes m-part1 {0.00000% { transform: translate(-110px, -84px); opacity: 0; }60.35714% { transform: translate(-110px, -84px); opacity: 0; }61.42857% { transform: translate(-110px, -84px); opacity: 1; }63.16327% { transform: translate(-16px, -84px); opacity: 1; }64.89796% { transform: translate(0px, -84px); opacity: 1; }66.63265% { transform: translate(0px, 32px); opacity: 1; }68.36735% { transform: translate(-110px, 32px); opacity: 1; }70.10204% { transform: translate(-110px, 102px); opacity: 1; }71.83673% { transform: translate(-110px, 202px); opacity: 1; }73.57143% { transform: translate(-110px, 362px); opacity: 1; }77.85714% { transform: translate(-110px, 362px); opacity: 0; }100.00000% { transform: translate(-110px, -84px); opacity: 0; }}
+svg .m-part2 { animation: m-part2 14s ease-in-out infinite; }
+@keyframes m-part2 {0.00000% { transform: translate(-110px, -107px); opacity: 0; }68.92857% { transform: translate(-110px, -107px); opacity: 0; }70.00000% { transform: translate(-110px, -107px); opacity: 1; }71.73469% { transform: translate(-16px, -107px); opacity: 1; }73.46939% { transform: translate(0px, -107px); opacity: 1; }75.20408% { transform: translate(0px, 9px); opacity: 1; }76.93878% { transform: translate(-110px, 9px); opacity: 1; }78.67347% { transform: translate(-110px, 79px); opacity: 1; }80.40816% { transform: translate(-110px, 179px); opacity: 1; }82.14286% { transform: translate(-110px, 339px); opacity: 1; }86.42857% { transform: translate(-110px, 339px); opacity: 0; }100.00000% { transform: translate(-110px, -107px); opacity: 0; }}
+@media (prefers-reduced-motion: reduce) { svg * { animation: none !important; transform: none !important; opacity: 1; }
+svg .timeout { opacity: .5; } }
+</style>

@@ -1,0 +1,405 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "어닝콜 하나에 추론 라인은 하나다. 폴링 서버가 스크립트를 가져오면 카프카를 거쳐 번역 모델과 요약 모델이 한 번씩 추론하고, 결과는 채널 컨슈머와 NATS와 SSE 서버를 거쳐 모든 클라이언트에 뿌려진다. 추론은 초 단위라 그 뒤 전달 구간의 지연을 줄였다." } = Astro.props;
+const description = "어닝콜이 시작되면 스크립트 폴링 서버가 데이터 벤더의 S3 jsonl 스크립트를 폴링해 카프카 스크립트 토픽에 넣고, 번역 컨슈머가 번역 모델로 번역해 번역 토픽에, 요약 컨슈머가 요약 모델로 요약해 요약 토픽에 넣으면, 채널 컨슈머가 두 토픽을 받아 NATS와 SSE 서버를 거쳐 클라이언트에 브로드캐스팅하는 구조이며, 어닝콜 하나당 추론은 한 번만 하고 전달은 스트리밍으로 지연을 줄인 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 930 690" role="img" aria-label={description}>
+<g class="">
+<rect class="box" x="8" y="60" width="250" height="70" rx="7" />
+<text class="label" x="133.0" y="90.0" style="font-size: 14px">
+<tspan x="133.0" dy="0">데이터 벤더</tspan>
+</text>
+<text class="small" x="133.0" y="111.0" style="font-size: 13px">
+<tspan x="133.0" dy="0">어닝콜 스크립트 (S3, jsonl 파일)</tspan>
+</text>
+</g>
+<rect class="box" x="280" y="18" width="330" height="660" rx="10" />
+<text class="small highlight11" x="445" y="44" style="font-size: 13px">
+<tspan x="445" dy="0">번역/요약 추론 라인 단일화</tspan>
+</text>
+<path class="route " d="M507.0 144 V194" />
+<g class="stage1">
+<path class="flow" d="M507.0 144 V194" />
+</g>
+<path class="arrow" d="M503.0 189 l4 5 4 -5" />
+<path class="route " d="M507.0 248 V298" />
+<g class="stage2">
+<path class="flow" d="M507.0 248 V298" />
+</g>
+<path class="arrow" d="M503.0 293 l4 5 4 -5" />
+<path class="route " d="M507.0 352 V402" />
+<g class="stage4">
+<path class="flow" d="M507.0 352 V402" />
+</g>
+<path class="arrow" d="M503.0 397 l4 5 4 -5" />
+<path class="route " d="M507.0 456 V506" />
+<g class="stage5">
+<path class="flow" d="M507.0 456 V506" />
+</g>
+<path class="arrow" d="M503.0 501 l4 5 4 -5" />
+<path class="route " d="M507.0 560 V610" />
+<g class="stage7">
+<path class="flow" d="M507.0 560 V610" />
+</g>
+<path class="arrow" d="M503.0 605 l4 5 4 -5" />
+<path class="route " d="M420 117 H258" />
+<g class="stage0">
+<path class="flow" d="M420 117 H258" />
+</g>
+<path class="arrow" d="M263 113 l-5 4 5 4" />
+<text class="small" x="333" y="103" style="font-size: 13px">
+<tspan x="333" dy="0">폴링</tspan>
+</text>
+<path class="route " d="M420 325 H391" />
+<g class="stage3">
+<path class="flow" d="M420 325 H391" />
+</g>
+<path class="arrow" d="M396 321 l-5 4 5 4" />
+<g class="pulse highlight3">
+<circle class="box" cx="345" cy="325" r="46" />
+<text class="label" x="345" y="330" style="font-size: 13px">
+<tspan x="345" dy="0">번역 모델</tspan>
+</text>
+</g>
+<path class="route " d="M420 533 H391" />
+<g class="stage6">
+<path class="flow" d="M420 533 H391" />
+</g>
+<path class="arrow" d="M396 529 l-5 4 5 4" />
+<g class="pulse highlight6">
+<circle class="box" cx="345" cy="533" r="46" />
+<text class="label" x="345" y="538" style="font-size: 13px">
+<tspan x="345" dy="0">요약 모델</tspan>
+</text>
+</g>
+<path class="route " d="M594 429 H645 V309 H680" />
+<g class="stage4">
+<path class="flow" d="M594 429 H645 V309 H680" />
+</g>
+<path class="arrow" d="M675 305 l5 4 -5 4" />
+<path class="route " d="M594 637 H665 V309 H680" />
+<g class="stage7">
+<path class="flow" d="M594 637 H665 V309 H680" />
+</g>
+<path class="arrow" d="M675 305 l5 4 -5 4" />
+<g class="pulse highlight0">
+<rect class="box" x="420" y="90" width="174" height="54" rx="7" />
+<text class="label" x="507.0" y="122.0" style="font-size: 14px">
+<tspan x="507.0" dy="0">스크립트 폴링 서버</tspan>
+</text>
+</g>
+<g class="pulse highlight1">
+<rect class="box" x="420" y="194" width="174" height="54" rx="7" />
+<text class="label" x="507.0" y="216.0" style="font-size: 14px">
+<tspan x="507.0" dy="0">카프카</tspan>
+</text>
+<text class="small" x="507.0" y="237.0" style="font-size: 13px">
+<tspan x="507.0" dy="0">(스크립트 토픽)</tspan>
+</text>
+</g>
+<g class="pulse highlight2">
+<rect class="box" x="420" y="298" width="174" height="54" rx="7" />
+<text class="label" x="507.0" y="330.0" style="font-size: 14px">
+<tspan x="507.0" dy="0">번역 컨슈머</tspan>
+</text>
+</g>
+<g class="pulse highlight4">
+<rect class="box" x="420" y="402" width="174" height="54" rx="7" />
+<text class="label" x="507.0" y="424.0" style="font-size: 14px">
+<tspan x="507.0" dy="0">카프카</tspan>
+</text>
+<text class="small" x="507.0" y="445.0" style="font-size: 13px">
+<tspan x="507.0" dy="0">(번역 토픽)</tspan>
+</text>
+</g>
+<g class="pulse highlight5">
+<rect class="box" x="420" y="506" width="174" height="54" rx="7" />
+<text class="label" x="507.0" y="538.0" style="font-size: 14px">
+<tspan x="507.0" dy="0">요약 컨슈머</tspan>
+</text>
+</g>
+<g class="pulse highlight7">
+<rect class="box" x="420" y="610" width="174" height="54" rx="7" />
+<text class="label" x="507.0" y="632.0" style="font-size: 14px">
+<tspan x="507.0" dy="0">카프카</tspan>
+</text>
+<text class="small" x="507.0" y="653.0" style="font-size: 13px">
+<tspan x="507.0" dy="0">(요약 토픽)</tspan>
+</text>
+</g>
+<text class="small" x="770" y="208" style="font-size: 13px">
+<tspan x="770" dy="0">스트리밍을 통한 저지연 레이턴시 구현</tspan>
+</text>
+<g class="pulse highlight8">
+<rect class="accent-box" x="680" y="282" width="180" height="48" rx="7" />
+<text class="label" x="770.0" y="311.0" style="font-size: 14px">
+<tspan x="770.0" dy="0">채널 컨슈머</tspan>
+</text>
+</g>
+<path class="route " d="M770 330 V370" />
+<g class="stage8">
+<path class="flow" d="M770 330 V370" />
+</g>
+<path class="arrow" d="M766 365 l4 5 4 -5" />
+<g class="pulse highlight8">
+<rect class="box" x="680" y="370" width="180" height="48" rx="7" />
+<text class="label" x="770.0" y="399.0" style="font-size: 14px">
+<tspan x="770.0" dy="0">NATS</tspan>
+</text>
+</g>
+<path class="route " d="M770 418 V458" />
+<g class="stage9">
+<path class="flow" d="M770 418 V458" />
+</g>
+<path class="arrow" d="M766 453 l4 5 4 -5" />
+<g class="pulse highlight9">
+<rect class="box" x="680" y="458" width="180" height="48" rx="7" />
+<text class="label" x="770.0" y="487.0" style="font-size: 14px">
+<tspan x="770.0" dy="0">SSE 서버</tspan>
+</text>
+</g>
+<path class="route " d="M770 506 V546" />
+<g class="stage10">
+<path class="flow" d="M770 506 V546" />
+</g>
+<path class="arrow" d="M766 541 l4 5 4 -5" />
+<g class="pulse highlight10">
+<rect class="box" x="680" y="546" width="180" height="48" rx="7" />
+<text class="label" x="770.0" y="575.0" style="font-size: 14px">
+<tspan x="770.0" dy="0">클라이언트</tspan>
+</text>
+</g>
+<text class="small highlight10" x="770" y="664" style="font-size: 12px">
+<tspan x="770" dy="0">사용자가 몇 명이든 추론은 한 번</tspan>
+</text>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 1190" role="img" aria-label={description}>
+<g class="">
+<rect class="box" x="16" y="20" width="288" height="70" rx="7" />
+<text class="label" x="160.0" y="50.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">데이터 벤더</tspan>
+</text>
+<text class="small" x="160.0" y="71.0" style="font-size: 13px">
+<tspan x="160.0" dy="0">어닝콜 스크립트 (S3, jsonl 파일)</tspan>
+</text>
+</g>
+<rect class="box" x="8" y="130" width="304" height="660" rx="10" />
+<text class="small highlight11" x="160" y="155" style="font-size: 13px">
+<tspan x="160" dy="0">번역/요약 추론 라인 단일화</tspan>
+</text>
+<path class="route " d="M226.0 244 V294" />
+<g class="stage1">
+<path class="flow" d="M226.0 244 V294" />
+</g>
+<path class="arrow" d="M222.0 289 l4 5 4 -5" />
+<path class="route " d="M226.0 348 V398" />
+<g class="stage2">
+<path class="flow" d="M226.0 348 V398" />
+</g>
+<path class="arrow" d="M222.0 393 l4 5 4 -5" />
+<path class="route " d="M226.0 452 V502" />
+<g class="stage4">
+<path class="flow" d="M226.0 452 V502" />
+</g>
+<path class="arrow" d="M222.0 497 l4 5 4 -5" />
+<path class="route " d="M226.0 556 V606" />
+<g class="stage5">
+<path class="flow" d="M226.0 556 V606" />
+</g>
+<path class="arrow" d="M222.0 601 l4 5 4 -5" />
+<path class="route " d="M226.0 660 V710" />
+<g class="stage7">
+<path class="flow" d="M226.0 660 V710" />
+</g>
+<path class="arrow" d="M222.0 705 l4 5 4 -5" />
+<path class="route " d="M300 217 H308 V110 H160 V90" />
+<g class="stage0">
+<path class="flow" d="M300 217 H308 V110 H160 V90" />
+</g>
+<path class="arrow" d="M156 85 l4 5 4 -5" />
+<text class="small" x="198" y="103" style="font-size: 13px">
+<tspan x="198" dy="0">폴링</tspan>
+</text>
+<path class="route " d="M152 425 H112" />
+<g class="stage3">
+<path class="flow" d="M152 425 H112" />
+</g>
+<path class="arrow" d="M117 421 l-5 4 5 4" />
+<g class="pulse highlight3">
+<circle class="box" cx="66" cy="425" r="46" />
+<text class="label" x="66" y="430" style="font-size: 13px">
+<tspan x="66" dy="0">번역 모델</tspan>
+</text>
+</g>
+<path class="route " d="M152 633 H112" />
+<g class="stage6">
+<path class="flow" d="M152 633 H112" />
+</g>
+<path class="arrow" d="M117 629 l-5 4 5 4" />
+<g class="pulse highlight6">
+<circle class="box" cx="66" cy="633" r="46" />
+<text class="label" x="66" y="638" style="font-size: 13px">
+<tspan x="66" dy="0">요약 모델</tspan>
+</text>
+</g>
+<path class="route " d="M300 529 H306 V889 H250" />
+<g class="stage4">
+<path class="flow" d="M300 529 H306 V889 H250" />
+</g>
+<path class="arrow" d="M255 885 l-5 4 5 4" />
+<path class="route " d="M300 737 H314 V889 H250" />
+<g class="stage7">
+<path class="flow" d="M300 737 H314 V889 H250" />
+</g>
+<path class="arrow" d="M255 885 l-5 4 5 4" />
+<g class="pulse highlight0">
+<rect class="box" x="152" y="190" width="148" height="54" rx="7" />
+<text class="label" x="226.0" y="222.0" style="font-size: 14px">
+<tspan x="226.0" dy="0">스크립트 폴링 서버</tspan>
+</text>
+</g>
+<g class="pulse highlight1">
+<rect class="box" x="152" y="294" width="148" height="54" rx="7" />
+<text class="label" x="226.0" y="316.0" style="font-size: 14px">
+<tspan x="226.0" dy="0">카프카</tspan>
+</text>
+<text class="small" x="226.0" y="337.0" style="font-size: 13px">
+<tspan x="226.0" dy="0">(스크립트 토픽)</tspan>
+</text>
+</g>
+<g class="pulse highlight2">
+<rect class="box" x="152" y="398" width="148" height="54" rx="7" />
+<text class="label" x="226.0" y="430.0" style="font-size: 14px">
+<tspan x="226.0" dy="0">번역 컨슈머</tspan>
+</text>
+</g>
+<g class="pulse highlight4">
+<rect class="box" x="152" y="502" width="148" height="54" rx="7" />
+<text class="label" x="226.0" y="524.0" style="font-size: 14px">
+<tspan x="226.0" dy="0">카프카</tspan>
+</text>
+<text class="small" x="226.0" y="545.0" style="font-size: 13px">
+<tspan x="226.0" dy="0">(번역 토픽)</tspan>
+</text>
+</g>
+<g class="pulse highlight5">
+<rect class="box" x="152" y="606" width="148" height="54" rx="7" />
+<text class="label" x="226.0" y="638.0" style="font-size: 14px">
+<tspan x="226.0" dy="0">요약 컨슈머</tspan>
+</text>
+</g>
+<g class="pulse highlight7">
+<rect class="box" x="152" y="710" width="148" height="54" rx="7" />
+<text class="label" x="226.0" y="732.0" style="font-size: 14px">
+<tspan x="226.0" dy="0">카프카</tspan>
+</text>
+<text class="small" x="226.0" y="753.0" style="font-size: 13px">
+<tspan x="226.0" dy="0">(요약 토픽)</tspan>
+</text>
+</g>
+<text class="small" x="160" y="824" style="font-size: 13px">
+<tspan x="160" dy="0">스트리밍을 통한</tspan>
+<tspan x="160" dy="19">저지연 레이턴시 구현</tspan>
+</text>
+<g class="pulse highlight8">
+<rect class="accent-box" x="70" y="865" width="180" height="48" rx="7" />
+<text class="label" x="160.0" y="894.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">채널 컨슈머</tspan>
+</text>
+</g>
+<path class="route " d="M160 913 V937" />
+<g class="stage8">
+<path class="flow" d="M160 913 V937" />
+</g>
+<path class="arrow" d="M156 932 l4 5 4 -5" />
+<g class="pulse highlight8">
+<rect class="box" x="70" y="937" width="180" height="48" rx="7" />
+<text class="label" x="160.0" y="966.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">NATS</tspan>
+</text>
+</g>
+<path class="route " d="M160 985 V1009" />
+<g class="stage9">
+<path class="flow" d="M160 985 V1009" />
+</g>
+<path class="arrow" d="M156 1004 l4 5 4 -5" />
+<g class="pulse highlight9">
+<rect class="box" x="70" y="1009" width="180" height="48" rx="7" />
+<text class="label" x="160.0" y="1038.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">SSE 서버</tspan>
+</text>
+</g>
+<path class="route " d="M160 1057 V1081" />
+<g class="stage10">
+<path class="flow" d="M160 1057 V1081" />
+</g>
+<path class="arrow" d="M156 1076 l4 5 4 -5" />
+<g class="pulse highlight10">
+<rect class="box" x="70" y="1081" width="180" height="48" rx="7" />
+<text class="label" x="160.0" y="1110.0" style="font-size: 14px">
+<tspan x="160.0" dy="0">클라이언트</tspan>
+</text>
+</g>
+<text class="small highlight10" x="160" y="1164" style="font-size: 12px">
+<tspan x="160" dy="0">사용자가 몇 명이든 추론은 한 번</tspan>
+</text>
+</svg>
+</DiagramFrame>
+<style>
+svg .label { fill: var(--muted); }
+svg .pulse .box { stroke: var(--line); }
+svg .accent-route { stroke: var(--accent); }
+svg .flow { animation-duration: 16s; }
+svg .stage0 { animation: stage0 16s ease-in-out infinite; }
+@keyframes stage0 {0%, 100% { opacity: 0; }0.0%, 9.375% { opacity: 0; }2.34375%, 7.03125% { opacity: 1; }}
+svg .highlight0 { animation: highlight0 16s ease-in-out infinite; }
+@keyframes highlight0 {0%, 100% { opacity: .65; }0.0%, 9.375% { opacity: .65; }2.34375%, 7.03125% { opacity: 1; }}
+svg .stage1 { animation: stage1 16s ease-in-out infinite; }
+@keyframes stage1 {0%, 100% { opacity: 0; }9.375%, 18.75% { opacity: 0; }11.71875%, 16.40625% { opacity: 1; }}
+svg .highlight1 { animation: highlight1 16s ease-in-out infinite; }
+@keyframes highlight1 {0%, 100% { opacity: .65; }9.375%, 18.75% { opacity: .65; }11.71875%, 16.40625% { opacity: 1; }}
+svg .stage2 { animation: stage2 16s ease-in-out infinite; }
+@keyframes stage2 {0%, 100% { opacity: 0; }18.75%, 25.0% { opacity: 0; }20.3125%, 23.4375% { opacity: 1; }}
+svg .highlight2 { animation: highlight2 16s ease-in-out infinite; }
+@keyframes highlight2 {0%, 100% { opacity: .65; }18.75%, 25.0% { opacity: .65; }20.3125%, 23.4375% { opacity: 1; }}
+svg .stage3 { animation: stage3 16s ease-in-out infinite; }
+@keyframes stage3 {0%, 100% { opacity: 0; }25.0%, 37.5% { opacity: 0; }28.125%, 34.375% { opacity: 1; }}
+svg .highlight3 { animation: highlight3 16s ease-in-out infinite; }
+@keyframes highlight3 {0%, 100% { opacity: .65; }25.0%, 37.5% { opacity: .65; }28.125%, 34.375% { opacity: 1; }}
+svg .stage4 { animation: stage4 16s ease-in-out infinite; }
+@keyframes stage4 {0%, 100% { opacity: 0; }37.5%, 43.75% { opacity: 0; }39.0625%, 42.1875% { opacity: 1; }}
+svg .highlight4 { animation: highlight4 16s ease-in-out infinite; }
+@keyframes highlight4 {0%, 100% { opacity: .65; }37.5%, 43.75% { opacity: .65; }39.0625%, 42.1875% { opacity: 1; }}
+svg .stage5 { animation: stage5 16s ease-in-out infinite; }
+@keyframes stage5 {0%, 100% { opacity: 0; }43.75%, 50.0% { opacity: 0; }45.3125%, 48.4375% { opacity: 1; }}
+svg .highlight5 { animation: highlight5 16s ease-in-out infinite; }
+@keyframes highlight5 {0%, 100% { opacity: .65; }43.75%, 50.0% { opacity: .65; }45.3125%, 48.4375% { opacity: 1; }}
+svg .stage6 { animation: stage6 16s ease-in-out infinite; }
+@keyframes stage6 {0%, 100% { opacity: 0; }50.0%, 62.5% { opacity: 0; }53.125%, 59.375% { opacity: 1; }}
+svg .highlight6 { animation: highlight6 16s ease-in-out infinite; }
+@keyframes highlight6 {0%, 100% { opacity: .65; }50.0%, 62.5% { opacity: .65; }53.125%, 59.375% { opacity: 1; }}
+svg .stage7 { animation: stage7 16s ease-in-out infinite; }
+@keyframes stage7 {0%, 100% { opacity: 0; }62.5%, 68.75% { opacity: 0; }64.0625%, 67.1875% { opacity: 1; }}
+svg .highlight7 { animation: highlight7 16s ease-in-out infinite; }
+@keyframes highlight7 {0%, 100% { opacity: .65; }62.5%, 68.75% { opacity: .65; }64.0625%, 67.1875% { opacity: 1; }}
+svg .stage8 { animation: stage8 16s ease-in-out infinite; }
+@keyframes stage8 {0%, 100% { opacity: 0; }68.75%, 75.0% { opacity: 0; }70.3125%, 73.4375% { opacity: 1; }}
+svg .highlight8 { animation: highlight8 16s ease-in-out infinite; }
+@keyframes highlight8 {0%, 100% { opacity: .65; }68.75%, 73.125% { opacity: .65; }69.84375%, 72.03125% { opacity: 1; }}
+svg .stage9 { animation: stage9 16s ease-in-out infinite; }
+@keyframes stage9 {0%, 100% { opacity: 0; }75.0%, 81.25% { opacity: 0; }76.5625%, 79.6875% { opacity: 1; }}
+svg .highlight9 { animation: highlight9 16s ease-in-out infinite; }
+@keyframes highlight9 {0%, 100% { opacity: .65; }75.0%, 79.375% { opacity: .65; }76.09375%, 78.28125% { opacity: 1; }}
+svg .stage10 { animation: stage10 16s ease-in-out infinite; }
+@keyframes stage10 {0%, 100% { opacity: 0; }81.25%, 87.5% { opacity: 0; }82.8125%, 85.9375% { opacity: 1; }}
+svg .highlight10 { animation: highlight10 16s ease-in-out infinite; }
+@keyframes highlight10 {0%, 100% { opacity: .65; }81.25%, 85.625% { opacity: .65; }82.34375%, 84.53125% { opacity: 1; }}
+svg .stage11 { animation: stage11 16s ease-in-out infinite; }
+@keyframes stage11 {0%, 100% { opacity: 0; }87.5%, 100.0% { opacity: 0; }90.625%, 96.875% { opacity: 1; }}
+svg .highlight11 { animation: highlight11 16s ease-in-out infinite; }
+@keyframes highlight11 {0%, 100% { opacity: .65; }87.5%, 100.0% { opacity: .65; }90.625%, 96.875% { opacity: 1; }}
+@media (prefers-reduced-motion: reduce) { svg * { animation: none !important; transform: none !important; opacity: 1; }
+svg .timeout { opacity: .5; } }
+</style>
