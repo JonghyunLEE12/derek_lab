@@ -1,0 +1,134 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "Basis의 PDF 읽기 의견. 파일 이름으로 유형을 추정하고 유형에 따라 OCR을 고른다. 표나 도표가 있으면 비전 모델로 한 번 더 본다. 사용자는 방법을 고르지 않고 모든 PDF에 같은 규칙이 적용된다." } = Astro.props;
+const description = "PDF 파일 하나가 이름으로 유형을 추정하는 단계로 들어가 반구조화 문서면 OCR A, 구조화 문서면 OCR B 로 갈라지고, OCR 이 놓칠 표나 도표가 있으면 비전 모델로 한 번 더 검증하는 Basis 의 PDF 읽기 의견을 보여 주는 다이어그램입니다. 사용자는 방법을 고르지 않고 모든 PDF 에 같은 규칙이 적용됩니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 530" role="img" aria-label={description}>
+<path class="box" d="M58 116 h18 l8 8 v28 h-26 Z M76 116 v8 h8 M64 133 h14 M64 140 h14"  />
+<text class="small mono" x="84" y="177" style="font-size: 12px"><tspan x="84" dy="0">mar_statement.pdf</tspan></text>
+<path class="route" d="M110 134 H190"  />
+<path class="arrow" d="M185 130 l5 4 -5 4"  />
+<g class="infer">
+<rect class="box" x="190" y="104" width="230" height="60" rx="7" />
+<text class="label" x="305.0" y="128" style="font-size: 14px"><tspan x="305.0" dy="0">이름으로 유형 추정</tspan></text>
+<text class="small" x="305.0" y="148" style="font-size: 12px"><tspan x="305.0" dy="0">Infer its type from the name</tspan></text>
+</g>
+<path class="route" d="M420 134 L480 74 H530 M420 134 L480 224 H530"  />
+<path class="arrow" d="M525 70 l5 4 -5 4"  />
+<path class="arrow" d="M525 220 l5 4 -5 4"  />
+<text class="small" x="495" y="28" style="font-size: 13px"><tspan x="495" dy="0">반구조화</tspan></text>
+<text class="small" x="495" y="46" style="font-size: 12px"><tspan x="495" dy="0">Semi-structured</tspan></text>
+<text class="small" x="495" y="180" style="font-size: 13px"><tspan x="495" dy="0">구조화</tspan></text>
+<text class="small" x="495" y="198" style="font-size: 12px"><tspan x="495" dy="0">Structured</tspan></text>
+<g class="ocr-a">
+<rect class="box" x="530" y="49" width="100" height="50" rx="7" />
+<text class="label" x="580" y="79" style="font-size: 13px"><tspan x="580" dy="0">OCR A</tspan></text>
+</g>
+<g class="ocr-b">
+<rect class="box" x="530" y="199" width="100" height="50" rx="7" />
+<text class="label" x="580" y="229" style="font-size: 13px"><tspan x="580" dy="0">OCR B</tspan></text>
+</g>
+<path class="route" d="M630 74 L666 134 H690 M630 224 L666 134 H690"  />
+<path class="arrow" d="M685 130 l5 4 -5 4"  />
+<g class="question-stage">
+<rect class="box question" x="690" y="92" width="215" height="88" rx="7" />
+<text class="label" x="797" y="119" style="font-size: 14px"><tspan x="797" dy="0">OCR이 놓칠</tspan><tspan x="797" dy="18">표나 도표가 있나?</tspan></text>
+<text class="small" x="797" y="156" style="font-size: 12px"><tspan x="797" dy="0">Tables or diagrams</tspan><tspan x="797" dy="18">OCR may miss?</tspan></text>
+</g>
+<path class="route" d="M797 180 V278"  />
+<path class="arrow" d="M793 273 l4 5 4 -5"  />
+<text class="small" x="820" y="235" style="font-size: 13px"><tspan x="820" dy="0">Yes</tspan></text>
+<g class="vision">
+<rect class="accent-box" x="655" y="278" width="250" height="66" rx="7" />
+<text class="label" x="780.0" y="302" style="font-size: 14px"><tspan x="780.0" dy="0">비전 모델로 추가 검증</tspan></text>
+<text class="small" x="780.0" y="322" style="font-size: 12px"><tspan x="780.0" dy="0">Also verify with a vision model</tspan></text>
+</g>
+<text class="small" x="780" y="372" style="font-size: 13px"><tspan x="780" dy="0">더 비쌈</tspan></text>
+<text class="small" x="780" y="392" style="font-size: 12px"><tspan x="780" dy="0">More expensive</tspan></text>
+<text class="label" x="240" y="440" style="font-size: 13px"><tspan x="240" dy="0">단순함</tspan></text>
+<text class="small" x="240" y="460" style="font-size: 13px"><tspan x="240" dy="0">Simple</tspan></text>
+<text class="small" x="240" y="485" style="font-size: 13px"><tspan x="240" dy="0">사용자는 방법을 고르지 않는다</tspan></text>
+<text class="small" x="240" y="505" style="font-size: 13px"><tspan x="240" dy="0">The user never chooses how.</tspan></text>
+<text class="label" x="690" y="440" style="font-size: 13px"><tspan x="690" dy="0">신뢰성</tspan></text>
+<text class="small" x="690" y="460" style="font-size: 13px"><tspan x="690" dy="0">Reliable</tspan></text>
+<text class="small" x="690" y="485" style="font-size: 13px"><tspan x="690" dy="0">모든 PDF에 같은 규칙</tspan></text>
+<text class="small" x="690" y="505" style="font-size: 13px"><tspan x="690" dy="0">The same rule on every PDF.</tspan></text>
+<circle class="accent-text pdf-desktop" cx="0" cy="0" r="5" />
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 892" role="img" aria-label={description}>
+<path class="box" d="M147 20 h18 l8 8 v28 h-26 Z M165 20 v8 h8 M153 37 h14 M153 44 h14"  />
+<text class="small mono" x="160" y="78" style="font-size: 13px"><tspan x="160" dy="0">mar_statement.pdf</tspan></text>
+<path class="route" d="M160 89 V115"  />
+<path class="arrow" d="M156 110 l4 5 4 -5"  />
+<g class="infer">
+<rect class="box" x="30" y="115" width="260" height="62" rx="7" />
+<text class="label" x="160.0" y="139" style="font-size: 14px"><tspan x="160.0" dy="0">이름으로 유형 추정</tspan></text>
+<text class="small" x="160.0" y="159" style="font-size: 12px"><tspan x="160.0" dy="0">Infer its type from the name</tspan></text>
+</g>
+<path class="route" d="M160 177 V200 H75 V210 M75 253 V266 M160 200 H245 V210 M245 253 V266"  />
+<path class="arrow" d="M71 261 l4 5 4 -5"  />
+<path class="arrow" d="M241 261 l4 5 4 -5"  />
+<text class="small" x="75" y="226" style="font-size: 13px"><tspan x="75" dy="0">반구조화</tspan></text>
+<text class="small" x="75" y="244" style="font-size: 11px"><tspan x="75" dy="0">Semi-structured</tspan></text>
+<text class="small" x="245" y="226" style="font-size: 13px"><tspan x="245" dy="0">구조화</tspan></text>
+<text class="small" x="245" y="244" style="font-size: 12px"><tspan x="245" dy="0">Structured</tspan></text>
+<g class="ocr-a">
+<rect class="box" x="20" y="266" width="110" height="50" rx="7" />
+<text class="label" x="75" y="296" style="font-size: 13px"><tspan x="75" dy="0">OCR A</tspan></text>
+</g>
+<g class="ocr-b">
+<rect class="box" x="190" y="266" width="110" height="50" rx="7" />
+<text class="label" x="245" y="296" style="font-size: 13px"><tspan x="245" dy="0">OCR B</tspan></text>
+</g>
+<path class="route" d="M75 316 V345 H160 V374 M245 316 V345 H160"  />
+<path class="arrow" d="M156 369 l4 5 4 -5"  />
+<g class="question-stage">
+<rect class="box question" x="20" y="374" width="280" height="82" rx="7" />
+<text class="label" x="160" y="401" style="font-size: 14px"><tspan x="160" dy="0">OCR이 놓칠 표나 도표가 있나?</tspan></text>
+<text class="small" x="160" y="425" style="font-size: 12px"><tspan x="160" dy="0">Tables or diagrams OCR may miss?</tspan></text>
+</g>
+<path class="route" d="M160 456 V514"  />
+<path class="arrow" d="M156 509 l4 5 4 -5"  />
+<text class="small" x="185" y="489" style="font-size: 13px"><tspan x="185" dy="0">Yes</tspan></text>
+<g class="vision">
+<rect class="accent-box" x="20" y="514" width="280" height="66" rx="7" />
+<text class="label" x="160.0" y="538" style="font-size: 14px"><tspan x="160.0" dy="0">비전 모델로 추가 검증</tspan></text>
+<text class="small" x="160.0" y="558" style="font-size: 12px"><tspan x="160.0" dy="0">Also verify with a vision model</tspan></text>
+</g>
+<text class="small" x="160" y="609" style="font-size: 13px"><tspan x="160" dy="0">더 비쌈</tspan></text>
+<text class="small" x="160" y="630" style="font-size: 13px"><tspan x="160" dy="0">More expensive</tspan></text>
+<text class="label" x="160" y="682" style="font-size: 13px"><tspan x="160" dy="0">단순함</tspan></text>
+<text class="small" x="160" y="703" style="font-size: 13px"><tspan x="160" dy="0">Simple</tspan></text>
+<text class="small" x="160" y="728" style="font-size: 13px"><tspan x="160" dy="0">사용자는 방법을 고르지 않는다</tspan></text>
+<text class="small" x="160" y="749" style="font-size: 12px"><tspan x="160" dy="0">The user never chooses how.</tspan></text>
+<text class="label" x="160" y="801" style="font-size: 13px"><tspan x="160" dy="0">신뢰성</tspan></text>
+<text class="small" x="160" y="822" style="font-size: 13px"><tspan x="160" dy="0">Reliable</tspan></text>
+<text class="small" x="160" y="847" style="font-size: 13px"><tspan x="160" dy="0">모든 PDF에 같은 규칙</tspan></text>
+<text class="small" x="160" y="868" style="font-size: 12px"><tspan x="160" dy="0">The same rule on every PDF.</tspan></text>
+<circle class="accent-text pdf-mobile" cx="0" cy="0" r="5" />
+</svg>
+</DiagramFrame>
+<style>
+svg .label { fill: var(--muted); }
+svg .pulse .box { stroke: var(--line); }
+svg .mono { font-family: ui-monospace, monospace; }
+svg .pdf-desktop { animation: pdf-desktop 12s ease-in-out infinite; }
+@keyframes pdf-desktop {0.0000% { transform: translate(84px, 134px); opacity: 1; }8.3333% { transform: translate(305px, 134px); opacity: 1; }15.0000% { transform: translate(480px, 74px); opacity: 1; }20.8333% { transform: translate(580px, 74px); opacity: 1; }29.1667% { transform: translate(666px, 134px); opacity: 1; }33.3333% { transform: translate(797px, 134px); opacity: 1; }45.8333% { transform: translate(797px, 310px); opacity: 1; }48.3333% { transform: translate(797px, 310px); opacity: 0; }50.0000% { transform: translate(84px, 134px); opacity: 0; }50.8333% { transform: translate(84px, 134px); opacity: 1; }58.3333% { transform: translate(305px, 134px); opacity: 1; }65.0000% { transform: translate(480px, 224px); opacity: 1; }70.8333% { transform: translate(580px, 224px); opacity: 1; }79.1667% { transform: translate(666px, 134px); opacity: 1; }83.3333% { transform: translate(797px, 134px); opacity: 1; }91.6667% { transform: translate(797px, 134px); opacity: 1; }100.0000% { transform: translate(797px, 134px); opacity: 0; }}
+svg .pdf-mobile { animation: pdf-mobile 12s ease-in-out infinite; }
+@keyframes pdf-mobile {0.0000% { transform: translate(160px, 56px); opacity: 1; }8.3333% { transform: translate(160px, 146px); opacity: 1; }11.6667% { transform: translate(160px, 200px); opacity: 1; }15.0000% { transform: translate(75px, 200px); opacity: 1; }20.8333% { transform: translate(75px, 291px); opacity: 1; }25.0000% { transform: translate(75px, 345px); opacity: 1; }29.1667% { transform: translate(160px, 345px); opacity: 1; }33.3333% { transform: translate(160px, 415px); opacity: 1; }45.8333% { transform: translate(160px, 547px); opacity: 1; }48.3333% { transform: translate(160px, 547px); opacity: 0; }50.0000% { transform: translate(160px, 56px); opacity: 0; }50.8333% { transform: translate(160px, 56px); opacity: 1; }58.3333% { transform: translate(160px, 146px); opacity: 1; }61.6667% { transform: translate(160px, 200px); opacity: 1; }65.0000% { transform: translate(245px, 200px); opacity: 1; }70.8333% { transform: translate(245px, 291px); opacity: 1; }75.0000% { transform: translate(245px, 345px); opacity: 1; }79.1667% { transform: translate(160px, 345px); opacity: 1; }83.3333% { transform: translate(160px, 415px); opacity: 1; }91.6667% { transform: translate(160px, 415px); opacity: 1; }100.0000% { transform: translate(160px, 415px); opacity: 0; }}
+svg .infer { animation: infer 12s ease-in-out infinite; }
+@keyframes infer { 0%, 100% { opacity: .65; }4.167%, 12.500% { opacity: .65; } 8.333% { opacity: 1; }54.167%, 62.500% { opacity: .65; } 58.333% { opacity: 1; }}
+svg .ocr-a { animation: ocr-a 12s ease-in-out infinite; }
+@keyframes ocr-a { 0%, 100% { opacity: .65; }16.667%, 25.000% { opacity: .65; } 20.833% { opacity: 1; }}
+svg .ocr-b { animation: ocr-b 12s ease-in-out infinite; }
+@keyframes ocr-b { 0%, 100% { opacity: .65; }66.667%, 75.000% { opacity: .65; } 70.833% { opacity: 1; }}
+svg .question-stage { animation: question-stage 12s ease-in-out infinite; }
+@keyframes question-stage { 0%, 100% { opacity: .65; }29.167%, 37.500% { opacity: .65; } 33.333% { opacity: 1; }79.167%, 87.500% { opacity: .65; } 83.333% { opacity: 1; }}
+svg .vision { animation: vision 12s ease-in-out infinite; }
+@keyframes vision { 0%, 100% { opacity: .65; }41.667%, 50.000% { opacity: .65; } 45.833% { opacity: 1; }}
+svg .question { stroke-width: 2.5; }
+@media (prefers-reduced-motion: reduce) { svg .pdf-desktop { transform: translate(84px, 134px); } svg .pdf-mobile { transform: translate(160px, 56px); } }
+@media (prefers-reduced-motion: reduce) { svg * { animation: none !important; transition: none !important; opacity: 1 !important; } svg .draw { stroke-dashoffset: 0 !important; } }
+</style>

@@ -1,0 +1,259 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "저장점은 $412.06을 어떻게 할지 결정하기 직전이다. 하네스를 세 가지로 바꿔 각각 5번 포크했다. 스킬과 프롬프트를 고치면 가끔만 따르고 리뷰 도구를 고치면 항상 따른다. 고친 건 프롬프트가 아니라 도구였다." } = Astro.props;
+const description = "행동 평가에 실패한 실행에서 $412.06을 어떻게 할지 결정하기 직전을 저장점으로 잡고, 월 마감 스킬 수정, 시스템 프롬프트 추가, 리뷰 도구 check_reconciliation 수정 세 가지를 각각 5번씩 포크한 결과를 보여 주는 다이어그램입니다. 스킬과 프롬프트를 고치면 가끔만 따르고 리뷰 도구를 고쳤을 때만 항상 따르며 부작용이 없습니다. 고친 건 프롬프트가 아니라 도구였습니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 650" role="img" aria-label={description}>
+<text class="label" x="125" y="30" style="font-size: 13px"><tspan x="125" dy="0">플래그된 실행</tspan></text>
+<text class="small" x="125" y="51" style="font-size: 13px"><tspan x="125" dy="0">The flagged run</tspan></text>
+<text class="label" x="454" y="30" style="font-size: 13px"><tspan x="454" dy="0">하네스 변경</tspan></text>
+<text class="small" x="454" y="51" style="font-size: 13px"><tspan x="454" dy="0">Change the harness</tspan></text>
+<text class="label" x="680" y="30" style="font-size: 13px"><tspan x="680" dy="0">포크</tspan></text>
+<text class="small" x="680" y="51" style="font-size: 13px"><tspan x="680" dy="0">Forks</tspan></text>
+<text class="label" x="815" y="30" style="font-size: 13px"><tspan x="815" dy="0">따랐나?</tspan></text>
+<text class="small" x="815" y="51" style="font-size: 13px"><tspan x="815" dy="0">Followed?</tspan></text>
+<g class="badge">
+<text class="small" x="100" y="142" style="font-size: 13px"><tspan x="100" dy="0">따랐나?</tspan></text>
+<text class="small" x="100" y="162" style="font-size: 13px"><tspan x="100" dy="0">Followed?</tspan></text>
+<rect class="accent-box" x="73" y="180" width="54" height="35" rx="7" />
+<text class="label" x="100" y="204" style="font-size: 13px"><tspan x="100" dy="0">No</tspan></text>
+</g>
+<path class="route" d="M25 275 H220"  />
+<circle class="accent-text dot-0" cx="25" cy="275" r="4" />
+<circle class="accent-text dot-1" cx="57" cy="275" r="4" />
+<circle class="accent-text dot-2" cx="89" cy="275" r="4" />
+<circle class="accent-text dot-3" cx="121" cy="275" r="4" />
+<circle class="accent-text dot-4" cx="153" cy="275" r="4" />
+<circle class="accent-box saved" cx="220" cy="275" r="15" />
+<text class="label" x="135" y="321" style="font-size: 13px"><tspan x="135" dy="0">저장점</tspan></text>
+<text class="small" x="135" y="342" style="font-size: 13px"><tspan x="135" dy="0">Saved point</tspan></text>
+<text class="small" x="135" y="380" style="font-size: 13px"><tspan x="135" dy="0">$412.06을 어떻게 할지</tspan><tspan x="135" dy="18">결정하기 직전</tspan></text>
+<text class="small" x="135" y="424" style="font-size: 12px"><tspan x="135" dy="0">just before it decides what</tspan><tspan x="135" dy="18">to do about the $412.06</tspan></text>
+<path class="route draw branch-0" d="M235 275 H267 V145 H300" pathLength="1" />
+<g class="card-0">
+<rect class="box" x="300" y="80" width="310" height="130" rx="7" />
+<text class="label" x="455" y="105" style="font-size: 13px"><tspan x="455" dy="0">월 마감 스킬</tspan></text>
+<text class="small" x="455" y="127" style="font-size: 13px"><tspan x="455" dy="0">Month-close skill</tspan></text>
+<text class="small" x="455" y="157" style="font-size: 12px"><tspan x="455" dy="0">&quot;…record adjustments only for</tspan><tspan x="455" dy="18">differences you can explain</tspan><tspan x="455" dy="18">with a source.&quot;</tspan></text>
+</g>
+<text class="label" x="647" y="102" style="font-size: 13px"><tspan x="647" dy="0">× 5</tspan></text>
+<path class="route draw fan-0-0 accent-route" d="M610 145 Q655 145 702 109" pathLength="1" />
+<path class="route draw fan-0-1" d="M610 145 Q655 145 702 127" pathLength="1" />
+<path class="route draw fan-0-2" d="M610 145 Q655 145 702 145" pathLength="1" />
+<path class="route draw fan-0-3 accent-route" d="M610 145 Q655 145 702 163" pathLength="1" />
+<path class="route draw fan-0-4" d="M610 145 Q655 145 702 181" pathLength="1" />
+<g class="result-0">
+<text class="label" x="810" y="115" style="font-size: 13px"><tspan x="810" dy="0">가끔</tspan></text>
+<text class="small" x="810" y="136" style="font-size: 13px"><tspan x="810" dy="0">Sometimes</tspan></text>
+<text class="small" x="810" y="158" style="font-size: 12px"><tspan x="810" dy="0">리뷰 도구가 여전히</tspan><tspan x="810" dy="18">안 맞는 건 다 실패시킨다</tspan></text>
+<text class="small" x="810" y="193" style="font-size: 11px"><tspan x="810" dy="0">The review tool still fails</tspan><tspan x="810" dy="18">anything that doesn&#x27;t tie.</tspan></text>
+</g>
+<path class="route draw branch-1" d="M235 275 H267 V308 H300" pathLength="1" />
+<g class="card-1">
+<rect class="box" x="300" y="243" width="310" height="130" rx="7" />
+<text class="label" x="455" y="268" style="font-size: 13px"><tspan x="455" dy="0">시스템 프롬프트</tspan></text>
+<text class="small" x="455" y="290" style="font-size: 13px"><tspan x="455" dy="0">System prompt</tspan></text>
+<text class="small" x="455" y="323" style="font-size: 12px"><tspan x="455" dy="0">Add &quot;Never force a</tspan><tspan x="455" dy="18">reconciliation to tie.&quot;</tspan></text>
+</g>
+<text class="label" x="647" y="265" style="font-size: 13px"><tspan x="647" dy="0">× 5</tspan></text>
+<path class="route draw fan-1-0 accent-route" d="M610 308 Q655 308 702 272" pathLength="1" />
+<path class="route draw fan-1-1" d="M610 308 Q655 308 702 290" pathLength="1" />
+<path class="route draw fan-1-2" d="M610 308 Q655 308 702 308" pathLength="1" />
+<path class="route draw fan-1-3 accent-route" d="M610 308 Q655 308 702 326" pathLength="1" />
+<path class="route draw fan-1-4" d="M610 308 Q655 308 702 344" pathLength="1" />
+<g class="result-1">
+<text class="label" x="810" y="278" style="font-size: 13px"><tspan x="810" dy="0">가끔</tspan></text>
+<text class="small" x="810" y="299" style="font-size: 13px"><tspan x="810" dy="0">Sometimes</tspan></text>
+<text class="small" x="810" y="325" style="font-size: 13px"><tspan x="810" dy="0">같은 이유로</tspan></text>
+<text class="small" x="810" y="346" style="font-size: 12px"><tspan x="810" dy="0">For the same reason.</tspan></text>
+</g>
+<path class="route draw branch-2" d="M235 275 H267 V471 H300" pathLength="1" />
+<g class="card-2">
+<rect class="accent-box" x="300" y="406" width="310" height="130" rx="7" />
+<text class="label" x="455" y="431" style="font-size: 13px"><tspan x="455" dy="0">리뷰 도구</tspan></text>
+<text class="small" x="455" y="453" style="font-size: 13px"><tspan x="455" dy="0">Review tool</tspan></text>
+<text class="small mono" x="455" y="474" style="font-size: 12px"><tspan x="455" dy="0">check_reconciliation</tspan></text>
+<text class="small" x="455" y="494" style="font-size: 11px"><tspan x="455" dy="0">&quot;…PASS when every difference is explained</tspan><tspan x="455" dy="18">by a sourced item or flagged for the reviewer.&quot;</tspan></text>
+</g>
+<text class="label" x="647" y="428" style="font-size: 13px"><tspan x="647" dy="0">× 5</tspan></text>
+<path class="route draw fan-2-0 accent-route" d="M610 471 Q655 471 702 435" pathLength="1" />
+<path class="route draw fan-2-1 accent-route" d="M610 471 Q655 471 702 453" pathLength="1" />
+<path class="route draw fan-2-2 accent-route" d="M610 471 Q655 471 702 471" pathLength="1" />
+<path class="route draw fan-2-3 accent-route" d="M610 471 Q655 471 702 489" pathLength="1" />
+<path class="route draw fan-2-4 accent-route" d="M610 471 Q655 471 702 507" pathLength="1" />
+<g class="result-2">
+<text class="label accent-text" x="810" y="441" style="font-size: 13px"><tspan x="810" dy="0">✓ 예</tspan></text>
+<text class="small" x="810" y="462" style="font-size: 13px"><tspan x="810" dy="0">Yes</tspan></text>
+<text class="small" x="810" y="488" style="font-size: 13px"><tspan x="810" dy="0">부작용 없음</tspan></text>
+<text class="small" x="810" y="509" style="font-size: 12px"><tspan x="810" dy="0">No side effects.</tspan></text>
+</g>
+<g class="conclusion">
+<text class="label" x="460" y="594" style="font-size: 16px"><tspan x="460" dy="0">하네스를 반복해서 고쳐라. 고친 건 프롬프트가 아니라 도구였다.</tspan></text>
+<text class="small" x="460" y="620" style="font-size: 13px"><tspan x="460" dy="0">Iterate on the harness. The fix was the tool, not the prompt.</tspan></text>
+</g>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 1340" role="img" aria-label={description}>
+<text class="label" x="160" y="28" style="font-size: 13px"><tspan x="160" dy="0">플래그된 실행</tspan></text>
+<text class="small" x="160" y="49" style="font-size: 13px"><tspan x="160" dy="0">The flagged run</tspan></text>
+<g class="badge">
+<text class="small" x="100" y="82" style="font-size: 13px"><tspan x="100" dy="0">따랐나?</tspan></text>
+<text class="small" x="100" y="102" style="font-size: 13px"><tspan x="100" dy="0">Followed?</tspan></text>
+<rect class="accent-box" x="199" y="69" width="54" height="35" rx="7" />
+<text class="label" x="226" y="93" style="font-size: 13px"><tspan x="226" dy="0">No</tspan></text>
+</g>
+<path class="route" d="M40 143 H267"  />
+<circle class="accent-text dot-0" cx="40" cy="143" r="4" />
+<circle class="accent-text dot-1" cx="78" cy="143" r="4" />
+<circle class="accent-text dot-2" cx="116" cy="143" r="4" />
+<circle class="accent-text dot-3" cx="154" cy="143" r="4" />
+<circle class="accent-text dot-4" cx="192" cy="143" r="4" />
+<circle class="accent-box saved" cx="267" cy="143" r="15" />
+<text class="label" x="160" y="188" style="font-size: 13px"><tspan x="160" dy="0">저장점</tspan></text>
+<text class="small" x="160" y="209" style="font-size: 13px"><tspan x="160" dy="0">Saved point</tspan></text>
+<text class="small" x="160" y="242" style="font-size: 13px"><tspan x="160" dy="0">$412.06을 어떻게 할지 결정하기 직전</tspan></text>
+<text class="small" x="160" y="264" style="font-size: 12px"><tspan x="160" dy="0">just before it decides what</tspan><tspan x="160" dy="18">to do about the $412.06</tspan></text>
+<text class="label" x="160" y="323" style="font-size: 13px"><tspan x="160" dy="0">하네스 변경</tspan></text>
+<text class="small" x="160" y="345" style="font-size: 13px"><tspan x="160" dy="0">Change the harness</tspan></text>
+<path class="route draw branch-0" d="M282 143 H310 V406 H286" pathLength="1" />
+<path class="arrow" d="M291 402 l-5 4 5 4"  />
+<g class="card-0">
+<rect class="box" x="30" y="370" width="256" height="84" rx="7" />
+<text class="label" x="158" y="395" style="font-size: 13px"><tspan x="158" dy="0">월 마감 스킬</tspan></text>
+<text class="small" x="158" y="417" style="font-size: 13px"><tspan x="158" dy="0">Month-close skill</tspan></text>
+</g>
+<text class="small" x="72" y="482" style="font-size: 13px"><tspan x="72" dy="0">포크</tspan></text>
+<text class="small" x="72" y="502" style="font-size: 13px"><tspan x="72" dy="0">Forks</tspan></text>
+<text class="label" x="72" y="525" style="font-size: 13px"><tspan x="72" dy="0">× 5</tspan></text>
+<path class="route draw fan-0-0 accent-route" d="M158 454 Q158 485 112 521" pathLength="1" />
+<path class="route draw fan-0-1" d="M158 454 Q158 485 135 521" pathLength="1" />
+<path class="route draw fan-0-2" d="M158 454 Q158 485 158 521" pathLength="1" />
+<path class="route draw fan-0-3 accent-route" d="M158 454 Q158 485 181 521" pathLength="1" />
+<path class="route draw fan-0-4" d="M158 454 Q158 485 204 521" pathLength="1" />
+<g class="result-0">
+<text class="small" x="160" y="550" style="font-size: 12px"><tspan x="160" dy="0">따랐나? (Followed?)</tspan></text>
+<text class="label" x="160" y="573" style="font-size: 13px"><tspan x="160" dy="0">가끔 (Sometimes)</tspan></text>
+<text class="small" x="160" y="595" style="font-size: 12px"><tspan x="160" dy="0">리뷰 도구가 여전히 안 맞는 건 다 실패시킨다</tspan></text>
+<text class="small" x="160" y="616" style="font-size: 12px"><tspan x="160" dy="0">The review tool still fails</tspan><tspan x="160" dy="18">anything that doesn&#x27;t tie.</tspan></text>
+</g>
+<path class="route draw branch-1" d="M282 143 H310 V691 H286" pathLength="1" />
+<path class="arrow" d="M291 687 l-5 4 5 4"  />
+<g class="card-1">
+<rect class="box" x="30" y="655" width="256" height="84" rx="7" />
+<text class="label" x="158" y="680" style="font-size: 13px"><tspan x="158" dy="0">시스템 프롬프트</tspan></text>
+<text class="small" x="158" y="702" style="font-size: 13px"><tspan x="158" dy="0">System prompt</tspan></text>
+</g>
+<text class="small" x="72" y="767" style="font-size: 13px"><tspan x="72" dy="0">포크</tspan></text>
+<text class="small" x="72" y="787" style="font-size: 13px"><tspan x="72" dy="0">Forks</tspan></text>
+<text class="label" x="72" y="810" style="font-size: 13px"><tspan x="72" dy="0">× 5</tspan></text>
+<path class="route draw fan-1-0 accent-route" d="M158 739 Q158 770 112 806" pathLength="1" />
+<path class="route draw fan-1-1" d="M158 739 Q158 770 135 806" pathLength="1" />
+<path class="route draw fan-1-2" d="M158 739 Q158 770 158 806" pathLength="1" />
+<path class="route draw fan-1-3 accent-route" d="M158 739 Q158 770 181 806" pathLength="1" />
+<path class="route draw fan-1-4" d="M158 739 Q158 770 204 806" pathLength="1" />
+<g class="result-1">
+<text class="small" x="160" y="835" style="font-size: 12px"><tspan x="160" dy="0">따랐나? (Followed?)</tspan></text>
+<text class="label" x="160" y="858" style="font-size: 13px"><tspan x="160" dy="0">가끔 (Sometimes)</tspan></text>
+<text class="small" x="160" y="884" style="font-size: 13px"><tspan x="160" dy="0">같은 이유로</tspan></text>
+<text class="small" x="160" y="906" style="font-size: 13px"><tspan x="160" dy="0">For the same reason.</tspan></text>
+</g>
+<path class="route draw branch-2" d="M282 143 H310 V976 H286" pathLength="1" />
+<path class="arrow" d="M291 972 l-5 4 5 4"  />
+<g class="card-2">
+<rect class="accent-box" x="30" y="940" width="256" height="84" rx="7" />
+<text class="label" x="158" y="965" style="font-size: 13px"><tspan x="158" dy="0">리뷰 도구</tspan></text>
+<text class="small" x="158" y="987" style="font-size: 13px"><tspan x="158" dy="0">Review tool</tspan></text>
+<text class="small mono" x="158" y="1009" style="font-size: 12px"><tspan x="158" dy="0">check_reconciliation</tspan></text>
+</g>
+<text class="small" x="72" y="1052" style="font-size: 13px"><tspan x="72" dy="0">포크</tspan></text>
+<text class="small" x="72" y="1072" style="font-size: 13px"><tspan x="72" dy="0">Forks</tspan></text>
+<text class="label" x="72" y="1095" style="font-size: 13px"><tspan x="72" dy="0">× 5</tspan></text>
+<path class="route draw fan-2-0 accent-route" d="M158 1024 Q158 1055 112 1091" pathLength="1" />
+<path class="route draw fan-2-1 accent-route" d="M158 1024 Q158 1055 135 1091" pathLength="1" />
+<path class="route draw fan-2-2 accent-route" d="M158 1024 Q158 1055 158 1091" pathLength="1" />
+<path class="route draw fan-2-3 accent-route" d="M158 1024 Q158 1055 181 1091" pathLength="1" />
+<path class="route draw fan-2-4 accent-route" d="M158 1024 Q158 1055 204 1091" pathLength="1" />
+<g class="result-2">
+<text class="small" x="160" y="1120" style="font-size: 12px"><tspan x="160" dy="0">따랐나? (Followed?)</tspan></text>
+<text class="label accent-text" x="160" y="1143" style="font-size: 13px"><tspan x="160" dy="0">✓ 예 (Yes)</tspan></text>
+<text class="small" x="160" y="1169" style="font-size: 13px"><tspan x="160" dy="0">부작용 없음</tspan></text>
+<text class="small" x="160" y="1191" style="font-size: 13px"><tspan x="160" dy="0">No side effects.</tspan></text>
+</g>
+<g class="conclusion">
+<text class="label" x="160" y="1250" style="font-size: 14px"><tspan x="160" dy="0">하네스를 반복해서 고쳐라.</tspan><tspan x="160" dy="18">고친 건 프롬프트가 아니라 도구였다.</tspan></text>
+<text class="small" x="160" y="1300" style="font-size: 12px"><tspan x="160" dy="0">Iterate on the harness.</tspan><tspan x="160" dy="18">The fix was the tool, not the prompt.</tspan></text>
+</g>
+</svg>
+</DiagramFrame>
+<style>
+svg .label { fill: var(--muted); }
+svg .pulse .box { stroke: var(--line); }
+svg .mono { font-family: ui-monospace, monospace; }
+svg .accent-route { stroke: var(--accent); }
+svg .dot-0 { animation: dot-0 16s ease-in-out infinite; }
+@keyframes dot-0 { 0%, 0.0000%, 100% { opacity: .65; } 1.5625%, 87.5000% { opacity: 1; } }
+svg .dot-1 { animation: dot-1 16s ease-in-out infinite; }
+@keyframes dot-1 { 0%, 1.8750%, 100% { opacity: .65; } 3.4375%, 87.5000% { opacity: 1; } }
+svg .dot-2 { animation: dot-2 16s ease-in-out infinite; }
+@keyframes dot-2 { 0%, 3.7500%, 100% { opacity: .65; } 5.3125%, 87.5000% { opacity: 1; } }
+svg .dot-3 { animation: dot-3 16s ease-in-out infinite; }
+@keyframes dot-3 { 0%, 5.6250%, 100% { opacity: .65; } 7.1875%, 87.5000% { opacity: 1; } }
+svg .dot-4 { animation: dot-4 16s ease-in-out infinite; }
+@keyframes dot-4 { 0%, 7.5000%, 100% { opacity: .65; } 9.0625%, 87.5000% { opacity: 1; } }
+svg .badge { animation: badge 16s ease-in-out infinite; }
+@keyframes badge { 0%, 12.5000%, 100% { opacity: .65; } 14.0625%, 87.5000% { opacity: 1; } }
+svg .conclusion { animation: conclusion 16s ease-in-out infinite; }
+@keyframes conclusion { 0%, 78.1250%, 100% { opacity: .65; } 79.6875%, 87.5000% { opacity: 1; } }
+svg .saved { animation: saved 2s ease-in-out infinite; }
+@keyframes saved { 0%, 100% { stroke-opacity: .65; } 50% { stroke-opacity: 1; } }
+svg .branch-0 { stroke-dasharray: 1; animation: branch-0 16s ease-in-out infinite; }
+@keyframes branch-0 { 0%, 18.7500% { stroke-dashoffset: 1; opacity: .65; } 23.7500%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .card-0 { animation: card-0 16s ease-in-out infinite; }
+@keyframes card-0 { 0%, 23.7500%, 100% { opacity: .65; } 25.3125%, 36.2500% { opacity: 1; } }
+svg .result-0 { animation: result-0 16s ease-in-out infinite; }
+@keyframes result-0 { 0%, 33.7500%, 100% { opacity: .65; } 35.3125%, 87.5000% { opacity: 1; } }
+svg .fan-0-0 { stroke-dasharray: 1; animation: fan-0-0 16s ease-in-out infinite; }
+@keyframes fan-0-0 { 0%, 25.0000% { stroke-dashoffset: 1; opacity: .65; } 26.8750%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .fan-0-1 { stroke-dasharray: 1; animation: fan-0-1 16s ease-in-out infinite; }
+@keyframes fan-0-1 { 0%, 26.8750% { stroke-dashoffset: 1; opacity: .65; } 28.7500%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .fan-0-2 { stroke-dasharray: 1; animation: fan-0-2 16s ease-in-out infinite; }
+@keyframes fan-0-2 { 0%, 28.7500% { stroke-dashoffset: 1; opacity: .65; } 30.6250%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .fan-0-3 { stroke-dasharray: 1; animation: fan-0-3 16s ease-in-out infinite; }
+@keyframes fan-0-3 { 0%, 30.6250% { stroke-dashoffset: 1; opacity: .65; } 32.5000%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .fan-0-4 { stroke-dasharray: 1; animation: fan-0-4 16s ease-in-out infinite; }
+@keyframes fan-0-4 { 0%, 32.5000% { stroke-dashoffset: 1; opacity: .65; } 34.3750%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .branch-1 { stroke-dasharray: 1; animation: branch-1 16s ease-in-out infinite; }
+@keyframes branch-1 { 0%, 37.5000% { stroke-dashoffset: 1; opacity: .65; } 42.5000%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .card-1 { animation: card-1 16s ease-in-out infinite; }
+@keyframes card-1 { 0%, 42.5000%, 100% { opacity: .65; } 44.0625%, 55.0000% { opacity: 1; } }
+svg .result-1 { animation: result-1 16s ease-in-out infinite; }
+@keyframes result-1 { 0%, 52.5000%, 100% { opacity: .65; } 54.0625%, 87.5000% { opacity: 1; } }
+svg .fan-1-0 { stroke-dasharray: 1; animation: fan-1-0 16s ease-in-out infinite; }
+@keyframes fan-1-0 { 0%, 43.7500% { stroke-dashoffset: 1; opacity: .65; } 45.6250%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .fan-1-1 { stroke-dasharray: 1; animation: fan-1-1 16s ease-in-out infinite; }
+@keyframes fan-1-1 { 0%, 45.6250% { stroke-dashoffset: 1; opacity: .65; } 47.5000%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .fan-1-2 { stroke-dasharray: 1; animation: fan-1-2 16s ease-in-out infinite; }
+@keyframes fan-1-2 { 0%, 47.5000% { stroke-dashoffset: 1; opacity: .65; } 49.3750%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .fan-1-3 { stroke-dasharray: 1; animation: fan-1-3 16s ease-in-out infinite; }
+@keyframes fan-1-3 { 0%, 49.3750% { stroke-dashoffset: 1; opacity: .65; } 51.2500%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .fan-1-4 { stroke-dasharray: 1; animation: fan-1-4 16s ease-in-out infinite; }
+@keyframes fan-1-4 { 0%, 51.2500% { stroke-dashoffset: 1; opacity: .65; } 53.1250%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .branch-2 { stroke-dasharray: 1; animation: branch-2 16s ease-in-out infinite; }
+@keyframes branch-2 { 0%, 56.2500% { stroke-dashoffset: 1; opacity: .65; } 61.2500%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .card-2 { animation: card-2 16s ease-in-out infinite; }
+@keyframes card-2 { 0%, 61.2500%, 100% { opacity: .65; } 62.8125%, 78.1250% { opacity: 1; } }
+svg .result-2 { animation: result-2 16s ease-in-out infinite; }
+@keyframes result-2 { 0%, 71.2500%, 100% { opacity: .65; } 72.8125%, 87.5000% { opacity: 1; } }
+svg .fan-2-0 { stroke-dasharray: 1; animation: fan-2-0 16s ease-in-out infinite; }
+@keyframes fan-2-0 { 0%, 62.5000% { stroke-dashoffset: 1; opacity: .65; } 64.3750%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .fan-2-1 { stroke-dasharray: 1; animation: fan-2-1 16s ease-in-out infinite; }
+@keyframes fan-2-1 { 0%, 64.3750% { stroke-dashoffset: 1; opacity: .65; } 66.2500%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .fan-2-2 { stroke-dasharray: 1; animation: fan-2-2 16s ease-in-out infinite; }
+@keyframes fan-2-2 { 0%, 66.2500% { stroke-dashoffset: 1; opacity: .65; } 68.1250%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .fan-2-3 { stroke-dasharray: 1; animation: fan-2-3 16s ease-in-out infinite; }
+@keyframes fan-2-3 { 0%, 68.1250% { stroke-dashoffset: 1; opacity: .65; } 70.0000%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .fan-2-4 { stroke-dasharray: 1; animation: fan-2-4 16s ease-in-out infinite; }
+@keyframes fan-2-4 { 0%, 70.0000% { stroke-dashoffset: 1; opacity: .65; } 71.8750%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+@media (prefers-reduced-motion: reduce) { svg * { animation: none !important; transition: none !important; opacity: 1 !important; } svg .draw { stroke-dashoffset: 0 !important; } }
+</style>

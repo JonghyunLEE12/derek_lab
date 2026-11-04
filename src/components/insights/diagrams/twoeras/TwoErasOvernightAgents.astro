@@ -1,0 +1,123 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "위가 PostHog, 아래가 Tano의 하루다. 아래는 퇴근 뒤에도 에이전트가 한두 시간 더 돌고 그 결과가 다음 날 아침으로 넘어온다. 9시에서 11시 사이 PR 비율이 9%에서 18%로 바뀐 이유가 이 곡선이다." } = Astro.props;
+const description = "7시부터 20시까지의 하루 띠를 위아래 두 줄로 놓고, AI 이전 PostHog에서는 PR 대부분이 10시에서 15시 사이에 열리고 오전 9시에서 11시 비율이 9%이며 승인을 기다렸다가 저녁에 머지하고 퇴근 시각이 없었던 반면, AI 네이티브 Tano에서는 코어 근무 9시에서 18시 동안 시간당 약 11%로 고르게 PR이 올라오고 18시에 노트북을 회사에 두고 퇴근하면 에이전트가 1~2시간 더 돌아 다음 날 아침 9시에서 11시 사이 PR 비율이 18%가 되는 순환을 그린 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 900 525" role="img" aria-label={description}>
+<text class="small" x="450.0" y="24" style="font-size: 13px" ><tspan x="450.0" dy="0">코어 근무 9시~18시</tspan></text>
+<rect class="accent-box" x="140.0" y="40" width="450.0" height="440" rx="7" style="opacity: .08; fill: var(--accent); stroke: none" />
+<text class="small" x="40.0" y="56" style="font-size: 13px" ><tspan x="40.0" dy="0">7시</tspan></text>
+<text class="small" x="140.0" y="56" style="font-size: 13px" ><tspan x="140.0" dy="0">9시</tspan></text>
+<text class="small" x="240.0" y="56" style="font-size: 13px" ><tspan x="240.0" dy="0">11시</tspan></text>
+<text class="small" x="440.0" y="56" style="font-size: 13px" ><tspan x="440.0" dy="0">15시</tspan></text>
+<text class="small" x="590.0" y="56" style="font-size: 13px" ><tspan x="590.0" dy="0">18시</tspan></text>
+<text class="small" x="690.0" y="56" style="font-size: 13px" ><tspan x="690.0" dy="0">20시</tspan></text>
+<text class="label" x="175" y="99" style="font-size: 15px" ><tspan x="175" dy="0">AI 이전 · PostHog</tspan></text>
+<rect class="box" x="40" y="137" width="650" height="36" rx="7"  />
+<rect class="accent-box" x="190.0" y="137" width="250.0" height="36" rx="7" data-stage="old-active" />
+<text class="small" x="315.0" y="119" style="font-size: 13px" ><tspan x="315.0" dy="0">PR 대부분 여기서 열림</tspan></text>
+<path class="route" d="M190.0 155 H440.0"  />
+<path class="flow" d="M190.0 155 H440.0" data-stage="old-active" />
+<path class="route" d="M440.0 155 H590.0"  />
+<text class="accent-text" x="190.0" y="199" style="font-size: 16px" ><tspan x="190.0" dy="0">9%</tspan></text>
+<text class="small" x="515.0" y="115" style="font-size: 12px" data-stage="approval"><tspan x="515.0" dy="0">승인 대기 뒤 저녁에 머지</tspan></text>
+<text class="small" x="792" y="146" style="font-size: 12px" data-stage="no-end"><tspan x="792" dy="0">퇴근 시각 없음 ·</tspan><tspan x="792" dy="19">노트북은 늘 옆에</tspan></text>
+<path class="arrow" d="M584.0 154 l4 5 8 -10" data-stage="check" />
+<text class="label" x="175" y="255" style="font-size: 15px" ><tspan x="175" dy="0">AI 네이티브 · Tano</tspan></text>
+<path class="route" d="M690.0 383 C690.0 285, 140.0 285, 140.0 365"  />
+<path class="flow" d="M690.0 383 C690.0 285, 140.0 285, 140.0 365" data-stage="return" />
+<path class="arrow" d="M136.0 360 l4 5 4 -5"  />
+<text class="small" x="415.0" y="302" style="font-size: 12px" data-stage="return"><tspan x="415.0" dy="0">아침에 PR 준비됨</tspan></text>
+<rect class="box" x="40" y="365" width="650" height="36" rx="7"  />
+<rect class="accent-box" x="140.0" y="365" width="450.0" height="36" rx="7"  />
+<rect class="accent-box" x="140.0" y="365" width="100.0" height="36" rx="7" data-stage="morning" />
+<rect class="accent-box" x="590.0" y="365" width="100.0" height="36" rx="7" data-stage="after-hours" style="stroke-dasharray: 4 5" />
+<path class="route" d="M140.0 383 H590.0"  />
+<path class="flow" d="M140.0 383 H590.0" data-stage="work" />
+<path class="route" d="M590.0 383 H690.0"  />
+<path class="flow" d="M590.0 383 H690.0" data-stage="after-hours" />
+<text class="accent-text" x="190.0" y="427" style="font-size: 16px" data-stage="morning"><tspan x="190.0" dy="0">18%</tspan></text>
+<text class="small" x="365.0" y="352" style="font-size: 13px" data-stage="work"><tspan x="365.0" dy="0">시간당 약 11%로 고름</tspan></text>
+<path class="route" d="M590.0 358 V413" data-stage="leave" style="stroke-dasharray: 4 5" />
+<text class="small" x="590.0" y="443" style="font-size: 12px" data-stage="leave"><tspan x="590.0" dy="0">퇴근 · 노트북은 회사에</tspan></text>
+<text class="small" x="742" y="490" style="font-size: 12px" data-stage="after-hours"><tspan x="742" dy="0">에이전트만 계속 · 1~2시간 뒤 멈춤</tspan></text>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 640" role="img" aria-label={description}>
+<text class="small" x="160.0" y="24" style="font-size: 13px" ><tspan x="160.0" dy="0">코어 근무 9시~18시</tspan></text>
+<rect class="accent-box" x="63.08" y="40" width="193.84000000000003" height="570" rx="7" style="opacity: .08; fill: var(--accent); stroke: none" />
+<text class="small" x="20.0" y="56" style="font-size: 11px" ><tspan x="20.0" dy="0">7시</tspan></text>
+<text class="small" x="63.08" y="56" style="font-size: 11px" ><tspan x="63.08" dy="0">9시</tspan></text>
+<text class="small" x="106.15" y="56" style="font-size: 11px" ><tspan x="106.15" dy="0">11시</tspan></text>
+<text class="small" x="192.31" y="56" style="font-size: 11px" ><tspan x="192.31" dy="0">15시</tspan></text>
+<text class="small" x="256.92" y="56" style="font-size: 11px" ><tspan x="256.92" dy="0">18시</tspan></text>
+<text class="small" x="300.0" y="56" style="font-size: 11px" ><tspan x="300.0" dy="0">20시</tspan></text>
+<text class="label" x="160.0" y="99" style="font-size: 15px" ><tspan x="160.0" dy="0">AI 이전 · PostHog</tspan></text>
+<rect class="box" x="20" y="156" width="280" height="36" rx="7"  />
+<rect class="accent-box" x="84.62" y="156" width="107.69" height="36" rx="7" data-stage="old-active" />
+<text class="small" x="138.465" y="138" style="font-size: 12px" ><tspan x="138.465" dy="0">PR 대부분 여기서 열림</tspan></text>
+<path class="route" d="M84.62 174 H192.31"  />
+<path class="flow" d="M84.62 174 H192.31" data-stage="old-active" />
+<path class="route" d="M192.31 174 H256.92"  />
+<text class="accent-text" x="84.61500000000001" y="218" style="font-size: 16px" ><tspan x="84.61500000000001" dy="0">9%</tspan></text>
+<text class="small" x="220" y="245" style="font-size: 13px" data-stage="approval"><tspan x="220" dy="0">승인 대기 뒤</tspan><tspan x="220" dy="19">저녁에 머지</tspan></text>
+<text class="small" x="160" y="304" style="font-size: 12px" data-stage="no-end"><tspan x="160" dy="0">퇴근 시각 없음 · 노트북은 늘 옆에</tspan></text>
+<path class="arrow" d="M250.92000000000002 173 l4 5 8 -10" data-stage="check" />
+<text class="label" x="160.0" y="378" style="font-size: 15px" ><tspan x="160.0" dy="0">AI 네이티브 · Tano</tspan></text>
+<path class="route" d="M300.0 482 C300.0 384, 63.08 384, 63.08 464"  />
+<path class="flow" d="M300.0 482 C300.0 384, 63.08 384, 63.08 464" data-stage="return" />
+<path class="arrow" d="M59.08 459 l4 5 4 -5"  />
+<text class="small" x="181.54" y="401" style="font-size: 12px" data-stage="return"><tspan x="181.54" dy="0">아침에 PR 준비됨</tspan></text>
+<rect class="box" x="20" y="464" width="280" height="36" rx="7"  />
+<rect class="accent-box" x="63.08" y="464" width="193.84000000000003" height="36" rx="7"  />
+<rect class="accent-box" x="63.08" y="464" width="43.07000000000001" height="36" rx="7" data-stage="morning" />
+<rect class="accent-box" x="256.92" y="464" width="43.079999999999984" height="36" rx="7" data-stage="after-hours" style="stroke-dasharray: 4 5" />
+<path class="route" d="M63.08 482 H256.92"  />
+<path class="flow" d="M63.08 482 H256.92" data-stage="work" />
+<path class="route" d="M256.92 482 H300.0"  />
+<path class="flow" d="M256.92 482 H300.0" data-stage="after-hours" />
+<text class="accent-text" x="84.61500000000001" y="526" style="font-size: 16px" data-stage="morning"><tspan x="84.61500000000001" dy="0">18%</tspan></text>
+<text class="small" x="160.0" y="451" style="font-size: 12px" data-stage="work"><tspan x="160.0" dy="0">시간당 약 11%로 고름</tspan></text>
+<path class="route" d="M256.92 457 V512" data-stage="leave" style="stroke-dasharray: 4 5" />
+<text class="small" x="204" y="556" style="font-size: 12px" data-stage="leave"><tspan x="204" dy="0">퇴근 · 노트북은 회사에</tspan></text>
+<text class="small" x="180" y="596" style="font-size: 12px" data-stage="after-hours"><tspan x="180" dy="0">에이전트만 계속 ·</tspan><tspan x="180" dy="19">1~2시간 뒤 멈춤</tspan></text>
+</svg>
+</DiagramFrame>
+<style>
+svg .pulse .box { stroke: var(--line); }
+svg .pulse { opacity: .65; }
+svg .flow { opacity: 0; }
+svg [data-stage="old-active"]:not(.flow) { animation: old-active 16s ease-in-out infinite; }
+@keyframes old-active { 0%, 100% { opacity: .65; } 12.5%, 50.0% { opacity: .65; } 13.750000000000002%, 48.75% { opacity: 1; } }
+svg [data-stage="old-active"].flow { animation: old-active-flow 16s ease-in-out infinite; }
+@keyframes old-active-flow { 0%, 100% { opacity: 0; } 12.5%, 50.0% { opacity: 0; } 13.750000000000002%, 48.75% { opacity: 1; } 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -112; } }
+svg [data-stage="approval"]:not(.flow) { animation: approval 16s ease-in-out infinite; }
+@keyframes approval { 0%, 100% { opacity: .65; } 50.0%, 81.25% { opacity: .65; } 51.24999999999999%, 80.0% { opacity: 1; } }
+svg [data-stage="check"]:not(.flow) { animation: check 16s ease-in-out infinite; }
+@keyframes check { 0%, 100% { opacity: .65; } 81.25%, 100.0% { opacity: .65; } 82.5%, 98.75% { opacity: 1; } }
+svg [data-stage="no-end"]:not(.flow) { animation: no-end 16s ease-in-out infinite; }
+@keyframes no-end { 0%, 100% { opacity: .65; } 81.25%, 100.0% { opacity: .65; } 82.5%, 98.75% { opacity: 1; } }
+svg [data-stage="morning"]:not(.flow) { animation: morning 16s ease-in-out infinite; }
+@keyframes morning { 0%, 100% { opacity: .65; } 0.0%, 12.5% { opacity: .65; } 1.25%, 11.25% { opacity: 1; } }
+svg [data-stage="work"]:not(.flow) { animation: work 16s ease-in-out infinite; }
+@keyframes work { 0%, 100% { opacity: .65; } 12.5%, 62.5% { opacity: .65; } 13.750000000000002%, 61.25000000000001% { opacity: 1; } }
+svg [data-stage="work"].flow { animation: work-flow 16s ease-in-out infinite; }
+@keyframes work-flow { 0%, 100% { opacity: 0; } 12.5%, 62.5% { opacity: 0; } 13.750000000000002%, 61.25000000000001% { opacity: 1; } 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -112; } }
+svg [data-stage="leave"]:not(.flow) { animation: leave 16s ease-in-out infinite; }
+@keyframes leave { 0%, 100% { opacity: .65; } 62.5%, 75.0% { opacity: .65; } 63.74999999999999%, 73.75% { opacity: 1; } }
+svg [data-stage="after-hours"]:not(.flow) { animation: after-hours 16s ease-in-out infinite; }
+@keyframes after-hours { 0%, 100% { opacity: .65; } 62.5%, 75.0% { opacity: .65; } 63.74999999999999%, 73.75% { opacity: 1; } }
+svg [data-stage="after-hours"].flow { animation: after-hours-flow 16s ease-in-out infinite; }
+@keyframes after-hours-flow { 0%, 100% { opacity: 0; } 62.5%, 75.0% { opacity: 0; } 63.74999999999999%, 73.75% { opacity: 1; } 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -112; } }
+svg [data-stage="return"]:not(.flow) { animation: return 16s ease-in-out infinite; }
+@keyframes return { 0%, 100% { opacity: .65; } 75.0%, 100.0% { opacity: .65; } 76.25%, 98.75% { opacity: 1; } }
+svg [data-stage="return"].flow { animation: return-flow 16s ease-in-out infinite; }
+@keyframes return-flow { 0%, 100% { opacity: 0; } 75.0%, 100.0% { opacity: 0; } 76.25%, 98.75% { opacity: 1; } 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -112; } }
+
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg .pulse, svg .flow { animation: none !important; transform: none !important; opacity: 1; }
+ svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+
+}
+</style>

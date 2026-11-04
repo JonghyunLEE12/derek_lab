@@ -1,0 +1,200 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "의견을 적으면 신호가 된다. 결과 평가는 끝에 점수 하나, 행동 스펙은 모든 실행의 단계별 행동이다. 포크와 시뮬레이션으로 수정안을 시험하고 시스템을 고치면 에이전트가 다시 일하고 신호가 쌓인다. 슬라이드는 이걸 한 단계 위의 보상 함수라고 부른다." } = Astro.props;
+const description = "적어 둔 의견이 신호가 되고, 신호 안에서 결과 평가는 케이스 몇 개에 마지막 점수 하나를, 행동 스펙은 평가와 프로덕션의 모든 실행에서 단계별 행동을 주며, 포크와 시뮬레이션으로 수정안을 시험해 하네스나 의견을 고치고, 에이전트가 다시 일해서 신호로 돌아오는 시계 방향 루프를 보여 주는 다이어그램입니다. 슬라이드는 이것을 한 단계 위의 보상 함수라고 부릅니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 635" role="img" aria-label={description}>
+<path class="route" d="M370 175 C455 20 665 20 775 175"  />
+<path class="route" d="M775 260 C800 370 660 443 460 443"  />
+<path class="route" d="M350 443 C180 443 115 375 160 335"  />
+<path class="arrow" d="M560 56 l5 4 -5 4"  />
+<path class="arrow" d="M725 367 l-5 4 5 4"  />
+<path class="arrow" d="M130 376 l4 -5 4 5"  />
+<g class="test-fix">
+<text class="small" x="565" y="25" style="font-size: 13px"><tspan x="565" dy="0">포크와 시뮬레이션: 수정안을 시험</tspan></text>
+<text class="small" x="565" y="45" style="font-size: 12px"><tspan x="565" dy="0">Forks and simulations: test the fix</tspan></text>
+</g>
+<g class="signal">
+<rect class="box" x="20" y="103" width="350" height="232" rx="7" />
+<text class="label" x="195" y="130" style="font-size: 16px"><tspan x="195" dy="0">신호</tspan></text>
+<text class="small" x="195" y="150" style="font-size: 13px"><tspan x="195" dy="0">Signal</tspan></text>
+<text class="label" x="195" y="178" style="font-size: 14px"><tspan x="195" dy="0">결과 평가 (Outcome evals)</tspan></text>
+<path class="route" d="M65 195 H325"  />
+<circle class="accent-text outcome" cx="325" cy="195" r="4" />
+<text class="small" x="195" y="219" style="font-size: 12px"><tspan x="195" dy="0">케이스 몇 개, 마지막에 점수 하나</tspan></text>
+<text class="small" x="195" y="237" style="font-size: 12px"><tspan x="195" dy="0">A few cases, one score at the end.</tspan></text>
+<text class="label" x="195" y="265" style="font-size: 14px"><tspan x="195" dy="0">행동 스펙 (Behavior specs)</tspan></text>
+<path class="route" d="M65 281 H325"  />
+<circle class="accent-text behavior-0" cx="65.0" cy="281" r="4" />
+<circle class="accent-text behavior-1" cx="93.88888888888889" cy="281" r="4" />
+<circle class="accent-text behavior-2" cx="122.77777777777777" cy="281" r="4" />
+<circle class="accent-text behavior-3" cx="151.66666666666669" cy="281" r="4" />
+<circle class="accent-text behavior-4" cx="180.55555555555554" cy="281" r="4" />
+<circle class="accent-text behavior-5" cx="209.44444444444446" cy="281" r="4" />
+<circle class="accent-text behavior-6" cx="238.33333333333334" cy="281" r="4" />
+<circle class="accent-text behavior-7" cx="267.22222222222223" cy="281" r="4" />
+<circle class="accent-text behavior-8" cx="296.1111111111111" cy="281" r="4" />
+<circle class="accent-text behavior-9" cx="325.0" cy="281" r="4" />
+<text class="small" x="195" y="305" style="font-size: 12px"><tspan x="195" dy="0">어느 단계, 어느 행동? 평가와 프로덕션의 모든 실행에서</tspan></text>
+<text class="small" x="195" y="323" style="font-size: 10px"><tspan x="195" dy="0">Which step, which behavior? Every run, in evals and in production.</tspan></text>
+</g>
+<g class="improve">
+<rect class="box" x="655" y="175" width="250" height="85" rx="7" />
+<text class="label" x="780" y="200" style="font-size: 16px"><tspan x="780" dy="0">시스템 개선</tspan></text>
+<text class="small" x="780" y="221" style="font-size: 13px"><tspan x="780" dy="0">Improve the system</tspan></text>
+<text class="small" x="780" y="243" style="font-size: 12px"><tspan x="780" dy="0">하네스, 가끔은 의견 자체</tspan></text>
+<text class="small" x="780" y="278" style="font-size: 12px"><tspan x="780" dy="0">the harness, sometimes the opinion</tspan></text>
+</g>
+<g class="works">
+<rect class="box" x="350" y="405" width="275" height="76" rx="7" />
+<rect class="box" x="364" y="430" width="24" height="20" rx="7" />
+<circle class="accent-text" cx="371" cy="440" r="2" />
+<circle class="accent-text" cx="381" cy="440" r="2" />
+<path class="route" d="M376 430 v-6"  />
+<text class="label" x="494" y="431" style="font-size: 13px"><tspan x="494" dy="0">에이전트가 일한다</tspan></text>
+<text class="small" x="494" y="451" style="font-size: 12px"><tspan x="494" dy="0">The agent works</tspan></text>
+<text class="small" x="494" y="471" style="font-size: 12px"><tspan x="494" dy="0">평가와 프로덕션에서</tspan></text>
+<text class="small" x="494" y="503" style="font-size: 12px"><tspan x="494" dy="0">in evals and in production</tspan></text>
+</g>
+<rect class="accent-box" x="25" y="435" width="160" height="65" rx="7" />
+<text class="label" x="105" y="459" style="font-size: 16px"><tspan x="105" dy="0">의견</tspan></text>
+<text class="small" x="105" y="481" style="font-size: 13px"><tspan x="105" dy="0">Opinions</tspan></text>
+<path class="route draw written" d="M105 435 V335"  />
+<path class="arrow" d="M101 340 l4 -5 4 5"  />
+<text class="small" x="52" y="382" style="font-size: 12px"><tspan x="52" dy="0">적어 둔다</tspan></text>
+<text class="small" x="52" y="402" style="font-size: 11px"><tspan x="52" dy="0">written down</tspan></text>
+<g class="reward-stage">
+<text class="label reward" x="495" y="315" style="font-size: 15px"><tspan x="495" dy="0">한 단계 위의 보상 함수</tspan></text>
+<text class="small reward" x="495" y="338" style="font-size: 12px"><tspan x="495" dy="0">A reward function,</tspan></text>
+<text class="small reward" x="495" y="356" style="font-size: 12px"><tspan x="495" dy="0">one level up.</tspan></text>
+</g>
+<rect class="box" x="558" y="545" width="24" height="20" rx="7" />
+<circle class="accent-text" cx="565" cy="555" r="2" />
+<circle class="accent-text" cx="575" cy="555" r="2" />
+<path class="route" d="M570 545 v-6"  />
+<text class="small" x="750" y="551" style="font-size: 12px"><tspan x="750" dy="0">무엇이 더 나은지 알면 에이전트가</tspan><tspan x="750" dy="18">이 루프를 더 많이 돌 수 있다</tspan></text>
+<text class="small" x="750" y="596" style="font-size: 12px"><tspan x="750" dy="0">Agents can run more of this loop,</tspan><tspan x="750" dy="18">if they know what better means.</tspan></text>
+<circle class="accent-text loop-desktop" cx="0" cy="0" r="5" />
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 1008" role="img" aria-label={description}>
+<path class="route" d="M274 300 C310 310 310 440 274 460"  />
+<path class="route" d="M274 510 C310 550 310 645 270 670"  />
+<path class="route" d="M50 670 C5 640 5 350 46 300"  />
+<path class="arrow" d="M297 378 l4 5 4 -5"  />
+<path class="arrow" d="M296 589 l4 5 4 -5"  />
+<path class="arrow" d="M14 499 l4 -5 4 5"  />
+<g class="test-fix">
+<text class="small" x="160" y="350" style="font-size: 12px"><tspan x="160" dy="0">포크와 시뮬레이션: 수정안을 시험</tspan></text>
+<text class="small" x="160" y="372" style="font-size: 12px"><tspan x="160" dy="0">Forks and simulations:</tspan><tspan x="160" dy="18">test the fix</tspan></text>
+</g>
+<g class="signal">
+<rect class="box" x="40" y="45" width="240" height="270" rx="7" />
+<text class="label" x="160" y="71" style="font-size: 16px"><tspan x="160" dy="0">신호</tspan></text>
+<text class="small" x="160" y="92" style="font-size: 13px"><tspan x="160" dy="0">Signal</tspan></text>
+<text class="label" x="160" y="120" style="font-size: 13px"><tspan x="160" dy="0">결과 평가 (Outcome evals)</tspan></text>
+<path class="route" d="M63 137 H257"  />
+<circle class="accent-text outcome" cx="257" cy="137" r="4" />
+<text class="small" x="160" y="160" style="font-size: 12px"><tspan x="160" dy="0">케이스 몇 개, 마지막에 점수 하나</tspan></text>
+<text class="small" x="160" y="179" style="font-size: 11px"><tspan x="160" dy="0">A few cases, one score at the end.</tspan></text>
+<text class="label" x="160" y="210" style="font-size: 13px"><tspan x="160" dy="0">행동 스펙 (Behavior specs)</tspan></text>
+<path class="route" d="M63 228 H257"  />
+<circle class="accent-text behavior-0" cx="63.0" cy="228" r="4" />
+<circle class="accent-text behavior-1" cx="84.55555555555556" cy="228" r="4" />
+<circle class="accent-text behavior-2" cx="106.11111111111111" cy="228" r="4" />
+<circle class="accent-text behavior-3" cx="127.66666666666667" cy="228" r="4" />
+<circle class="accent-text behavior-4" cx="149.22222222222223" cy="228" r="4" />
+<circle class="accent-text behavior-5" cx="170.77777777777777" cy="228" r="4" />
+<circle class="accent-text behavior-6" cx="192.33333333333334" cy="228" r="4" />
+<circle class="accent-text behavior-7" cx="213.88888888888889" cy="228" r="4" />
+<circle class="accent-text behavior-8" cx="235.44444444444446" cy="228" r="4" />
+<circle class="accent-text behavior-9" cx="257.0" cy="228" r="4" />
+<text class="small" x="160" y="250" style="font-size: 12px"><tspan x="160" dy="0">어느 단계, 어느 행동?</tspan><tspan x="160" dy="18">평가와 프로덕션의 모든 실행에서</tspan></text>
+<text class="small" x="160" y="286" style="font-size: 11px"><tspan x="160" dy="0">Which step, which behavior? Every run,</tspan><tspan x="160" dy="18">in evals and in production.</tspan></text>
+</g>
+<g class="improve">
+<rect class="box" x="46" y="415" width="228" height="105" rx="7" />
+<text class="label" x="160" y="440" style="font-size: 16px"><tspan x="160" dy="0">시스템 개선</tspan></text>
+<text class="small" x="160" y="462" style="font-size: 13px"><tspan x="160" dy="0">Improve the system</tspan></text>
+<text class="small" x="160" y="485" style="font-size: 12px"><tspan x="160" dy="0">하네스, 가끔은 의견 자체</tspan></text>
+<text class="small" x="160" y="505" style="font-size: 11px"><tspan x="160" dy="0">the harness, sometimes the opinion</tspan></text>
+</g>
+<g class="reward-stage">
+<text class="label reward" x="160" y="557" style="font-size: 14px"><tspan x="160" dy="0">한 단계 위의 보상 함수</tspan></text>
+<text class="small reward" x="160" y="581" style="font-size: 12px"><tspan x="160" dy="0">A reward function,</tspan><tspan x="160" dy="18">one level up.</tspan></text>
+</g>
+<g class="works">
+<rect class="box" x="50" y="635" width="220" height="96" rx="7" />
+<rect class="box" x="58" y="653" width="24" height="20" rx="7" />
+<circle class="accent-text" cx="65" cy="663" r="2" />
+<circle class="accent-text" cx="75" cy="663" r="2" />
+<path class="route" d="M70 653 v-6"  />
+<text class="label" x="175" y="661" style="font-size: 14px"><tspan x="175" dy="0">에이전트가 일한다</tspan></text>
+<text class="small" x="175" y="683" style="font-size: 12px"><tspan x="175" dy="0">The agent works</tspan></text>
+<text class="small" x="160" y="704" style="font-size: 12px"><tspan x="160" dy="0">평가와 프로덕션에서</tspan></text>
+<text class="small" x="160" y="723" style="font-size: 11px"><tspan x="160" dy="0">in evals and in production</tspan></text>
+</g>
+<rect class="accent-box" x="52" y="780" width="216" height="62" rx="7" />
+<text class="label" x="160" y="805" style="font-size: 16px"><tspan x="160" dy="0">의견</tspan></text>
+<text class="small" x="160" y="827" style="font-size: 13px"><tspan x="160" dy="0">Opinions</tspan></text>
+<path class="route draw written" d="M52 811 H5 V28 H160 V45"  />
+<path class="arrow" d="M156 40 l4 5 4 -5"  />
+<text class="small" x="160" y="15" style="font-size: 12px"><tspan x="160" dy="0">적어 둔다 (written down)</tspan></text>
+<rect class="box" x="148" y="876" width="24" height="20" rx="7" />
+<circle class="accent-text" cx="155" cy="886" r="2" />
+<circle class="accent-text" cx="165" cy="886" r="2" />
+<path class="route" d="M160 876 v-6"  />
+<text class="small" x="160" y="921" style="font-size: 12px"><tspan x="160" dy="0">무엇이 더 나은지 알면 에이전트가</tspan><tspan x="160" dy="18">이 루프를 더 많이 돌 수 있다</tspan></text>
+<text class="small" x="160" y="966" style="font-size: 12px"><tspan x="160" dy="0">Agents can run more of this loop,</tspan><tspan x="160" dy="18">if they know what better means.</tspan></text>
+<circle class="accent-text loop-mobile" cx="0" cy="0" r="5" />
+</svg>
+</DiagramFrame>
+<style>
+svg .label { fill: var(--muted); }
+svg .pulse .box { stroke: var(--line); }
+svg .mono { font-family: ui-monospace, monospace; }
+svg .accent-route { stroke: var(--accent); }
+svg .loop-desktop { offset-path: path("M370 175 C455 20 665 20 775 175 L775 260 C800 370 660 443 460 443 L350 443 C180 443 115 375 160 335"); offset-rotate: 0deg; animation: loop-desktop 14s ease-in-out infinite; }
+@keyframes loop-desktop { 0%, 32.1429% { offset-distance: 0%; opacity: 0; } 33% { opacity: 1; } 50% { offset-distance: 35.81807%; opacity: 1; } 64.2857% { offset-distance: 72.39042%; opacity: 1; } 78.5714% { offset-distance: 100%; opacity: 1; } 82%, 100% { offset-distance: 100%; opacity: 0; } }
+svg .loop-mobile { offset-path: path("M274 300 C310 310 310 440 274 460 L274 510 C310 550 310 645 270 670 L50 670 C5 640 5 350 46 300"); offset-rotate: 0deg; animation: loop-mobile 14s ease-in-out infinite; }
+@keyframes loop-mobile { 0%, 32.1429% { offset-distance: 0%; opacity: 0; } 33% { opacity: 1; } 50% { offset-distance: 17.57441%; opacity: 1; } 64.2857% { offset-distance: 40.02683%; opacity: 1; } 78.5714% { offset-distance: 100%; opacity: 1; } 82%, 100% { offset-distance: 100%; opacity: 0; } }
+svg .outcome { animation: outcome 14s ease-in-out infinite; }
+@keyframes outcome { 0%, 10.7143%, 100% { opacity: .65; } 12.5000%, 89.2857% { opacity: 1; } }
+svg .test-fix { animation: test-fix 14s ease-in-out infinite; }
+@keyframes test-fix { 0%, 32.1429%, 100% { opacity: .65; } 33.9286%, 50.0000% { opacity: 1; } }
+svg .improve { animation: improve 14s ease-in-out infinite; }
+@keyframes improve { 0%, 50.0000%, 100% { opacity: .65; } 51.7857%, 57.1429% { opacity: 1; } }
+svg .works { animation: works 14s ease-in-out infinite; }
+@keyframes works { 0%, 64.2857%, 100% { opacity: .65; } 66.0714%, 71.4286% { opacity: 1; } }
+svg .reward-stage { animation: reward-stage 14s ease-in-out infinite; }
+@keyframes reward-stage { 0%, 78.5714%, 100% { opacity: .65; } 80.3571%, 89.2857% { opacity: 1; } }
+svg .written { stroke-dasharray: 1; animation: written 14s ease-in-out infinite; }
+@keyframes written { 0%, 0.0000% { stroke-dashoffset: 1; opacity: .65; } 10.7143%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .65; } }
+svg .written { stroke-dasharray: 1000; }
+@keyframes written { 0% { stroke-dashoffset: 1000; } 10.7143%, 100% { stroke-dashoffset: 0; } }
+svg .reward { font-style: italic; }
+svg .signal { animation: signal 14s ease-in-out infinite; }
+@keyframes signal { 0%, 10.7143%, 32.1429%, 71.4286%, 85.7143%, 100% { opacity: .65; } 14%, 29%, 78.5714%, 82% { opacity: 1; } }
+svg .behavior-0 { animation: behavior-0 14s ease-in-out infinite; }
+@keyframes behavior-0 { 0%, 17.8571%, 78.5714%, 100% { opacity: .65; } 18.8571%, 70% { opacity: 1; } 79.1714%, 90% { opacity: 1; } }
+svg .behavior-1 { animation: behavior-1 14s ease-in-out infinite; }
+@keyframes behavior-1 { 0%, 19.2857%, 79.2857%, 100% { opacity: .65; } 20.2857%, 70% { opacity: 1; } 79.8857%, 90% { opacity: 1; } }
+svg .behavior-2 { animation: behavior-2 14s ease-in-out infinite; }
+@keyframes behavior-2 { 0%, 20.7143%, 80.0000%, 100% { opacity: .65; } 21.7143%, 70% { opacity: 1; } 80.6000%, 90% { opacity: 1; } }
+svg .behavior-3 { animation: behavior-3 14s ease-in-out infinite; }
+@keyframes behavior-3 { 0%, 22.1429%, 80.7143%, 100% { opacity: .65; } 23.1429%, 70% { opacity: 1; } 81.3143%, 90% { opacity: 1; } }
+svg .behavior-4 { animation: behavior-4 14s ease-in-out infinite; }
+@keyframes behavior-4 { 0%, 23.5714%, 81.4286%, 100% { opacity: .65; } 24.5714%, 70% { opacity: 1; } 82.0286%, 90% { opacity: 1; } }
+svg .behavior-5 { animation: behavior-5 14s ease-in-out infinite; }
+@keyframes behavior-5 { 0%, 25.0000%, 82.1429%, 100% { opacity: .65; } 26.0000%, 70% { opacity: 1; } 82.7429%, 90% { opacity: 1; } }
+svg .behavior-6 { animation: behavior-6 14s ease-in-out infinite; }
+@keyframes behavior-6 { 0%, 26.4286%, 82.8571%, 100% { opacity: .65; } 27.4286%, 70% { opacity: 1; } 83.4571%, 90% { opacity: 1; } }
+svg .behavior-7 { animation: behavior-7 14s ease-in-out infinite; }
+@keyframes behavior-7 { 0%, 27.8571%, 83.5714%, 100% { opacity: .65; } 28.8571%, 70% { opacity: 1; } 84.1714%, 90% { opacity: 1; } }
+svg .behavior-8 { animation: behavior-8 14s ease-in-out infinite; }
+@keyframes behavior-8 { 0%, 29.2857%, 84.2857%, 100% { opacity: .65; } 30.2857%, 70% { opacity: 1; } 84.8857%, 90% { opacity: 1; } }
+svg .behavior-9 { animation: behavior-9 14s ease-in-out infinite; }
+@keyframes behavior-9 { 0%, 30.7143%, 85.0000%, 100% { opacity: .65; } 31.7143%, 70% { opacity: 1; } 85.6000%, 90% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { svg * { animation: none !important; transition: none !important; opacity: 1 !important; } svg .draw { stroke-dashoffset: 0 !important; } }
+</style>

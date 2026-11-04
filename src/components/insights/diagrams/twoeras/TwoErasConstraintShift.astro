@@ -1,0 +1,133 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "왼쪽이 2절에서 사라진 제약, 오른쪽이 3절에서 새로 생긴 제약이다. 원문은 둘을 하나씩 짝짓지 않아서 가운데 나를 거치는 화살표 하나로만 이었다. 사라진 쪽이 흐려지는 만큼 새로 생긴 쪽이 켜진다." } = Astro.props;
+const description = "왼쪽에 AI 네이티브 스타트업에서 사라진 제약인 커뮤니케이션 오버헤드, 사람 코드 리뷰, PM이 주는 일감 대기, 되돌릴 수 없는 마이그레이션 네 가지가 차례로 흐려지고, 그 흐름이 가운데 나라는 노드를 거쳐 오른쪽의 새로 생긴 제약인 컨텍스트 스위칭 피로, 스래싱, 버스 팩터 1의 공유 컨텍스트 상실, 페이스 조절, 토큰 한도 다섯 가지를 차례로 켜는, 병목은 사라진 게 아니라 나한테로 옮겨 왔다는 주장을 그린 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 900 465" role="img" aria-label={description}>
+<text class="label" x="170" y="26" style="font-size: 15px" ><tspan x="170" dy="0">사라진 제약</tspan></text>
+<text class="small" x="170" y="50" style="font-size: 13px" ><tspan x="170" dy="0">2절</tspan></text>
+<text class="label" x="730" y="26" style="font-size: 15px" ><tspan x="730" dy="0">새로 생긴 제약</tspan></text>
+<text class="small" x="730" y="50" style="font-size: 13px" ><tspan x="730" dy="0">3절</tspan></text>
+<g class="pulse" data-stage="old-0"><rect class="box" x="25" y="85" width="290" height="54" rx="7"  />
+<text class="label" x="170.0" y="117.0" style="font-size: 14px" ><tspan x="170.0" dy="0">커뮤니케이션 오버헤드</tspan></text>
+</g>
+<g class="pulse" data-stage="old-1"><rect class="box" x="25" y="163" width="290" height="54" rx="7"  />
+<text class="label" x="170.0" y="195.0" style="font-size: 14px" ><tspan x="170.0" dy="0">사람 코드 리뷰</tspan></text>
+</g>
+<g class="pulse" data-stage="old-2"><rect class="box" x="25" y="241" width="290" height="54" rx="7"  />
+<text class="label" x="170.0" y="273.0" style="font-size: 14px" ><tspan x="170.0" dy="0">PM이 주는 일감 대기</tspan></text>
+</g>
+<g class="pulse" data-stage="old-3"><rect class="box" x="25" y="319" width="290" height="54" rx="7"  />
+<text class="label" x="170.0" y="351.0" style="font-size: 14px" ><tspan x="170.0" dy="0">되돌릴 수 없는 마이그레이션</tspan></text>
+</g>
+<g class="pulse" data-stage="new-0"><rect class="box" x="585" y="68" width="290" height="54" rx="7"  />
+<text class="label" x="730.0" y="100.0" style="font-size: 14px" ><tspan x="730.0" dy="0">컨텍스트 스위칭 피로</tspan></text>
+</g>
+<g class="pulse" data-stage="new-1"><rect class="box" x="585" y="136" width="290" height="54" rx="7"  />
+<text class="label" x="730.0" y="168.0" style="font-size: 14px" ><tspan x="730.0" dy="0">스래싱</tspan></text>
+</g>
+<g class="pulse" data-stage="new-2"><rect class="box" x="585" y="204" width="290" height="54" rx="7"  />
+<text class="label" x="730.0" y="227.0" style="font-size: 14px" ><tspan x="730.0" dy="0">공유 컨텍스트 상실</tspan></text>
+</g>
+<text class="small" x="730" y="249" style="font-size: 11px" ><tspan x="730" dy="0">버스 팩터 1</tspan></text>
+<g class="pulse" data-stage="new-3"><rect class="box" x="585" y="272" width="290" height="54" rx="7"  />
+<text class="label" x="730.0" y="304.0" style="font-size: 14px" ><tspan x="730.0" dy="0">페이스 조절</tspan></text>
+</g>
+<g class="pulse" data-stage="new-4"><rect class="box" x="585" y="340" width="290" height="54" rx="7"  />
+<text class="label" x="730.0" y="372.0" style="font-size: 14px" ><tspan x="730.0" dy="0">토큰 한도</tspan></text>
+</g>
+<path class="route" d="M315 234 H418" style="stroke-width: 3" />
+<path class="flow" d="M315 234 H418" data-stage="in" />
+<path class="arrow" d="M413 230 l5 4 -5 4"  />
+<g class="pulse" data-stage="self"><circle class="accent-box" cx="450" cy="234" r="32" /><text class="label" x="450" y="239" style="font-size: 16px" ><tspan x="450" dy="0">나</tspan></text>
+</g>
+<path class="route" d="M482 234 H585" style="stroke-width: 3" />
+<path class="flow" d="M482 234 H585" data-stage="out" />
+<path class="arrow" d="M580 230 l5 4 -5 4"  />
+<text class="small" x="450" y="294" style="font-size: 13px" data-stage="self"><tspan x="450" dy="0">병목</tspan></text>
+<text class="small" x="450" y="440" style="font-size: 13px" data-stage="quote"><tspan x="450" dy="0">병목은 사라진 게 아니라 나한테로 옮겨 왔다</tspan></text>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 960" role="img" aria-label={description}>
+<text class="label" x="160" y="25" style="font-size: 15px" ><tspan x="160" dy="0">사라진 제약</tspan></text>
+<text class="small" x="160" y="48" style="font-size: 13px" ><tspan x="160" dy="0">2절</tspan></text>
+<g class="pulse" data-stage="old-0"><rect class="box" x="15" y="68" width="290" height="48" rx="7"  />
+<text class="label" x="160.0" y="97.0" style="font-size: 13px" ><tspan x="160.0" dy="0">커뮤니케이션 오버헤드</tspan></text>
+</g>
+<g class="pulse" data-stage="old-1"><rect class="box" x="15" y="132" width="290" height="48" rx="7"  />
+<text class="label" x="160.0" y="161.0" style="font-size: 13px" ><tspan x="160.0" dy="0">사람 코드 리뷰</tspan></text>
+</g>
+<g class="pulse" data-stage="old-2"><rect class="box" x="15" y="196" width="290" height="48" rx="7"  />
+<text class="label" x="160.0" y="225.0" style="font-size: 13px" ><tspan x="160.0" dy="0">PM이 주는 일감 대기</tspan></text>
+</g>
+<g class="pulse" data-stage="old-3"><rect class="box" x="15" y="260" width="290" height="48" rx="7"  />
+<text class="label" x="160.0" y="289.0" style="font-size: 13px" ><tspan x="160.0" dy="0">되돌릴 수 없는 마이그레이션</tspan></text>
+</g>
+<path class="route" d="M160 308 V362" style="stroke-width: 3" />
+<path class="flow" d="M160 308 V362" data-stage="in" />
+<path class="arrow" d="M156 357 l4 5 4 -5"  />
+<g class="pulse" data-stage="self"><circle class="accent-box" cx="160" cy="394" r="32" /><text class="label" x="160" y="399" style="font-size: 16px" ><tspan x="160" dy="0">나</tspan></text>
+</g>
+<text class="small" x="224" y="399" style="font-size: 13px" data-stage="self"><tspan x="224" dy="0">병목</tspan></text>
+<path class="route" d="M160 426 V480" style="stroke-width: 3" />
+<path class="flow" d="M160 426 V480" data-stage="out" />
+<path class="arrow" d="M156 475 l4 5 4 -5"  />
+<text class="label" x="160" y="508" style="font-size: 15px" ><tspan x="160" dy="0">새로 생긴 제약</tspan></text>
+<text class="small" x="160" y="532" style="font-size: 13px" ><tspan x="160" dy="0">3절</tspan></text>
+<g class="pulse" data-stage="new-0"><rect class="box" x="15" y="550" width="290" height="54" rx="7"  />
+<text class="label" x="160.0" y="582.0" style="font-size: 13px" ><tspan x="160.0" dy="0">컨텍스트 스위칭 피로</tspan></text>
+</g>
+<g class="pulse" data-stage="new-1"><rect class="box" x="15" y="618" width="290" height="54" rx="7"  />
+<text class="label" x="160.0" y="650.0" style="font-size: 13px" ><tspan x="160.0" dy="0">스래싱</tspan></text>
+</g>
+<g class="pulse" data-stage="new-2"><rect class="box" x="15" y="686" width="290" height="54" rx="7"  />
+<text class="label" x="160.0" y="709.0" style="font-size: 13px" ><tspan x="160.0" dy="0">공유 컨텍스트 상실</tspan></text>
+</g>
+<text class="small" x="160" y="730" style="font-size: 11px" ><tspan x="160" dy="0">버스 팩터 1</tspan></text>
+<g class="pulse" data-stage="new-3"><rect class="box" x="15" y="754" width="290" height="54" rx="7"  />
+<text class="label" x="160.0" y="786.0" style="font-size: 13px" ><tspan x="160.0" dy="0">페이스 조절</tspan></text>
+</g>
+<g class="pulse" data-stage="new-4"><rect class="box" x="15" y="822" width="290" height="54" rx="7"  />
+<text class="label" x="160.0" y="854.0" style="font-size: 13px" ><tspan x="160.0" dy="0">토큰 한도</tspan></text>
+</g>
+<text class="small" x="160" y="920" style="font-size: 13px" data-stage="quote"><tspan x="160" dy="0">병목은 사라진 게 아니라</tspan><tspan x="160" dy="19">나한테로 옮겨 왔다</tspan></text>
+</svg>
+</DiagramFrame>
+<style>
+svg .pulse .box { stroke: var(--line); }
+svg .pulse { opacity: .65; }
+svg .flow { opacity: 0; }
+svg [data-stage="old-0"] { animation: old-0 14s ease-in-out infinite; }
+@keyframes old-0 { 0%, 0.0% { opacity: .65; } 3.571428571428571% { opacity: 1; } 7.142857142857142%, 96% { opacity: .35; } 100% { opacity: .65; } }
+svg [data-stage="old-1"] { animation: old-1 14s ease-in-out infinite; }
+@keyframes old-1 { 0%, 7.142857142857142% { opacity: .65; } 10.714285714285714% { opacity: 1; } 14.285714285714285%, 96% { opacity: .35; } 100% { opacity: .65; } }
+svg [data-stage="old-2"] { animation: old-2 14s ease-in-out infinite; }
+@keyframes old-2 { 0%, 14.285714285714285% { opacity: .65; } 17.857142857142858% { opacity: 1; } 21.428571428571427%, 96% { opacity: .35; } 100% { opacity: .65; } }
+svg [data-stage="old-3"] { animation: old-3 14s ease-in-out infinite; }
+@keyframes old-3 { 0%, 21.428571428571427% { opacity: .65; } 25.0% { opacity: 1; } 28.57142857142857%, 96% { opacity: .35; } 100% { opacity: .65; } }
+svg [data-stage="new-0"] { animation: new-0 14s ease-in-out infinite; }
+@keyframes new-0 { 0%, 50.0% { opacity: .65; } 57.14285714285714%, 96% { opacity: 1; } 100% { opacity: .65; } }
+svg [data-stage="new-1"] { animation: new-1 14s ease-in-out infinite; }
+@keyframes new-1 { 0%, 57.14285714285714% { opacity: .65; } 64.28571428571429%, 96% { opacity: 1; } 100% { opacity: .65; } }
+svg [data-stage="new-2"] { animation: new-2 14s ease-in-out infinite; }
+@keyframes new-2 { 0%, 64.28571428571429% { opacity: .65; } 71.42857142857143%, 96% { opacity: 1; } 100% { opacity: .65; } }
+svg [data-stage="new-3"] { animation: new-3 14s ease-in-out infinite; }
+@keyframes new-3 { 0%, 71.42857142857143% { opacity: .65; } 78.57142857142857%, 96% { opacity: 1; } 100% { opacity: .65; } }
+svg [data-stage="new-4"] { animation: new-4 14s ease-in-out infinite; }
+@keyframes new-4 { 0%, 78.57142857142857% { opacity: .65; } 85.71428571428571%, 96% { opacity: 1; } 100% { opacity: .65; } }
+svg [data-stage="in"].flow { animation: in-flow 14s ease-in-out infinite; }
+@keyframes in-flow { 0%, 100% { opacity: 0; } 35.7143%, 50.0% { opacity: 0; } 37.1429%, 48.5714% { opacity: 1; } 0%, 35.7143% { stroke-dashoffset: 0; } 50.0%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="self"]:not(.flow) { animation: self 14s ease-in-out infinite; }
+@keyframes self { 0%, 100% { opacity: 0.65; } 35.7143%, 50.0% { opacity: 0.65; } 37.1429%, 48.5714% { opacity: 1; } }
+svg [data-stage="out"].flow { animation: out-flow 14s ease-in-out infinite; }
+@keyframes out-flow { 0%, 100% { opacity: 0; } 50.0%, 85.7143% { opacity: 0; } 51.4286%, 84.2857% { opacity: 1; } 0%, 50.0% { stroke-dashoffset: 0; } 85.7143%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="quote"]:not(.flow) { animation: quote 14s ease-in-out infinite; }
+@keyframes quote { 0%, 100% { opacity: 0.65; } 85.7143%, 100.0% { opacity: 0.65; } 87.1429%, 98.5714% { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  svg *, svg .pulse, svg .flow { animation: none !important; transform: none !important; opacity: 1; }
+  svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+  svg [data-stage^="old-"] { opacity: .5; }
+}
+</style>

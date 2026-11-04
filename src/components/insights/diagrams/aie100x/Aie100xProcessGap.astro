@@ -1,0 +1,565 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "위가 회사가 확장하는 방식이다. 대표가 서명한 프로세스가 모든 고객에게 같은 순서로 돈다. 아래가 프로세스 간극이다. 세 사람이 각자 다른 길로 가는데 결과물은 똑같아 보인다." } = Astro.props;
+const description = "위는 법인 대표가 서명한 네 단계 프로세스(분류, 현금 대사, 변동 설명, 검토)가 다섯 고객 모두에게 같은 순서로 적용되는 모습이고, 아래는 세 사람이 장부에 맞춘 뒤 각자 다른 방식(차이 추적, 아무것도 안 함, 억지로 맞추기)으로 현금 대사를 끝내 겉보기에 같은 결과물을 내는 프로세스 간극을 보여 주는 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 922" role="img" aria-label={description}>
+<text class="label" x="460" y="26" style="font-size: 16px"><tspan x="460" dy="0">회사가 서명한 프로세스</tspan></text>
+<text class="small" x="460" y="48" style="font-size: 13px"><tspan x="460" dy="0">A process the firm signed off on</tspan></text>
+<g class="signed">
+<circle class="box" cx="90" cy="91" r="7" />
+<path class="route" d="M78 116 v-5 a12 12 0 0 1 24 0 v5"  />
+<text class="label" x="90" y="140" style="font-size: 13px"><tspan x="90" dy="0">법인 대표</tspan></text>
+<text class="small" x="90" y="160" style="font-size: 13px"><tspan x="90" dy="0">Head of the firm</tspan></text>
+<text class="accent-text" x="90" y="177" style="font-size: 13px"><tspan x="90" dy="0">✓ Signed off</tspan></text>
+</g>
+<path class="route" d="M155 110 H250"  />
+<path class="arrow" d="M245 106 l5 4 -5 4"  />
+<g class="top-0">
+<rect class="box" x="250" y="80" width="144" height="60" rx="7" />
+<text class="label" x="322.0" y="104" style="font-size: 14px"><tspan x="322.0" dy="0">분류</tspan></text>
+<text class="small" x="322.0" y="124" style="font-size: 12px"><tspan x="322.0" dy="0">Categorize</tspan></text>
+</g>
+<path class="route" d="M394 110 h18"  />
+<path class="arrow" d="M407 106 l5 4 -5 4"  />
+<g class="top-1">
+<rect class="box" x="412" y="80" width="144" height="60" rx="7" />
+<text class="label" x="484.0" y="104" style="font-size: 14px"><tspan x="484.0" dy="0">현금 대사</tspan></text>
+<text class="small" x="484.0" y="124" style="font-size: 12px"><tspan x="484.0" dy="0">Reconcile cash</tspan></text>
+</g>
+<path class="route" d="M556 110 h18"  />
+<path class="arrow" d="M569 106 l5 4 -5 4"  />
+<g class="top-2">
+<rect class="box" x="574" y="80" width="144" height="60" rx="7" />
+<text class="label" x="646.0" y="104" style="font-size: 14px"><tspan x="646.0" dy="0">변동 설명</tspan></text>
+<text class="small" x="646.0" y="124" style="font-size: 12px"><tspan x="646.0" dy="0">Explain changes</tspan></text>
+</g>
+<path class="route" d="M718 110 h18"  />
+<path class="arrow" d="M731 106 l5 4 -5 4"  />
+<g class="top-3">
+<rect class="box" x="736" y="80" width="144" height="60" rx="7" />
+<text class="label" x="808.0" y="104" style="font-size: 14px"><tspan x="808.0" dy="0">검토</tspan></text>
+<text class="small" x="808.0" y="124" style="font-size: 12px"><tspan x="808.0" dy="0">Review</tspan></text>
+</g>
+<path class="route replicate" d="M322 140 V452" stroke-dasharray="4 5" />
+<text class="small" x="119" y="198" style="font-size: 13px"><tspan x="119" dy="0">치과</tspan></text>
+<text class="small" x="119" y="216" style="font-size: 12px"><tspan x="119" dy="0">Dental practice</tspan></text>
+<g class="client-0">
+<rect class="box client-box" x="250" y="176" width="144" height="52" rx="7" />
+<text class="label" x="322.0" y="200" style="font-size: 13px"><tspan x="322.0" dy="0">분류</tspan></text>
+<text class="small" x="322.0" y="220" style="font-size: 12px"><tspan x="322.0" dy="0">Categorize</tspan></text>
+</g>
+<path class="route" d="M394 202 h18"  />
+<path class="arrow" d="M407 198 l5 4 -5 4"  />
+<g class="client-1">
+<rect class="box client-box" x="412" y="176" width="144" height="52" rx="7" />
+<text class="label" x="484.0" y="200" style="font-size: 13px"><tspan x="484.0" dy="0">현금 대사</tspan></text>
+<text class="small" x="484.0" y="220" style="font-size: 12px"><tspan x="484.0" dy="0">Reconcile cash</tspan></text>
+</g>
+<path class="route" d="M556 202 h18"  />
+<path class="arrow" d="M569 198 l5 4 -5 4"  />
+<g class="client-2">
+<rect class="box client-box" x="574" y="176" width="144" height="52" rx="7" />
+<text class="label" x="646.0" y="200" style="font-size: 13px"><tspan x="646.0" dy="0">변동 설명</tspan></text>
+<text class="small" x="646.0" y="220" style="font-size: 12px"><tspan x="646.0" dy="0">Explain changes</tspan></text>
+</g>
+<path class="route" d="M718 202 h18"  />
+<path class="arrow" d="M731 198 l5 4 -5 4"  />
+<g class="client-3">
+<rect class="box client-box" x="736" y="176" width="144" height="52" rx="7" />
+<text class="label" x="808.0" y="200" style="font-size: 13px"><tspan x="808.0" dy="0">검토</tspan></text>
+<text class="small" x="808.0" y="220" style="font-size: 12px"><tspan x="808.0" dy="0">Review</tspan></text>
+</g>
+<text class="small" x="119" y="260" style="font-size: 13px"><tspan x="119" dy="0">SaaS 스타트업</tspan></text>
+<text class="small" x="119" y="278" style="font-size: 12px"><tspan x="119" dy="0">SaaS startup</tspan></text>
+<g class="client-0">
+<rect class="box client-box" x="250" y="238" width="144" height="52" rx="7" />
+<text class="label" x="322.0" y="262" style="font-size: 13px"><tspan x="322.0" dy="0">분류</tspan></text>
+<text class="small" x="322.0" y="282" style="font-size: 12px"><tspan x="322.0" dy="0">Categorize</tspan></text>
+</g>
+<path class="route" d="M394 264 h18"  />
+<path class="arrow" d="M407 260 l5 4 -5 4"  />
+<g class="client-1">
+<rect class="box client-box" x="412" y="238" width="144" height="52" rx="7" />
+<text class="label" x="484.0" y="262" style="font-size: 13px"><tspan x="484.0" dy="0">현금 대사</tspan></text>
+<text class="small" x="484.0" y="282" style="font-size: 12px"><tspan x="484.0" dy="0">Reconcile cash</tspan></text>
+</g>
+<path class="route" d="M556 264 h18"  />
+<path class="arrow" d="M569 260 l5 4 -5 4"  />
+<g class="client-2">
+<rect class="box client-box" x="574" y="238" width="144" height="52" rx="7" />
+<text class="label" x="646.0" y="262" style="font-size: 13px"><tspan x="646.0" dy="0">변동 설명</tspan></text>
+<text class="small" x="646.0" y="282" style="font-size: 12px"><tspan x="646.0" dy="0">Explain changes</tspan></text>
+</g>
+<path class="route" d="M718 264 h18"  />
+<path class="arrow" d="M731 260 l5 4 -5 4"  />
+<g class="client-3">
+<rect class="box client-box" x="736" y="238" width="144" height="52" rx="7" />
+<text class="label" x="808.0" y="262" style="font-size: 13px"><tspan x="808.0" dy="0">검토</tspan></text>
+<text class="small" x="808.0" y="282" style="font-size: 12px"><tspan x="808.0" dy="0">Review</tspan></text>
+</g>
+<text class="small" x="119" y="322" style="font-size: 13px"><tspan x="119" dy="0">커피 로스터</tspan></text>
+<text class="small" x="119" y="340" style="font-size: 12px"><tspan x="119" dy="0">Coffee roaster</tspan></text>
+<g class="client-0">
+<rect class="box client-box" x="250" y="300" width="144" height="52" rx="7" />
+<text class="label" x="322.0" y="324" style="font-size: 13px"><tspan x="322.0" dy="0">분류</tspan></text>
+<text class="small" x="322.0" y="344" style="font-size: 12px"><tspan x="322.0" dy="0">Categorize</tspan></text>
+</g>
+<path class="route" d="M394 326 h18"  />
+<path class="arrow" d="M407 322 l5 4 -5 4"  />
+<g class="client-1">
+<rect class="box client-box" x="412" y="300" width="144" height="52" rx="7" />
+<text class="label" x="484.0" y="324" style="font-size: 13px"><tspan x="484.0" dy="0">현금 대사</tspan></text>
+<text class="small" x="484.0" y="344" style="font-size: 12px"><tspan x="484.0" dy="0">Reconcile cash</tspan></text>
+</g>
+<path class="route" d="M556 326 h18"  />
+<path class="arrow" d="M569 322 l5 4 -5 4"  />
+<g class="client-2">
+<rect class="box client-box" x="574" y="300" width="144" height="52" rx="7" />
+<text class="label" x="646.0" y="324" style="font-size: 13px"><tspan x="646.0" dy="0">변동 설명</tspan></text>
+<text class="small" x="646.0" y="344" style="font-size: 12px"><tspan x="646.0" dy="0">Explain changes</tspan></text>
+</g>
+<path class="route" d="M718 326 h18"  />
+<path class="arrow" d="M731 322 l5 4 -5 4"  />
+<g class="client-3">
+<rect class="box client-box" x="736" y="300" width="144" height="52" rx="7" />
+<text class="label" x="808.0" y="324" style="font-size: 13px"><tspan x="808.0" dy="0">검토</tspan></text>
+<text class="small" x="808.0" y="344" style="font-size: 12px"><tspan x="808.0" dy="0">Review</tspan></text>
+</g>
+<text class="small" x="119" y="384" style="font-size: 13px"><tspan x="119" dy="0">병원</tspan></text>
+<text class="small" x="119" y="402" style="font-size: 12px"><tspan x="119" dy="0">Medical clinic</tspan></text>
+<g class="client-0">
+<rect class="box client-box" x="250" y="362" width="144" height="52" rx="7" />
+<text class="label" x="322.0" y="386" style="font-size: 13px"><tspan x="322.0" dy="0">분류</tspan></text>
+<text class="small" x="322.0" y="406" style="font-size: 12px"><tspan x="322.0" dy="0">Categorize</tspan></text>
+</g>
+<path class="route" d="M394 388 h18"  />
+<path class="arrow" d="M407 384 l5 4 -5 4"  />
+<g class="client-1">
+<rect class="box client-box" x="412" y="362" width="144" height="52" rx="7" />
+<text class="label" x="484.0" y="386" style="font-size: 13px"><tspan x="484.0" dy="0">현금 대사</tspan></text>
+<text class="small" x="484.0" y="406" style="font-size: 12px"><tspan x="484.0" dy="0">Reconcile cash</tspan></text>
+</g>
+<path class="route" d="M556 388 h18"  />
+<path class="arrow" d="M569 384 l5 4 -5 4"  />
+<g class="client-2">
+<rect class="box client-box" x="574" y="362" width="144" height="52" rx="7" />
+<text class="label" x="646.0" y="386" style="font-size: 13px"><tspan x="646.0" dy="0">변동 설명</tspan></text>
+<text class="small" x="646.0" y="406" style="font-size: 12px"><tspan x="646.0" dy="0">Explain changes</tspan></text>
+</g>
+<path class="route" d="M718 388 h18"  />
+<path class="arrow" d="M731 384 l5 4 -5 4"  />
+<g class="client-3">
+<rect class="box client-box" x="736" y="362" width="144" height="52" rx="7" />
+<text class="label" x="808.0" y="386" style="font-size: 13px"><tspan x="808.0" dy="0">검토</tspan></text>
+<text class="small" x="808.0" y="406" style="font-size: 12px"><tspan x="808.0" dy="0">Review</tspan></text>
+</g>
+<text class="small" x="119" y="446" style="font-size: 13px"><tspan x="119" dy="0">부동산 법인</tspan></text>
+<text class="small" x="119" y="464" style="font-size: 12px"><tspan x="119" dy="0">Real estate LLC</tspan></text>
+<g class="client-0">
+<rect class="box client-box" x="250" y="424" width="144" height="52" rx="7" />
+<text class="label" x="322.0" y="448" style="font-size: 13px"><tspan x="322.0" dy="0">분류</tspan></text>
+<text class="small" x="322.0" y="468" style="font-size: 12px"><tspan x="322.0" dy="0">Categorize</tspan></text>
+</g>
+<path class="route" d="M394 450 h18"  />
+<path class="arrow" d="M407 446 l5 4 -5 4"  />
+<g class="client-1">
+<rect class="box client-box" x="412" y="424" width="144" height="52" rx="7" />
+<text class="label" x="484.0" y="448" style="font-size: 13px"><tspan x="484.0" dy="0">현금 대사</tspan></text>
+<text class="small" x="484.0" y="468" style="font-size: 12px"><tspan x="484.0" dy="0">Reconcile cash</tspan></text>
+</g>
+<path class="route" d="M556 450 h18"  />
+<path class="arrow" d="M569 446 l5 4 -5 4"  />
+<g class="client-2">
+<rect class="box client-box" x="574" y="424" width="144" height="52" rx="7" />
+<text class="label" x="646.0" y="448" style="font-size: 13px"><tspan x="646.0" dy="0">변동 설명</tspan></text>
+<text class="small" x="646.0" y="468" style="font-size: 12px"><tspan x="646.0" dy="0">Explain changes</tspan></text>
+</g>
+<path class="route" d="M718 450 h18"  />
+<path class="arrow" d="M731 446 l5 4 -5 4"  />
+<g class="client-3">
+<rect class="box client-box" x="736" y="424" width="144" height="52" rx="7" />
+<text class="label" x="808.0" y="448" style="font-size: 13px"><tspan x="808.0" dy="0">검토</tspan></text>
+<text class="small" x="808.0" y="468" style="font-size: 12px"><tspan x="808.0" dy="0">Review</tspan></text>
+</g>
+<text class="small" x="460" y="520" style="font-size: 13px"><tspan x="460" dy="0">우리의 리스크 허용치, 우리 일, 우리 고객에 맞게 고른 것</tspan></text>
+<text class="small" x="460" y="541" style="font-size: 13px"><tspan x="460" dy="0">Chosen for our risk tolerance, our work, our clients.</tspan></text>
+<text class="label" x="460" y="580" style="font-size: 16px"><tspan x="460" dy="0">각자 정하는 프로세스</tspan></text>
+<text class="small" x="460" y="601" style="font-size: 13px"><tspan x="460" dy="0">Process gap</tspan></text>
+<g class="">
+<rect class="accent-box" x="18" y="650" width="170" height="60" rx="7" />
+<text class="label" x="103.0" y="674" style="font-size: 14px"><tspan x="103.0" dy="0">프로세스 간극</tspan></text>
+<text class="small" x="103.0" y="694" style="font-size: 12px"><tspan x="103.0" dy="0">Process gap</tspan></text>
+</g>
+<text class="small" x="540" y="630" style="font-size: 13px"><tspan x="540" dy="0">각자 자기 프로세스를 정한다</tspan></text>
+<text class="small" x="540" y="650" style="font-size: 13px"><tspan x="540" dy="0">Each person decides the process for themselves.</tspan></text>
+<circle class="box" cx="220" cy="690" r="7" />
+<path class="route" d="M208 715 v-5 a12 12 0 0 1 24 0 v5"  />
+<path class="route" d="M234 707 H260"  />
+<path class="arrow" d="M255 703 l5 4 -5 4"  />
+<g class="person-0">
+<rect class="box" x="260" y="680" width="190" height="56" rx="7" />
+<text class="label" x="355.0" y="704" style="font-size: 14px"><tspan x="355.0" dy="0">장부에 맞추기</tspan></text>
+<text class="small" x="355.0" y="724" style="font-size: 12px"><tspan x="355.0" dy="0">Match to the books</tspan></text>
+</g>
+<path class="route" d="M450 707 H485"  />
+<path class="arrow" d="M480 703 l5 4 -5 4"  />
+<g class="different-0">
+<rect class="box" x="485" y="680" width="190" height="56" rx="7" />
+<text class="label" x="580.0" y="704" style="font-size: 14px"><tspan x="580.0" dy="0">차이 추적</tspan></text>
+<text class="small" x="580.0" y="724" style="font-size: 12px"><tspan x="580.0" dy="0">Chase differences</tspan></text>
+</g>
+<g class="different-0">
+<path class="route" d="M675 707 H724"  />
+<path class="arrow" d="M719 703 l5 4 -5 4"  />
+</g>
+<g class="documents">
+<path class="box" d="M732 689 h18 l8 8 v28 h-26 Z M750 689 v8 h8 M738 706 h14 M738 713 h14"  />
+</g>
+<circle class="box" cx="220" cy="772" r="7" />
+<path class="route" d="M208 797 v-5 a12 12 0 0 1 24 0 v5"  />
+<path class="route" d="M234 789 H260"  />
+<path class="arrow" d="M255 785 l5 4 -5 4"  />
+<g class="person-1">
+<rect class="box" x="260" y="762" width="190" height="56" rx="7" />
+<text class="label" x="355.0" y="786" style="font-size: 14px"><tspan x="355.0" dy="0">장부에 맞추기</tspan></text>
+<text class="small" x="355.0" y="806" style="font-size: 12px"><tspan x="355.0" dy="0">Match to the books</tspan></text>
+</g>
+<g class="different-1">
+<path class="route" d="M450 789 H724"  />
+<path class="arrow" d="M719 785 l5 4 -5 4"  />
+</g>
+<g class="documents">
+<path class="box" d="M732 771 h18 l8 8 v28 h-26 Z M750 771 v8 h8 M738 788 h14 M738 795 h14"  />
+</g>
+<circle class="box" cx="220" cy="854" r="7" />
+<path class="route" d="M208 879 v-5 a12 12 0 0 1 24 0 v5"  />
+<path class="route" d="M234 871 H260"  />
+<path class="arrow" d="M255 867 l5 4 -5 4"  />
+<g class="person-2">
+<rect class="box" x="260" y="844" width="190" height="56" rx="7" />
+<text class="label" x="355.0" y="868" style="font-size: 14px"><tspan x="355.0" dy="0">장부에 맞추기</tspan></text>
+<text class="small" x="355.0" y="888" style="font-size: 12px"><tspan x="355.0" dy="0">Match to the books</tspan></text>
+</g>
+<path class="route" d="M450 871 H485"  />
+<path class="arrow" d="M480 867 l5 4 -5 4"  />
+<g class="different-2">
+<rect class="accent-box" x="485" y="844" width="190" height="56" rx="7" />
+<text class="label" x="580.0" y="868" style="font-size: 14px"><tspan x="580.0" dy="0">억지로 맞추기</tspan></text>
+<text class="small" x="580.0" y="888" style="font-size: 12px"><tspan x="580.0" dy="0">Force a tie</tspan></text>
+</g>
+<g class="different-2">
+<path class="route" d="M675 871 H724"  />
+<path class="arrow" d="M719 867 l5 4 -5 4"  />
+</g>
+<g class="documents">
+<path class="box" d="M732 853 h18 l8 8 v28 h-26 Z M750 853 v8 h8 M738 870 h14 M738 877 h14"  />
+</g>
+<g class="documents">
+<path class="route" d="M777 683 q12 0 12 16 v58 q0 16 12 16 q-12 0 -12 16 v58 q0 16 -12 16"  />
+<text class="label" x="849" y="769" style="font-size: 13px"><tspan x="849" dy="0">겉보기엔 같다</tspan></text>
+<text class="small" x="849" y="790" style="font-size: 12px"><tspan x="849" dy="0">Look the same</tspan></text>
+</g>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 2248" role="img" aria-label={description}>
+<text class="label" x="160" y="26" style="font-size: 16px"><tspan x="160" dy="0">회사가 서명한 프로세스</tspan></text>
+<text class="small" x="160" y="48" style="font-size: 13px"><tspan x="160" dy="0">A process the firm signed off on</tspan></text>
+<g class="signed">
+<circle class="box" cx="70" cy="83" r="7" />
+<path class="route" d="M58 108 v-5 a12 12 0 0 1 24 0 v5"  />
+<text class="label" x="170" y="85" style="font-size: 13px"><tspan x="170" dy="0">법인 대표</tspan></text>
+<text class="small" x="170" y="105" style="font-size: 13px"><tspan x="170" dy="0">Head of the firm</tspan></text>
+<text class="accent-text" x="170" y="129" style="font-size: 13px"><tspan x="170" dy="0">✓ Signed off</tspan></text>
+</g>
+<path class="route" d="M160 140 V160"  />
+<path class="arrow" d="M156 155 l4 5 4 -5"  />
+<g class="top-0">
+<rect class="box" x="16" y="162" width="130" height="56" rx="7" />
+<text class="label" x="81.0" y="186" style="font-size: 13px"><tspan x="81.0" dy="0">분류</tspan></text>
+<text class="small" x="81.0" y="206" style="font-size: 12px"><tspan x="81.0" dy="0">Categorize</tspan></text>
+</g>
+<g class="top-1">
+<rect class="box" x="170" y="162" width="130" height="56" rx="7" />
+<text class="label" x="235.0" y="186" style="font-size: 13px"><tspan x="235.0" dy="0">현금 대사</tspan></text>
+<text class="small" x="235.0" y="206" style="font-size: 12px"><tspan x="235.0" dy="0">Reconcile cash</tspan></text>
+</g>
+<g class="top-2">
+<rect class="box" x="16" y="236" width="130" height="56" rx="7" />
+<text class="label" x="81.0" y="260" style="font-size: 13px"><tspan x="81.0" dy="0">변동 설명</tspan></text>
+<text class="small" x="81.0" y="280" style="font-size: 12px"><tspan x="81.0" dy="0">Explain changes</tspan></text>
+</g>
+<g class="top-3">
+<rect class="box" x="170" y="236" width="130" height="56" rx="7" />
+<text class="label" x="235.0" y="260" style="font-size: 13px"><tspan x="235.0" dy="0">검토</tspan></text>
+<text class="small" x="235.0" y="280" style="font-size: 12px"><tspan x="235.0" dy="0">Review</tspan></text>
+</g>
+<path class="route" d="M146 190 H170"  />
+<path class="arrow" d="M165 186 l5 4 -5 4"  />
+<path class="route" d="M235 218 V227 H81 V236"  />
+<path class="arrow" d="M77 231 l4 5 4 -5"  />
+<path class="route" d="M146 264 H170"  />
+<path class="arrow" d="M165 260 l5 4 -5 4"  />
+<path class="route replicate" d="M8 292 V1245" stroke-dasharray="4 5" />
+<text class="label" x="160" y="326" style="font-size: 13px"><tspan x="160" dy="0">치과</tspan></text>
+<text class="small" x="160" y="345" style="font-size: 12px"><tspan x="160" dy="0">Dental practice</tspan></text>
+<g class="client-0">
+<rect class="box" x="16" y="357" width="130" height="56" rx="7" />
+<text class="label" x="81.0" y="381" style="font-size: 13px"><tspan x="81.0" dy="0">분류</tspan></text>
+<text class="small" x="81.0" y="401" style="font-size: 12px"><tspan x="81.0" dy="0">Categorize</tspan></text>
+</g>
+<g class="client-1">
+<rect class="box" x="170" y="357" width="130" height="56" rx="7" />
+<text class="label" x="235.0" y="381" style="font-size: 13px"><tspan x="235.0" dy="0">현금 대사</tspan></text>
+<text class="small" x="235.0" y="401" style="font-size: 12px"><tspan x="235.0" dy="0">Reconcile cash</tspan></text>
+</g>
+<g class="client-2">
+<rect class="box" x="16" y="431" width="130" height="56" rx="7" />
+<text class="label" x="81.0" y="455" style="font-size: 13px"><tspan x="81.0" dy="0">변동 설명</tspan></text>
+<text class="small" x="81.0" y="475" style="font-size: 12px"><tspan x="81.0" dy="0">Explain changes</tspan></text>
+</g>
+<g class="client-3">
+<rect class="box" x="170" y="431" width="130" height="56" rx="7" />
+<text class="label" x="235.0" y="455" style="font-size: 13px"><tspan x="235.0" dy="0">검토</tspan></text>
+<text class="small" x="235.0" y="475" style="font-size: 12px"><tspan x="235.0" dy="0">Review</tspan></text>
+</g>
+<path class="route" d="M146 385 H170"  />
+<path class="arrow" d="M165 381 l5 4 -5 4"  />
+<path class="route" d="M235 413 V422 H81 V431"  />
+<path class="arrow" d="M77 426 l4 5 4 -5"  />
+<path class="route" d="M146 459 H170"  />
+<path class="arrow" d="M165 455 l5 4 -5 4"  />
+<text class="label" x="160" y="512" style="font-size: 13px"><tspan x="160" dy="0">SaaS 스타트업</tspan></text>
+<text class="small" x="160" y="531" style="font-size: 12px"><tspan x="160" dy="0">SaaS startup</tspan></text>
+<g class="client-0">
+<rect class="box" x="16" y="543" width="130" height="56" rx="7" />
+<text class="label" x="81.0" y="567" style="font-size: 13px"><tspan x="81.0" dy="0">분류</tspan></text>
+<text class="small" x="81.0" y="587" style="font-size: 12px"><tspan x="81.0" dy="0">Categorize</tspan></text>
+</g>
+<g class="client-1">
+<rect class="box" x="170" y="543" width="130" height="56" rx="7" />
+<text class="label" x="235.0" y="567" style="font-size: 13px"><tspan x="235.0" dy="0">현금 대사</tspan></text>
+<text class="small" x="235.0" y="587" style="font-size: 12px"><tspan x="235.0" dy="0">Reconcile cash</tspan></text>
+</g>
+<g class="client-2">
+<rect class="box" x="16" y="617" width="130" height="56" rx="7" />
+<text class="label" x="81.0" y="641" style="font-size: 13px"><tspan x="81.0" dy="0">변동 설명</tspan></text>
+<text class="small" x="81.0" y="661" style="font-size: 12px"><tspan x="81.0" dy="0">Explain changes</tspan></text>
+</g>
+<g class="client-3">
+<rect class="box" x="170" y="617" width="130" height="56" rx="7" />
+<text class="label" x="235.0" y="641" style="font-size: 13px"><tspan x="235.0" dy="0">검토</tspan></text>
+<text class="small" x="235.0" y="661" style="font-size: 12px"><tspan x="235.0" dy="0">Review</tspan></text>
+</g>
+<path class="route" d="M146 571 H170"  />
+<path class="arrow" d="M165 567 l5 4 -5 4"  />
+<path class="route" d="M235 599 V608 H81 V617"  />
+<path class="arrow" d="M77 612 l4 5 4 -5"  />
+<path class="route" d="M146 645 H170"  />
+<path class="arrow" d="M165 641 l5 4 -5 4"  />
+<text class="label" x="160" y="698" style="font-size: 13px"><tspan x="160" dy="0">커피 로스터</tspan></text>
+<text class="small" x="160" y="717" style="font-size: 12px"><tspan x="160" dy="0">Coffee roaster</tspan></text>
+<g class="client-0">
+<rect class="box" x="16" y="729" width="130" height="56" rx="7" />
+<text class="label" x="81.0" y="753" style="font-size: 13px"><tspan x="81.0" dy="0">분류</tspan></text>
+<text class="small" x="81.0" y="773" style="font-size: 12px"><tspan x="81.0" dy="0">Categorize</tspan></text>
+</g>
+<g class="client-1">
+<rect class="box" x="170" y="729" width="130" height="56" rx="7" />
+<text class="label" x="235.0" y="753" style="font-size: 13px"><tspan x="235.0" dy="0">현금 대사</tspan></text>
+<text class="small" x="235.0" y="773" style="font-size: 12px"><tspan x="235.0" dy="0">Reconcile cash</tspan></text>
+</g>
+<g class="client-2">
+<rect class="box" x="16" y="803" width="130" height="56" rx="7" />
+<text class="label" x="81.0" y="827" style="font-size: 13px"><tspan x="81.0" dy="0">변동 설명</tspan></text>
+<text class="small" x="81.0" y="847" style="font-size: 12px"><tspan x="81.0" dy="0">Explain changes</tspan></text>
+</g>
+<g class="client-3">
+<rect class="box" x="170" y="803" width="130" height="56" rx="7" />
+<text class="label" x="235.0" y="827" style="font-size: 13px"><tspan x="235.0" dy="0">검토</tspan></text>
+<text class="small" x="235.0" y="847" style="font-size: 12px"><tspan x="235.0" dy="0">Review</tspan></text>
+</g>
+<path class="route" d="M146 757 H170"  />
+<path class="arrow" d="M165 753 l5 4 -5 4"  />
+<path class="route" d="M235 785 V794 H81 V803"  />
+<path class="arrow" d="M77 798 l4 5 4 -5"  />
+<path class="route" d="M146 831 H170"  />
+<path class="arrow" d="M165 827 l5 4 -5 4"  />
+<text class="label" x="160" y="884" style="font-size: 13px"><tspan x="160" dy="0">병원</tspan></text>
+<text class="small" x="160" y="903" style="font-size: 12px"><tspan x="160" dy="0">Medical clinic</tspan></text>
+<g class="client-0">
+<rect class="box" x="16" y="915" width="130" height="56" rx="7" />
+<text class="label" x="81.0" y="939" style="font-size: 13px"><tspan x="81.0" dy="0">분류</tspan></text>
+<text class="small" x="81.0" y="959" style="font-size: 12px"><tspan x="81.0" dy="0">Categorize</tspan></text>
+</g>
+<g class="client-1">
+<rect class="box" x="170" y="915" width="130" height="56" rx="7" />
+<text class="label" x="235.0" y="939" style="font-size: 13px"><tspan x="235.0" dy="0">현금 대사</tspan></text>
+<text class="small" x="235.0" y="959" style="font-size: 12px"><tspan x="235.0" dy="0">Reconcile cash</tspan></text>
+</g>
+<g class="client-2">
+<rect class="box" x="16" y="989" width="130" height="56" rx="7" />
+<text class="label" x="81.0" y="1013" style="font-size: 13px"><tspan x="81.0" dy="0">변동 설명</tspan></text>
+<text class="small" x="81.0" y="1033" style="font-size: 12px"><tspan x="81.0" dy="0">Explain changes</tspan></text>
+</g>
+<g class="client-3">
+<rect class="box" x="170" y="989" width="130" height="56" rx="7" />
+<text class="label" x="235.0" y="1013" style="font-size: 13px"><tspan x="235.0" dy="0">검토</tspan></text>
+<text class="small" x="235.0" y="1033" style="font-size: 12px"><tspan x="235.0" dy="0">Review</tspan></text>
+</g>
+<path class="route" d="M146 943 H170"  />
+<path class="arrow" d="M165 939 l5 4 -5 4"  />
+<path class="route" d="M235 971 V980 H81 V989"  />
+<path class="arrow" d="M77 984 l4 5 4 -5"  />
+<path class="route" d="M146 1017 H170"  />
+<path class="arrow" d="M165 1013 l5 4 -5 4"  />
+<text class="label" x="160" y="1070" style="font-size: 13px"><tspan x="160" dy="0">부동산 법인</tspan></text>
+<text class="small" x="160" y="1089" style="font-size: 12px"><tspan x="160" dy="0">Real estate LLC</tspan></text>
+<g class="client-0">
+<rect class="box" x="16" y="1101" width="130" height="56" rx="7" />
+<text class="label" x="81.0" y="1125" style="font-size: 13px"><tspan x="81.0" dy="0">분류</tspan></text>
+<text class="small" x="81.0" y="1145" style="font-size: 12px"><tspan x="81.0" dy="0">Categorize</tspan></text>
+</g>
+<g class="client-1">
+<rect class="box" x="170" y="1101" width="130" height="56" rx="7" />
+<text class="label" x="235.0" y="1125" style="font-size: 13px"><tspan x="235.0" dy="0">현금 대사</tspan></text>
+<text class="small" x="235.0" y="1145" style="font-size: 12px"><tspan x="235.0" dy="0">Reconcile cash</tspan></text>
+</g>
+<g class="client-2">
+<rect class="box" x="16" y="1175" width="130" height="56" rx="7" />
+<text class="label" x="81.0" y="1199" style="font-size: 13px"><tspan x="81.0" dy="0">변동 설명</tspan></text>
+<text class="small" x="81.0" y="1219" style="font-size: 12px"><tspan x="81.0" dy="0">Explain changes</tspan></text>
+</g>
+<g class="client-3">
+<rect class="box" x="170" y="1175" width="130" height="56" rx="7" />
+<text class="label" x="235.0" y="1199" style="font-size: 13px"><tspan x="235.0" dy="0">검토</tspan></text>
+<text class="small" x="235.0" y="1219" style="font-size: 12px"><tspan x="235.0" dy="0">Review</tspan></text>
+</g>
+<path class="route" d="M146 1129 H170"  />
+<path class="arrow" d="M165 1125 l5 4 -5 4"  />
+<path class="route" d="M235 1157 V1166 H81 V1175"  />
+<path class="arrow" d="M77 1170 l4 5 4 -5"  />
+<path class="route" d="M146 1203 H170"  />
+<path class="arrow" d="M165 1199 l5 4 -5 4"  />
+<text class="small" x="160" y="1278" style="font-size: 13px"><tspan x="160" dy="0">우리의 리스크 허용치, 우리 일,</tspan><tspan x="160" dy="18">우리 고객에 맞게 고른 것</tspan></text>
+<text class="small" x="160" y="1320" style="font-size: 12px"><tspan x="160" dy="0">Chosen for our risk tolerance,</tspan><tspan x="160" dy="18">our work, our clients.</tspan></text>
+<text class="label" x="160" y="1390" style="font-size: 16px"><tspan x="160" dy="0">각자 정하는 프로세스</tspan></text>
+<text class="small" x="160" y="1412" style="font-size: 13px"><tspan x="160" dy="0">Process gap</tspan></text>
+<g class="">
+<rect class="accent-box" x="75" y="1432" width="170" height="56" rx="7" />
+<text class="label" x="160.0" y="1456" style="font-size: 14px"><tspan x="160.0" dy="0">프로세스 간극</tspan></text>
+<text class="small" x="160.0" y="1476" style="font-size: 12px"><tspan x="160.0" dy="0">Process gap</tspan></text>
+</g>
+<text class="small" x="160" y="1514" style="font-size: 13px"><tspan x="160" dy="0">각자 자기 프로세스를 정한다</tspan></text>
+<text class="small" x="160" y="1535" style="font-size: 12px"><tspan x="160" dy="0">Each person decides the process</tspan><tspan x="160" dy="18">for themselves.</tspan></text>
+<circle class="box" cx="28" cy="1592" r="7" />
+<path class="route" d="M16 1617 v-5 a12 12 0 0 1 24 0 v5"  />
+<path class="route" d="M42 1610 H68"  />
+<path class="arrow" d="M63 1606 l5 4 -5 4"  />
+<g class="person-0">
+<rect class="box" x="68" y="1582" width="212" height="56" rx="7" />
+<text class="label" x="174.0" y="1606" style="font-size: 14px"><tspan x="174.0" dy="0">장부에 맞추기</tspan></text>
+<text class="small" x="174.0" y="1626" style="font-size: 12px"><tspan x="174.0" dy="0">Match to the books</tspan></text>
+</g>
+<path class="route" d="M174 1638 V1658"  />
+<path class="arrow" d="M170 1653 l4 5 4 -5"  />
+<g class="different-0">
+<rect class="box" x="68" y="1658" width="212" height="56" rx="7" />
+<text class="label" x="174.0" y="1682" style="font-size: 14px"><tspan x="174.0" dy="0">차이 추적</tspan></text>
+<text class="small" x="174.0" y="1702" style="font-size: 12px"><tspan x="174.0" dy="0">Chase differences</tspan></text>
+</g>
+<g class="different-0">
+<path class="route" d="M174 1714 V1733"  />
+<path class="arrow" d="M170 1728 l4 5 4 -5"  />
+</g>
+<g class="documents">
+<path class="box" d="M161 1736 h18 l8 8 v28 h-26 Z M179 1736 v8 h8 M167 1753 h14 M167 1760 h14"  />
+</g>
+<circle class="box" cx="28" cy="1788" r="7" />
+<path class="route" d="M16 1813 v-5 a12 12 0 0 1 24 0 v5"  />
+<path class="route" d="M42 1806 H68"  />
+<path class="arrow" d="M63 1802 l5 4 -5 4"  />
+<g class="person-1">
+<rect class="box" x="68" y="1778" width="212" height="56" rx="7" />
+<text class="label" x="174.0" y="1802" style="font-size: 14px"><tspan x="174.0" dy="0">장부에 맞추기</tspan></text>
+<text class="small" x="174.0" y="1822" style="font-size: 12px"><tspan x="174.0" dy="0">Match to the books</tspan></text>
+</g>
+<g class="different-1">
+<path class="route" d="M174 1834 V1929"  />
+<path class="arrow" d="M170 1924 l4 5 4 -5"  />
+</g>
+<g class="documents">
+<path class="box" d="M161 1932 h18 l8 8 v28 h-26 Z M179 1932 v8 h8 M167 1949 h14 M167 1956 h14"  />
+</g>
+<circle class="box" cx="28" cy="1984" r="7" />
+<path class="route" d="M16 2009 v-5 a12 12 0 0 1 24 0 v5"  />
+<path class="route" d="M42 2002 H68"  />
+<path class="arrow" d="M63 1998 l5 4 -5 4"  />
+<g class="person-2">
+<rect class="box" x="68" y="1974" width="212" height="56" rx="7" />
+<text class="label" x="174.0" y="1998" style="font-size: 14px"><tspan x="174.0" dy="0">장부에 맞추기</tspan></text>
+<text class="small" x="174.0" y="2018" style="font-size: 12px"><tspan x="174.0" dy="0">Match to the books</tspan></text>
+</g>
+<path class="route" d="M174 2030 V2050"  />
+<path class="arrow" d="M170 2045 l4 5 4 -5"  />
+<g class="different-2">
+<rect class="accent-box" x="68" y="2050" width="212" height="56" rx="7" />
+<text class="label" x="174.0" y="2074" style="font-size: 14px"><tspan x="174.0" dy="0">억지로 맞추기</tspan></text>
+<text class="small" x="174.0" y="2094" style="font-size: 12px"><tspan x="174.0" dy="0">Force a tie</tspan></text>
+</g>
+<g class="different-2">
+<path class="route" d="M174 2106 V2125"  />
+<path class="arrow" d="M170 2120 l4 5 4 -5"  />
+</g>
+<g class="documents">
+<path class="box" d="M161 2128 h18 l8 8 v28 h-26 Z M179 2128 v8 h8 M167 2145 h14 M167 2152 h14"  />
+</g>
+<g class="documents">
+<path class="route" d="M290 1740 q12 0 12 15 v165 q0 15 10 15 q-10 0 -10 15 v165 q0 15 -12 15"  />
+<text class="label" x="160" y="2201" style="font-size: 13px"><tspan x="160" dy="0">겉보기엔 같다</tspan></text>
+<text class="small" x="160" y="2223" style="font-size: 13px"><tspan x="160" dy="0">Look the same</tspan></text>
+</g>
+</svg>
+</DiagramFrame>
+<style>
+svg .label { fill: var(--muted); }
+svg .pulse .box { stroke: var(--line); }
+svg .mono { font-family: ui-monospace, monospace; }
+svg .signed { animation: signed 14s ease-in-out infinite; }
+@keyframes signed { 0%, 0.0000%, 100% { opacity: .65; } 2.0000%, 10.7143% { opacity: 1; } }
+svg .replicate { animation: replicate 14s ease-in-out infinite; }
+@keyframes replicate { 0%, 32.1429%, 100% { opacity: .65; } 33.9286%, 35.7143% { opacity: 1; } }
+svg .top-0 { animation: top-0 14s ease-in-out infinite; }
+@keyframes top-0 { 0%, 10.7143%, 100% { opacity: .65; } 12.7143%, 91.4286% { opacity: 1; } }
+svg .client-0 { animation: client-0 14s ease-in-out infinite; }
+@keyframes client-0 { 0%, 35.7143%, 100% { opacity: .65; } 37.7143%, 91.4286% { opacity: 1; } }
+svg .top-1 { animation: top-1 14s ease-in-out infinite; }
+@keyframes top-1 { 0%, 16.0714%, 100% { opacity: .65; } 18.0714%, 91.4286% { opacity: 1; } }
+svg .client-1 { animation: client-1 14s ease-in-out infinite; }
+@keyframes client-1 { 0%, 41.0714%, 100% { opacity: .65; } 43.0714%, 91.4286% { opacity: 1; } }
+svg .top-2 { animation: top-2 14s ease-in-out infinite; }
+@keyframes top-2 { 0%, 21.4286%, 100% { opacity: .65; } 23.4286%, 91.4286% { opacity: 1; } }
+svg .client-2 { animation: client-2 14s ease-in-out infinite; }
+@keyframes client-2 { 0%, 46.4286%, 100% { opacity: .65; } 48.4286%, 91.4286% { opacity: 1; } }
+svg .top-3 { animation: top-3 14s ease-in-out infinite; }
+@keyframes top-3 { 0%, 26.7857%, 100% { opacity: .65; } 28.7857%, 91.4286% { opacity: 1; } }
+svg .client-3 { animation: client-3 14s ease-in-out infinite; }
+@keyframes client-3 { 0%, 51.7857%, 100% { opacity: .65; } 53.7857%, 91.4286% { opacity: 1; } }
+svg .person-0 { animation: person-0 14s ease-in-out infinite; }
+@keyframes person-0 { 0%, 60.7143%, 100% { opacity: .65; } 62.7143%, 91.4286% { opacity: 1; } }
+svg .different-0 { animation: different-0 14s ease-in-out infinite; }
+@keyframes different-0 { 0%, 66.0714%, 100% { opacity: .65; } 68.0714%, 91.4286% { opacity: 1; } }
+svg .person-1 { animation: person-1 14s ease-in-out infinite; }
+@keyframes person-1 { 0%, 64.2857%, 100% { opacity: .65; } 66.2857%, 91.4286% { opacity: 1; } }
+svg .different-1 { animation: different-1 14s ease-in-out infinite; }
+@keyframes different-1 { 0%, 69.6429%, 100% { opacity: .65; } 71.6429%, 91.4286% { opacity: 1; } }
+svg .person-2 { animation: person-2 14s ease-in-out infinite; }
+@keyframes person-2 { 0%, 67.8571%, 100% { opacity: .65; } 69.8571%, 91.4286% { opacity: 1; } }
+svg .different-2 { animation: different-2 14s ease-in-out infinite; }
+@keyframes different-2 { 0%, 73.2143%, 100% { opacity: .65; } 75.2143%, 91.4286% { opacity: 1; } }
+svg .documents { animation: documents 14s ease-in-out infinite; }
+@keyframes documents { 0%, 85.7143%, 100% { opacity: .65; } 87.7143%, 92.8571% { opacity: 1; } }
+svg .client-box { stroke-opacity: .65; }
+@media (prefers-reduced-motion: reduce) { svg * { animation: none !important; transition: none !important; opacity: 1 !important; } svg .draw { stroke-dashoffset: 0 !important; } }
+</style>

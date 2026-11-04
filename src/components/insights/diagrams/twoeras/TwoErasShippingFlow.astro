@@ -1,0 +1,231 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "위가 AI 이전 PostHog의 하루, 아래가 AI 네이티브 Tano의 흐름이다. 위에서는 리뷰 대기에서 제일 오래 멈추고 아래에서는 에이전트 여러 개가 각자 끝나는 대로 PR이 올라온다. 숫자는 원문 본문에 적힌 것만 넣었다." } = Astro.props;
+const description = "AI 이전 PostHog에서는 코드 작성, PR 열기, 리뷰 대기, 머지가 한 줄로 이어지고 리뷰 대기에서 가장 오래 멈추며 월 8~20개 PR을 머지했고, AI 네이티브 Tano에서는 계획을 훑은 뒤 에이전트 3~5개가 병렬로 1~2시간씩 돌아 각자 PR과 자동 리뷰와 HTML 요약을 만들고 사람이 확인해 1시간 미만에 머지하며 월 200개 이상, PostHog 대비 11배의 PR을 내는 두 작업 흐름을 위아래로 비교한 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 900 595" role="img" aria-label={description}>
+<text class="label" x="175" y="25" style="font-size: 15px" ><tspan x="175" dy="0">AI 이전 · PostHog</tspan></text>
+<text class="small" x="175" y="53" style="font-size: 13px" ><tspan x="175" dy="0">PR 대부분 10시~15시에 열림</tspan></text>
+<text class="small" x="790" y="53" style="font-size: 13px" ><tspan x="790" dy="0">월 8~20개 PR</tspan></text>
+<g class="pulse" data-stage="code"><rect class="box" x="40" y="78" width="145" height="52" rx="7"  />
+<text class="label" x="112.5" y="109.0" style="font-size: 14px" ><tspan x="112.5" dy="0">코드 작성</tspan></text>
+</g>
+<path class="route" d="M185 104 H265"  />
+<path class="flow" d="M185 104 H265" data-stage="code" />
+<path class="arrow" d="M260 100 l5 4 -5 4"  />
+<g class="pulse" data-stage="open"><rect class="box" x="265" y="78" width="145" height="52" rx="7"  />
+<text class="label" x="337.5" y="109.0" style="font-size: 14px" ><tspan x="337.5" dy="0">PR 열기</tspan></text>
+</g>
+<path class="route" d="M410 104 H490"  />
+<path class="arrow" d="M485 100 l5 4 -5 4"  />
+<g class="pulse" data-stage="wait"><rect class="box" x="490" y="78" width="145" height="52" rx="7"  />
+<text class="label" x="562.5" y="109.0" style="font-size: 14px" ><tspan x="562.5" dy="0">리뷰 대기</tspan></text>
+</g>
+<path class="route" d="M635 104 H715"  />
+<path class="flow" d="M635 104 H715" data-stage="old-merge" />
+<path class="arrow" d="M710 100 l5 4 -5 4"  />
+<g class="pulse" data-stage="old-merge"><rect class="box" x="715" y="78" width="145" height="52" rx="7"  />
+<text class="label" x="787.5" y="109.0" style="font-size: 14px" ><tspan x="787.5" dy="0">머지</tspan></text>
+</g>
+<text class="small" x="562.5" y="153" style="font-size: 13px" ><tspan x="562.5" dy="0">동료 승인을 기다림</tspan></text>
+<text class="accent-text" x="450" y="207" style="font-size: 30px" data-stage="ratio"><tspan x="450" dy="0">11×</tspan></text>
+<text class="small" x="450" y="230" style="font-size: 13px" ><tspan x="450" dy="0">PostHog 대비 PR 수</tspan></text>
+<text class="label" x="165" y="280" style="font-size: 15px" ><tspan x="165" dy="0">AI 네이티브 · Tano</tspan></text>
+<text class="small" x="414" y="309" style="font-size: 13px" ><tspan x="414" dy="0">동시에 3~5개 · 하나당 1~2시간</tspan></text>
+<text class="small" x="795" y="280" style="font-size: 13px" ><tspan x="795" dy="0">월 200개 이상 PR</tspan></text>
+<g class="pulse" data-stage="plan"><rect class="box" x="20" y="398" width="120" height="52" rx="7"  />
+<text class="label" x="80.0" y="429.0" style="font-size: 14px" ><tspan x="80.0" dy="0">계획 훑기</tspan></text>
+</g>
+<path class="route" d="M140 424 H166 V361 H195"  />
+<path class="flow" d="M140 424 H166 V361 H195" data-stage="plan" />
+<path class="arrow" d="M190 357 l5 4 -5 4"  />
+<g class="pulse" data-stage="agent-one"><rect class="box" x="195" y="334" width="120" height="54" rx="7"  />
+<text class="label" x="255.0" y="366.0" style="font-size: 14px" ><tspan x="255.0" dy="0">에이전트 1</tspan></text>
+</g>
+<path class="route" d="M315 361 H353"  />
+<path class="flow" d="M315 361 H353" data-stage="agent-one-pr" />
+<path class="arrow" d="M348 357 l5 4 -5 4"  />
+<g class="pulse" data-stage="agent-one-pr"><rect class="box" x="353" y="334" width="246" height="54" rx="7"  />
+<text class="label" x="476.0" y="356.5" style="font-size: 13px" ><tspan x="476.0" dy="0">PR + 자동 리뷰(CI)</tspan><tspan x="476.0" dy="19">+ HTML 요약</tspan></text>
+</g>
+<path class="route" d="M599 361 H624 V424 H654"  />
+<path class="flow" d="M599 361 H624 V424 H654" data-stage="confirm" />
+<path class="arrow" d="M649 420 l5 4 -5 4"  />
+<path class="route" d="M140 424 H166 V439 H195"  />
+<path class="flow" d="M140 424 H166 V439 H195" data-stage="plan" />
+<path class="arrow" d="M190 435 l5 4 -5 4"  />
+<g class="pulse" data-stage="agent-two"><rect class="box" x="195" y="412" width="120" height="54" rx="7"  />
+<text class="label" x="255.0" y="444.0" style="font-size: 14px" ><tspan x="255.0" dy="0">에이전트 2</tspan></text>
+</g>
+<path class="route" d="M315 439 H353"  />
+<path class="flow" d="M315 439 H353" data-stage="agent-two-pr" />
+<path class="arrow" d="M348 435 l5 4 -5 4"  />
+<g class="pulse" data-stage="agent-two-pr"><rect class="box" x="353" y="412" width="246" height="54" rx="7"  />
+<text class="label" x="476.0" y="434.5" style="font-size: 13px" ><tspan x="476.0" dy="0">PR + 자동 리뷰(CI)</tspan><tspan x="476.0" dy="19">+ HTML 요약</tspan></text>
+</g>
+<path class="route" d="M599 439 H624 V424 H654"  />
+<path class="flow" d="M599 439 H624 V424 H654" data-stage="confirm" />
+<path class="arrow" d="M649 420 l5 4 -5 4"  />
+<path class="route" d="M140 424 H166 V517 H195"  />
+<path class="flow" d="M140 424 H166 V517 H195" data-stage="plan" />
+<path class="arrow" d="M190 513 l5 4 -5 4"  />
+<g class="pulse" data-stage="agent-three"><rect class="box" x="195" y="490" width="120" height="54" rx="7"  />
+<text class="label" x="255.0" y="522.0" style="font-size: 14px" ><tspan x="255.0" dy="0">에이전트 3</tspan></text>
+</g>
+<path class="route" d="M315 517 H353"  />
+<path class="flow" d="M315 517 H353" data-stage="agent-three-pr" />
+<path class="arrow" d="M348 513 l5 4 -5 4"  />
+<g class="pulse" data-stage="agent-three-pr"><rect class="box" x="353" y="490" width="246" height="54" rx="7"  />
+<text class="label" x="476.0" y="512.5" style="font-size: 13px" ><tspan x="476.0" dy="0">PR + 자동 리뷰(CI)</tspan><tspan x="476.0" dy="19">+ HTML 요약</tspan></text>
+</g>
+<path class="route" d="M599 517 H624 V424 H654"  />
+<path class="flow" d="M599 517 H624 V424 H654" data-stage="confirm" />
+<path class="arrow" d="M649 420 l5 4 -5 4"  />
+<g class="pulse" data-stage="confirm"><rect class="box" x="654" y="398" width="82" height="52" rx="7"  />
+<text class="label" x="695.0" y="429.0" style="font-size: 14px" ><tspan x="695.0" dy="0">확인</tspan></text>
+</g>
+<path class="route" d="M736 424 H780"  />
+<path class="flow" d="M736 424 H780" data-stage="merge" />
+<path class="arrow" d="M775 420 l5 4 -5 4"  />
+<g class="pulse" data-stage="merge"><rect class="box" x="780" y="398" width="95" height="52" rx="7"  />
+<text class="label" x="827.5" y="429.0" style="font-size: 14px" ><tspan x="827.5" dy="0">머지</tspan></text>
+</g>
+<text class="small" x="764" y="568" style="font-size: 13px" ><tspan x="764" dy="0">머지 중앙값 1시간 미만</tspan></text>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 1070" role="img" aria-label={description}>
+<text class="label" x="160" y="25" style="font-size: 15px" ><tspan x="160" dy="0">AI 이전 · PostHog</tspan></text>
+<text class="small" x="160" y="53" style="font-size: 13px" ><tspan x="160" dy="0">PR 대부분 10시~15시에 열림</tspan></text>
+<g class="pulse" data-stage="code"><rect class="box" x="77" y="74" width="166" height="46" rx="7"  />
+<text class="label" x="160.0" y="102.0" style="font-size: 14px" ><tspan x="160.0" dy="0">코드 작성</tspan></text>
+</g>
+<path class="route" d="M160 120 V159"  />
+<path class="flow" d="M160 120 V159" data-stage="code" />
+<path class="arrow" d="M156 154 l4 5 4 -5"  />
+<g class="pulse" data-stage="open"><rect class="box" x="77" y="159" width="166" height="46" rx="7"  />
+<text class="label" x="160.0" y="187.0" style="font-size: 14px" ><tspan x="160.0" dy="0">PR 열기</tspan></text>
+</g>
+<path class="route" d="M160 205 V244"  />
+<path class="arrow" d="M156 239 l4 5 4 -5"  />
+<g class="pulse" data-stage="wait"><rect class="box" x="77" y="244" width="166" height="46" rx="7"  />
+<text class="label" x="160.0" y="272.0" style="font-size: 14px" ><tspan x="160.0" dy="0">리뷰 대기</tspan></text>
+</g>
+<path class="route" d="M160 290 V298 H254 V317 H160 V329"  />
+<path class="flow" d="M160 290 V298 H254 V317 H160 V329" data-stage="old-merge" />
+<path class="arrow" d="M156 324 l4 5 4 -5"  />
+<text class="small" x="160" y="309" style="font-size: 12px" ><tspan x="160" dy="0">동료 승인을 기다림</tspan></text>
+<g class="pulse" data-stage="old-merge"><rect class="box" x="77" y="329" width="166" height="46" rx="7"  />
+<text class="label" x="160.0" y="357.0" style="font-size: 14px" ><tspan x="160.0" dy="0">머지</tspan></text>
+</g>
+<text class="small" x="160" y="402" style="font-size: 13px" ><tspan x="160" dy="0">월 8~20개 PR</tspan></text>
+<text class="accent-text" x="160" y="452" style="font-size: 28px" data-stage="ratio"><tspan x="160" dy="0">11×</tspan></text>
+<text class="small" x="160" y="477" style="font-size: 13px" ><tspan x="160" dy="0">PostHog 대비 PR 수</tspan></text>
+<text class="label" x="160" y="529" style="font-size: 15px" ><tspan x="160" dy="0">AI 네이티브 · Tano</tspan></text>
+<g class="pulse" data-stage="plan"><rect class="box" x="80" y="552" width="160" height="46" rx="7"  />
+<text class="label" x="160.0" y="580.0" style="font-size: 14px" ><tspan x="160.0" dy="0">계획 훑기</tspan></text>
+</g>
+<text class="small" x="160" y="631" style="font-size: 13px" ><tspan x="160" dy="0">동시에 3~5개 · 하나당 1~2시간</tspan></text>
+<path class="route" d="M160 598 V610 H300 V645 H54 V667"  />
+<path class="flow" d="M160 598 V610 H300 V645 H54 V667" data-stage="plan" />
+<path class="arrow" d="M50 662 l4 5 4 -5"  />
+<g class="pulse" data-stage="agent-one"><rect class="box" x="8" y="667" width="92" height="46" rx="7"  />
+<text class="label" x="54.0" y="695.0" style="font-size: 12px" ><tspan x="54.0" dy="0">에이전트 1</tspan></text>
+</g>
+<path class="route" d="M54 713 V742 H160 V770"  />
+<path class="flow" d="M54 713 V742 H160 V770" data-stage="agent-one-pr" />
+<path class="arrow" d="M156 765 l4 5 4 -5"  />
+<path class="route" d="M160 598 V610 H300 V645 H160 V667"  />
+<path class="flow" d="M160 598 V610 H300 V645 H160 V667" data-stage="plan" />
+<path class="arrow" d="M156 662 l4 5 4 -5"  />
+<g class="pulse" data-stage="agent-two"><rect class="box" x="114" y="667" width="92" height="46" rx="7"  />
+<text class="label" x="160.0" y="695.0" style="font-size: 12px" ><tspan x="160.0" dy="0">에이전트 2</tspan></text>
+</g>
+<path class="route" d="M160 713 V742 H160 V770"  />
+<path class="flow" d="M160 713 V742 H160 V770" data-stage="agent-two-pr" />
+<path class="arrow" d="M156 765 l4 5 4 -5"  />
+<path class="route" d="M160 598 V610 H300 V645 H266 V667"  />
+<path class="flow" d="M160 598 V610 H300 V645 H266 V667" data-stage="plan" />
+<path class="arrow" d="M262 662 l4 5 4 -5"  />
+<g class="pulse" data-stage="agent-three"><rect class="box" x="220" y="667" width="92" height="46" rx="7"  />
+<text class="label" x="266.0" y="695.0" style="font-size: 12px" ><tspan x="266.0" dy="0">에이전트 3</tspan></text>
+</g>
+<path class="route" d="M266 713 V742 H160 V770"  />
+<path class="flow" d="M266 713 V742 H160 V770" data-stage="agent-three-pr" />
+<path class="arrow" d="M156 765 l4 5 4 -5"  />
+<g class="pulse" data-stage="pr-mobile"><rect class="box" x="40" y="770" width="240" height="62" rx="7"  />
+<text class="label" x="160.0" y="796.5" style="font-size: 14px" ><tspan x="160.0" dy="0">PR + 자동 리뷰(CI)</tspan><tspan x="160.0" dy="19">+ HTML 요약</tspan></text>
+</g>
+<path class="route" d="M160 832 V866"  />
+<path class="flow" d="M160 832 V866" data-stage="confirm" />
+<path class="arrow" d="M156 861 l4 5 4 -5"  />
+<g class="pulse" data-stage="confirm"><rect class="box" x="80" y="866" width="160" height="46" rx="7"  />
+<text class="label" x="160.0" y="894.0" style="font-size: 14px" ><tspan x="160.0" dy="0">확인</tspan></text>
+</g>
+<path class="route" d="M160 912 V947"  />
+<path class="flow" d="M160 912 V947" data-stage="merge" />
+<path class="arrow" d="M156 942 l4 5 4 -5"  />
+<g class="pulse" data-stage="merge"><rect class="box" x="80" y="947" width="160" height="46" rx="7"  />
+<text class="label" x="160.0" y="975.0" style="font-size: 14px" ><tspan x="160.0" dy="0">머지</tspan></text>
+</g>
+<text class="small" x="160" y="1021" style="font-size: 13px" ><tspan x="160" dy="0">머지 중앙값 1시간 미만</tspan></text>
+<text class="small" x="160" y="1048" style="font-size: 13px" ><tspan x="160" dy="0">월 200개 이상 PR</tspan></text>
+</svg>
+</DiagramFrame>
+<style>
+svg .pulse .box { stroke: var(--line); }
+svg .pulse { opacity: .65; }
+svg .flow { opacity: 0; }
+svg [data-stage="code"]:not(.flow) { animation: code 16s ease-in-out infinite; }
+@keyframes code { 0%, 100% { opacity: 0.65; } 0.0%, 12.5% { opacity: 0.65; } 1.25%, 11.25% { opacity: 1; } }
+svg [data-stage="code"].flow { animation: code-flow 16s ease-in-out infinite; }
+@keyframes code-flow { 0%, 100% { opacity: 0; } 0.0%, 12.5% { opacity: 0; } 1.25%, 11.25% { opacity: 1; } 0%, 0.0% { stroke-dashoffset: 0; } 12.5%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="open"]:not(.flow) { animation: open 16s ease-in-out infinite; }
+@keyframes open { 0%, 100% { opacity: 0.65; } 12.5%, 25.0% { opacity: 0.65; } 13.75%, 23.75% { opacity: 1; } }
+svg [data-stage="plan"]:not(.flow) { animation: plan 16s ease-in-out infinite; }
+@keyframes plan { 0%, 100% { opacity: 0.65; } 12.5%, 25.0% { opacity: 0.65; } 13.75%, 23.75% { opacity: 1; } }
+svg [data-stage="plan"].flow { animation: plan-flow 16s ease-in-out infinite; }
+@keyframes plan-flow { 0%, 100% { opacity: 0; } 12.5%, 25.0% { opacity: 0; } 13.75%, 23.75% { opacity: 1; } 0%, 12.5% { stroke-dashoffset: 0; } 25.0%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="wait"]:not(.flow) { animation: wait 16s ease-in-out infinite; }
+@keyframes wait { 0%, 100% { opacity: 0.65; } 25.0%, 62.5% { opacity: 0.65; } 26.25%, 61.25% { opacity: 1; } }
+svg [data-stage="agent-one"]:not(.flow) { animation: agent-one 16s ease-in-out infinite; }
+@keyframes agent-one { 0%, 100% { opacity: 0.65; } 12.5%, 25.0% { opacity: 0.65; } 13.75%, 23.75% { opacity: 1; } }
+svg [data-stage="agent-three"]:not(.flow) { animation: agent-three 16s ease-in-out infinite; }
+@keyframes agent-three { 0%, 100% { opacity: 0.65; } 12.5%, 37.5% { opacity: 0.65; } 13.75%, 36.25% { opacity: 1; } }
+svg [data-stage="agent-two"]:not(.flow) { animation: agent-two 16s ease-in-out infinite; }
+@keyframes agent-two { 0%, 100% { opacity: 0.65; } 12.5%, 50.0% { opacity: 0.65; } 13.75%, 48.75% { opacity: 1; } }
+svg [data-stage="agent-one-pr"]:not(.flow) { animation: agent-one-pr 16s ease-in-out infinite; }
+@keyframes agent-one-pr { 0%, 100% { opacity: 0.65; } 25.0%, 62.5% { opacity: 0.65; } 26.25%, 61.25% { opacity: 1; } }
+svg [data-stage="agent-one-pr"].flow { animation: agent-one-pr-flow 16s ease-in-out infinite; }
+@keyframes agent-one-pr-flow { 0%, 100% { opacity: 0; } 25.0%, 62.5% { opacity: 0; } 26.25%, 61.25% { opacity: 1; } 0%, 25.0% { stroke-dashoffset: 0; } 62.5%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="agent-three-pr"]:not(.flow) { animation: agent-three-pr 16s ease-in-out infinite; }
+@keyframes agent-three-pr { 0%, 100% { opacity: 0.65; } 37.5%, 62.5% { opacity: 0.65; } 38.75%, 61.25% { opacity: 1; } }
+svg [data-stage="agent-three-pr"].flow { animation: agent-three-pr-flow 16s ease-in-out infinite; }
+@keyframes agent-three-pr-flow { 0%, 100% { opacity: 0; } 37.5%, 62.5% { opacity: 0; } 38.75%, 61.25% { opacity: 1; } 0%, 37.5% { stroke-dashoffset: 0; } 62.5%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="agent-two-pr"]:not(.flow) { animation: agent-two-pr 16s ease-in-out infinite; }
+@keyframes agent-two-pr { 0%, 100% { opacity: 0.65; } 50.0%, 62.5% { opacity: 0.65; } 51.25%, 61.25% { opacity: 1; } }
+svg [data-stage="agent-two-pr"].flow { animation: agent-two-pr-flow 16s ease-in-out infinite; }
+@keyframes agent-two-pr-flow { 0%, 100% { opacity: 0; } 50.0%, 62.5% { opacity: 0; } 51.25%, 61.25% { opacity: 1; } 0%, 50.0% { stroke-dashoffset: 0; } 62.5%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="pr-mobile"]:not(.flow) { animation: pr-mobile 16s ease-in-out infinite; }
+@keyframes pr-mobile { 0%, 100% { opacity: 0.65; } 25.0%, 62.5% { opacity: 0.65; } 26.25%, 61.25% { opacity: 1; } }
+svg [data-stage="confirm"]:not(.flow) { animation: confirm 16s ease-in-out infinite; }
+@keyframes confirm { 0%, 100% { opacity: 0.65; } 62.5%, 75.0% { opacity: 0.65; } 63.75%, 73.75% { opacity: 1; } }
+svg [data-stage="confirm"].flow { animation: confirm-flow 16s ease-in-out infinite; }
+@keyframes confirm-flow { 0%, 100% { opacity: 0; } 62.5%, 75.0% { opacity: 0; } 63.75%, 73.75% { opacity: 1; } 0%, 62.5% { stroke-dashoffset: 0; } 75.0%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="merge"]:not(.flow) { animation: merge 16s ease-in-out infinite; }
+@keyframes merge { 0%, 100% { opacity: 0.65; } 75.0%, 81.25% { opacity: 0.65; } 76.25%, 80.0% { opacity: 1; } }
+svg [data-stage="merge"].flow { animation: merge-flow 16s ease-in-out infinite; }
+@keyframes merge-flow { 0%, 100% { opacity: 0; } 75.0%, 81.25% { opacity: 0; } 76.25%, 80.0% { opacity: 1; } 0%, 75.0% { stroke-dashoffset: 0; } 81.25%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="old-merge"]:not(.flow) { animation: old-merge 16s ease-in-out infinite; }
+@keyframes old-merge { 0%, 100% { opacity: 0.65; } 81.25%, 93.75% { opacity: 0.65; } 82.5%, 92.5% { opacity: 1; } }
+svg [data-stage="old-merge"].flow { animation: old-merge-flow 16s ease-in-out infinite; }
+@keyframes old-merge-flow { 0%, 100% { opacity: 0; } 81.25%, 93.75% { opacity: 0; } 82.5%, 92.5% { opacity: 1; } 0%, 81.25% { stroke-dashoffset: 0; } 93.75%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="ratio"]:not(.flow) { animation: ratio 16s ease-in-out infinite; }
+@keyframes ratio { 0%, 100% { opacity: 0.65; } 93.75%, 100.0% { opacity: 0.65; } 95.0%, 98.75% { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  svg *, svg .pulse, svg .flow { animation: none !important; transform: none !important; opacity: 1; }
+  svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+
+}
+</style>
