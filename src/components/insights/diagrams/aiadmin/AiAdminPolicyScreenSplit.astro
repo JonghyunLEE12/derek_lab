@@ -1,0 +1,178 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "어드민에 필요한 일을 둘로 나눈 그림. 화면은 AI가 API 스키마를 보고 React 코드로 만든다. 그 화면의 호출은 플랫폼 프록시를 지나가고 거기서 정책이 적용되고 호출 기록이 남는다." } = Astro.props;
+const description = "어드민에 필요한 일을 둘로 나눠 데이터를 다루는 정책은 플랫폼이 맡고 데이터를 보여주는 화면은 AI가 만드는 구조이며, AI가 만든 화면의 호출이 플랫폼 프록시를 지나 등록된 API로 가는 동안 마스킹, 조회 사유, 암호화 정책이 자동 적용되고 호출 기록이 남는 것을 보여 주는 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 555" role="img" aria-label={description}>
+<g class="pulse root">
+<rect class="box" x="350" y="15" width="220" height="52" rx="8" />
+<text class="label" x="460.0" y="42" style="font-size: 14px"><tspan x="460.0" dy="0">어드민에 필요한 일</tspan></text>
+</g>
+<path class="route" d="M460 67 V85 H230.0 V110" />
+<path class="flow branches" d="M460 67 V85 H230.0 V110" />
+<path class="arrow" d="M230.0 110 m-4 -5 4 5 4 -5" />
+<rect class="box" x="25" y="110" width="410" height="180" rx="8" />
+<text class="small" x="230.0" y="136" style="font-size: 14px"><tspan x="230.0" dy="0">데이터를 다루는 정책은</tspan></text>
+<g class="">
+<text class="label" x="230.0" y="163" style="font-size: 17px"><tspan x="230.0" dy="0">플랫폼이 맡아요</tspan></text>
+</g>
+<g class="policy0">
+<text class="small" x="230.0" y="194" style="font-size: 13px"><tspan x="230.0" dy="0">등록된 API를 프록시하며 정책을 자동 적용해요</tspan></text>
+</g>
+<g class="policy1">
+<text class="small" x="230.0" y="229" style="font-size: 13px"><tspan x="230.0" dy="0">마스킹 · 조회 사유 · 암호화</tspan></text>
+</g>
+<g class="policy2">
+<text class="small" x="230.0" y="264" style="font-size: 13px"><tspan x="230.0" dy="0">호출 기록이 자동으로 남아요</tspan></text>
+</g>
+<path class="route" d="M460 67 V85 H690.0 V110" />
+<path class="flow branches" d="M460 67 V85 H690.0 V110" />
+<path class="arrow" d="M690.0 110 m-4 -5 4 5 4 -5" />
+<rect class="box" x="485" y="110" width="410" height="180" rx="8" />
+<text class="small" x="690.0" y="136" style="font-size: 14px"><tspan x="690.0" dy="0">데이터를 보여주는 화면은</tspan></text>
+<g class="pulse ai">
+<text class="label accent-text" x="690.0" y="163" style="font-size: 17px"><tspan x="690.0" dy="0">AI가 만들어요</tspan></text>
+</g>
+<g class="ai0">
+<text class="small" x="690.0" y="194" style="font-size: 13px"><tspan x="690.0" dy="0">API 스키마를 참고해서 React 코드를 생성해요</tspan></text>
+</g>
+<g class="ai1">
+<text class="small" x="690.0" y="229" style="font-size: 13px"><tspan x="690.0" dy="0">테이블 · 필터 · 상세 페이지</tspan></text>
+</g>
+<g class="ai2">
+<text class="small" x="690.0" y="264" style="font-size: 13px"><tspan x="690.0" dy="0">자연어로 요청하면 돼요</tspan></text>
+</g>
+<path class="route" d="M690 290 V335" />
+<path class="arrow" d="M690 335 m-4 -5 4 5 4 -5" />
+<path class="route" d="M230 290 V335" />
+<path class="arrow" d="M230 335 m-4 -5 4 5 4 -5" />
+<g class="pulse screen">
+<rect class="accent-box" x="600" y="335" width="180" height="70" rx="8" />
+<text class="label" x="690.0" y="362" style="font-size: 14px"><tspan x="690.0" dy="0">화면</tspan></text>
+<text class="small" x="690.0" y="387" style="font-size: 14px"><tspan x="690.0" dy="0">React 코드</tspan></text>
+</g>
+<g class="">
+<rect class="box" x="140" y="335" width="180" height="70" rx="8" />
+<text class="label" x="230.0" y="362" style="font-size: 14px"><tspan x="230.0" dy="0">프록시</tspan></text>
+<text class="small" x="230.0" y="387" style="font-size: 14px"><tspan x="230.0" dy="0">플랫폼</tspan></text>
+</g>
+<g class="pulse api">
+<rect class="box" x="140" y="475" width="180" height="56" rx="8" />
+<text class="label" x="230.0" y="502" style="font-size: 14px"><tspan x="230.0" dy="0">등록된 API</tspan></text>
+</g>
+<path class="route" d="M600 370 H320" />
+<path class="arrow" d="M320 370 m5 -4 -5 4 5 4" />
+<path class="route" d="M230 405 V475" />
+<path class="arrow" d="M230 475 m-4 -5 4 5 4 -5" />
+<rect class="box" x="350" y="421" width="120" height="38" rx="8" />
+<text class="small" x="410" y="445" style="font-size: 14px"><tspan x="410" dy="0">호출 기록</tspan></text>
+<g class="record">
+<path class="arrow" d="M365 453 H455" /></g>
+<circle class="signal call" cx="0" cy="0" r="4" style="--sx:585px;--sy:370px;--px:330px;--py:370px;--mx:230px;--my:370px;--ex:230px;--ey:460px;--rx:230px;--ry:320px" /></svg>
+<svg class="mobile-diagram" viewBox="0 0 320 885" role="img" aria-label={description}>
+<g class="pulse root">
+<rect class="box" x="50" y="15" width="220" height="52" rx="8" />
+<text class="label" x="160.0" y="42" style="font-size: 14px"><tspan x="160.0" dy="0">어드민에 필요한 일</tspan></text>
+</g>
+<path class="route" d="M160 67 V105" />
+<path class="flow branches" d="M160 67 V105" />
+<path class="arrow" d="M160.0 105 m-4 -5 4 5 4 -5" />
+<rect class="box" x="30" y="105" width="260" height="190" rx="8" />
+<text class="small" x="160.0" y="131" style="font-size: 14px"><tspan x="160.0" dy="0">데이터를 다루는 정책은</tspan></text>
+<g class="">
+<text class="label" x="160.0" y="158" style="font-size: 17px"><tspan x="160.0" dy="0">플랫폼이 맡아요</tspan></text>
+</g>
+<g class="policy0">
+<text class="small" x="160.0" y="189" style="font-size: 13px"><tspan x="160.0" dy="0">등록된 API를 프록시하며</tspan><tspan x="160.0" dy="20">정책을 자동 적용해요</tspan></text>
+</g>
+<g class="policy1">
+<text class="small" x="160.0" y="236" style="font-size: 13px"><tspan x="160.0" dy="0">마스킹 · 조회 사유 · 암호화</tspan></text>
+</g>
+<g class="policy2">
+<text class="small" x="160.0" y="271" style="font-size: 13px"><tspan x="160.0" dy="0">호출 기록이 자동으로 남아요</tspan></text>
+</g>
+<path class="route" d="M270 42 H307 V315 H160 V335" />
+<path class="flow branches" d="M270 42 H307 V315 H160 V335" />
+<path class="arrow" d="M160.0 335 m-4 -5 4 5 4 -5" />
+<rect class="box" x="30" y="335" width="260" height="190" rx="8" />
+<text class="small" x="160.0" y="361" style="font-size: 14px"><tspan x="160.0" dy="0">데이터를 보여주는 화면은</tspan></text>
+<g class="pulse ai">
+<text class="label accent-text" x="160.0" y="388" style="font-size: 17px"><tspan x="160.0" dy="0">AI가 만들어요</tspan></text>
+</g>
+<g class="ai0">
+<text class="small" x="160.0" y="419" style="font-size: 13px"><tspan x="160.0" dy="0">API 스키마를 참고해서</tspan><tspan x="160.0" dy="20">React 코드를 생성해요</tspan></text>
+</g>
+<g class="ai1">
+<text class="small" x="160.0" y="466" style="font-size: 13px"><tspan x="160.0" dy="0">테이블 · 필터 · 상세 페이지</tspan></text>
+</g>
+<g class="ai2">
+<text class="small" x="160.0" y="501" style="font-size: 13px"><tspan x="160.0" dy="0">자연어로 요청하면 돼요</tspan></text>
+</g>
+<path class="route" d="M160 525 V560" />
+<path class="arrow" d="M160 560 m-4 -5 4 5 4 -5" />
+<path class="route" d="M30 220 H13 V690 H70" />
+<path class="arrow" d="M70 690 m-5 -4 5 4 -5 4" />
+<g class="pulse screen">
+<rect class="accent-box" x="70" y="560" width="180" height="70" rx="8" />
+<text class="label" x="160.0" y="587" style="font-size: 14px"><tspan x="160.0" dy="0">화면</tspan></text>
+<text class="small" x="160.0" y="612" style="font-size: 14px"><tspan x="160.0" dy="0">React 코드</tspan></text>
+</g>
+<g class="">
+<rect class="box" x="70" y="660" width="180" height="70" rx="8" />
+<text class="label" x="160.0" y="687" style="font-size: 14px"><tspan x="160.0" dy="0">프록시</tspan></text>
+<text class="small" x="160.0" y="712" style="font-size: 14px"><tspan x="160.0" dy="0">플랫폼</tspan></text>
+</g>
+<g class="pulse api">
+<rect class="box" x="70" y="805" width="180" height="56" rx="8" />
+<text class="label" x="160.0" y="832" style="font-size: 14px"><tspan x="160.0" dy="0">등록된 API</tspan></text>
+</g>
+<path class="route" d="M160 630 V660" />
+<path class="arrow" d="M160 660 m-4 -5 4 5 4 -5" />
+<path class="route" d="M160 730 V805" />
+<path class="arrow" d="M160 805 m-4 -5 4 5 4 -5" />
+<rect class="box" x="188" y="752" width="108" height="35" rx="8" />
+<text class="small" x="242" y="775" style="font-size: 13px"><tspan x="242" dy="0">호출 기록</tspan></text>
+<g class="record">
+<path class="arrow" d="M202 782 H282" /></g>
+<circle class="signal call" cx="0" cy="0" r="4" style="--sx:160px;--sy:630px;--px:160px;--py:650px;--mx:160px;--my:730px;--ex:160px;--ey:795px;--rx:160px;--ry:650px" /></svg>
+</DiagramFrame>
+<style>
+svg .mono { font-family: ui-monospace, monospace; }
+svg .pulse .box { stroke: var(--line); }
+svg .dot { fill: var(--muted); }
+svg .signal { fill: var(--accent); }
+svg .flow { opacity: 0; }
+svg .root { animation: root 14s ease-in-out infinite; }
+@keyframes root {0%, 100% { opacity: .65; }0.0000%, 10.7143% { opacity: .65; }1.4286%, 9.2857% { opacity: 1; }}
+svg .ai { animation: ai 14s ease-in-out infinite; }
+@keyframes ai {0%, 100% { opacity: .65; }10.7143%, 32.1429% { opacity: .65; }12.1429%, 30.7143% { opacity: 1; }}
+svg .screen { animation: screen 14s ease-in-out infinite; }
+@keyframes screen {0%, 100% { opacity: .65; }28.5714%, 32.1429% { opacity: .65; }29.4643%, 31.2500% { opacity: 1; }}
+svg .api { animation: api 14s ease-in-out infinite; }
+@keyframes api {0%, 100% { opacity: .65; }75.0000%, 82.1429% { opacity: .65; }76.4286%, 80.7143% { opacity: 1; }}
+svg .ai0 { animation: ai0 14s ease-in-out infinite; }
+@keyframes ai0 {0%, 100% { opacity: .65; }10.7143%, 17.8571% { opacity: .65; }12.1429%, 16.4286% { opacity: 1; }}
+svg .ai1 { animation: ai1 14s ease-in-out infinite; }
+@keyframes ai1 {0%, 100% { opacity: .65; }17.8571%, 25.0000% { opacity: .65; }19.2857%, 23.5714% { opacity: 1; }}
+svg .ai2 { animation: ai2 14s ease-in-out infinite; }
+@keyframes ai2 {0%, 100% { opacity: .65; }25.0000%, 32.1429% { opacity: .65; }26.4286%, 30.7143% { opacity: 1; }}
+svg .policy0 { animation: policy0 14s ease-in-out infinite; }
+@keyframes policy0 {0%, 100% { opacity: .65; }42.8571%, 50.0000% { opacity: .65; }44.2857%, 48.5714% { opacity: 1; }}
+svg .policy1 { animation: policy1 14s ease-in-out infinite; }
+@keyframes policy1 {0%, 100% { opacity: .65; }50.0000%, 57.1429% { opacity: .65; }51.4286%, 55.7143% { opacity: 1; }}
+svg .policy2 { animation: policy2 14s ease-in-out infinite; }
+@keyframes policy2 {0%, 100% { opacity: .65; }57.1429%, 64.2857% { opacity: .65; }58.5714%, 62.8571% { opacity: 1; }}
+svg .branches { animation: branches 14s ease-in-out infinite; }
+@keyframes branches {0%, 100% { opacity: 0; }0.0000%, 10.7143% { opacity: 0; }1.4286%, 9.2857% { opacity: 1; }0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -224; }}
+svg .record { animation: record 14s ease-in-out infinite; }
+@keyframes record {0%, 100% { opacity: 0; }57.1429%, 98.5714% { opacity: 0; }58.5714%, 97.1429% { opacity: 1; }}
+svg .call { animation: call 14s ease-in-out infinite; }
+@keyframes call { 0%, 31% { opacity: 0; transform: translate(var(--sx),var(--sy)); } 32.14% { opacity: 1; transform: translate(var(--sx),var(--sy)); } 42.86%, 67.86% { opacity: 1; transform: translate(var(--px),var(--py)); } 73% { opacity: 1; transform: translate(var(--mx),var(--my)); } 82.14% { opacity: 0; transform: translate(var(--ex),var(--ey)); } 100% { opacity: 0; transform: translate(var(--ex),var(--ey)); } }
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg .pulse, svg .flow { animation: none !important; transition: none !important; opacity: 1; }
+ svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+svg .call { transform: translate(var(--rx),var(--ry)); }
+}
+</style>

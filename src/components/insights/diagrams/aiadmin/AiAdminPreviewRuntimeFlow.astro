@@ -1,0 +1,260 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "직접 만든 Preview Runtime의 흐름. 코드는 브라우저에서 esbuild-wasm이 ESM 번들로 묶고 패키지는 미리 만든 걸 import map으로 연결한다. 실행에 성공하면 iframe을 통째로 교체하고 실패하면 마지막 정상 화면을 그대로 둔다." } = Astro.props;
+const description = "사용자 브라우저에서 가상 파일 시스템의 userLayer, projectLayer, templateLayer, runtimeLayer를 플러그인으로 연결한 esbuild-wasm이 코드를 ESM 번들로 묶고, 미리 만든 패키지를 import map으로 연결해 번들을 실행한 뒤, 실행에 성공하면 iframe을 통째로 교체하는 커밋을 하고 실패하면 교체하지 않고 마지막 정상 화면에 에러 오버레이만 띄우는 롤백을 하는 Preview Runtime의 흐름을 보여 주는 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 1040" role="img" aria-label={description}>
+<text class="label" x="460" y="25" style="font-size: 16px"><tspan x="460" dy="0">1 실시간으로 바뀌는 코드는 사용자 브라우저에서 빌드해요</tspan></text>
+<rect class="box" x="20" y="65" width="280" height="245" rx="8" />
+<text class="label" x="160.0" y="93" style="font-size: 14px"><tspan x="160.0" dy="0">가상 파일 시스템</tspan></text>
+<text class="small" x="160.0" y="118" style="font-size: 14px"><tspan x="160.0" dy="0">경로를 요청하면</tspan><tspan x="160.0" dy="20">파일 내용을 돌려줘요</tspan></text>
+<g class="pulse edit">
+<rect class="box" x="38" y="153" width="155" height="28" rx="8" />
+<text class="small mono" x="115" y="173" style="font-size: 13px"><tspan x="115" dy="0">userLayer</tspan></text>
+</g>
+<g class="">
+<rect class="box" x="38" y="187" width="155" height="28" rx="8" />
+<text class="small mono" x="115" y="207" style="font-size: 13px"><tspan x="115" dy="0">projectLayer</tspan></text>
+</g>
+<g class="">
+<rect class="box" x="38" y="221" width="155" height="28" rx="8" />
+<text class="small mono" x="115" y="241" style="font-size: 13px"><tspan x="115" dy="0">templateLayer</tspan></text>
+</g>
+<g class="">
+<rect class="box" x="38" y="255" width="155" height="28" rx="8" />
+<text class="small mono" x="115" y="275" style="font-size: 13px"><tspan x="115" dy="0">runtimeLayer</tspan></text>
+</g>
+<path class="route" d="M260 280 V157" />
+<path class="arrow" d="M260 157 m-4 5 4 -5 4 5" />
+<text class="small" x="255" y="302" style="font-size: 12px"><tspan x="255" dy="0">우선순위</tspan></text>
+<text class="small" x="365" y="115" style="font-size: 13px"><tspan x="365" dy="0">플러그인으로</tspan><tspan x="365" dy="20">연결해요</tspan></text>
+<path class="route" d="M300 180 H430" />
+<path class="flow vfs-flow" d="M300 180 H430" />
+<path class="arrow" d="M430 180 m-5 -4 5 4 -5 4" />
+<g class="pulse build">
+<rect class="box" x="430" y="125" width="250" height="135" rx="8" />
+<text class="label mono" x="555.0" y="152" style="font-size: 14px"><tspan x="555.0" dy="0">esbuild-wasm</tspan></text>
+<text class="small" x="555.0" y="177" style="font-size: 14px"><tspan x="555.0" dy="0">TypeScript와 JSX를 변환하고</tspan><tspan x="555.0" dy="20">import 그래프를 따라가요</tspan></text>
+</g>
+<text class="small mono" x="555" y="235" style="font-size: 12px"><tspan x="555" dy="0">Web Worker</tspan></text>
+<text class="small" x="725" y="145" style="font-size: 12px"><tspan x="725" dy="0">하나로 묶어요</tspan></text>
+<path class="route" d="M680 180 H770" />
+<path class="flow bundle-flow" d="M680 180 H770" />
+<path class="arrow" d="M770 180 m-5 -4 5 4 -5 4" />
+<g class="pulse bundle">
+<rect class="box" x="770" y="125" width="140" height="135" rx="8" />
+<text class="label" x="840.0" y="152" style="font-size: 14px"><tspan x="840.0" dy="0">ESM 번들</tspan></text>
+<text class="small" x="840.0" y="177" style="font-size: 14px"><tspan x="840.0" dy="0">브라우저가 바로</tspan><tspan x="840.0" dy="20">실행할 수 있는</tspan><tspan x="840.0" dy="20">결과물</tspan></text>
+</g>
+<text class="label" x="460" y="370" style="font-size: 16px"><tspan x="460" dy="0">2 사용할 패키지는 미리 준비해요</tspan></text>
+<g class="">
+<rect class="box" x="40" y="398" width="330" height="100" rx="8" />
+<text class="label" x="205.0" y="425" style="font-size: 14px"><tspan x="205.0" dy="0">미리 만든 패키지</tspan></text>
+<text class="small" x="205.0" y="450" style="font-size: 14px"><tspan x="205.0" dy="0">조합이 바뀔 때 한 번만 빌드해서</tspan><tspan x="205.0" dy="20">바로 가져다 써요</tspan></text>
+</g>
+<text class="small" x="645" y="432" style="font-size: 13px"><tspan x="645" dy="0">react, @tds/desktop 같은 패키지는</tspan><tspan x="645" dy="20">번들에 넣지 않아요</tspan></text>
+<text class="small" x="645" y="480" style="font-size: 13px"><tspan x="645" dy="0">external로 남겨 두고,</tspan><tspan x="645" dy="20">실행할 때 import map이 연결해요</tspan></text>
+<text class="label" x="460" y="620" style="font-size: 16px"><tspan x="460" dy="0">3 실행한 결과물은 화면에 보여줘요</tspan></text>
+<path class="route" d="M840 260 V570 H175 V665" />
+<path class="flow run-flow" d="M840 260 V570 H175 V665" />
+<path class="arrow" d="M175 665 m-4 -5 4 5 4 -5" />
+<path class="route" d="M205 498 V540 H30 V720 H50" />
+<path class="flow package-flow" d="M205 498 V540 H30 V720 H50" />
+<path class="arrow" d="M50 720 m-5 -4 5 4 -5 4" />
+<g class="pulse execute">
+<rect class="box" x="50" y="665" width="250" height="115" rx="8" />
+<text class="label" x="175.0" y="692" style="font-size: 14px"><tspan x="175.0" dy="0">번들을 실행해요</tspan></text>
+<text class="small" x="175.0" y="717" style="font-size: 14px"><tspan x="175.0" dy="0">빌드가 끝날 때마다</tspan><tspan x="175.0" dy="20">새 HTML 문서를 만들어요</tspan></text>
+</g>
+<path class="route" d="M300 705 H335 V685 H370" />
+<path class="flow success-flow" d="M300 705 H335 V685 H370" />
+<path class="arrow" d="M370 685 m-5 -4 5 4 -5 4" />
+<text class="small" x="515" y="640" style="font-size: 13px"><tspan x="515" dy="0">실행에 성공하면</tspan></text>
+<g class="pulse commit">
+<rect class="accent-box" x="370" y="655" width="290" height="115" rx="8" />
+<text class="label" x="515.0" y="682" style="font-size: 14px"><tspan x="515.0" dy="0">커밋: iframe을 통째로 교체해요</tspan></text>
+<text class="small" x="515.0" y="707" style="font-size: 14px"><tspan x="515.0" dy="0">이전 문서의 DOM · 상태 · 전역 값이</tspan><tspan x="515.0" dy="20">전혀 남지 않아요</tspan></text>
+</g>
+<path class="route" d="M300 745 H335 V860 H370" />
+<path class="flow failure-flow" d="M300 745 H335 V860 H370" />
+<path class="arrow" d="M370 860 m-5 -4 5 4 -5 4" />
+<text class="small" x="515" y="805" style="font-size: 13px"><tspan x="515" dy="0">실행에 실패하면</tspan></text>
+<g class="pulse rollback">
+<rect class="box" x="370" y="825" width="290" height="115" rx="8" />
+<text class="label" x="515.0" y="852" style="font-size: 14px"><tspan x="515.0" dy="0">롤백: 교체하지 않아요</tspan></text>
+<text class="small" x="515.0" y="877" style="font-size: 14px"><tspan x="515.0" dy="0">마지막 정상 화면을 유지하고</tspan><tspan x="515.0" dy="20">에러 오버레이만 띄워요</tspan></text>
+</g>
+<path class="route" d="M660 685 H710" />
+<path class="flow preview-flow" d="M660 685 H710" />
+<path class="arrow" d="M710 685 m-5 -4 5 4 -5 4" />
+<path class="route" d="M660 880 H690 V650 H807" stroke-dasharray="4 5" />
+<path class="arrow" d="M807 650 m-5 -4 5 4 -5 4" />
+<rect class="accent-box" x="710" y="660" width="195" height="155" rx="8" />
+<circle class="dot" cx="722" cy="672" r="2" /><circle class="dot" cx="731" cy="672" r="2" /><circle class="dot" cx="740" cy="672" r="2" /><text class="label" x="807.5" y="692" style="font-size: 14px"><tspan x="807.5" dy="0">Preview</tspan></text>
+<g class="old-content">
+<rect class="box" x="725" y="710" width="165" height="88" rx="8" />
+<path class="route" d="M725 732 H890" /><path class="route" d="M725 754 H890" /><path class="route" d="M725 776 H890" /><path class="route" d="M778.25 710 V798" /></g>
+<g class="new-content">
+<rect class="box" x="725" y="710" width="165" height="88" rx="8" />
+<path class="route" d="M725 732 H890" /><path class="route" d="M725 754 H890" /><path class="route" d="M725 776 H890" /><path class="route" d="M827.0 710 V798" /></g>
+<g class="overlay">
+<rect class="box" x="720" y="635" width="175" height="32" rx="8" />
+<text class="small" x="807.5" y="656" style="font-size: 13px"><tspan x="807.5" dy="0">에러 오버레이</tspan></text>
+</g>
+<g class="summary">
+<text class="small" x="460" y="985" style="font-size: 13px"><tspan x="460" dy="0">Preview 업데이트가 트랜잭션 커밋처럼 동작해서, 성공한 최신 화면만 보여요</tspan></text>
+</g>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 1845" role="img" aria-label={description}>
+<text class="label" x="160" y="25" style="font-size: 16px"><tspan x="160" dy="0">1 실시간으로 바뀌는 코드는</tspan><tspan x="160" dy="20">사용자 브라우저에서 빌드해요</tspan></text>
+<rect class="box" x="25" y="75" width="270" height="245" rx="8" />
+<text class="label" x="160.0" y="103" style="font-size: 14px"><tspan x="160.0" dy="0">가상 파일 시스템</tspan></text>
+<text class="small" x="160.0" y="128" style="font-size: 14px"><tspan x="160.0" dy="0">경로를 요청하면</tspan><tspan x="160.0" dy="20">파일 내용을 돌려줘요</tspan></text>
+<g class="pulse edit">
+<rect class="box" x="43" y="163" width="155" height="28" rx="8" />
+<text class="small mono" x="120" y="183" style="font-size: 13px"><tspan x="120" dy="0">userLayer</tspan></text>
+</g>
+<g class="">
+<rect class="box" x="43" y="197" width="155" height="28" rx="8" />
+<text class="small mono" x="120" y="217" style="font-size: 13px"><tspan x="120" dy="0">projectLayer</tspan></text>
+</g>
+<g class="">
+<rect class="box" x="43" y="231" width="155" height="28" rx="8" />
+<text class="small mono" x="120" y="251" style="font-size: 13px"><tspan x="120" dy="0">templateLayer</tspan></text>
+</g>
+<g class="">
+<rect class="box" x="43" y="265" width="155" height="28" rx="8" />
+<text class="small mono" x="120" y="285" style="font-size: 13px"><tspan x="120" dy="0">runtimeLayer</tspan></text>
+</g>
+<path class="route" d="M255 290 V167" />
+<path class="arrow" d="M255 167 m-4 5 4 -5 4 5" />
+<text class="small" x="250" y="312" style="font-size: 12px"><tspan x="250" dy="0">우선순위</tspan></text>
+<text class="small" x="160" y="348" style="font-size: 13px"><tspan x="160" dy="0">플러그인으로 연결해요</tspan></text>
+<path class="route" d="M160 320 V330 M160 355 V375" />
+<path class="flow vfs-flow" d="M160 320 V330 M160 355 V375" />
+<path class="arrow" d="M160 375 m-4 -5 4 5 4 -5" />
+<g class="pulse build">
+<rect class="box" x="25" y="375" width="270" height="125" rx="8" />
+<text class="label mono" x="160.0" y="402" style="font-size: 14px"><tspan x="160.0" dy="0">esbuild-wasm</tspan></text>
+<text class="small" x="160.0" y="427" style="font-size: 14px"><tspan x="160.0" dy="0">TypeScript와 JSX를 변환하고</tspan><tspan x="160.0" dy="20">import 그래프를 따라가요</tspan></text>
+</g>
+<text class="small mono" x="160" y="480" style="font-size: 12px"><tspan x="160" dy="0">Web Worker</tspan></text>
+<text class="small" x="160" y="529" style="font-size: 13px"><tspan x="160" dy="0">하나로 묶어요</tspan></text>
+<path class="route" d="M160 500 V511 M160 536 V555" />
+<path class="flow bundle-flow" d="M160 500 V511 M160 536 V555" />
+<path class="arrow" d="M160 555 m-4 -5 4 5 4 -5" />
+<g class="pulse bundle">
+<rect class="box" x="25" y="555" width="270" height="95" rx="8" />
+<text class="label" x="160.0" y="582" style="font-size: 14px"><tspan x="160.0" dy="0">ESM 번들</tspan></text>
+<text class="small" x="160.0" y="607" style="font-size: 14px"><tspan x="160.0" dy="0">브라우저가 바로 실행할 수 있는 결과물</tspan></text>
+</g>
+<text class="label" x="160" y="715" style="font-size: 16px"><tspan x="160" dy="0">2 사용할 패키지는 미리 준비해요</tspan></text>
+<g class="">
+<rect class="box" x="25" y="743" width="270" height="100" rx="8" />
+<text class="label" x="160.0" y="770" style="font-size: 14px"><tspan x="160.0" dy="0">미리 만든 패키지</tspan></text>
+<text class="small" x="160.0" y="795" style="font-size: 14px"><tspan x="160.0" dy="0">조합이 바뀔 때 한 번만 빌드해서</tspan><tspan x="160.0" dy="20">바로 가져다 써요</tspan></text>
+</g>
+<text class="small" x="160" y="870" style="font-size: 13px"><tspan x="160" dy="0">react, @tds/desktop 같은 패키지는</tspan><tspan x="160" dy="20">번들에 넣지 않아요</tspan></text>
+<text class="small" x="160" y="925" style="font-size: 13px"><tspan x="160" dy="0">external로 남겨 두고,</tspan><tspan x="160" dy="20">실행할 때 import map이 연결해요</tspan></text>
+<text class="label" x="160" y="1020" style="font-size: 16px"><tspan x="160" dy="0">3 실행한 결과물은 화면에 보여줘요</tspan></text>
+<path class="route" d="M295 602 H309 V1095 H295" />
+<path class="flow run-flow" d="M295 602 H309 V1095 H295" />
+<path class="arrow" d="M295 1095 m5 -4 -5 4 5 4" />
+<path class="route" d="M25 793 H12 V1095 H25" />
+<path class="flow package-flow" d="M25 793 H12 V1095 H25" />
+<path class="arrow" d="M25 1095 m-5 -4 5 4 -5 4" />
+<g class="pulse execute">
+<rect class="box" x="25" y="1055" width="270" height="100" rx="8" />
+<text class="label" x="160.0" y="1082" style="font-size: 14px"><tspan x="160.0" dy="0">번들을 실행해요</tspan></text>
+<text class="small" x="160.0" y="1107" style="font-size: 14px"><tspan x="160.0" dy="0">빌드가 끝날 때마다</tspan><tspan x="160.0" dy="20">새 HTML 문서를 만들어요</tspan></text>
+</g>
+<path class="route" d="M160 1155 V1171 M160 1196 V1215" />
+<path class="flow success-flow" d="M160 1155 V1171 M160 1196 V1215" />
+<path class="arrow" d="M160 1215 m-4 -5 4 5 4 -5" />
+<text class="small" x="160" y="1189" style="font-size: 13px"><tspan x="160" dy="0">실행에 성공하면</tspan></text>
+<g class="pulse commit">
+<rect class="accent-box" x="25" y="1215" width="270" height="115" rx="8" />
+<text class="label" x="160.0" y="1242" style="font-size: 14px"><tspan x="160.0" dy="0">커밋: iframe을 통째로 교체해요</tspan></text>
+<text class="small" x="160.0" y="1267" style="font-size: 14px"><tspan x="160.0" dy="0">이전 문서의 DOM · 상태 · 전역 값이</tspan><tspan x="160.0" dy="20">전혀 남지 않아요</tspan></text>
+</g>
+<path class="route" d="M25 1105 H8 V1408 H25" />
+<path class="flow failure-flow" d="M25 1105 H8 V1408 H25" />
+<path class="arrow" d="M25 1408 m-5 -4 5 4 -5 4" />
+<text class="small" x="160" y="1372" style="font-size: 13px"><tspan x="160" dy="0">실행에 실패하면</tspan></text>
+<g class="pulse rollback">
+<rect class="box" x="25" y="1390" width="270" height="115" rx="8" />
+<text class="label" x="160.0" y="1417" style="font-size: 14px"><tspan x="160.0" dy="0">롤백: 교체하지 않아요</tspan></text>
+<text class="small" x="160.0" y="1442" style="font-size: 14px"><tspan x="160.0" dy="0">마지막 정상 화면을 유지하고</tspan><tspan x="160.0" dy="20">에러 오버레이만 띄워요</tspan></text>
+</g>
+<path class="route" d="M295 1272 H307 V1650 H275" />
+<path class="flow preview-flow" d="M295 1272 H307 V1650 H275" />
+<path class="arrow" d="M275 1650 m5 -4 -5 4 5 4" />
+<path class="route" d="M160 1505 V1575" stroke-dasharray="4 5" />
+<path class="arrow" d="M160 1575 m-4 -5 4 5 4 -5" />
+<rect class="accent-box" x="45" y="1585" width="230" height="155" rx="8" />
+<circle class="dot" cx="57" cy="1597" r="2" /><circle class="dot" cx="66" cy="1597" r="2" /><circle class="dot" cx="75" cy="1597" r="2" /><text class="label" x="160.0" y="1617" style="font-size: 14px"><tspan x="160.0" dy="0">Preview</tspan></text>
+<g class="old-content">
+<rect class="box" x="60" y="1635" width="200" height="88" rx="8" />
+<path class="route" d="M60 1657 H260" /><path class="route" d="M60 1679 H260" /><path class="route" d="M60 1701 H260" /><path class="route" d="M125.5 1635 V1723" /></g>
+<g class="new-content">
+<rect class="box" x="60" y="1635" width="200" height="88" rx="8" />
+<path class="route" d="M60 1657 H260" /><path class="route" d="M60 1679 H260" /><path class="route" d="M60 1701 H260" /><path class="route" d="M183.0 1635 V1723" /></g>
+<g class="overlay">
+<rect class="box" x="55" y="1560" width="210" height="32" rx="8" />
+<text class="small" x="160.0" y="1581" style="font-size: 13px"><tspan x="160.0" dy="0">에러 오버레이</tspan></text>
+</g>
+<g class="summary">
+<text class="small" x="160" y="1790" style="font-size: 13px"><tspan x="160" dy="0">Preview 업데이트가 트랜잭션 커밋처럼</tspan><tspan x="160" dy="20">동작해서, 성공한 최신 화면만 보여요</tspan></text>
+</g>
+</svg>
+</DiagramFrame>
+<style>
+svg .mono { font-family: ui-monospace, monospace; }
+svg .pulse .box { stroke: var(--line); }
+svg .dot { fill: var(--muted); }
+svg .signal { fill: var(--accent); }
+svg .flow { opacity: 0; }
+svg .edit { animation: edit 16s ease-in-out infinite; }
+@keyframes edit {0%, 100% { opacity: .65; }0.0000%, 6.2500% { opacity: .65; }1.2500%, 5.0000% { opacity: 1; }50.0000%, 56.2500% { opacity: .65; }51.2500%, 55.0000% { opacity: 1; }}
+svg .build { animation: build 16s ease-in-out infinite; }
+@keyframes build {0%, 100% { opacity: .65; }6.2500%, 15.6250% { opacity: .65; }7.5000%, 14.3750% { opacity: 1; }56.2500%, 62.5000% { opacity: .65; }57.5000%, 61.2500% { opacity: 1; }}
+svg .bundle { animation: bundle 16s ease-in-out infinite; }
+@keyframes bundle {0%, 100% { opacity: .65; }15.6250%, 25.0000% { opacity: .65; }16.8750%, 23.7500% { opacity: 1; }62.5000%, 67.1875% { opacity: .65; }63.6719%, 66.0156% { opacity: 1; }}
+svg .execute { animation: execute 16s ease-in-out infinite; }
+@keyframes execute {0%, 100% { opacity: .65; }25.0000%, 34.3750% { opacity: .65; }26.2500%, 33.1250% { opacity: 1; }67.1875%, 71.8750% { opacity: .65; }68.3594%, 70.7031% { opacity: 1; }}
+svg .commit { animation: commit 16s ease-in-out infinite; }
+@keyframes commit {0%, 100% { opacity: .65; }34.3750%, 40.6250% { opacity: .65; }35.6250%, 39.3750% { opacity: 1; }}
+svg .rollback { animation: rollback 16s ease-in-out infinite; }
+@keyframes rollback {0%, 100% { opacity: .65; }71.8750%, 78.1250% { opacity: .65; }73.1250%, 76.8750% { opacity: 1; }}
+svg .summary { animation: summary 16s ease-in-out infinite; }
+@keyframes summary {0%, 100% { opacity: .65; }78.1250%, 93.7500% { opacity: .65; }79.3750%, 92.5000% { opacity: 1; }}
+svg .vfs-flow { animation: vfs-flow 16s ease-in-out infinite; }
+@keyframes vfs-flow {0%, 100% { opacity: 0; }6.2500%, 15.6250% { opacity: 0; }7.5000%, 14.3750% { opacity: 1; }56.2500%, 62.5000% { opacity: 0; }57.5000%, 61.2500% { opacity: 1; }0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -224; }}
+svg .bundle-flow { animation: bundle-flow 16s ease-in-out infinite; }
+@keyframes bundle-flow {0%, 100% { opacity: 0; }15.6250%, 25.0000% { opacity: 0; }16.8750%, 23.7500% { opacity: 1; }62.5000%, 67.1875% { opacity: 0; }63.6719%, 66.0156% { opacity: 1; }0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -224; }}
+svg .run-flow { animation: run-flow 16s ease-in-out infinite; }
+@keyframes run-flow {0%, 100% { opacity: 0; }25.0000%, 34.3750% { opacity: 0; }26.2500%, 33.1250% { opacity: 1; }67.1875%, 71.8750% { opacity: 0; }68.3594%, 70.7031% { opacity: 1; }0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -224; }}
+svg .package-flow { animation: package-flow 16s ease-in-out infinite; }
+@keyframes package-flow {0%, 100% { opacity: 0; }27.5000%, 31.2500% { opacity: 0; }28.4375%, 30.3125% { opacity: 1; }68.7500%, 71.2500% { opacity: 0; }69.3750%, 70.6250% { opacity: 1; }0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -224; }}
+svg .success-flow { animation: success-flow 16s ease-in-out infinite; }
+@keyframes success-flow {0%, 100% { opacity: 0; }34.3750%, 40.6250% { opacity: 0; }35.6250%, 39.3750% { opacity: 1; }0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -224; }}
+svg .preview-flow { animation: preview-flow 16s ease-in-out infinite; }
+@keyframes preview-flow {0%, 100% { opacity: 0; }40.6250%, 50.0000% { opacity: 0; }41.8750%, 48.7500% { opacity: 1; }0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -224; }}
+svg .failure-flow { animation: failure-flow 16s ease-in-out infinite; }
+@keyframes failure-flow {0%, 100% { opacity: 0; }71.8750%, 78.1250% { opacity: 0; }73.1250%, 76.8750% { opacity: 1; }0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -224; }}
+svg .overlay { animation: overlay 16s ease-in-out infinite; }
+@keyframes overlay {0%, 100% { opacity: .15; }78.1250%, 93.7500% { opacity: .15; }79.3750%, 92.5000% { opacity: 1; }}
+svg .old-content { animation: old-content 16s ease-in-out infinite; }
+svg .new-content { animation: new-content 16s ease-in-out infinite; }
+@keyframes old-content { 0%, 40.625%, 100% { opacity: 1; } 50%, 93.75% { opacity: 0; } }
+@keyframes new-content { 0%, 40.625%, 100% { opacity: 0; } 50%, 93.75% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg .pulse, svg .flow { animation: none !important; transition: none !important; opacity: 1; }
+ svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+svg .old-content { opacity: 0 !important; }
+svg .new-content { opacity: 1 !important; }
+svg .overlay { opacity: .5 !important; }
+}
+</style>

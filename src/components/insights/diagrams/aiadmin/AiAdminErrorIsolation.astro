@@ -1,0 +1,280 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "위가 시도 1, 아래가 시도 2다. 개발 서버 하나를 같이 쓰면 사용자 A의 컴파일 에러가 B와 C 화면에도 뜬다. Sandpack으로 실행 위치를 각자의 브라우저로 옮기자 에러는 A에게만 보였고 대신 첫 화면까지 47초가 걸렸다." } = Astro.props;
+const description = "시도 1에서는 Next.js Dev Server 한 개에 사용자 A, B, C의 iframe이 연결돼 있어 사용자 A의 컴파일 에러가 서버를 거쳐 B와 C 화면에도 Failed to compile로 보이고, 시도 2에서는 Sandpack으로 각 사용자의 브라우저 안에서 코드를 실행해 에러가 A에게만 보이지만 렌더링 시점에 패키지를 전부 내려받아 Preview 첫 화면이 보이기까지 47초가 걸린 것을 비교한 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 900" role="img" aria-label={description}>
+<g class="panel-a">
+<text class="label" x="460" y="25" style="font-size: 17px"><tspan x="460" dy="0">시도 1: Dev Server</tspan></text>
+<g class="pulse server">
+<rect class="accent-box" x="260" y="48" width="400" height="78" rx="8" />
+<text class="label" x="460.0" y="75" style="font-size: 14px"><tspan x="460.0" dy="0">Next.js Dev Server 1개</tspan></text>
+<text class="small" x="460.0" y="100" style="font-size: 14px"><tspan x="460.0" dy="0">모든 프로젝트 파일을 함께 감시해요</tspan></text>
+</g>
+<text class="small" x="460" y="151" style="font-size: 13px"><tspan x="460" dy="0">iframe으로 연결해요</tspan></text>
+<path class="route" d="M155.0 200 V174 H460 V126" />
+<path class="flow wire0" d="M155.0 200 V174 H460 V126" />
+<path class="arrow" d="M460 126 m-4 5 4 -5 4 5" />
+<rect class="box" x="20" y="200" width="270" height="120" rx="8" />
+<g class="err0">
+<rect class="box error-border" x="20" y="200" width="270" height="120" rx="8" />
+</g>
+<circle class="dot" cx="32" cy="212" r="2" /><circle class="dot" cx="41" cy="212" r="2" /><circle class="dot" cx="50" cy="212" r="2" /><text class="label" x="155.0" y="230" style="font-size: 14px"><tspan x="155.0" dy="0">사용자 A</tspan></text>
+<g class="normal-err0">
+<text class="small" x="155.0" y="265" style="font-size: 14px"><tspan x="155.0" dy="0">A 페이지 편집 중</tspan></text>
+</g>
+<g class="err0">
+<text class="small mono" x="155.0" y="265" style="font-size: 14px"><tspan x="155.0" dy="0">Failed to compile</tspan></text>
+<text class="small" x="155.0" y="290" style="font-size: 12px"><tspan x="155.0" dy="0">A 페이지를 편집하다가</tspan><tspan x="155.0" dy="20">에러를 냈어요</tspan></text>
+</g>
+<g class="err0">
+<rect class="box" x="80" y="329" width="150" height="28" rx="8" />
+<text class="small" x="155.0" y="348" style="font-size: 12px"><tspan x="155.0" dy="0">컴파일 에러 발생</tspan></text>
+</g>
+<path class="route" d="M460 126 V174 H460.0 V200" />
+<path class="flow wire1" d="M460 126 V174 H460.0 V200" />
+<path class="arrow" d="M460.0 200 m-4 -5 4 5 4 -5" />
+<rect class="box" x="325" y="200" width="270" height="120" rx="8" />
+<g class="err1">
+<rect class="box error-border" x="325" y="200" width="270" height="120" rx="8" />
+</g>
+<circle class="dot" cx="337" cy="212" r="2" /><circle class="dot" cx="346" cy="212" r="2" /><circle class="dot" cx="355" cy="212" r="2" /><text class="label" x="460.0" y="230" style="font-size: 14px"><tspan x="460.0" dy="0">사용자 B</tspan></text>
+<g class="normal-err1">
+<text class="small" x="460.0" y="265" style="font-size: 14px"><tspan x="460.0" dy="0">B 페이지 편집 중</tspan></text>
+</g>
+<g class="err1">
+<text class="small mono" x="460.0" y="265" style="font-size: 14px"><tspan x="460.0" dy="0">Failed to compile</tspan></text>
+<text class="small" x="460.0" y="290" style="font-size: 12px"><tspan x="460.0" dy="0">B 페이지를 보고 있는데</tspan><tspan x="460.0" dy="20">같은 에러가 보여요</tspan></text>
+</g>
+<path class="route" d="M460 126 V174 H765.0 V200" />
+<path class="flow wire2" d="M460 126 V174 H765.0 V200" />
+<path class="arrow" d="M765.0 200 m-4 -5 4 5 4 -5" />
+<rect class="box" x="630" y="200" width="270" height="120" rx="8" />
+<g class="err2">
+<rect class="box error-border" x="630" y="200" width="270" height="120" rx="8" />
+</g>
+<circle class="dot" cx="642" cy="212" r="2" /><circle class="dot" cx="651" cy="212" r="2" /><circle class="dot" cx="660" cy="212" r="2" /><text class="label" x="765.0" y="230" style="font-size: 14px"><tspan x="765.0" dy="0">사용자 C</tspan></text>
+<g class="normal-err2">
+<text class="small" x="765.0" y="265" style="font-size: 14px"><tspan x="765.0" dy="0">C 페이지 편집 중</tspan></text>
+</g>
+<g class="err2">
+<text class="small mono" x="765.0" y="265" style="font-size: 14px"><tspan x="765.0" dy="0">Failed to compile</tspan></text>
+<text class="small" x="765.0" y="290" style="font-size: 12px"><tspan x="765.0" dy="0">C 페이지를 보고 있는데</tspan><tspan x="765.0" dy="20">같은 에러가 보여요</tspan></text>
+</g>
+<g class="why">
+<text class="small" x="460" y="405" style="font-size: 14px"><tspan x="460" dy="0">실행 환경을 사용자별로 나누지 않아서 생긴 문제였어요</tspan></text>
+</g>
+</g>
+<g class="panel-b">
+<text class="label" x="460" y="480" style="font-size: 15px"><tspan x="460" dy="0">시도 2: Sandpack으로 실행 위치를 브라우저로 옮기기</tspan></text>
+<rect class="box" x="20" y="520" width="270" height="96" rx="8" />
+<g class="isolated">
+<rect class="box error-border" x="20" y="520" width="270" height="96" rx="8" />
+</g>
+<circle class="dot" cx="32" cy="532" r="2" /><circle class="dot" cx="41" cy="532" r="2" /><circle class="dot" cx="50" cy="532" r="2" /><text class="label" x="155.0" y="551" style="font-size: 14px"><tspan x="155.0" dy="0">사용자 A</tspan></text>
+<g class="normal-isolated">
+<text class="small" x="155.0" y="588" style="font-size: 14px"><tspan x="155.0" dy="0">브라우저 안에서 실행돼요</tspan></text>
+</g>
+<g class="isolated">
+<text class="small mono" x="155.0" y="588" style="font-size: 14px"><tspan x="155.0" dy="0">Failed to compile</tspan></text>
+</g>
+<text class="small" x="155.0" y="640" style="font-size: 13px"><tspan x="155.0" dy="0">A의 코드는 A의 브라우저에서만</tspan></text>
+<g class="check0">
+<text class="small" x="155.0" y="665" style="font-size: 13px"><tspan x="155.0" dy="0">✓ 에러도 A에게만 보여요</tspan></text>
+</g>
+<rect class="accent-box" x="325" y="520" width="270" height="96" rx="8" />
+<circle class="dot" cx="337" cy="532" r="2" /><circle class="dot" cx="346" cy="532" r="2" /><circle class="dot" cx="355" cy="532" r="2" /><text class="label" x="460.0" y="551" style="font-size: 14px"><tspan x="460.0" dy="0">사용자 B</tspan></text>
+<g class="">
+<text class="small" x="460.0" y="588" style="font-size: 14px"><tspan x="460.0" dy="0">브라우저 안에서 실행돼요</tspan></text>
+</g>
+<text class="small" x="460.0" y="640" style="font-size: 13px"><tspan x="460.0" dy="0">B의 코드는 B의 브라우저에서만</tspan></text>
+<g class="check1">
+<text class="small" x="460.0" y="665" style="font-size: 13px"><tspan x="460.0" dy="0">✓ 서로 영향이 없어요</tspan></text>
+</g>
+<rect class="accent-box" x="630" y="520" width="270" height="96" rx="8" />
+<circle class="dot" cx="642" cy="532" r="2" /><circle class="dot" cx="651" cy="532" r="2" /><circle class="dot" cx="660" cy="532" r="2" /><text class="label" x="765.0" y="551" style="font-size: 14px"><tspan x="765.0" dy="0">사용자 C</tspan></text>
+<g class="">
+<text class="small" x="765.0" y="588" style="font-size: 14px"><tspan x="765.0" dy="0">브라우저 안에서 실행돼요</tspan></text>
+</g>
+<text class="small" x="765.0" y="640" style="font-size: 13px"><tspan x="765.0" dy="0">C의 코드는 C의 브라우저에서만</tspan></text>
+<g class="check2">
+<text class="small" x="765.0" y="665" style="font-size: 13px"><tspan x="765.0" dy="0">✓ 격리에 성공했어요</tspan></text>
+</g>
+<g class="time">
+<text class="label accent-text" x="460" y="715" style="font-size: 26px"><tspan x="460" dy="0">47초</tspan></text>
+</g>
+<text class="small" x="460" y="741" style="font-size: 14px"><tspan x="460" dy="0">Preview 첫 화면이 보이기까지</tspan></text>
+<g class="download">
+<text class="small" x="460" y="778" style="font-size: 13px"><tspan x="460" dy="0">렌더링 시점에 패키지를 전부 내려받아요</tspan></text>
+</g>
+<rect class="box" x="30" y="815" width="860" height="8" rx="8" />
+<rect class="signal progress" x="30" y="815" width="860" height="8" rx="4" /><text class="small" x="64" y="845" style="font-size: 12px"><tspan x="64" dy="0">페이지 진입</tspan></text>
+<text class="small" x="866" y="845" style="font-size: 12px"><tspan x="866" dy="0">첫 화면</tspan></text>
+<text class="small" x="460" y="875" style="font-size: 13px"><tspan x="460" dy="0">매번, 모든 사용자가, 처음부터</tspan></text>
+</g>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 1640" role="img" aria-label={description}>
+<g class="panel-a">
+<text class="label" x="160" y="25" style="font-size: 17px"><tspan x="160" dy="0">시도 1: Dev Server</tspan></text>
+<g class="pulse server">
+<rect class="accent-box" x="20" y="48" width="280" height="78" rx="8" />
+<text class="label" x="160.0" y="75" style="font-size: 14px"><tspan x="160.0" dy="0">Next.js Dev Server 1개</tspan></text>
+<text class="small" x="160.0" y="100" style="font-size: 14px"><tspan x="160.0" dy="0">모든 프로젝트 파일을 함께 감시해요</tspan></text>
+</g>
+<text class="small" x="160" y="151" style="font-size: 13px"><tspan x="160" dy="0">iframe으로 연결해요</tspan></text>
+<path class="route" d="M40 245 H14 V166 H160 V157 M160 137 V126" />
+<path class="flow wire0" d="M40 245 H14 V166 H160 V157 M160 137 V126" />
+<path class="arrow" d="M160 126 m-4 5 4 -5 4 5" />
+<rect class="box" x="40" y="185" width="260" height="120" rx="8" />
+<g class="err0">
+<rect class="box error-border" x="40" y="185" width="260" height="120" rx="8" />
+</g>
+<circle class="dot" cx="52" cy="197" r="2" /><circle class="dot" cx="61" cy="197" r="2" /><circle class="dot" cx="70" cy="197" r="2" /><text class="label" x="170.0" y="215" style="font-size: 14px"><tspan x="170.0" dy="0">사용자 A</tspan></text>
+<g class="normal-err0">
+<text class="small" x="170.0" y="250" style="font-size: 14px"><tspan x="170.0" dy="0">A 페이지 편집 중</tspan></text>
+</g>
+<g class="err0">
+<text class="small mono" x="170.0" y="250" style="font-size: 14px"><tspan x="170.0" dy="0">Failed to compile</tspan></text>
+<text class="small" x="170.0" y="275" style="font-size: 12px"><tspan x="170.0" dy="0">A 페이지를 편집하다가</tspan><tspan x="170.0" dy="20">에러를 냈어요</tspan></text>
+</g>
+<g class="err0">
+<rect class="box" x="100" y="314" width="150" height="28" rx="8" />
+<text class="small" x="170.0" y="333" style="font-size: 12px"><tspan x="170.0" dy="0">컴파일 에러 발생</tspan></text>
+</g>
+<path class="route" d="M160 126 V137 M160 157 V166 H14 V430 H40" />
+<path class="flow wire1" d="M160 126 V137 M160 157 V166 H14 V430 H40" />
+<path class="arrow" d="M40 430 m-5 -4 5 4 -5 4" />
+<rect class="box" x="40" y="370" width="260" height="120" rx="8" />
+<g class="err1">
+<rect class="box error-border" x="40" y="370" width="260" height="120" rx="8" />
+</g>
+<circle class="dot" cx="52" cy="382" r="2" /><circle class="dot" cx="61" cy="382" r="2" /><circle class="dot" cx="70" cy="382" r="2" /><text class="label" x="170.0" y="400" style="font-size: 14px"><tspan x="170.0" dy="0">사용자 B</tspan></text>
+<g class="normal-err1">
+<text class="small" x="170.0" y="435" style="font-size: 14px"><tspan x="170.0" dy="0">B 페이지 편집 중</tspan></text>
+</g>
+<g class="err1">
+<text class="small mono" x="170.0" y="435" style="font-size: 14px"><tspan x="170.0" dy="0">Failed to compile</tspan></text>
+<text class="small" x="170.0" y="460" style="font-size: 12px"><tspan x="170.0" dy="0">B 페이지를 보고 있는데</tspan><tspan x="170.0" dy="20">같은 에러가 보여요</tspan></text>
+</g>
+<path class="route" d="M160 126 V137 M160 157 V166 H14 V615 H40" />
+<path class="flow wire2" d="M160 126 V137 M160 157 V166 H14 V615 H40" />
+<path class="arrow" d="M40 615 m-5 -4 5 4 -5 4" />
+<rect class="box" x="40" y="555" width="260" height="120" rx="8" />
+<g class="err2">
+<rect class="box error-border" x="40" y="555" width="260" height="120" rx="8" />
+</g>
+<circle class="dot" cx="52" cy="567" r="2" /><circle class="dot" cx="61" cy="567" r="2" /><circle class="dot" cx="70" cy="567" r="2" /><text class="label" x="170.0" y="585" style="font-size: 14px"><tspan x="170.0" dy="0">사용자 C</tspan></text>
+<g class="normal-err2">
+<text class="small" x="170.0" y="620" style="font-size: 14px"><tspan x="170.0" dy="0">C 페이지 편집 중</tspan></text>
+</g>
+<g class="err2">
+<text class="small mono" x="170.0" y="620" style="font-size: 14px"><tspan x="170.0" dy="0">Failed to compile</tspan></text>
+<text class="small" x="170.0" y="645" style="font-size: 12px"><tspan x="170.0" dy="0">C 페이지를 보고 있는데</tspan><tspan x="170.0" dy="20">같은 에러가 보여요</tspan></text>
+</g>
+<g class="why">
+<text class="small" x="160" y="755" style="font-size: 14px"><tspan x="160" dy="0">실행 환경을 사용자별로 나누지 않아서</tspan><tspan x="160" dy="20">생긴 문제였어요</tspan></text>
+</g>
+</g>
+<g class="panel-b">
+<text class="label" x="160" y="830" style="font-size: 15px"><tspan x="160" dy="0">시도 2: Sandpack으로 실행 위치를</tspan><tspan x="160" dy="20">브라우저로 옮기기</tspan></text>
+<rect class="box" x="30" y="885" width="260" height="96" rx="8" />
+<g class="isolated">
+<rect class="box error-border" x="30" y="885" width="260" height="96" rx="8" />
+</g>
+<circle class="dot" cx="42" cy="897" r="2" /><circle class="dot" cx="51" cy="897" r="2" /><circle class="dot" cx="60" cy="897" r="2" /><text class="label" x="160.0" y="916" style="font-size: 14px"><tspan x="160.0" dy="0">사용자 A</tspan></text>
+<g class="normal-isolated">
+<text class="small" x="160.0" y="953" style="font-size: 14px"><tspan x="160.0" dy="0">브라우저 안에서 실행돼요</tspan></text>
+</g>
+<g class="isolated">
+<text class="small mono" x="160.0" y="953" style="font-size: 14px"><tspan x="160.0" dy="0">Failed to compile</tspan></text>
+</g>
+<text class="small" x="160.0" y="1005" style="font-size: 13px"><tspan x="160.0" dy="0">A의 코드는 A의 브라우저에서만</tspan></text>
+<g class="check0">
+<text class="small" x="160.0" y="1030" style="font-size: 13px"><tspan x="160.0" dy="0">✓ 에러도 A에게만 보여요</tspan></text>
+</g>
+<rect class="accent-box" x="30" y="1065" width="260" height="96" rx="8" />
+<circle class="dot" cx="42" cy="1077" r="2" /><circle class="dot" cx="51" cy="1077" r="2" /><circle class="dot" cx="60" cy="1077" r="2" /><text class="label" x="160.0" y="1096" style="font-size: 14px"><tspan x="160.0" dy="0">사용자 B</tspan></text>
+<g class="">
+<text class="small" x="160.0" y="1133" style="font-size: 14px"><tspan x="160.0" dy="0">브라우저 안에서 실행돼요</tspan></text>
+</g>
+<text class="small" x="160.0" y="1185" style="font-size: 13px"><tspan x="160.0" dy="0">B의 코드는 B의 브라우저에서만</tspan></text>
+<g class="check1">
+<text class="small" x="160.0" y="1210" style="font-size: 13px"><tspan x="160.0" dy="0">✓ 서로 영향이 없어요</tspan></text>
+</g>
+<rect class="accent-box" x="30" y="1245" width="260" height="96" rx="8" />
+<circle class="dot" cx="42" cy="1257" r="2" /><circle class="dot" cx="51" cy="1257" r="2" /><circle class="dot" cx="60" cy="1257" r="2" /><text class="label" x="160.0" y="1276" style="font-size: 14px"><tspan x="160.0" dy="0">사용자 C</tspan></text>
+<g class="">
+<text class="small" x="160.0" y="1313" style="font-size: 14px"><tspan x="160.0" dy="0">브라우저 안에서 실행돼요</tspan></text>
+</g>
+<text class="small" x="160.0" y="1365" style="font-size: 13px"><tspan x="160.0" dy="0">C의 코드는 C의 브라우저에서만</tspan></text>
+<g class="check2">
+<text class="small" x="160.0" y="1390" style="font-size: 13px"><tspan x="160.0" dy="0">✓ 격리에 성공했어요</tspan></text>
+</g>
+<g class="time">
+<text class="label accent-text" x="160" y="1455" style="font-size: 26px"><tspan x="160" dy="0">47초</tspan></text>
+</g>
+<text class="small" x="160" y="1481" style="font-size: 14px"><tspan x="160" dy="0">Preview 첫 화면이 보이기까지</tspan></text>
+<g class="download">
+<text class="small" x="160" y="1518" style="font-size: 13px"><tspan x="160" dy="0">렌더링 시점에 패키지를</tspan><tspan x="160" dy="20">전부 내려받아요</tspan></text>
+</g>
+<rect class="box" x="30" y="1555" width="260" height="8" rx="8" />
+<rect class="signal progress" x="30" y="1555" width="260" height="8" rx="4" /><text class="small" x="64" y="1585" style="font-size: 12px"><tspan x="64" dy="0">페이지 진입</tspan></text>
+<text class="small" x="272" y="1585" style="font-size: 12px"><tspan x="272" dy="0">첫 화면</tspan></text>
+<text class="small" x="160" y="1615" style="font-size: 13px"><tspan x="160" dy="0">매번, 모든 사용자가, 처음부터</tspan></text>
+</g>
+</svg>
+</DiagramFrame>
+<style>
+svg .mono { font-family: ui-monospace, monospace; }
+svg .pulse .box { stroke: var(--line); }
+svg .dot { fill: var(--muted); }
+svg .signal { fill: var(--accent); }
+svg .flow { opacity: 0; }
+svg .server { animation: server 16s ease-in-out infinite; }
+@keyframes server {0%, 100% { opacity: .65; }18.7500%, 28.1250% { opacity: .65; }20.0000%, 26.8750% { opacity: 1; }}
+svg .why { animation: why 16s ease-in-out infinite; }
+@keyframes why {0%, 100% { opacity: .65; }40.6250%, 50.0000% { opacity: .65; }41.8750%, 48.7500% { opacity: 1; }}
+svg .check0 { animation: check0 16s ease-in-out infinite; }
+@keyframes check0 {0%, 100% { opacity: .65; }50.0000%, 55.0000% { opacity: .65; }51.2500%, 53.7500% { opacity: 1; }}
+svg .check1 { animation: check1 16s ease-in-out infinite; }
+@keyframes check1 {0%, 100% { opacity: .65; }55.0000%, 60.0000% { opacity: .65; }56.2500%, 58.7500% { opacity: 1; }}
+svg .check2 { animation: check2 16s ease-in-out infinite; }
+@keyframes check2 {0%, 100% { opacity: .65; }60.0000%, 65.6250% { opacity: .65; }61.2500%, 64.3750% { opacity: 1; }}
+svg .download { animation: download 16s ease-in-out infinite; }
+@keyframes download {0%, 100% { opacity: .65; }65.6250%, 93.7500% { opacity: .65; }66.8750%, 92.5000% { opacity: 1; }}
+svg .time { animation: time 16s ease-in-out infinite; }
+@keyframes time {0%, 100% { opacity: .65; }93.7500%, 98.1250% { opacity: .65; }94.8438%, 97.0312% { opacity: 1; }}
+svg .wire0 { animation: wire0 16s ease-in-out infinite; }
+@keyframes wire0 {0%, 100% { opacity: 0; }18.7500%, 28.1250% { opacity: 0; }20.0000%, 26.8750% { opacity: 1; }0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -224; }}
+svg .wire1 { animation: wire1 16s ease-in-out infinite; }
+@keyframes wire1 {0%, 100% { opacity: 0; }28.1250%, 34.3750% { opacity: 0; }29.3750%, 33.1250% { opacity: 1; }0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -224; }}
+svg .wire2 { animation: wire2 16s ease-in-out infinite; }
+@keyframes wire2 {0%, 100% { opacity: 0; }34.3750%, 40.6250% { opacity: 0; }35.6250%, 39.3750% { opacity: 1; }0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -224; }}
+svg .err0 { animation: err0 16s ease-in-out infinite; }
+@keyframes err0 {0%, 100% { opacity: 0; }9.3750%, 98.7500% { opacity: 0; }10.6250%, 97.5000% { opacity: 1; }}
+svg .normal-err0 { animation: normal-err0 16s ease-in-out infinite; } @keyframes normal-err0 { 0%, 9.375%, 100% { opacity: 1; } 10.625%, 97.5% { opacity: 0; } }
+svg .err1 { animation: err1 16s ease-in-out infinite; }
+@keyframes err1 {0%, 100% { opacity: 0; }28.1250%, 98.7500% { opacity: 0; }29.3750%, 97.5000% { opacity: 1; }}
+svg .normal-err1 { animation: normal-err1 16s ease-in-out infinite; } @keyframes normal-err1 { 0%, 28.125%, 100% { opacity: 1; } 29.375%, 97.5% { opacity: 0; } }
+svg .err2 { animation: err2 16s ease-in-out infinite; }
+@keyframes err2 {0%, 100% { opacity: 0; }34.3750%, 98.7500% { opacity: 0; }35.6250%, 97.5000% { opacity: 1; }}
+svg .normal-err2 { animation: normal-err2 16s ease-in-out infinite; } @keyframes normal-err2 { 0%, 34.375%, 100% { opacity: 1; } 35.625%, 97.5% { opacity: 0; } }
+svg .isolated { animation: isolated 16s ease-in-out infinite; }
+@keyframes isolated {0%, 100% { opacity: 0; }50.0000%, 98.7500% { opacity: 0; }51.2500%, 97.5000% { opacity: 1; }}
+svg .normal-isolated { animation: normal-isolated 16s ease-in-out infinite; } @keyframes normal-isolated { 0%, 50.0%, 100% { opacity: 1; } 51.25%, 97.5% { opacity: 0; } }
+svg .error-border { stroke-dasharray: 5 5; }
+svg .progress { transform-box: fill-box; transform-origin: left center; animation: progress 16s linear infinite; }
+@keyframes progress { 0%, 65.625% { transform: scaleX(0); } 93.75%, 98% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+svg .panel-a { animation: panel-a 16s ease-in-out infinite; }
+svg .panel-b { animation: panel-b 16s ease-in-out infinite; }
+@keyframes panel-a { 0%, 48%, 100% { opacity: 1; } 50%, 98% { opacity: .65; } }
+@keyframes panel-b { 0%, 48%, 100% { opacity: .65; } 50%, 98% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg .pulse, svg .flow { animation: none !important; transition: none !important; opacity: 1; }
+ svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+svg [class^="normal-"] { opacity: 0 !important; }
+svg .progress { transform: scaleX(1); }
+}
+</style>
