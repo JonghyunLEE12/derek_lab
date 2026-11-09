@@ -1,0 +1,49 @@
+---
+import DiagramFrame from "../DiagramFrame.astro";
+const caption = "입력 지표는 변경을 바로 따라 움직이고, 출력 지표는 그 뒤에 따라온다.";
+---
+<DiagramFrame caption={caption}>
+<div class="diagram">
+<div class="chain" role="img" aria-label="가설의 변경인 버튼 색상 변경이 입력 지표인 로그인 버튼 클릭률을 올리고, 그 결과 출력 지표인 로그인 과정 이탈률을 낮추는 사슬">
+          <div class="node" style="--i:0"><small>가설의 변경</small><span class="v">로그인 버튼 색상 변경</span></div>
+          <div class="link" aria-hidden="true"></div>
+          <div class="node" style="--i:1"><small>입력 지표</small><span class="v">로그인 버튼 클릭률 <span class="arrow">↑</span></span></div>
+          <div class="link" aria-hidden="true"></div>
+          <div class="node" style="--i:2"><small>출력 지표</small><span class="v">로그인 과정 이탈률 <span class="arrow">↓</span></span></div>
+        </div>
+        <div class="guard"><b>가드레일 지표</b> · 이 예시에서는 생략했다. 트레이드오프 칸에서 내준 것(자동 로그인 버튼의 노출)을 재고 싶다면 여기에 둘 수 있다.</div>
+</div>
+</DiagramFrame>
+<style>
+
+.diagram { --accent-soft: rgba(37, 99, 77, .11); --alarm: #b4532a; --alarm-soft: rgba(180, 83, 42, .12); --sheet: #ffffff; --font-key: ui-monospace, SFMono-Regular, Consolas, monospace; min-width: 0; overflow-wrap: anywhere; word-break: keep-all; }
+@media (prefers-color-scheme: dark) { .diagram { --accent-soft: rgba(151, 214, 184, .13); --alarm: #f0a07a; --alarm-soft: rgba(240, 160, 122, .14); --sheet: #1e2321; } }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { fill: currentColor; font-family: inherit; }
+.muted { color: var(--muted); }
+
+.chain { display: grid; grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr) 44px minmax(0, 1fr); align-items: stretch; }
+.node { --i: 0; border: 1.5px solid var(--line); border-radius: 8px; background: var(--sheet); padding: 12px 14px; line-height: 1.5; animation: node-lit 9s ease-in-out infinite; animation-delay: calc(var(--i) * 2.2s); }
+.node small { display: block; font-size: .74rem; color: var(--muted); font-weight: 600; letter-spacing: .02em; margin-bottom: 4px; }
+.node .v { font-weight: 700; }
+.node .arrow { color: var(--accent); font-weight: 800; }
+@keyframes node-lit { 0%, 26%, 100% { border-color: var(--line); } 3%, 22% { border-color: var(--accent); } }
+.link { position: relative; }
+.link::before { content: ""; position: absolute; left: 6px; right: 6px; top: 50%; border-top: 2px solid var(--line); }
+.link::after { content: ""; position: absolute; top: calc(50% - 4px); left: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: dot-x 2.2s linear infinite; }
+@keyframes dot-x { from { left: 6px; } to { left: calc(100% - 14px); } }
+.guard { margin-top: 12px; border: 1.5px dashed var(--line); border-radius: 8px; padding: 10px 14px; font-size: .9rem; line-height: 1.55; color: var(--muted); }
+.guard b { color: currentColor; }
+
+@media (max-width: 640px) {
+.chain { grid-template-columns: minmax(0, 1fr); }
+.link { height: 34px; }
+.link::before { left: 50%; right: auto; top: 4px; bottom: 4px; border-top: 0; border-left: 2px solid var(--line); }
+.link::after { left: calc(50% - 3px); top: 4px; animation-name: dot-y; }
+@keyframes dot-y { from { top: 4px; } to { top: calc(100% - 12px); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+</style>

@@ -1,0 +1,54 @@
+---
+import DiagramFrame from "../DiagramFrame.astro";
+const caption = "현상(이탈률)에서 근본 원인(버튼 색상)까지 한 단계씩 내려간다. 문제 정의 칸에는 맨 아래 원인까지 적는다.";
+---
+<DiagramFrame caption={caption}>
+<div class="diagram">
+<div class="drill" role="img" aria-label="로그인 이탈률 30%라는 현상에서 사용성 테스트를 거쳐, 로그인 버튼이 눈에 띄지 않는다는 문제와 버튼 색상이 또렷하지 않다는 근본 원인까지 내려가는 흐름">
+          <div class="drill-step" style="--i:0"><small>보이는 현상</small>로그인 과정 이탈률 <b>30%</b></div>
+          <div class="drill-link" aria-hidden="true"><svg viewBox="0 0 14 30"><path class="route" d="M7 0 V30"/><path class="flow" d="M7 0 V30"/></svg></div>
+          <div class="drill-step" style="--i:1"><small>확인 방법</small>사용자 경험 재검토와 사용성 테스트</div>
+          <div class="drill-link" aria-hidden="true"><svg viewBox="0 0 14 30"><path class="route" d="M7 0 V30"/><path class="flow" d="M7 0 V30"/></svg></div>
+          <div class="drill-step" style="--i:2"><small>문제</small>로그인 버튼이 화면에서 눈에 잘 띄지 않는다</div>
+          <div class="drill-link" aria-hidden="true"><svg viewBox="0 0 14 30"><path class="route" d="M7 0 V30"/><path class="flow" d="M7 0 V30"/></svg></div>
+          <div class="drill-step root" style="--i:3"><small>근본 원인</small><b>버튼 색상이 또렷하지 않다</b></div>
+        </div>
+        <div class="drill-side" aria-hidden="true">
+          <span class="chip">목표 고객 <b>직접 입력해서 로그인하는 사용자</b></span>
+          <span class="chip">규모 <b>웹 로그인 고객의 90%</b></span>
+        </div>
+</div>
+</DiagramFrame>
+<style>
+
+.diagram { --accent-soft: rgba(37, 99, 77, .11); --alarm: #b4532a; --alarm-soft: rgba(180, 83, 42, .12); --sheet: #ffffff; --font-key: ui-monospace, SFMono-Regular, Consolas, monospace; min-width: 0; overflow-wrap: anywhere; word-break: keep-all; }
+@media (prefers-color-scheme: dark) { .diagram { --accent-soft: rgba(151, 214, 184, .13); --alarm: #f0a07a; --alarm-soft: rgba(240, 160, 122, .14); --sheet: #1e2321; } }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { fill: currentColor; font-family: inherit; }
+.muted { color: var(--muted); }
+
+.drill { display: grid; gap: 0; max-width: 520px; margin-inline: auto; }
+.drill-step {
+  --i: 0;
+  border: 1.5px solid var(--line); border-radius: 8px; background: var(--sheet); padding: 10px 14px; line-height: 1.55;
+  animation: step-lit 12s ease-in-out infinite; animation-delay: calc(var(--i) * 2.5s);
+}
+.drill-step small { display: block; font-size: .76rem; color: var(--muted); font-weight: 500; }
+.drill-step.root { border-style: solid; }
+.drill-step.root b { color: var(--accent); }
+@keyframes step-lit { 0%, 22%, 100% { border-color: var(--line); } 3%, 19% { border-color: var(--accent); } }
+.drill-link { height: 30px; display: flex; justify-content: center; }
+.drill-link svg { width: 14px; height: 30px; }
+.flow { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1 9; animation: stream 1.6s linear infinite; }
+.route { fill: none; stroke: var(--line); stroke-width: 2; }
+@keyframes stream { to { stroke-dashoffset: -20; } }
+.drill-side { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; font-size: .82rem; }
+.chip { border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; background: var(--sheet); color: var(--muted); }
+.chip b { color: currentColor; font-weight: 700; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .flow { stroke-dasharray: none; stroke-width: 2; }
+}
+
+</style>

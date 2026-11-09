@@ -1,0 +1,63 @@
+---
+import DiagramFrame from "../DiagramFrame.astro";
+const caption = "예시 그래프이며 실제 수치는 아니다. 기준선은 배포 전에 정해 둔다. 선이 기준선을 넘으면 아래 네 단계가 순서대로 돈다.";
+---
+<DiagramFrame caption={caption}>
+<div class="diagram">
+<svg class="andon" viewBox="0 0 620 250" role="img" aria-label="버튼 색상 변경을 배포한 뒤 로그인 실패율이 오르다가 기준선을 넘는 순간 경고가 울리고, 대응 후 원래 수준으로 돌아오는 흐름을 그린 예시 그래프. 실제 데이터가 아니다">
+          <path class="axis" d="M60 30 V212 H600"/>
+          <text class="t" x="60" y="18">로그인 실패율</text>
+          <text class="t" x="600" y="234" text-anchor="end">시간</text>
+          <line class="deploy" x1="220" y1="36" x2="220" y2="212"/>
+          <text class="t-strong" x="226" y="52">버튼 색상 변경 배포</text>
+          <line class="limit" x1="60" y1="118" x2="600" y2="118"/>
+          <text class="t-alarm" x="64" y="110">기준선 · 10% 이상 증가</text>
+          <path class="series" d="M60 182 H220 L320 162 L410 118 L470 92"/>
+          <path class="series back" d="M470 92 L530 182 H590"/>
+          <text class="t" x="534" y="170">대응 후</text>
+          <circle class="bell" cx="410" cy="118" r="11"/>
+          <circle class="now" r="6"/>
+        </svg>
+        <ol class="response" aria-label="경고 뒤 대응 순서">
+          <li style="--i:0">실시간 경고 시스템이 울린다</li>
+          <li style="--i:1">개발 팀과 PM이 바로 안다</li>
+          <li style="--i:2">긴급 대응 회의에서 원인을 분석한다</li>
+          <li style="--i:3">필요하면 롤백하거나 UI 개선을 다시 논의한다</li>
+        </ol>
+</div>
+</DiagramFrame>
+<style>
+
+.diagram { --accent-soft: rgba(37, 99, 77, .11); --alarm: #b4532a; --alarm-soft: rgba(180, 83, 42, .12); --sheet: #ffffff; --font-key: ui-monospace, SFMono-Regular, Consolas, monospace; min-width: 0; overflow-wrap: anywhere; word-break: keep-all; }
+@media (prefers-color-scheme: dark) { .diagram { --accent-soft: rgba(151, 214, 184, .13); --alarm: #f0a07a; --alarm-soft: rgba(240, 160, 122, .14); --sheet: #1e2321; } }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { fill: currentColor; font-family: inherit; }
+.muted { color: var(--muted); }
+
+.andon .axis { stroke: var(--line); stroke-width: 1.5; fill: none; }
+.andon .deploy { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.andon .limit { stroke: var(--alarm); stroke-width: 1.8; stroke-dasharray: 7 5; }
+.andon .series { fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; opacity: .8; }
+.andon .series.back { stroke-dasharray: 6 6; opacity: .55; }
+.andon .t { font-size: 17px; fill: var(--muted); }
+.andon .t-strong { font-size: 17px; font-weight: 700; }
+.andon .t-alarm { font-size: 17px; font-weight: 700; fill: var(--alarm); }
+.andon .now { fill: var(--accent); offset-path: path('M60 182 H220 L320 162 L410 118 L470 92 L530 182 H590'); offset-rotate: 0deg; animation: travel 10s linear infinite; }
+.andon .bell { fill: var(--alarm-soft); stroke: var(--alarm); stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: bell 10s ease-out infinite; opacity: .35; }
+@keyframes travel { 0% { offset-distance: 0%; } 90%, 100% { offset-distance: 100%; } }
+@keyframes bell { 0%, 50% { opacity: .35; transform: scale(1); } 53% { opacity: 1; transform: scale(1.5); } 60% { transform: scale(1); } 66% { transform: scale(1.4); } 72%, 92% { opacity: 1; transform: scale(1); } 100% { opacity: .35; } }
+.response { list-style: none; counter-reset: s; padding: 0; margin: 16px 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.response li { --i: 0; counter-increment: s; border: 1.5px solid var(--line); border-radius: 8px; background: var(--sheet); padding: 9px 11px; font-size: .86rem; line-height: 1.5; animation: resp-lit 10s ease-in-out infinite; animation-delay: calc(5.2s + var(--i) * .9s); }
+.response li::before { content: counter(s); display: block; font-family: var(--font-key); font-size: .74rem; color: var(--alarm); font-weight: 600; }
+@keyframes resp-lit { 0%, 30%, 100% { border-color: var(--line); } 4%, 26% { border-color: var(--alarm); } }
+
+@media (max-width: 640px) { .response { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .andon .bell { opacity: 1; }
+  .andon .now { offset-distance: 61%; }
+}
+
+.andon text { text-anchor: start; } .andon text[text-anchor="end"] { text-anchor: end; }
+
+</style>

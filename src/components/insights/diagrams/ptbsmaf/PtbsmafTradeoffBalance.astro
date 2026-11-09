@@ -1,0 +1,58 @@
+---
+import DiagramFrame from "../DiagramFrame.astro";
+const caption = "두 선택지를 저울에 올리고, 판단 근거(1년에 한 번 쓰는 서비스)를 얹어 어느 쪽으로 기우는지 적는다.";
+---
+<DiagramFrame caption={caption}>
+<div class="diagram">
+<svg class="balance" viewBox="0 0 560 250" role="img" aria-label="왼쪽에 로그인 버튼 강조, 오른쪽에 자동 로그인 버튼 노출을 올린 저울. 1년에 한 번 쓰는 서비스라는 근거가 왼쪽에 얹히면서 저울이 로그인 버튼 강조 쪽으로 기운다">
+          <rect class="post" x="274" y="118" width="12" height="104" rx="3"/>
+          <path class="post" d="M232 232 H328 L310 216 H250 Z"/>
+          <g class="beam">
+            <line class="bar" x1="88" y1="118" x2="472" y2="118"/>
+            <circle cx="280" cy="118" r="7" fill="var(--muted)"/>
+            <rect class="pan win" x="6" y="128" width="194" height="64" rx="8"/>
+            <text class="lbl" x="103" y="157">로그인 버튼 강조</text>
+            <text class="sub" x="103" y="179">이탈 방지에 직접 닿는다</text>
+            <rect class="pan" x="360" y="128" width="194" height="64" rx="8"/>
+            <text class="lbl" x="457" y="157">자동 로그인 버튼</text>
+            <text class="sub" x="457" y="179">덜 보이게 된다</text>
+            <g class="weight">
+              <rect class="w-box" x="48" y="66" width="110" height="40" rx="6"/>
+              <text class="w-text" x="103" y="91" text-anchor="middle" font-size="16">1년에 한 번</text>
+            </g>
+          </g>
+        </svg>
+        <div class="decision"><span class="muted">결정</span><b>자동 로그인 버튼이 조금 덜 보여도 로그인 버튼 색상을 강화한다</b></div>
+</div>
+</DiagramFrame>
+<style>
+
+.diagram { --accent-soft: rgba(37, 99, 77, .11); --alarm: #b4532a; --alarm-soft: rgba(180, 83, 42, .12); --sheet: #ffffff; --font-key: ui-monospace, SFMono-Regular, Consolas, monospace; min-width: 0; overflow-wrap: anywhere; word-break: keep-all; }
+@media (prefers-color-scheme: dark) { .diagram { --accent-soft: rgba(151, 214, 184, .13); --alarm: #f0a07a; --alarm-soft: rgba(240, 160, 122, .14); --sheet: #1e2321; } }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { fill: currentColor; font-family: inherit; }
+.muted { color: var(--muted); }
+
+.balance .beam { transform-box: view-box; transform-origin: 280px 118px; animation: tilt 10s ease-in-out infinite; }
+.balance .weight { animation: drop 10s ease-in-out infinite; }
+.balance .pan { fill: var(--sheet); stroke: var(--line); stroke-width: 1.5; }
+.balance .pan.win { stroke: var(--accent); }
+.balance .bar { stroke: var(--muted); stroke-width: 4; stroke-linecap: round; }
+.balance .post { fill: var(--line); }
+.balance .w-box { fill: var(--accent); }
+.balance .w-text { fill: var(--sheet); font-weight: 700; }
+.balance .lbl { font-size: 19px; font-weight: 700; text-anchor: middle; }
+.balance .sub { font-size: 15.5px; fill: var(--muted); text-anchor: middle; }
+@keyframes drop { 0%, 8% { transform: translateY(-46px); opacity: 0; } 14% { opacity: 1; } 24%, 86% { transform: translateY(0); opacity: 1; } 94%, 100% { transform: translateY(-46px); opacity: 0; } }
+@keyframes tilt { 0%, 22% { transform: rotate(0deg); } 32%, 86% { transform: rotate(-6deg); } 96%, 100% { transform: rotate(0deg); } }
+.decision { display: flex; gap: 10px; align-items: baseline; justify-content: center; flex-wrap: wrap; margin-top: 6px; font-size: .92rem; }
+.decision b { color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .balance .beam { transform: rotate(-6deg); }
+}
+
+.balance .w-text { font-size: 16px; text-anchor: middle; }
+
+</style>

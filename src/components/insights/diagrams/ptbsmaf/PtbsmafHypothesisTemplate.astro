@@ -1,0 +1,59 @@
+---
+import DiagramFrame from "../DiagramFrame.astro";
+const caption = "세 빈칸은 차례로 무엇을 바꾸나, 고객이 어떻게 반응하나, 어떤 숫자가 움직이나다. 마지막 빈칸이 다음 칸인 지표로 바로 이어진다.";
+---
+<DiagramFrame caption={caption}>
+<div class="diagram">
+<div class="toggle" role="group" aria-label="가설 문장 보기 방식">
+          <button type="button" id="hyp-blank" aria-pressed="false" data-mode="blank">빈칸</button>
+          <button type="button" id="hyp-fill" aria-pressed="true" data-mode="fill">예시로 채우기</button>
+        </div>
+        <p class="template" id="hyp" data-mode="fill">
+          우리가 만약
+          <span class="slot" style="--i:0"><span class="blank">문제를 어떤 방식으로 개선</span><span class="fill">로그인 버튼을 더 눈에 띄는 색으로 변경</span></span>한다면
+          고객은
+          <span class="slot" style="--i:1"><span class="blank">개선의 결과로 얻는 고객 반응</span><span class="fill">로그인 버튼을 쉽게 찾는 반응</span></span>을 할 것이고,
+          그 결과
+          <span class="slot" style="--i:2"><span class="blank">목표 지표를 달성</span><span class="fill">로그인 과정 이탈률이 감소</span></span>할 것이다.
+        </p>
+</div>
+</DiagramFrame>
+<style>
+
+.diagram { --accent-soft: rgba(37, 99, 77, .11); --alarm: #b4532a; --alarm-soft: rgba(180, 83, 42, .12); --sheet: #ffffff; --font-key: ui-monospace, SFMono-Regular, Consolas, monospace; min-width: 0; overflow-wrap: anywhere; word-break: keep-all; }
+@media (prefers-color-scheme: dark) { .diagram { --accent-soft: rgba(151, 214, 184, .13); --alarm: #f0a07a; --alarm-soft: rgba(240, 160, 122, .14); --sheet: #1e2321; } }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { fill: currentColor; font-family: inherit; }
+.muted { color: var(--muted); }
+
+.template { font-size: 1.08rem; line-height: 2.15; padding: 22px 22px; border: 1px solid var(--line); border-radius: 10px; background: var(--sheet); }
+.slot { display: inline; padding: 3px 8px; border-radius: 5px; border: 1.5px dashed var(--line); white-space: normal; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.slot .blank { color: var(--muted); }
+.slot .fill { color: var(--accent); font-weight: 700; }
+.slot { --i: 0; animation: slot-lit 12s ease-in-out infinite; animation-delay: calc(var(--i) * 3s); }
+@keyframes slot-lit { 0%, 27%, 100% { border-color: var(--line); background: transparent; } 4%, 23% { border-color: var(--accent); background: var(--accent-soft); } }
+.toggle { display: inline-flex; gap: 0; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; margin-bottom: 12px; font-size: .84rem; }
+.toggle button { appearance: none; border: 0; background: transparent; color: var(--muted); font: inherit; padding: 5px 14px; cursor: pointer; }
+.toggle button[aria-pressed="true"] { background: var(--accent); color: var(--sheet); font-weight: 700; }
+.toggle button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.template[data-mode="blank"] .fill { display: none; }
+.template[data-mode="fill"] .blank { display: none; }
+
+@media (max-width: 520px) { .template { padding: 16px; font-size: 1rem; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+</style>
+
+<script>
+  const tpl = document.getElementById('hyp');
+  const btns = document.querySelectorAll<HTMLButtonElement>('.toggle button');
+  btns.forEach((button) => {
+    button.addEventListener('click', () => {
+      if (!tpl || !button.dataset.mode) return;
+      tpl.setAttribute('data-mode', button.dataset.mode);
+      btns.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
+    });
+  });
+</script>

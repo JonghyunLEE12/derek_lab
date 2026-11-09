@@ -1,0 +1,55 @@
+---
+import DiagramFrame from "../DiagramFrame.astro";
+const caption = "일곱 칸이 한 장에 위에서 아래로 놓인다. 칸을 누르면 그 칸의 설명으로 간다.";
+---
+<DiagramFrame caption={caption}>
+<div class="diagram">
+<nav class="sheet" aria-label="PTBSMAF 일곱 칸. 누르면 해당 설명으로 이동">
+          <div class="sheet-head"><span>프로젝트 제안 · 한 장</span><span>위에서 아래로 채운다</span></div>
+          <a class="key-row" href="#p" style="--i:0"><span class="letter">P</span><span class="what"><b>문제 정의</b><span>누가, 무엇 때문에, 왜 곤란한가</span></span><span class="en">Problem statement</span></a>
+          <a class="key-row" href="#t" style="--i:1"><span class="letter">T</span><span class="what"><b>트레이드오프</b><span>무엇을 얻고 무엇을 내주는가</span></span><span class="en">Tradeoff</span></a>
+          <a class="key-row" href="#b" style="--i:2"><span class="letter">B</span><span class="what"><b>벤치마크</b><span>같은 문제를 다른 곳은 어떻게 풀었나</span></span><span class="en">Benchmark</span></a>
+          <a class="key-row" href="#s" style="--i:3"><span class="letter">S</span><span class="what"><b>가설</b><span>이렇게 바꾸면 이렇게 될 것이다</span></span><span class="en">Solution · Hypothesis</span></a>
+          <a class="key-row" href="#m" style="--i:4"><span class="letter">M</span><span class="what"><b>지표</b><span>무엇으로 잘됐는지 확인하나</span></span><span class="en">Metrics</span></a>
+          <a class="key-row" href="#a" style="--i:5"><span class="letter">A</span><span class="what"><b>안돈</b><span>문제가 생기면 누가 언제 알고 어떻게 멈추나</span></span><span class="en">Andon</span></a>
+          <a class="key-row" href="#f" style="--i:6"><span class="letter">F</span><span class="what"><b>피드백 루프</b><span>출시 뒤에 어떻게 계속 고치나</span></span><span class="en">Feedback loop</span></a>
+        </nav>
+</div>
+</DiagramFrame>
+<style>
+
+.diagram { --accent-soft: rgba(37, 99, 77, .11); --alarm: #b4532a; --alarm-soft: rgba(180, 83, 42, .12); --sheet: #ffffff; --font-key: ui-monospace, SFMono-Regular, Consolas, monospace; min-width: 0; overflow-wrap: anywhere; word-break: keep-all; }
+@media (prefers-color-scheme: dark) { .diagram { --accent-soft: rgba(151, 214, 184, .13); --alarm: #f0a07a; --alarm-soft: rgba(240, 160, 122, .14); --sheet: #1e2321; } }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { fill: currentColor; font-family: inherit; }
+.muted { color: var(--muted); }
+
+.sheet { background: var(--sheet); border: 1px solid var(--line); border-radius: 8px; padding: 10px; box-shadow: 0 1px 0 var(--line); }
+.sheet-head { display: flex; justify-content: space-between; gap: 12px; font-size: .78rem; color: var(--muted); padding: 4px 8px 10px; border-bottom: 1px dashed var(--line); margin-bottom: 6px; }
+.key-row {
+  --i: 0;
+  display: grid; grid-template-columns: 46px minmax(0, 1fr) auto; align-items: center; gap: 14px;
+  padding: 9px 10px; border-radius: 6px; color: inherit; text-decoration: none;
+  animation: row-lit 14s ease-in-out infinite; animation-delay: calc(var(--i) * 2s);
+}
+.key-row:hover { background: var(--accent-soft); }
+.key-row .letter {
+  font-family: var(--font-key); font-weight: 600; font-size: 1.15rem; text-align: center;
+  border: 1.5px solid var(--line); border-radius: 6px; line-height: 38px; height: 40px; color: var(--muted);
+  animation: letter-lit 14s ease-in-out infinite; animation-delay: calc(var(--i) * 2s);
+}
+.key-row .what { min-width: 0; line-height: 1.5; }
+.key-row .what b { font-weight: 700; }
+.key-row .what span { display: block; font-size: .88rem; color: var(--muted); }
+.key-row .en { font-family: var(--font-key); font-size: .74rem; color: var(--muted); white-space: nowrap; }
+@keyframes row-lit { 0%, 15%, 100% { background: transparent; } 2%, 12% { background: var(--accent-soft); } }
+@keyframes letter-lit { 0%, 15%, 100% { border-color: var(--line); color: var(--muted); } 2%, 12% { border-color: var(--accent); color: var(--accent); } }
+
+@media (max-width: 520px) { .key-row { grid-template-columns: 40px minmax(0, 1fr); gap: 12px; } .key-row .en { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+nav.sheet { display: block; width: 100%; } .key-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+</style>

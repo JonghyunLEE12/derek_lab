@@ -1,0 +1,41 @@
+---
+import DiagramFrame from "../DiagramFrame.astro";
+const caption = "";
+---
+<DiagramFrame caption={caption}>
+<div class="diagram">
+<div class="sheet filled">
+      <div class="sheet-head"><span>건강 검진 웹 로그인 개선</span><span>프로젝트 제안</span></div>
+      <div class="row"><span class="letter">P</span><div><b>문제 정의</b>직접 입력해서 로그인하는 사용자(웹 로그인의 90%)가 로그인 과정에서 30% 이탈한다. 버튼 색상이 또렷하지 않아 로그인 버튼이 눈에 잘 띄지 않는다.</div></div>
+      <div class="row"><span class="letter">T</span><div><b>트레이드오프</b>로그인 버튼을 강조하면 자동 로그인 설정 버튼이 덜 보인다. 1년에 한 번 쓰는 서비스라 자동 로그인 필요성이 낮다고 보고 로그인 버튼 색상 강화를 택한다.</div></div>
+      <div class="row"><span class="letter">B</span><div><b>벤치마크</b>부킹닷컴은 이메일 로그인과 간편 인증 UI를 확연히 다르게 했다. 홈택스는 로그인 버튼과 아이디·비밀번호 찾기를 강조하고 생성 규칙을 미리 안내한다.</div></div>
+      <div class="row"><span class="letter">S</span><div><b>가설</b>로그인 버튼을 더 눈에 띄는 색으로 바꾸면 사용자가 버튼을 쉽게 찾고, 로그인 과정 이탈률이 줄 것이다.</div></div>
+      <div class="row"><span class="letter">M</span><div><b>지표</b>입력 지표는 로그인 버튼 클릭률, 출력 지표는 로그인 과정 이탈률 감소. 가드레일 지표는 생략.</div></div>
+      <div class="row"><span class="letter">A</span><div><b>안돈</b>이탈률이 기준 이상 늘거나 로그인 실패율이 10% 이상 늘면 개발 팀과 PM에게 실시간 경고. 긴급 회의에서 원인을 보고 롤백 또는 UI 재논의.</div></div>
+      <div class="row"><span class="letter">F</span><div><b>피드백 루프</b>사용자 피드백을 주기적으로 모아 업데이트한다. <em class="gap">책에 이 예시의 구체안은 없다.</em></div></div>
+    </div>
+</div>
+</DiagramFrame>
+<style>
+
+.diagram { --accent-soft: rgba(37, 99, 77, .11); --alarm: #b4532a; --alarm-soft: rgba(180, 83, 42, .12); --sheet: #ffffff; --font-key: ui-monospace, SFMono-Regular, Consolas, monospace; min-width: 0; overflow-wrap: anywhere; word-break: keep-all; }
+@media (prefers-color-scheme: dark) { .diagram { --accent-soft: rgba(151, 214, 184, .13); --alarm: #f0a07a; --alarm-soft: rgba(240, 160, 122, .14); --sheet: #1e2321; } }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { fill: currentColor; font-family: inherit; }
+.muted { color: var(--muted); }
+
+.filled .row { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 14px; padding: 12px 10px; border-top: 1px solid var(--line); line-height: 1.65; font-size: .93rem; }
+.filled .row:first-of-type { border-top: 0; }
+.filled .letter { font-family: var(--font-key); font-weight: 600; font-size: 1.05rem; text-align: center; color: var(--accent); border: 1.5px solid var(--accent); border-radius: 6px; height: 34px; line-height: 31px; }
+.filled .row b { display: block; font-size: .8rem; color: var(--muted); font-weight: 600; letter-spacing: .02em; }
+.filled .row .gap { color: var(--muted); font-style: normal; }
+
+@media (max-width: 520px) { .filled .row { grid-template-columns: 38px minmax(0, 1fr); gap: 12px; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+.sheet { background: var(--sheet); border: 1px solid var(--line); border-radius: 8px; padding: 10px; box-shadow: 0 1px 0 var(--line); }
+.sheet-head { display: flex; justify-content: space-between; gap: 12px; font-size: .78rem; color: var(--muted); padding: 4px 8px 10px; border-bottom: 1px dashed var(--line); margin-bottom: 6px; }
+
+</style>

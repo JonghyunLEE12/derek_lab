@@ -1,0 +1,51 @@
+---
+import DiagramFrame from "../DiagramFrame.astro";
+const caption = "";
+---
+<div class="loop-wrap">
+<DiagramFrame caption={caption}>
+<div class="diagram">
+<svg class="loop" viewBox="0 0 300 250" role="img" aria-label="출시, 사용자 피드백 수집, 제품 업데이트가 원을 따라 계속 반복되는 루프">
+            <circle class="track" cx="150" cy="125" r="82"/>
+            <g class="spin"><circle class="runner" cx="150" cy="43" r="6"/></g>
+            <circle class="stop" cx="150" cy="43" r="9"/>
+            <circle class="stop" cx="221" cy="166" r="9"/>
+            <circle class="stop" cx="79" cy="166" r="9"/>
+            <text class="lbl" x="150" y="20">출시</text>
+            <text class="lbl" x="232" y="204">피드백 수집</text>
+            <text class="sub" x="232" y="222">주기적으로</text>
+            <text class="lbl" x="68" y="204">업데이트</text>
+            <text class="sub" x="68" y="222">만족도를 높인다</text>
+          </svg>
+</div>
+</DiagramFrame>
+<div>
+<p>출시한 뒤 사용자 피드백을 받아 계속 고치는 과정을 적는 칸이다. 피드백을 주기적으로 모으고, 그걸 바탕으로 업데이트해 사용자 만족도를 높인다.</p>
+<p>안돈이 멈춰야 할 때를 정한다면, 피드백 루프는 계속 고쳐 나가는 방법을 정한다. 책은 이 칸에 로그인 예시를 따로 채우지 않았다.</p>
+</div>
+</div>
+<style>
+
+.diagram { --accent-soft: rgba(37, 99, 77, .11); --alarm: #b4532a; --alarm-soft: rgba(180, 83, 42, .12); --sheet: #ffffff; --font-key: ui-monospace, SFMono-Regular, Consolas, monospace; min-width: 0; overflow-wrap: anywhere; word-break: keep-all; }
+@media (prefers-color-scheme: dark) { .diagram { --accent-soft: rgba(151, 214, 184, .13); --alarm: #f0a07a; --alarm-soft: rgba(240, 160, 122, .14); --sheet: #1e2321; } }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { fill: currentColor; font-family: inherit; }
+.muted { color: var(--muted); }
+
+.loop-wrap { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 22px; align-items: center; }
+.loop .track { fill: none; stroke: var(--line); stroke-width: 2; }
+.loop .spin { transform-box: view-box; transform-origin: 150px 125px; animation: spin 9s linear infinite; }
+.loop .runner { fill: var(--accent); }
+.loop .stop { fill: var(--sheet); stroke: var(--accent); stroke-width: 2; }
+.loop .lbl { font-size: 15px; font-weight: 700; text-anchor: middle; }
+.loop .sub { font-size: 12.5px; fill: var(--muted); text-anchor: middle; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 640px) { .loop-wrap { grid-template-columns: minmax(0, 1fr); } .loop-wrap svg { max-width: 300px; margin-inline: auto; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+.loop { max-width: 300px; margin-inline: auto; }
+
+</style>
