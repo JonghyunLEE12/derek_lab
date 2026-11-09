@@ -1,0 +1,158 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "광고주가 할 수 있는 일을 세 가지 기준으로 걸러서 범위를 정했다. 조회 기능을 먼저 열었고 광고 수정 기능은 충분히 검증한 뒤로 미뤘고 결제랑 광고 삭제는 열지 않는다. 원문이 기준과 결정을 하나씩 짝짓지 않아서 기준 셋을 한 묶음으로 그렸다." } = Astro.props;
+const description = "광고주가 할 수 있는 일인 광고 보고서, 광고 수정, 소재 만들기, 타겟팅, 전환 추적, 결제와 충전이 세 가지 기준을 지나서, 조회 기능은 먼저 열리고 광고 수정 기능은 충분히 검증한 뒤로 미뤄지고 결제와 광고 삭제는 열리지 않으며, 광고 종류는 디스플레이 광고부터 시작한다는 범위 결정을 그린 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 478" role="img" aria-label={description}>
+<rect class="box" x="15" y="85" width="260" height="236" rx="7"  />
+<text class="label" x="145.0" y="111" style="font-size: 15px"><tspan x="145.0" dy="0">광고주가 할 수 있는 일</tspan></text>
+<text class="small" x="145.0" y="134" style="font-size: 12px"><tspan x="145.0" dy="0">전문가모드 · 간편모드 · 대행사 플랫폼</tspan></text>
+<g class="" data-stage="chips"><rect class="box" x="21" y="152" width="122" height="32" rx="7"  />
+<text class="small" x="82" y="173" style="font-size: 12px"><tspan x="82" dy="0">광고 보고서</tspan></text>
+<rect class="box" x="147" y="152" width="122" height="32" rx="7"  />
+<text class="small" x="208" y="173" style="font-size: 12px"><tspan x="208" dy="0">광고 수정</tspan></text>
+<rect class="box" x="21" y="194" width="122" height="32" rx="7"  />
+<text class="small" x="82" y="215" style="font-size: 12px"><tspan x="82" dy="0">소재 만들기</tspan></text>
+<rect class="box" x="147" y="194" width="122" height="32" rx="7"  />
+<text class="small" x="208" y="215" style="font-size: 12px"><tspan x="208" dy="0">타겟팅</tspan></text>
+<rect class="box" x="21" y="236" width="122" height="32" rx="7"  />
+<text class="small" x="82" y="257" style="font-size: 12px"><tspan x="82" dy="0">전환 추적</tspan></text>
+<rect class="box" x="147" y="236" width="122" height="32" rx="7"  />
+<text class="small" x="208" y="257" style="font-size: 12px"><tspan x="208" dy="0">결제와 충전</tspan></text>
+</g>
+<path class="route" d="M275 203 H315" style="stroke-width: 3" />
+<path class="flow" d="M275 203 H315" data-stage="input"  />
+<rect class="box" x="315" y="85" width="268" height="236" rx="7"  />
+<text class="label" x="449.0" y="111" style="font-size: 15px"><tspan x="449.0" dy="0">세 가지 기준</tspan></text>
+<text class="small" x="449.0" y="139" style="font-size: 12px" data-stage="criterion0"><tspan x="449.0" dy="0">1 잘못돼도 광고주에게 손해가 없는가</tspan></text>
+<text class="small" x="449.0" y="202" style="font-size: 12px" data-stage="criterion1"><tspan x="449.0" dy="0">2 화면보다 AI로 할 때 더 편한가</tspan></text>
+<text class="small" x="449.0" y="265" style="font-size: 12px" data-stage="criterion2"><tspan x="449.0" dy="0">3 더 많은 광고주에게 도움이 되는가</tspan></text>
+<path class="route" d="M583 203 H608 V328"  />
+<path class="route" d="M608 203 V89 H642"  />
+<path class="flow" d="M583 203 H608 V89 H642" data-stage="readflow"  />
+<path class="arrow" d="M642 89 m-5 -4 5 4 -5 4"  />
+<path class="route" d="M608 203 H624"  />
+<path class="flow" d="M608 203 H624" data-stage="verifyflow"  />
+<path class="route" d="M624 194 V212" data-stage="verify"  />
+<path class="route" d="M624 203 H642" stroke-dasharray="4 3" />
+<text class="small" x="620" y="183" style="font-size: 11px" data-stage="verify"><tspan x="620" dy="0">검증</tspan></text>
+<path class="route" d="M608 328 H634"  />
+<path class="route" d="M628 328 H640" data-stage="stop" style="stroke-width: 3" />
+<path class="route" d="M905 89 H913 V423 H905" style="stroke-width: 1" />
+<g class="" data-stage="read"><rect class="accent-box" x="642" y="48" width="263" height="82" rx="7"  />
+<text class="label" x="773.5" y="71" style="font-size: 14px"><tspan x="773.5" dy="0">조회 기능</tspan></text>
+<text class="small" x="773.5" y="92" style="font-size: 12px"><tspan x="773.5" dy="0">먼저 연다</tspan></text>
+<text class="small" x="773.5" y="113" style="font-size: 12px"><tspan x="773.5" dy="0">리스크가 가장 낮다</tspan></text>
+</g>
+<g class="deferred"><rect class="box" x="642" y="162" width="263" height="100" rx="7" stroke-dasharray="5 4" />
+<text class="label" x="773.5" y="185" style="font-size: 14px"><tspan x="773.5" dy="0">광고 수정 기능</tspan></text>
+<text class="small" x="773.5" y="206" style="font-size: 12px"><tspan x="773.5" dy="0">충분히 검증한 뒤</tspan></text>
+<text class="small" x="773.5" y="227" style="font-size: 12px"><tspan x="773.5" dy="0">예산 · 입찰가 실수는 광고비로 이어진다</tspan></text>
+</g>
+<g class="closed"><rect class="box" x="642" y="287" width="263" height="82" rx="7"  />
+<text class="label" x="773.5" y="310" style="font-size: 14px"><tspan x="773.5" dy="0">결제 · 광고 삭제</tspan></text>
+<text class="small" x="773.5" y="331" style="font-size: 12px"><tspan x="773.5" dy="0">열지 않는다</tspan></text>
+<text class="small" x="773.5" y="352" style="font-size: 12px"><tspan x="773.5" dy="0">AI로 하면 불편하거나 위험하다</tspan></text>
+</g>
+<g class="" data-stage="display"><rect class="box" x="642" y="395" width="263" height="65" rx="7"  />
+<text class="label" x="773.5" y="420" style="font-size: 14px"><tspan x="773.5" dy="0">디스플레이 광고부터</tspan></text>
+<text class="small" x="773.5" y="443" style="font-size: 12px"><tspan x="773.5" dy="0">당근 광고에서 가장 많이 집행</tspan></text>
+</g>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 880" role="img" aria-label={description}>
+<rect class="box" x="15" y="12" width="290" height="197" rx="7"  />
+<text class="label" x="160.0" y="38" style="font-size: 13px"><tspan x="160.0" dy="0">광고주가 할 수 있는 일</tspan></text>
+<text class="small" x="160.0" y="61" style="font-size: 12px"><tspan x="160.0" dy="0">전문가모드 · 간편모드 · 대행사 플랫폼</tspan></text>
+<g class="" data-stage="chips"><rect class="box" x="21" y="79" width="136" height="32" rx="7"  />
+<text class="small" x="89" y="100" style="font-size: 12px"><tspan x="89" dy="0">광고 보고서</tspan></text>
+<rect class="box" x="163" y="79" width="136" height="32" rx="7"  />
+<text class="small" x="231" y="100" style="font-size: 12px"><tspan x="231" dy="0">광고 수정</tspan></text>
+<rect class="box" x="21" y="121" width="136" height="32" rx="7"  />
+<text class="small" x="89" y="142" style="font-size: 12px"><tspan x="89" dy="0">소재 만들기</tspan></text>
+<rect class="box" x="163" y="121" width="136" height="32" rx="7"  />
+<text class="small" x="231" y="142" style="font-size: 12px"><tspan x="231" dy="0">타겟팅</tspan></text>
+<rect class="box" x="21" y="163" width="136" height="32" rx="7"  />
+<text class="small" x="89" y="184" style="font-size: 12px"><tspan x="89" dy="0">전환 추적</tspan></text>
+<rect class="box" x="163" y="163" width="136" height="32" rx="7"  />
+<text class="small" x="231" y="184" style="font-size: 12px"><tspan x="231" dy="0">결제와 충전</tspan></text>
+</g>
+<path class="route" d="M160 209 V245" style="stroke-width: 3" />
+<path class="flow" d="M160 209 V245" data-stage="input"  />
+<rect class="box" x="15" y="245" width="290" height="205" rx="7"  />
+<text class="label" x="160.0" y="271" style="font-size: 13px"><tspan x="160.0" dy="0">세 가지 기준</tspan></text>
+<text class="small" x="160.0" y="299" style="font-size: 12px" data-stage="criterion0"><tspan x="160.0" dy="0">1 잘못돼도 광고주에게</tspan><tspan x="160.0" dy="18">손해가 없는가</tspan></text>
+<text class="small" x="160.0" y="353" style="font-size: 12px" data-stage="criterion1"><tspan x="160.0" dy="0">2 화면보다 AI로 할 때</tspan><tspan x="160.0" dy="18">더 편한가</tspan></text>
+<text class="small" x="160.0" y="407" style="font-size: 12px" data-stage="criterion2"><tspan x="160.0" dy="0">3 더 많은 광고주에게</tspan><tspan x="160.0" dy="18">도움이 되는가</tspan></text>
+<path class="route" d="M160 450 V470 H8 V737"  />
+<path class="route" d="M8 525 H25"  />
+<path class="flow" d="M160 450 V470 H8 V525 H25" data-stage="readflow"  />
+<path class="arrow" d="M25 525 m-5 -4 5 4 -5 4"  />
+<path class="route" d="M8 631 H17"  />
+<path class="flow" d="M8 631 H17" data-stage="verifyflow"  />
+<path class="route" d="M17 622 V640" data-stage="verify"  />
+<path class="route" d="M17 631 H25" stroke-dasharray="3 3" />
+<text class="small" x="18" y="578" style="font-size: 11px" data-stage="verify"><tspan x="18" dy="0">검증</tspan></text>
+<path class="route" d="M8 737 H19"  />
+<path class="route" d="M14 737 H24" data-stage="stop" style="stroke-width: 3" />
+<path class="route" d="M305 525 H313 V819 H305" style="stroke-width: 1" />
+<g class="" data-stage="read"><rect class="accent-box" x="25" y="484" width="280" height="82" rx="7"  />
+<text class="label" x="165.0" y="507" style="font-size: 13px"><tspan x="165.0" dy="0">조회 기능</tspan></text>
+<text class="small" x="165.0" y="528" style="font-size: 12px"><tspan x="165.0" dy="0">먼저 연다</tspan></text>
+<text class="small" x="165.0" y="549" style="font-size: 12px"><tspan x="165.0" dy="0">리스크가 가장 낮다</tspan></text>
+</g>
+<g class="deferred"><rect class="box" x="25" y="590" width="280" height="82" rx="7" stroke-dasharray="5 4" />
+<text class="label" x="165.0" y="613" style="font-size: 13px"><tspan x="165.0" dy="0">광고 수정 기능</tspan></text>
+<text class="small" x="165.0" y="634" style="font-size: 12px"><tspan x="165.0" dy="0">충분히 검증한 뒤</tspan></text>
+<text class="small" x="165.0" y="655" style="font-size: 12px"><tspan x="165.0" dy="0">예산 · 입찰가 실수는 광고비로 이어진다</tspan></text>
+</g>
+<g class="closed"><rect class="box" x="25" y="696" width="280" height="82" rx="7"  />
+<text class="label" x="165.0" y="719" style="font-size: 13px"><tspan x="165.0" dy="0">결제 · 광고 삭제</tspan></text>
+<text class="small" x="165.0" y="740" style="font-size: 12px"><tspan x="165.0" dy="0">열지 않는다</tspan></text>
+<text class="small" x="165.0" y="761" style="font-size: 12px"><tspan x="165.0" dy="0">AI로 하면 불편하거나 위험하다</tspan></text>
+</g>
+<g class="" data-stage="display"><rect class="box" x="25" y="799" width="280" height="65" rx="7"  />
+<text class="label" x="165.0" y="824" style="font-size: 13px"><tspan x="165.0" dy="0">디스플레이 광고부터</tspan></text>
+<text class="small" x="165.0" y="847" style="font-size: 12px"><tspan x="165.0" dy="0">당근 광고에서 가장 많이 집행</tspan></text>
+</g>
+</svg>
+</DiagramFrame>
+<style>
+svg .flow { opacity: 0; }
+svg [data-stage] { opacity: .65; }
+svg .flow[data-stage] { opacity: 0; }
+svg .closed { opacity: .45; }
+svg .closed .box { stroke: var(--muted); }
+svg [data-stage="chips"] { animation: chips 14s ease-in-out infinite; }
+@keyframes chips { 0%, 0.0000%, 100% { opacity: .65; } 1.2857%, 13.4286% { opacity: 1; } 14.2857% { opacity: .65; } }
+svg [data-stage="input"] { animation: input 14s ease-in-out infinite; }
+@keyframes input { 0%, 14.2857%, 100% { opacity: 0; } 15.5714%, 20.5714% { opacity: 1; } 21.4286% { opacity: 0; } 0%, 14.2857% { stroke-dashoffset: 0; } 21.4286%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="criterion0"] { animation: criterion0 14s ease-in-out infinite; }
+@keyframes criterion0 { 0%, 21.4286%, 100% { opacity: .65; } 22.7143%, 28.8571% { opacity: 1; } 29.7143% { opacity: .65; } }
+svg [data-stage="criterion1"] { animation: criterion1 14s ease-in-out infinite; }
+@keyframes criterion1 { 0%, 29.7143%, 100% { opacity: .65; } 31.0000%, 37.1429% { opacity: 1; } 38.0000% { opacity: .65; } }
+svg [data-stage="criterion2"] { animation: criterion2 14s ease-in-out infinite; }
+@keyframes criterion2 { 0%, 38.0000%, 100% { opacity: .65; } 39.2857%, 45.4286% { opacity: 1; } 46.2857% { opacity: .65; } }
+svg [data-stage="readflow"] { animation: readflow 14s ease-in-out infinite; }
+@keyframes readflow { 0%, 46.4286%, 100% { opacity: 0; } 47.7143%, 59.8571% { opacity: 1; } 60.7143% { opacity: 0; } 0%, 46.4286% { stroke-dashoffset: 0; } 60.7143%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="read"] { animation: read 14s ease-in-out infinite; }
+@keyframes read { 0%, 46.4286%, 100% { opacity: .65; } 47.7143%, 99.0714% { opacity: 1; } }
+svg [data-stage="read"] > rect { animation: read-border 14s ease-in-out infinite; }
+@keyframes read-border { 0%, 46.4286%, 100% { stroke: var(--line); } 47.8571%, 99.9% { stroke: var(--accent); } }
+svg [data-stage="verifyflow"] { animation: verifyflow 14s ease-in-out infinite; }
+@keyframes verifyflow { 0%, 60.7143%, 100% { opacity: 0; } 62.0000%, 74.1429% { opacity: 1; } 75.0000% { opacity: 0; } 0%, 60.7143% { stroke-dashoffset: 0; } 75.0000%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="verify"] { animation: verify 14s ease-in-out infinite; }
+@keyframes verify { 0%, 60.7143%, 100% { opacity: .65; } 62.0000%, 74.1429% { opacity: 1; } 75.0000% { opacity: .65; } }
+svg [data-stage="stop"] { animation: stop 14s ease-in-out infinite; }
+@keyframes stop { 0%, 75.0000%, 100% { opacity: .65; } 76.2857%, 81.2857% { opacity: 1; } 82.1429% { opacity: .65; } }
+svg [data-stage="display"] { animation: display 14s ease-in-out infinite; }
+@keyframes display { 0%, 82.1429%, 100% { opacity: .65; } 83.4286%, 99.0714% { opacity: 1; } }
+svg .deferred { opacity: .65; }
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg [data-stage] { animation: none !important; transition: none !important; opacity: 1; }
+ svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+ svg .closed { opacity: .45; }
+  svg .deferred { opacity: .65; }
+}
+</style>

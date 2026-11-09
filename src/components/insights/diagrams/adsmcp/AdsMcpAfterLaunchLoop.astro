@@ -1,0 +1,163 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "출시 후에 돈 흐름이다. 도구 호출을 기록하고 대시보드로 본 다음 빵집 광고를 직접 분석해 봤다. 잘 쓰는지는 호출 횟수보다 분석이 판단과 운영에 도움이 되는지로 봐야 한다는 기준이 나왔고 미뤄 둔 광고 수정 기능의 필요성도 분명해졌다. 점선은 기능을 넓힌 뒤에도 계속 확인하겠다는 계획이다." } = Astro.props;
+const description = "출시 후에 도구 호출 기록을 남기고 대시보드로 누가 계속 쓰는지 본 다음, 개밥먹기로 맡은 빵집 광고의 성과 분석을 에이전트에게 맡겨 소재 피로도와 예산 옮기기 제안을 받고, 잘 쓰는지는 호출 횟수만으로 판단할 수 없고 광고주의 판단과 실제 운영에 도움이 되는지가 더 중요하다는 기준을 얻어 다음 단계인 광고 수정 기능의 필요성이 분명해지며, 기능을 넓힌 뒤에도 계속 확인하겠다는 점선이 처음으로 돌아가는 고리를 그린 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 510" role="img" aria-label={description}>
+<path class="route" d="M260 96 H295"  />
+<path class="flow" d="M260 96 H295" data-stage="r12"  />
+<path class="arrow" d="M295 96 m-5 -4 5 4 -5 4"  />
+<path class="route" d="M525 96 H560"  />
+<path class="flow" d="M525 96 H560" data-stage="r23"  />
+<path class="arrow" d="M560 96 m-5 -4 5 4 -5 4"  />
+<path class="route" d="M675 147 V335"  />
+<path class="flow" d="M675 147 V335" data-stage="r34"  />
+<path class="arrow" d="M675 335 m-4 -5 4 5 4 -5"  />
+<path class="route" d="M492 383 H400"  />
+<path class="flow" d="M492 383 H400" data-stage="r45"  />
+<path class="arrow" d="M400 383 m5 -4 -5 4 5 4"  />
+<path class="route" d="M790 96 H890 V180"  />
+<path class="flow" d="M790 96 H890 V180" data-stage="proposalflow"  />
+<path class="route" d="M780 280 V308 H735 V335" style="stroke-width: 1" />
+<path class="arrow" d="M735 335 m-4 -5 4 5 4 -5"  />
+<path class="route" d="M250 431 V463 H12 V96 H30" stroke-dasharray="5 5" />
+<path class="flow future" d="M250 431 V463 H12 V96 H30" data-stage="returnflow"  />
+<path class="arrow" d="M30 96 m-5 -4 5 4 -5 4"  />
+<text class="small" x="250" y="483" style="font-size: 13px" data-stage="returnlabel"><tspan x="250" dy="0">기능을 넓힌 뒤에도 계속 확인</tspan></text>
+<text class="small" x="390" y="246" style="font-size: 13px"><tspan x="390" dy="0">출시 후</tspan></text>
+<g class="" data-stage="node0"><rect class="box" x="30" y="45" width="230" height="102" rx="7"  />
+<text class="label" x="145.0" y="70" style="font-size: 14px"><tspan x="145.0" dy="0">도구 호출 기록</tspan></text>
+<text class="small" x="70" y="106" style="font-size: 12px" data-stage="record0"><tspan x="70" dy="0">어떤 광고주</tspan></text>
+<text class="small" x="147" y="106" style="font-size: 12px" data-stage="record1"><tspan x="147" dy="0">· 어떤 AI 서비스</tspan></text>
+<text class="small" x="224" y="106" style="font-size: 12px" data-stage="record2"><tspan x="224" dy="0">· 어떤 도구</tspan></text>
+</g>
+<g class="" data-stage="node1"><rect class="box" x="295" y="45" width="230" height="102" rx="7"  />
+<text class="label" x="410.0" y="70" style="font-size: 14px"><tspan x="410.0" dy="0">대시보드</tspan></text>
+<text class="small" x="410.0" y="94" style="font-size: 12px"><tspan x="410.0" dy="0">계속 쓰는지 · 누가 쓰는지 ·</tspan><tspan x="410.0" dy="18">어떤 업종인지</tspan></text>
+</g>
+<g class="" data-stage="node2"><rect class="box" x="560" y="45" width="230" height="102" rx="7"  />
+<text class="label" x="675.0" y="70" style="font-size: 14px"><tspan x="675.0" dy="0">개밥먹기</tspan></text>
+<text class="small" x="675.0" y="94" style="font-size: 12px"><tspan x="675.0" dy="0">빵집 광고 성과 분석을</tspan><tspan x="675.0" dy="18">에이전트에게</tspan></text>
+</g>
+<g class="" data-stage="node3"><rect class="box" x="492" y="335" width="310" height="126" rx="7"  />
+<text class="label" x="647.0" y="360" style="font-size: 14px"><tspan x="647.0" dy="0">잘 쓰는지 보는 기준</tspan></text>
+<text class="small" x="647.0" y="384" style="font-size: 12px" data-stage="oldmetric"><tspan x="647.0" dy="0">호출 횟수만으로는 판단할 수 없다</tspan></text>
+<text class="small accent-text" x="647.0" y="415" style="font-size: 12px" data-stage="newmetric"><tspan x="647.0" dy="0">광고주의 판단과 실제 운영에 도움이 되는가</tspan></text>
+</g>
+<g class="" data-stage="node4"><rect class="box" x="100" y="335" width="300" height="96" rx="7"  />
+<text class="label" x="250.0" y="360" style="font-size: 14px"><tspan x="250.0" dy="0">다음 단계: 광고 수정 기능</tspan></text>
+<text class="small" x="250.0" y="387" style="font-size: 12px"><tspan x="250.0" dy="0">분석 결과를 실제 광고에 반영</tspan></text>
+</g>
+<g class="" data-stage="proposal"><rect class="box" x="695" y="180" width="210" height="100" rx="7" style="stroke-width: 1" />
+<text class="label" x="800.0" y="204" style="font-size: 14px"><tspan x="800.0" dy="0">에이전트의 제안</tspan></text>
+<text class="small" x="800.0" y="227" style="font-size: 12px" data-stage="proposal1"><tspan x="800.0" dy="0">소재 피로도가 높다 → 새 소재</tspan></text>
+<text class="small" x="800.0" y="250" style="font-size: 12px" data-stage="proposal2"><tspan x="800.0" dy="0">성과 낮은 광고를 끈다</tspan><tspan x="800.0" dy="18">→ 예산을 다른 광고로</tspan></text>
+</g>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 860" role="img" aria-label={description}>
+<path class="route" d="M170 112 V149"  />
+<path class="flow" d="M170 112 V149" data-stage="r12"  />
+<path class="arrow" d="M170 149 m-4 -5 4 5 4 -5"  />
+<path class="route" d="M170 241 V278"  />
+<path class="flow" d="M170 241 V278" data-stage="r23"  />
+<path class="arrow" d="M170 278 m-4 -5 4 5 4 -5"  />
+<path class="route" d="M170 358 V385"  />
+<path class="flow" d="M170 358 V385" data-stage="proposalflow"  />
+<path class="route" d="M170 493 V527"  />
+<path class="flow" d="M170 493 V527" data-stage="r34"  />
+<path class="arrow" d="M170 527 m-4 -5 4 5 4 -5"  />
+<path class="route" d="M170 677 V717"  />
+<path class="flow" d="M170 677 V717" data-stage="r45"  />
+<path class="arrow" d="M170 717 m-4 -5 4 5 4 -5"  />
+<path class="route" d="M35 318 H25 V602 H35"  />
+<path class="arrow" d="M35 602 m-5 -4 5 4 -5 4"  />
+<path class="route" d="M35 755 H12 V66 H35" stroke-dasharray="5 5" />
+<path class="flow future" d="M35 755 H12 V66 H35" data-stage="returnflow"  />
+<path class="arrow" d="M35 66 m-5 -4 5 4 -5 4"  />
+<text class="small" x="170" y="823" style="font-size: 11px" data-stage="returnlabel"><tspan x="170" dy="0">기능을 넓힌 뒤에도 계속 확인</tspan></text>
+<g class="" data-stage="node0"><rect class="box" x="35" y="20" width="270" height="92" rx="7"  />
+<text class="label" x="170.0" y="45" style="font-size: 13px"><tspan x="170.0" dy="0">도구 호출 기록</tspan></text>
+<text class="small" x="83" y="78" style="font-size: 12px" data-stage="record0"><tspan x="83" dy="0">어떤 광고주</tspan></text>
+<text class="small" x="171" y="78" style="font-size: 12px" data-stage="record1"><tspan x="171" dy="0">· 어떤 AI 서비스</tspan></text>
+<text class="small" x="261" y="78" style="font-size: 12px" data-stage="record2"><tspan x="261" dy="0">· 어떤 도구</tspan></text>
+</g>
+<g class="" data-stage="node1"><rect class="box" x="35" y="149" width="270" height="92" rx="7"  />
+<text class="label" x="170.0" y="174" style="font-size: 13px"><tspan x="170.0" dy="0">대시보드</tspan></text>
+<text class="small" x="170.0" y="198" style="font-size: 12px"><tspan x="170.0" dy="0">계속 쓰는지 · 누가 쓰는지 ·</tspan><tspan x="170.0" dy="18">어떤 업종인지</tspan></text>
+</g>
+<g class="" data-stage="node2"><rect class="box" x="35" y="278" width="270" height="80" rx="7"  />
+<text class="label" x="170.0" y="303" style="font-size: 13px"><tspan x="170.0" dy="0">개밥먹기</tspan></text>
+<text class="small" x="170.0" y="327" style="font-size: 12px"><tspan x="170.0" dy="0">빵집 광고 성과 분석을</tspan><tspan x="170.0" dy="18">에이전트에게</tspan></text>
+</g>
+<g class="" data-stage="node3"><rect class="box" x="35" y="527" width="270" height="150" rx="7"  />
+<text class="label" x="170.0" y="552" style="font-size: 13px"><tspan x="170.0" dy="0">잘 쓰는지 보는 기준</tspan></text>
+<text class="small" x="170.0" y="576" style="font-size: 12px" data-stage="oldmetric"><tspan x="170.0" dy="0">호출 횟수만으로는</tspan><tspan x="170.0" dy="18">판단할 수 없다</tspan></text>
+<text class="small accent-text" x="170.0" y="624" style="font-size: 12px" data-stage="newmetric"><tspan x="170.0" dy="0">광고주의 판단과 실제 운영에</tspan><tspan x="170.0" dy="18">도움이 되는가</tspan></text>
+</g>
+<g class="" data-stage="node4"><rect class="box" x="35" y="717" width="270" height="77" rx="7"  />
+<text class="label" x="170.0" y="742" style="font-size: 13px"><tspan x="170.0" dy="0">다음 단계: 광고 수정 기능</tspan></text>
+<text class="small" x="170.0" y="769" style="font-size: 12px"><tspan x="170.0" dy="0">분석 결과를 실제 광고에 반영</tspan></text>
+</g>
+<g class="" data-stage="proposal"><rect class="box" x="47" y="385" width="258" height="108" rx="7" style="stroke-width: 1" />
+<text class="label" x="176.0" y="409" style="font-size: 13px"><tspan x="176.0" dy="0">에이전트의 제안</tspan></text>
+<text class="small" x="176.0" y="432" style="font-size: 12px" data-stage="proposal1"><tspan x="176.0" dy="0">소재 피로도가 높다 → 새 소재</tspan></text>
+<text class="small" x="176.0" y="455" style="font-size: 12px" data-stage="proposal2"><tspan x="176.0" dy="0">성과 낮은 광고를 끈다</tspan><tspan x="176.0" dy="18">→ 예산을 다른 광고로</tspan></text>
+</g>
+</svg>
+</DiagramFrame>
+<style>
+svg .flow { opacity: 0; }
+svg [data-stage] { opacity: .65; }
+svg .flow[data-stage] { opacity: 0; }
+svg [data-stage="node0"] { animation: node0 16s ease-in-out infinite; }
+@keyframes node0 { 0%, 0.0000%, 100% { opacity: .65; } 1.1250%, 11.7500% { opacity: 1; } 12.5000% { opacity: .65; } }
+svg [data-stage="node1"] { animation: node1 16s ease-in-out infinite; }
+@keyframes node1 { 0%, 12.5000%, 100% { opacity: .65; } 13.6250%, 24.2500% { opacity: 1; } 25.0000% { opacity: .65; } }
+svg [data-stage="node2"] { animation: node2 16s ease-in-out infinite; }
+@keyframes node2 { 0%, 25.0000%, 100% { opacity: .65; } 26.1250%, 36.7500% { opacity: 1; } 37.5000% { opacity: .65; } }
+svg [data-stage="node3"] { animation: node3 16s ease-in-out infinite; }
+@keyframes node3 { 0%, 53.1250%, 100% { opacity: .65; } 54.2500%, 71.1250% { opacity: 1; } 71.8750% { opacity: .65; } }
+svg [data-stage="node4"] { animation: node4 16s ease-in-out infinite; }
+@keyframes node4 { 0%, 71.8750%, 100% { opacity: .65; } 73.0000%, 80.5000% { opacity: 1; } 81.2500% { opacity: .65; } }
+svg [data-stage="record0"] { animation: record0 16s ease-in-out infinite; }
+@keyframes record0 { 0%, 0.0000%, 100% { opacity: .65; } 1.1250%, 11.7500% { opacity: 1; } 12.5000% { opacity: .65; } }
+svg [data-stage="record1"] { animation: record1 16s ease-in-out infinite; }
+@keyframes record1 { 0%, 2.5000%, 100% { opacity: .65; } 3.6250%, 11.7500% { opacity: 1; } 12.5000% { opacity: .65; } }
+svg [data-stage="record2"] { animation: record2 16s ease-in-out infinite; }
+@keyframes record2 { 0%, 5.0000%, 100% { opacity: .65; } 6.1250%, 11.7500% { opacity: 1; } 12.5000% { opacity: .65; } }
+svg [data-stage="r12"] { animation: r12 16s ease-in-out infinite; }
+@keyframes r12 { 0%, 12.5000%, 100% { opacity: 0; } 13.6250%, 24.2500% { opacity: 1; } 25.0000% { opacity: 0; } 0%, 12.5000% { stroke-dashoffset: 0; } 25.0000%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="r23"] { animation: r23 16s ease-in-out infinite; }
+@keyframes r23 { 0%, 25.0000%, 100% { opacity: 0; } 26.1250%, 36.7500% { opacity: 1; } 37.5000% { opacity: 0; } 0%, 25.0000% { stroke-dashoffset: 0; } 37.5000%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="proposalflow"] { animation: proposalflow 16s ease-in-out infinite; }
+@keyframes proposalflow { 0%, 37.5000%, 100% { opacity: 0; } 38.6250%, 52.3750% { opacity: 1; } 53.1250% { opacity: 0; } 0%, 37.5000% { stroke-dashoffset: 0; } 53.1250%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="r34"] { animation: r34 16s ease-in-out infinite; }
+@keyframes r34 { 0%, 53.1250%, 100% { opacity: 0; } 54.2500%, 71.1250% { opacity: 1; } 71.8750% { opacity: 0; } 0%, 53.1250% { stroke-dashoffset: 0; } 71.8750%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="r45"] { animation: r45 16s ease-in-out infinite; }
+@keyframes r45 { 0%, 71.8750%, 100% { opacity: 0; } 73.0000%, 80.5000% { opacity: 1; } 81.2500% { opacity: 0; } 0%, 71.8750% { stroke-dashoffset: 0; } 81.2500%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="returnflow"] { animation: returnflow 16s ease-in-out infinite; }
+@keyframes returnflow { 0%, 81.2500%, 100% { opacity: 0; } 82.3750%, 93.0000% { opacity: 1; } 93.7500% { opacity: 0; } 0%, 81.2500% { stroke-dashoffset: 0; } 93.7500%, 100% { stroke-dashoffset: -28; } }
+svg [data-stage="proposal"] { animation: proposal 16s ease-in-out infinite; }
+@keyframes proposal { 0%, 37.5000%, 100% { opacity: 0; } 38.6250%, 52% { opacity: 1; } 53.125%, 99.9% { opacity: .65; } }
+svg [data-stage="proposal1"] { animation: proposal1 16s ease-in-out infinite; }
+@keyframes proposal1 { 0%, 37.5000%, 100% { opacity: .65; } 38.6250%, 43.0000% { opacity: 1; } 43.7500% { opacity: .65; } }
+svg [data-stage="proposal2"] { animation: proposal2 16s ease-in-out infinite; }
+@keyframes proposal2 { 0%, 43.7500%, 100% { opacity: .65; } 44.8750%, 52.3750% { opacity: 1; } 53.1250% { opacity: .65; } }
+svg [data-stage="newmetric"] { animation: newmetric 16s ease-in-out infinite; }
+@keyframes newmetric { 0%, 53.1250%, 100% { opacity: .65; } 54.2500%, 99.1875% { opacity: 1; } }
+svg [data-stage="returnlabel"] { animation: returnlabel 16s ease-in-out infinite; }
+@keyframes returnlabel { 0%, 81.2500%, 100% { opacity: .65; } 82.3750%, 93.0000% { opacity: 1; } 93.7500% { opacity: .65; } }
+svg [data-stage="node4"] > rect { animation: node4-border 16s ease-in-out infinite; }
+@keyframes node4-border { 0%, 71.8750%, 100% { stroke: var(--line); } 73.1250%, 99.9% { stroke: var(--accent); } }
+svg [data-stage="oldmetric"] { animation: oldmetric 16s ease-in-out infinite; }
+@keyframes oldmetric { 0%, 53.125%, 100% { opacity: .65; } 55%, 99.9% { opacity: .45; } }
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg [data-stage] { animation: none !important; transition: none !important; opacity: 1; }
+ svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+ svg [data-stage="oldmetric"] { opacity: .45; }
+ svg [data-stage="node4"] > rect { stroke: var(--accent); }
+ svg .future.flow { stroke-dasharray: 5 4; }
+}
+</style>

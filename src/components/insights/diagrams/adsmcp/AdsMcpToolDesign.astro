@@ -1,0 +1,226 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "위는 API마다 도구를 따로 만든 경우다. AI가 광고 정보만 부르고 심사에서 막힌 사실을 놓친다. 아래는 광고주의 질문을 기준으로 만든 경우다. \"지난주 성과 분석해 줘\"를 세 단계로 나누고 단계마다 도구를 하나씩 뒀다. 원문에 도구 이름은 없어서 단계 이름만 적었다." } = Astro.props;
+const description = "위쪽은 광고주가 \"이 광고 왜 안 나가?\"라고 물었을 때 API마다 따로 만든 광고 정보, 노출 상태, 심사 결과 도구 중에서 AI가 광고 정보만 부르고 \"켜져 있으니 괜찮아요\"라고 답하면서 심사에서 막힌 사실을 놓치는 장면이고, 아래쪽은 \"지난주 성과 분석해 줘\"라는 요청을 계정 정하기, 대상 찾기, 성과 보기 세 단계로 나누고 단계마다 도구를 하나씩 둬서 광고주센터 뒤의 여러 API를 도구 3개로 정리한 장면을 그린 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 605" role="img" aria-label={description}>
+<text class="label" x="460" y="24" style="font-size: 15px"><tspan x="460" dy="0">API마다 도구를 따로 만들면</tspan></text>
+<g class="" data-stage="upper"><text class="small" x="120" y="69" style="font-size: 12px"><tspan x="120" dy="0">광고주</tspan></text>
+<g class="" data-stage="question1"><rect class="box" x="20" y="81" width="200" height="54" rx="7"  />
+<text class="label" x="120.0" y="106" style="font-size: 14px"><tspan x="120.0" dy="0">&quot;이 광고 왜 안 나가?&quot;</tspan></text>
+</g>
+<path class="route" d="M220 108 H267"  />
+<path class="flow" d="M220 108 H267" data-stage="to-ai1"  />
+<path class="arrow" d="M267 108 m-5 -4 5 4 -5 4"  />
+<g class="" data-stage="ai1"><circle class="box" cx="290" cy="108" r="23" /><text class="label" x="290" y="113" style="font-size: 14px"><tspan x="290" dy="0">AI</tspan></text>
+</g>
+<text class="small" x="290" y="158" style="font-size: 12px"><tspan x="290" dy="0">무엇을 부를지</tspan><tspan x="290" dy="18">스스로 고른다</tspan></text>
+<text class="small" x="552" y="65" style="font-size: 12px"><tspan x="552" dy="0">API마다 만든 도구</tspan></text>
+<path class="route" d="M313 108 H330 V78 H417 V92"  />
+<path class="flow" d="M313 108 H330 V78 H417 V92" data-stage="chooseflow"  />
+<g class="" data-stage="tool0"><rect class="box" x="355" y="92" width="124" height="76" rx="7"  />
+<text class="label" x="417" y="120" style="font-size: 14px"><tspan x="417" dy="0">광고 정보</tspan></text>
+</g>
+<path class="route" d="M313 108 H330 V78 H556 V92" stroke-dasharray="4 4" />
+<g class="" data-stage="tool1"><rect class="box" x="494" y="92" width="124" height="76" rx="7" stroke-dasharray="4 4" />
+<text class="label" x="556" y="120" style="font-size: 14px"><tspan x="556" dy="0">노출 상태</tspan></text>
+</g>
+<path class="route" d="M313 108 H330 V78 H695 V92" stroke-dasharray="4 4" />
+<g class="" data-stage="tool2"><rect class="box" x="633" y="92" width="124" height="76" rx="7" stroke-dasharray="4 4" />
+<text class="label" x="695" y="120" style="font-size: 14px"><tspan x="695" dy="0">심사 결과</tspan></text>
+<text class="small" x="695" y="148" style="font-size: 12px" data-stage="missed"><tspan x="695" dy="0">심사에서 막힘</tspan></text>
+</g>
+<text class="small" x="695" y="192" style="font-size: 12px" data-stage="missed"><tspan x="695" dy="0">놓침</tspan></text>
+<path class="route" d="M417 168 V226 H690"  />
+<path class="arrow" d="M690 226 m-5 -4 5 4 -5 4"  />
+<text class="small" x="790" y="190" style="font-size: 12px"><tspan x="790" dy="0">AI의 답</tspan></text>
+<g class="" data-stage="answer"><rect class="box" x="690" y="202" width="215" height="50" rx="7"  />
+<text class="label" x="797.5" y="227" style="font-size: 14px"><tspan x="797.5" dy="0">&quot;켜져 있으니 괜찮아요&quot;</tspan></text>
+</g>
+<text class="small" x="460" y="287" style="font-size: 13px"><tspan x="460" dy="0">광고주센터에서는 세 정보가 한 화면에 같이 보인다</tspan></text>
+</g>
+<path class="route" d="M20 315 H900"  />
+<text class="label" x="460" y="350" style="font-size: 15px"><tspan x="460" dy="0">광고주의 질문을 기준으로 만들면</tspan></text>
+<text class="small" x="120" y="390" style="font-size: 12px"><tspan x="120" dy="0">광고주</tspan></text>
+<g class="" data-stage="question2"><rect class="box" x="20" y="406" width="200" height="54" rx="7"  />
+<text class="label" x="120.0" y="431" style="font-size: 14px"><tspan x="120.0" dy="0">&quot;지난주 성과 분석해 줘&quot;</tspan></text>
+</g>
+<path class="route" d="M220 433 H267"  />
+<path class="flow" d="M220 433 H267" data-stage="to-ai2"  />
+<path class="arrow" d="M267 433 m-5 -4 5 4 -5 4"  />
+<g class="" data-stage="ai2"><circle class="box" cx="290" cy="433" r="23" /><text class="label" x="290" y="438" style="font-size: 14px"><tspan x="290" dy="0">AI</tspan></text>
+</g>
+<text class="small" x="595" y="390" style="font-size: 12px"><tspan x="595" dy="0">단계마다 도구 하나</tspan></text>
+<path class="route" d="M313 433 H355"  />
+<path class="flow" d="M313 433 H355" data-stage="step0flow"  />
+<path class="arrow" d="M355 433 m-5 -4 5 4 -5 4"  />
+<g class="" data-stage="step0"><rect class="box" x="355" y="406" width="150" height="54" rx="7"  />
+<text class="label" x="430" y="438" style="font-size: 14px"><tspan x="430" dy="0">1 계정 정하기</tspan></text>
+<path class="route" d="M407 505 V480 H430 V460" style="stroke-width: 1" />
+<rect class="box" x="400" y="505" width="14" height="14" rx="2"  />
+<path class="route" d="M432 505 V480 H430 V460" style="stroke-width: 1" />
+<rect class="box" x="425" y="505" width="14" height="14" rx="2"  />
+</g>
+<path class="route" d="M505 433 H540"  />
+<path class="flow" d="M505 433 H540" data-stage="step1flow"  />
+<path class="arrow" d="M540 433 m-5 -4 5 4 -5 4"  />
+<g class="" data-stage="step1"><rect class="box" x="540" y="406" width="150" height="54" rx="7"  />
+<text class="label" x="615" y="438" style="font-size: 14px"><tspan x="615" dy="0">2 대상 찾기</tspan></text>
+<path class="route" d="M592 505 V480 H615 V460" style="stroke-width: 1" />
+<rect class="box" x="585" y="505" width="14" height="14" rx="2"  />
+<path class="route" d="M617 505 V480 H615 V460" style="stroke-width: 1" />
+<rect class="box" x="610" y="505" width="14" height="14" rx="2"  />
+<path class="route" d="M642 505 V480 H615 V460" style="stroke-width: 1" />
+<rect class="box" x="635" y="505" width="14" height="14" rx="2"  />
+</g>
+<path class="route" d="M690 433 H725"  />
+<path class="flow" d="M690 433 H725" data-stage="step2flow"  />
+<path class="arrow" d="M725 433 m-5 -4 5 4 -5 4"  />
+<g class="" data-stage="step2"><rect class="box" x="725" y="406" width="150" height="54" rx="7"  />
+<text class="label" x="800" y="438" style="font-size: 14px"><tspan x="800" dy="0">3 성과 보기</tspan></text>
+<path class="route" d="M777 505 V480 H800 V460" style="stroke-width: 1" />
+<rect class="box" x="770" y="505" width="14" height="14" rx="2"  />
+<path class="route" d="M802 505 V480 H800 V460" style="stroke-width: 1" />
+<rect class="box" x="795" y="505" width="14" height="14" rx="2"  />
+</g>
+<text class="small" x="610" y="552" style="font-size: 13px"><tspan x="610" dy="0">광고주센터 뒤의 여러 API</tspan></text>
+<text class="small" x="790" y="583" style="font-size: 13px" data-stage="summary"><tspan x="790" dy="0">여러 API를 도구 3개로</tspan></text>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 995" role="img" aria-label={description}>
+<text class="label" x="160" y="24" style="font-size: 13px"><tspan x="160" dy="0">API마다 도구를 따로 만들면</tspan></text>
+<g class="" data-stage="upper"><text class="small" x="160" y="48" style="font-size: 11px"><tspan x="160" dy="0">광고주</tspan></text>
+<g class="" data-stage="question1"><rect class="box" x="15" y="58" width="290" height="43" rx="7"  />
+<text class="label" x="160.0" y="83" style="font-size: 13px"><tspan x="160.0" dy="0">&quot;이 광고 왜 안 나가?&quot;</tspan></text>
+</g>
+<path class="route" d="M160 101 V131"  />
+<path class="flow" d="M160 101 V131" data-stage="to-ai1"  />
+<path class="arrow" d="M160 131 m-4 -5 4 5 4 -5"  />
+<g class="" data-stage="ai1"><circle class="box" cx="160" cy="154" r="23" /><text class="label" x="160" y="159" style="font-size: 14px"><tspan x="160" dy="0">AI</tspan></text>
+</g>
+<text class="small" x="160" y="198" style="font-size: 11px"><tspan x="160" dy="0">무엇을 부를지 스스로 고른다</tspan></text>
+<text class="small" x="160" y="225" style="font-size: 11px"><tspan x="160" dy="0">API마다 만든 도구</tspan></text>
+<path class="route" d="M183 154 H312 V238 H61 V251"  />
+<path class="flow" d="M183 154 H312 V238 H61 V251" data-stage="chooseflow"  />
+<g class="" data-stage="tool0"><rect class="box" x="15" y="251" width="92" height="61" rx="7"  />
+<text class="label" x="61" y="275" style="font-size: 12px"><tspan x="61" dy="0">광고 정보</tspan></text>
+</g>
+<path class="route" d="M183 154 H312 V238 H160 V251" stroke-dasharray="4 4" />
+<g class="" data-stage="tool1"><rect class="box" x="114" y="251" width="92" height="61" rx="7" stroke-dasharray="4 4" />
+<text class="label" x="160" y="275" style="font-size: 12px"><tspan x="160" dy="0">노출 상태</tspan></text>
+</g>
+<path class="route" d="M183 154 H312 V238 H259 V251" stroke-dasharray="4 4" />
+<g class="" data-stage="tool2"><rect class="box" x="213" y="251" width="92" height="61" rx="7" stroke-dasharray="4 4" />
+<text class="label" x="259" y="275" style="font-size: 12px"><tspan x="259" dy="0">심사 결과</tspan></text>
+<text class="small" x="259" y="298" style="font-size: 11px" data-stage="missed"><tspan x="259" dy="0">심사에서 막힘</tspan></text>
+</g>
+<text class="small" x="259" y="330" style="font-size: 11px" data-stage="missed"><tspan x="259" dy="0">놓침</tspan></text>
+<path class="route" d="M61 312 V358 H160 V372"  />
+<path class="arrow" d="M160 372 m-4 -5 4 5 4 -5"  />
+<text class="small" x="160" y="353" style="font-size: 11px"><tspan x="160" dy="0">AI의 답</tspan></text>
+<g class="" data-stage="answer"><rect class="box" x="15" y="372" width="290" height="43" rx="7"  />
+<text class="label" x="160.0" y="397" style="font-size: 13px"><tspan x="160.0" dy="0">&quot;켜져 있으니 괜찮아요&quot;</tspan></text>
+</g>
+<text class="small" x="160" y="440" style="font-size: 12px"><tspan x="160" dy="0">광고주센터에서는 세 정보가</tspan><tspan x="160" dy="18">한 화면에 같이 보인다</tspan></text>
+</g>
+<path class="route" d="M15 484 H305"  />
+<text class="label" x="160" y="514" style="font-size: 13px"><tspan x="160" dy="0">광고주의 질문을 기준으로 만들면</tspan></text>
+<text class="small" x="160" y="541" style="font-size: 11px"><tspan x="160" dy="0">광고주</tspan></text>
+<g class="" data-stage="question2"><rect class="box" x="15" y="550" width="290" height="43" rx="7"  />
+<text class="label" x="160.0" y="575" style="font-size: 13px"><tspan x="160.0" dy="0">&quot;지난주 성과 분석해 줘&quot;</tspan></text>
+</g>
+<path class="route" d="M160 593 V615"  />
+<path class="flow" d="M160 593 V615" data-stage="to-ai2"  />
+<path class="arrow" d="M160 615 m-4 -5 4 5 4 -5"  />
+<g class="" data-stage="ai2"><circle class="box" cx="160" cy="638" r="23" /><text class="label" x="160" y="643" style="font-size: 14px"><tspan x="160" dy="0">AI</tspan></text>
+</g>
+<text class="small" x="116" y="694" style="font-size: 11px"><tspan x="116" dy="0">단계마다 도구 하나</tspan></text>
+<text class="small" x="262" y="683" style="font-size: 11px"><tspan x="262" dy="0">광고주센터 뒤의</tspan><tspan x="262" dy="17">여러 API</tspan></text>
+<path class="route" d="M160 661 V670 H16 V705 H116 V719"  />
+<path class="flow" d="M160 661 V670 H16 V705 H116 V719" data-stage="step0flow"  />
+<path class="arrow" d="M116 719 m-4 -5 4 5 4 -5"  />
+<g class="" data-stage="step0"><rect class="box" x="16" y="719" width="200" height="48" rx="7"  />
+<text class="label" x="116" y="748" style="font-size: 13px"><tspan x="116" dy="0">1 계정 정하기</tspan></text>
+<path class="route" d="M236 743 H216" style="stroke-width: 1" />
+<rect class="box" x="236" y="736" width="14" height="14" rx="2"  />
+<path class="route" d="M261 743 H216" style="stroke-width: 1" />
+<rect class="box" x="261" y="736" width="14" height="14" rx="2"  />
+</g>
+<path class="route" d="M116 767 V796"  />
+<path class="flow" d="M116 767 V796" data-stage="step1flow"  />
+<path class="arrow" d="M116 796 m-4 -5 4 5 4 -5"  />
+<g class="" data-stage="step1"><rect class="box" x="16" y="796" width="200" height="48" rx="7"  />
+<text class="label" x="116" y="825" style="font-size: 13px"><tspan x="116" dy="0">2 대상 찾기</tspan></text>
+<path class="route" d="M236 820 H216" style="stroke-width: 1" />
+<rect class="box" x="236" y="813" width="14" height="14" rx="2"  />
+<path class="route" d="M261 820 H216" style="stroke-width: 1" />
+<rect class="box" x="261" y="813" width="14" height="14" rx="2"  />
+<path class="route" d="M286 820 H216" style="stroke-width: 1" />
+<rect class="box" x="286" y="813" width="14" height="14" rx="2"  />
+</g>
+<path class="route" d="M116 844 V873"  />
+<path class="flow" d="M116 844 V873" data-stage="step2flow"  />
+<path class="arrow" d="M116 873 m-4 -5 4 5 4 -5"  />
+<g class="" data-stage="step2"><rect class="box" x="16" y="873" width="200" height="48" rx="7"  />
+<text class="label" x="116" y="902" style="font-size: 13px"><tspan x="116" dy="0">3 성과 보기</tspan></text>
+<path class="route" d="M236 897 H216" style="stroke-width: 1" />
+<rect class="box" x="236" y="890" width="14" height="14" rx="2"  />
+<path class="route" d="M261 897 H216" style="stroke-width: 1" />
+<rect class="box" x="261" y="890" width="14" height="14" rx="2"  />
+</g>
+<text class="small" x="160" y="972" style="font-size: 12px" data-stage="summary"><tspan x="160" dy="0">여러 API를 도구 3개로</tspan></text>
+</svg>
+</DiagramFrame>
+<style>
+svg .flow { opacity: 0; }
+svg [data-stage] { opacity: .65; }
+svg .flow[data-stage] { opacity: 0; }
+svg [data-stage="upper"] { opacity: 1; animation: upper 16s ease-in-out infinite; }
+@keyframes upper { 0%, 46.875%, 90.625%, 100% { opacity: 1; } 48%, 89.5% { opacity: .5; } }
+svg [data-stage="question1"] { animation: question1 16s ease-in-out infinite; }
+@keyframes question1 { 0%, 0.0000%, 100% { opacity: .65; } 1.1250%, 5.5000% { opacity: 1; } 6.2500% { opacity: .65; } 90.625%, 99.9% { opacity: 1; } }
+svg [data-stage="ai1"] { animation: ai1 16s ease-in-out infinite; }
+@keyframes ai1 { 0%, 6.2500%, 100% { opacity: .65; } 7.3750%, 11.7500% { opacity: 1; } 12.5000% { opacity: .65; } 90.625%, 99.9% { opacity: 1; } }
+svg [data-stage="question2"] { animation: question2 16s ease-in-out infinite; }
+@keyframes question2 { 0%, 46.8750%, 100% { opacity: .65; } 48.0000%, 52.3750% { opacity: 1; } 53.1250% { opacity: .65; } 90.625%, 99.9% { opacity: 1; } }
+svg [data-stage="ai2"] { animation: ai2 16s ease-in-out infinite; }
+@keyframes ai2 { 0%, 53.1250%, 100% { opacity: .65; } 54.2500%, 58.6250% { opacity: 1; } 59.3750% { opacity: .65; } 90.625%, 99.9% { opacity: 1; } }
+svg [data-stage="summary"] { animation: summary 16s ease-in-out infinite; }
+@keyframes summary { 0%, 87.5000%, 100% { opacity: .65; } 88.6250%, 89.8750% { opacity: 1; } 90.6250% { opacity: .65; } 90.625%, 99.9% { opacity: 1; } }
+svg [data-stage="tool0"] { animation: tool0 16s ease-in-out infinite; }
+@keyframes tool0 { 0%, 12.5000%, 100% { opacity: .65; } 13.6250%, 14.2500% { opacity: 1; } 15.0000% { opacity: .65; } 90.625%, 99.9% { opacity: 1; } }
+svg [data-stage="step0"] { animation: step0 16s ease-in-out infinite; }
+@keyframes step0 { 0%, 59.3750%, 100% { opacity: .65; } 60.5000%, 68.0000% { opacity: 1; } 68.7500% { opacity: .65; } 90.625%, 99.9% { opacity: 1; } }
+svg [data-stage="step0flow"] { animation: step0flow 16s ease-in-out infinite; }
+@keyframes step0flow { 0%, 59.3750%, 100% { opacity: 0; } 60.5000%, 68.0000% { opacity: 1; } 68.7500% { opacity: 0; } 0%, 59.3750% { stroke-dashoffset: 0; } 68.7500%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="tool1"] { animation: tool1 16s ease-in-out infinite; }
+@keyframes tool1 { 0%, 15.0000%, 100% { opacity: .65; } 16.1250%, 16.7500% { opacity: 1; } 17.5000% { opacity: .65; } 90.625%, 99.9% { opacity: 1; } }
+svg [data-stage="step1"] { animation: step1 16s ease-in-out infinite; }
+@keyframes step1 { 0%, 68.7500%, 100% { opacity: .65; } 69.8750%, 77.3750% { opacity: 1; } 78.1250% { opacity: .65; } 90.625%, 99.9% { opacity: 1; } }
+svg [data-stage="step1flow"] { animation: step1flow 16s ease-in-out infinite; }
+@keyframes step1flow { 0%, 68.7500%, 100% { opacity: 0; } 69.8750%, 77.3750% { opacity: 1; } 78.1250% { opacity: 0; } 0%, 68.7500% { stroke-dashoffset: 0; } 78.1250%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="tool2"] { animation: tool2 16s ease-in-out infinite; }
+@keyframes tool2 { 0%, 17.5000%, 100% { opacity: .65; } 18.6250%, 19.2500% { opacity: 1; } 20.0000% { opacity: .65; } 90.625%, 99.9% { opacity: 1; } }
+svg [data-stage="step2"] { animation: step2 16s ease-in-out infinite; }
+@keyframes step2 { 0%, 78.1250%, 100% { opacity: .65; } 79.2500%, 86.7500% { opacity: 1; } 87.5000% { opacity: .65; } 90.625%, 99.9% { opacity: 1; } }
+svg [data-stage="step2flow"] { animation: step2flow 16s ease-in-out infinite; }
+@keyframes step2flow { 0%, 78.1250%, 100% { opacity: 0; } 79.2500%, 86.7500% { opacity: 1; } 87.5000% { opacity: 0; } 0%, 78.1250% { stroke-dashoffset: 0; } 87.5000%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="tool0"] > rect { animation: tool0-border 16s ease-in-out infinite; }
+@keyframes tool0-border { 0%, 21.8750%, 100% { stroke: var(--line); } 23.1250%, 99.9% { stroke: var(--accent); } }
+svg [data-stage="chooseflow"] { animation: chooseflow 16s ease-in-out infinite; }
+@keyframes chooseflow { 0%, 21.8750%, 100% { opacity: 0; } 23.0000%, 30.5000% { opacity: 1; } 31.2500% { opacity: 0; } 0%, 21.8750% { stroke-dashoffset: 0; } 31.2500%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="to-ai1"] { animation: to-ai1 16s ease-in-out infinite; }
+@keyframes to-ai1 { 0%, 6.2500%, 100% { opacity: 0; } 7.3750%, 11.7500% { opacity: 1; } 12.5000% { opacity: 0; } 0%, 6.2500% { stroke-dashoffset: 0; } 12.5000%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="to-ai2"] { animation: to-ai2 16s ease-in-out infinite; }
+@keyframes to-ai2 { 0%, 53.1250%, 100% { opacity: 0; } 54.2500%, 58.6250% { opacity: 1; } 59.3750% { opacity: 0; } 0%, 53.1250% { stroke-dashoffset: 0; } 59.3750%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="answer"] { animation: answer 16s ease-in-out infinite; }
+@keyframes answer { 0%, 31.2500%, 100% { opacity: 0; } 32.3750%, 99.1875% { opacity: 1; } 90.625%, 99.9% { opacity: 1; } }
+svg [data-stage="missed"] { animation: missed 16s ease-in-out infinite; }
+@keyframes missed { 0%, 37.5000%, 100% { opacity: 0; } 38.6250%, 99.1875% { opacity: 1; } 90.625%, 99.9% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg [data-stage] { animation: none !important; transition: none !important; opacity: 1; }
+ svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+ svg [data-stage="tool0"] > rect { stroke: var(--accent); }
+}
+</style>

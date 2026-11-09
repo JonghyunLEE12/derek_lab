@@ -1,0 +1,177 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "출시 전에 챙긴 일들이다. 위 네 줄은 원문이 나열한 순서이고 시간 순서는 아니다. 인증은 OAuth 2.1 표준을 따랐고 Codex는 출시 전에 정식 버전이 이 인증 방식을 지원했다. 광고 MCP는 9월 16일에 공개 베타로 나왔다." } = Astro.props;
+const description = "출시 전에 챙긴 일인 약관 검토와 법무팀 확인, 호출 한도, 연결 가이드와 서비스 내 안내 화면, 운영 대시보드, OAuth 2.1과 광고주 본인 동의를 따르는 인증이 차례로 채워지고, 알파 버전에만 있던 Codex의 인증 방식 지원이 출시 전에 정식 버전에도 들어온 뒤, 광고 MCP가 9월 16일 공개 베타 출시로 이어지는 과정을 그린 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 638" role="img" aria-label={description}>
+<text class="label" x="305" y="25" style="font-size: 15px"><tspan x="305" dy="0">출시 전에 챙긴 일</tspan></text>
+<path class="route" d="M580 80.0 H640"  />
+<g class="" data-stage="row0"><rect class="box" x="25" y="48" width="555" height="64" rx="7"  />
+<rect class="box" x="37" y="66" width="16" height="16" rx="2"  />
+<path class="arrow" d="M40 74 l4 4 7 -9" data-stage="check0"  />
+<text class="label" x="312.5" y="71" style="font-size: 14px"><tspan x="312.5" dy="0">약관 검토 · 법무팀 확인</tspan></text>
+<text class="small" x="312.5" y="94" style="font-size: 13px"><tspan x="312.5" dy="0">AI가 광고주의 계정을 대신 다룬다</tspan></text>
+</g>
+<path class="route" d="M580 158.0 H640"  />
+<g class="" data-stage="row1"><rect class="box" x="25" y="126" width="555" height="64" rx="7"  />
+<rect class="box" x="37" y="144" width="16" height="16" rx="2"  />
+<path class="arrow" d="M40 152 l4 4 7 -9" data-stage="check1"  />
+<text class="label" x="312.5" y="149" style="font-size: 14px"><tspan x="312.5" dy="0">호출 한도</tspan></text>
+<text class="small" x="312.5" y="172" style="font-size: 13px"><tspan x="312.5" dy="0">기존 서버에 부하가 가지 않게</tspan></text>
+</g>
+<path class="route" d="M580 236.0 H640"  />
+<g class="" data-stage="row2"><rect class="box" x="25" y="204" width="555" height="64" rx="7"  />
+<rect class="box" x="37" y="222" width="16" height="16" rx="2"  />
+<path class="arrow" d="M40 230 l4 4 7 -9" data-stage="check2"  />
+<text class="label" x="312.5" y="227" style="font-size: 14px"><tspan x="312.5" dy="0">연결 가이드 · 서비스 내 안내 화면</tspan></text>
+<text class="small" x="312.5" y="250" style="font-size: 13px"><tspan x="312.5" dy="0">광고주용</tspan></text>
+</g>
+<path class="route" d="M580 314.0 H640"  />
+<g class="" data-stage="row3"><rect class="box" x="25" y="282" width="555" height="64" rx="7"  />
+<rect class="box" x="37" y="300" width="16" height="16" rx="2"  />
+<path class="arrow" d="M40 308 l4 4 7 -9" data-stage="check3"  />
+<text class="label" x="312.5" y="305" style="font-size: 14px"><tspan x="312.5" dy="0">운영 대시보드</tspan></text>
+<text class="small" x="312.5" y="328" style="font-size: 13px"><tspan x="312.5" dy="0">출시 후 운영</tspan></text>
+</g>
+<path class="route" d="M580 450.0 H640"  />
+<path class="route" d="M25 361 H580"  />
+<text class="small" x="111" y="385" style="font-size: 11px"><tspan x="111" dy="0">가장 걱정한 일</tspan></text>
+<g class="" data-stage="row4"><rect class="box" x="25" y="400" width="555" height="100" rx="7"  />
+<rect class="box" x="37" y="418" width="16" height="16" rx="2"  />
+<path class="arrow" d="M40 426 l4 4 7 -9" data-stage="check4"  />
+<text class="label" x="312.5" y="423" style="font-size: 14px"><tspan x="312.5" dy="0">인증</tspan></text>
+<text class="small" x="312.5" y="446" style="font-size: 13px" data-stage="oauth"><tspan x="312.5" dy="0">OAuth 2.1 · 광고주 본인 동의</tspan></text>
+<text class="small" x="312.5" y="472" style="font-size: 12px" data-stage="identity"><tspan x="312.5" dy="0">Identity Service Team이 인증 서버를 표준에 맞게 수정</tspan></text>
+</g>
+<path class="route pending-layer" d="M580 570.0 H640" data-stage="pending" stroke-dasharray="5 4" />
+<path class="route" d="M580 570.0 H640" data-stage="ready"  />
+<g class="" data-stage="codex"><rect class="box pending-layer waiting" x="25" y="520" width="555" height="100" rx="7" data-stage="pending" />
+<rect class="box" x="25" y="520" width="555" height="100" rx="7" data-stage="ready" />
+<rect class="box pending-layer waiting" x="37" y="538" width="16" height="16" rx="2" data-stage="pending" />
+<rect class="box" x="37" y="538" width="16" height="16" rx="2" data-stage="ready" />
+<path class="arrow" d="M40 546 l4 4 7 -9" data-stage="check5"  />
+<text class="label" x="312.5" y="543" style="font-size: 14px"><tspan x="312.5" dy="0">Codex 연결</tspan></text>
+<text class="small" x="312.5" y="566" style="font-size: 13px"><tspan x="312.5" dy="0">인증 방식 지원: 알파 버전에만</tspan></text>
+<text class="small" x="312.5" y="592" style="font-size: 13px" data-stage="ready"><tspan x="312.5" dy="0">→ 출시 전에 정식 버전도</tspan></text>
+</g>
+<path class="route" d="M640 80 V570 M640 330 H710"  />
+<path class="flow" d="M640 80 V570 M640 330 H710" data-stage="launchflow"  />
+<path class="arrow" d="M710 330 m-5 -4 5 4 -5 4"  />
+<g class="" data-stage="launch"><rect class="accent-box" x="710" y="277" width="185" height="106" rx="7"  />
+<text class="label" x="802" y="306" style="font-size: 15px"><tspan x="802" dy="0">9월 16일</tspan></text>
+<text class="label" x="802" y="332" style="font-size: 15px"><tspan x="802" dy="0">공개 베타 출시</tspan></text>
+<text class="small" x="802" y="359" style="font-size: 13px"><tspan x="802" dy="0">광고 MCP</tspan></text>
+</g>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 760" role="img" aria-label={description}>
+<text class="label" x="160" y="25" style="font-size: 13px"><tspan x="160" dy="0">출시 전에 챙긴 일</tspan></text>
+<path class="route" d="M20 77.5 H8"  />
+<g class="" data-stage="row0"><rect class="box" x="20" y="45" width="290" height="65" rx="7"  />
+<rect class="box" x="32" y="63" width="16" height="16" rx="2"  />
+<path class="arrow" d="M35 71 l4 4 7 -9" data-stage="check0"  />
+<text class="label" x="175.0" y="68" style="font-size: 13px"><tspan x="175.0" dy="0">약관 검토 · 법무팀 확인</tspan></text>
+<text class="small" x="175.0" y="91" style="font-size: 11px"><tspan x="175.0" dy="0">AI가 광고주의 계정을 대신 다룬다</tspan></text>
+</g>
+<path class="route" d="M20 157.5 H8"  />
+<g class="" data-stage="row1"><rect class="box" x="20" y="125" width="290" height="65" rx="7"  />
+<rect class="box" x="32" y="143" width="16" height="16" rx="2"  />
+<path class="arrow" d="M35 151 l4 4 7 -9" data-stage="check1"  />
+<text class="label" x="175.0" y="148" style="font-size: 13px"><tspan x="175.0" dy="0">호출 한도</tspan></text>
+<text class="small" x="175.0" y="171" style="font-size: 11px"><tspan x="175.0" dy="0">기존 서버에 부하가 가지 않게</tspan></text>
+</g>
+<path class="route" d="M20 237.5 H8"  />
+<g class="" data-stage="row2"><rect class="box" x="20" y="205" width="290" height="65" rx="7"  />
+<rect class="box" x="32" y="223" width="16" height="16" rx="2"  />
+<path class="arrow" d="M35 231 l4 4 7 -9" data-stage="check2"  />
+<text class="label" x="175.0" y="228" style="font-size: 13px"><tspan x="175.0" dy="0">연결 가이드 · 서비스 내 안내 화면</tspan></text>
+<text class="small" x="175.0" y="251" style="font-size: 11px"><tspan x="175.0" dy="0">광고주용</tspan></text>
+</g>
+<path class="route" d="M20 317.5 H8"  />
+<g class="" data-stage="row3"><rect class="box" x="20" y="285" width="290" height="65" rx="7"  />
+<rect class="box" x="32" y="303" width="16" height="16" rx="2"  />
+<path class="arrow" d="M35 311 l4 4 7 -9" data-stage="check3"  />
+<text class="label" x="175.0" y="308" style="font-size: 13px"><tspan x="175.0" dy="0">운영 대시보드</tspan></text>
+<text class="small" x="175.0" y="331" style="font-size: 11px"><tspan x="175.0" dy="0">출시 후 운영</tspan></text>
+</g>
+<path class="route" d="M20 454.0 H8"  />
+<path class="route" d="M20 361 H310"  />
+<text class="small" x="106" y="385" style="font-size: 11px"><tspan x="106" dy="0">가장 걱정한 일</tspan></text>
+<g class="" data-stage="row4"><rect class="box" x="20" y="400" width="290" height="108" rx="7"  />
+<rect class="box" x="32" y="418" width="16" height="16" rx="2"  />
+<path class="arrow" d="M35 426 l4 4 7 -9" data-stage="check4"  />
+<text class="label" x="175.0" y="423" style="font-size: 13px"><tspan x="175.0" dy="0">인증</tspan></text>
+<text class="small" x="175.0" y="446" style="font-size: 11px" data-stage="oauth"><tspan x="175.0" dy="0">OAuth 2.1 · 광고주 본인 동의</tspan></text>
+<text class="small" x="175.0" y="472" style="font-size: 11px" data-stage="identity"><tspan x="175.0" dy="0">Identity Service Team이</tspan><tspan x="175.0" dy="17">인증 서버를 표준에 맞게 수정</tspan></text>
+</g>
+<path class="route pending-layer" d="M20 579.0 H8" data-stage="pending" stroke-dasharray="5 4" />
+<path class="route" d="M20 579.0 H8" data-stage="ready"  />
+<g class="" data-stage="codex"><rect class="box pending-layer waiting" x="20" y="525" width="290" height="108" rx="7" data-stage="pending" />
+<rect class="box" x="20" y="525" width="290" height="108" rx="7" data-stage="ready" />
+<rect class="box pending-layer waiting" x="32" y="543" width="16" height="16" rx="2" data-stage="pending" />
+<rect class="box" x="32" y="543" width="16" height="16" rx="2" data-stage="ready" />
+<path class="arrow" d="M35 551 l4 4 7 -9" data-stage="check5"  />
+<text class="label" x="175.0" y="548" style="font-size: 13px"><tspan x="175.0" dy="0">Codex 연결</tspan></text>
+<text class="small" x="175.0" y="571" style="font-size: 11px"><tspan x="175.0" dy="0">인증 방식 지원: 알파 버전에만</tspan></text>
+<text class="small" x="175.0" y="597" style="font-size: 11px" data-stage="ready"><tspan x="175.0" dy="0">→ 출시 전에 정식 버전도</tspan></text>
+</g>
+<path class="route" d="M8 77.5 V660 H165 V680"  />
+<path class="flow" d="M8 77.5 V660 H165 V680" data-stage="launchflow"  />
+<path class="arrow" d="M165 680 m-4 -5 4 5 4 -5"  />
+<g class="" data-stage="launch"><rect class="accent-box" x="65" y="680" width="200" height="70" rx="7"  />
+<text class="label" x="165" y="703" style="font-size: 13px"><tspan x="165" dy="0">9월 16일</tspan></text>
+<text class="label" x="165" y="724" style="font-size: 13px"><tspan x="165" dy="0">공개 베타 출시</tspan></text>
+<text class="small" x="165" y="741" style="font-size: 11px"><tspan x="165" dy="0">광고 MCP</tspan></text>
+</g>
+</svg>
+</DiagramFrame>
+<style>
+svg .flow { opacity: 0; }
+svg [data-stage] { opacity: .65; }
+svg .flow[data-stage] { opacity: 0; }
+svg .waiting { stroke-dasharray: 5 4; }
+svg [data-stage="row0"] { animation: row0 15s ease-in-out infinite; }
+@keyframes row0 { 0%, 0.0000%, 100% { opacity: .65; } 1.2000%, 99.1333% { opacity: 1; } }
+svg [data-stage="check0"] { animation: check0 15s ease-in-out infinite; }
+@keyframes check0 { 0%, 2.6667%, 100% { opacity: 0; } 3.8667%, 96.6667% { opacity: 1; } }
+svg [data-stage="row1"] { animation: row1 15s ease-in-out infinite; }
+@keyframes row1 { 0%, 6.6667%, 100% { opacity: .65; } 7.8667%, 99.1333% { opacity: 1; } }
+svg [data-stage="check1"] { animation: check1 15s ease-in-out infinite; }
+@keyframes check1 { 0%, 9.3333%, 100% { opacity: 0; } 10.5333%, 96.6667% { opacity: 1; } }
+svg [data-stage="row2"] { animation: row2 15s ease-in-out infinite; }
+@keyframes row2 { 0%, 13.3333%, 100% { opacity: .65; } 14.5333%, 99.1333% { opacity: 1; } }
+svg [data-stage="check2"] { animation: check2 15s ease-in-out infinite; }
+@keyframes check2 { 0%, 16.0000%, 100% { opacity: 0; } 17.2000%, 96.6667% { opacity: 1; } }
+svg [data-stage="row3"] { animation: row3 15s ease-in-out infinite; }
+@keyframes row3 { 0%, 20.0000%, 100% { opacity: .65; } 21.2000%, 99.1333% { opacity: 1; } }
+svg [data-stage="check3"] { animation: check3 15s ease-in-out infinite; }
+@keyframes check3 { 0%, 22.6667%, 100% { opacity: 0; } 23.8667%, 96.6667% { opacity: 1; } }
+svg [data-stage="row4"] { animation: row4 15s ease-in-out infinite; }
+@keyframes row4 { 0%, 26.6667%, 100% { opacity: .65; } 27.8667%, 99.1333% { opacity: 1; } }
+svg [data-stage="check4"] { animation: check4 15s ease-in-out infinite; }
+@keyframes check4 { 0%, 40.0000%, 100% { opacity: 0; } 41.2000%, 96.6667% { opacity: 1; } }
+svg [data-stage="oauth"] { animation: oauth 15s ease-in-out infinite; }
+@keyframes oauth { 0%, 26.6667%, 100% { opacity: .65; } 27.8667%, 42.5333% { opacity: 1; } 43.3333% { opacity: .65; } }
+svg [data-stage="identity"] { animation: identity 15s ease-in-out infinite; }
+@keyframes identity { 0%, 33.3333%, 100% { opacity: .65; } 34.5333%, 99.1333% { opacity: 1; } }
+svg [data-stage="check5"] { animation: check5 15s ease-in-out infinite; }
+@keyframes check5 { 0%, 70.0000%, 100% { opacity: 0; } 71.2000%, 96.6667% { opacity: 1; } }
+svg [data-stage="ready"] { animation: ready 15s ease-in-out infinite; }
+@keyframes ready { 0%, 66.6667%, 100% { opacity: 0; } 67.8667%, 99.1333% { opacity: 1; } }
+svg [data-stage="launchflow"] { animation: launchflow 15s ease-in-out infinite; }
+@keyframes launchflow { 0%, 73.3333%, 100% { opacity: 0; } 74.5333%, 85.8667% { opacity: 1; } 86.6667% { opacity: 0; } 0%, 73.3333% { stroke-dashoffset: 0; } 86.6667%, 100% { stroke-dashoffset: -56; } }
+svg [data-stage="launch"] { animation: launch 15s ease-in-out infinite; }
+@keyframes launch { 0%, 73.3333%, 100% { opacity: .65; } 74.5333%, 99.1333% { opacity: 1; } }
+svg [data-stage="launch"] > rect { animation: launch-border 15s ease-in-out infinite; }
+@keyframes launch-border { 0%, 73.3333%, 100% { stroke: var(--line); } 74.6667%, 99.9% { stroke: var(--accent); } }
+svg [data-stage="pending"] { animation: pending 15s ease-in-out infinite; }
+@keyframes pending { 0%, 43.333% { opacity: .45; } 49%, 61% { opacity: .85; } 55%, 66.667% { opacity: .45; } 73.333%, 99.9% { opacity: 0; } 100% { opacity: .45; } }
+svg [data-stage="codex"] { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg [data-stage] { animation: none !important; transition: none !important; opacity: 1; }
+ svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+ svg .waiting { stroke-dasharray: 5 4; }
+ svg .pending-layer { opacity: 0; }
+}
+</style>
