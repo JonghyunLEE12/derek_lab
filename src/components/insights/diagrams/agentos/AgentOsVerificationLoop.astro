@@ -1,0 +1,179 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "검증 칸을 루프로 옮겼다. 에이전트가 실제 앱을 직접 돌려 증거를 남기고 사람은 그 증거를 본다. 터미널 세 줄은 슬라이드 'runtime verification'에 나온 명령어 그대로이고 오른쪽 아래는 그 위에 쌓은 형식 검증과 속성 기반 테스트다." } = Astro.props;
+const description = "에이전트가 피처 맵을 보고 코드를 쓰고, 스킬 안의 전용 CLI로 실제 앱을 돌리고, 스크린샷과 영상과 다이어그램 같은 증거를 남기면, 사람은 코드 대신 그 증거를 리뷰하는 런타임 검증 루프입니다. 오른쪽에는 app aria-click, app snapshot, app screenshot proof.png 명령어 세 줄과 그 위에 쌓은 런타임 검증, TLA+ 모델, Lean 증명, UI 속성 기반 테스트가 차례로 강조됩니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 470" role="img" aria-label={description}>
+<text class="label" x="260" y="30" style="font-size: 17px"><tspan x="260" dy="0">런타임 검증 루프</tspan></text>
+<path class="route" d="M260 105 A150 150 0 1 1 259.9 105" />
+<path class="flow loop" d="M260 105 A150 150 0 1 1 259.9 105" />
+<rect class="backing" x="155.0" y="73" width="210" height="64" rx="8" />
+<g class="n0">
+<rect class="box solid" x="155.0" y="73" width="210" height="64" rx="8" />
+<text class="label" x="260" y="99" style="font-size: 15px"><tspan x="260" dy="0">에이전트가 코드를 써요</tspan></text>
+<text class="small" x="260" y="121" style="font-size: 12px"><tspan x="260" dy="0">피처 맵: 앱 기능의 사이트맵</tspan></text>
+</g>
+<rect class="backing" x="305.0" y="223" width="210" height="64" rx="8" />
+<g class="n1">
+<rect class="box solid" x="305.0" y="223" width="210" height="64" rx="8" />
+<text class="label" x="410" y="249" style="font-size: 15px"><tspan x="410" dy="0">실제 앱을 돌려요</tspan></text>
+<text class="small" x="410" y="271" style="font-size: 12px"><tspan x="410" dy="0">스킬 안의 전용 CLI로 직접 조작</tspan></text>
+</g>
+<rect class="backing" x="155.0" y="373" width="210" height="64" rx="8" />
+<g class="n2">
+<rect class="box solid" x="155.0" y="373" width="210" height="64" rx="8" />
+<text class="label" x="260" y="399" style="font-size: 15px"><tspan x="260" dy="0">증거를 남겨요</tspan></text>
+<text class="small" x="260" y="421" style="font-size: 12px"><tspan x="260" dy="0">스크린샷 · 영상 · 다이어그램</tspan></text>
+</g>
+<rect class="backing" x="5.0" y="223" width="210" height="64" rx="8" />
+<g class="n3">
+<rect class="accent-box" x="5.0" y="223" width="210" height="64" rx="8" />
+<text class="label" x="110" y="249" style="font-size: 15px"><tspan x="110" dy="0">사람은 증거를 봐요</tspan></text>
+<text class="small" x="110" y="271" style="font-size: 12px"><tspan x="110" dy="0">코드 대신 검증 산출물을 리뷰</tspan></text>
+</g>
+<text class="small mono" x="720" y="30" style="font-size: 12px"><tspan x="720" dy="0">drive the real app</tspan></text>
+<g class="term">
+<rect class="box solid" x="530" y="44" width="380" height="118" rx="8" />
+<g class="c0">
+<text class="mono cmd" x="548" y="80" style="font-size: 12px">$ app aria-click --accessible-name "Settings"</text>
+</g>
+<g class="c1">
+<text class="mono cmd" x="548" y="110" style="font-size: 12px">$ app snapshot</text>
+</g>
+<g class="c2">
+<text class="mono cmd" x="548" y="140" style="font-size: 12px">$ app screenshot proof.png</text>
+</g>
+</g>
+<text class="label" x="720" y="205" style="font-size: 15px"><tspan x="720" dy="0">그 위에 쌓은 검증</tspan></text>
+<g class="l0">
+<rect class="box solid" x="530" y="222" width="380" height="44" rx="8" />
+<text class="label start" x="546" y="249" style="font-size: 14px">런타임 검증</text>
+<text class="small start" x="682" y="249" style="font-size: 12px">에이전트가 실제 앱으로 확인해요</text>
+</g>
+<g class="l1">
+<rect class="box solid" x="530" y="274" width="380" height="44" rx="8" />
+<text class="label start" x="546" y="301" style="font-size: 14px">TLA+ 모델</text>
+<text class="small start" x="682" y="301" style="font-size: 12px">상태 기계의 모든 상태가 처리됐는지</text>
+</g>
+<g class="l2">
+<rect class="box solid" x="530" y="326" width="380" height="44" rx="8" />
+<text class="label start" x="546" y="353" style="font-size: 14px">Lean 증명</text>
+<text class="small start" x="682" y="353" style="font-size: 12px">구현의 버그를 한 단계씩 따져요</text>
+</g>
+<g class="l3">
+<rect class="box solid" x="530" y="378" width="380" height="44" rx="8" />
+<text class="label start" x="546" y="405" style="font-size: 14px">UI 속성 기반 테스트</text>
+<text class="small start" x="682" y="405" style="font-size: 12px">Bombadil이 UI 버그를 몇 개 잡았어요</text>
+</g>
+<text class="small" x="720" y="450" style="font-size: 13px"><tspan x="720" dy="0">에이전트 덕에 쓰기 비쌌던 도구의 비용이 내려갔어요</tspan></text>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 850" role="img" aria-label={description}>
+<text class="label" x="160" y="26" style="font-size: 17px"><tspan x="160" dy="0">런타임 검증 루프</tspan></text>
+<rect class="backing" x="36" y="48" width="274" height="60" rx="8" />
+<g class="n0">
+<rect class="box solid" x="36" y="48" width="274" height="60" rx="8" />
+<text class="label" x="173" y="74" style="font-size: 14px"><tspan x="173" dy="0">에이전트가 코드를 써요</tspan></text>
+<text class="small" x="173" y="94" style="font-size: 12px"><tspan x="173" dy="0">피처 맵: 앱 기능의 사이트맵</tspan></text>
+</g>
+<path class="route" d="M173 108 V126" />
+<path class="arrow" d="M173 128 m-4 -5 4 5 4 -5" />
+<rect class="backing" x="36" y="128" width="274" height="60" rx="8" />
+<g class="n1">
+<rect class="box solid" x="36" y="128" width="274" height="60" rx="8" />
+<text class="label" x="173" y="154" style="font-size: 14px"><tspan x="173" dy="0">실제 앱을 돌려요</tspan></text>
+<text class="small" x="173" y="174" style="font-size: 12px"><tspan x="173" dy="0">스킬 안의 전용 CLI로 직접 조작</tspan></text>
+</g>
+<path class="route" d="M173 188 V206" />
+<path class="arrow" d="M173 208 m-4 -5 4 5 4 -5" />
+<rect class="backing" x="36" y="208" width="274" height="60" rx="8" />
+<g class="n2">
+<rect class="box solid" x="36" y="208" width="274" height="60" rx="8" />
+<text class="label" x="173" y="234" style="font-size: 14px"><tspan x="173" dy="0">증거를 남겨요</tspan></text>
+<text class="small" x="173" y="254" style="font-size: 12px"><tspan x="173" dy="0">스크린샷 · 영상 · 다이어그램</tspan></text>
+</g>
+<path class="route" d="M173 268 V286" />
+<path class="arrow" d="M173 288 m-4 -5 4 5 4 -5" />
+<rect class="backing" x="36" y="288" width="274" height="60" rx="8" />
+<g class="n3">
+<rect class="accent-box" x="36" y="288" width="274" height="60" rx="8" />
+<text class="label" x="173" y="314" style="font-size: 14px"><tspan x="173" dy="0">사람은 증거를 봐요</tspan></text>
+<text class="small" x="173" y="334" style="font-size: 12px"><tspan x="173" dy="0">코드 대신 검증 산출물을 리뷰</tspan></text>
+</g>
+<path class="route" d="M36 318 H16 V78 H34" />
+<path class="flow loop" d="M36 318 H16 V78 H34" />
+<path class="arrow" d="M36 78 m-5 -4 5 4 -5 4" />
+<text class="small mono" x="160" y="380" style="font-size: 12px"><tspan x="160" dy="0">drive the real app</tspan></text>
+<g class="term">
+<rect class="box solid" x="10" y="392" width="300" height="100" rx="8" />
+<g class="c0">
+<text class="mono cmd" x="22" y="418" style="font-size: 10px">$ app aria-click --accessible-name "Settings"</text>
+</g>
+<g class="c1">
+<text class="mono cmd" x="22" y="446" style="font-size: 10px">$ app snapshot</text>
+</g>
+<g class="c2">
+<text class="mono cmd" x="22" y="474" style="font-size: 10px">$ app screenshot proof.png</text>
+</g>
+</g>
+<text class="label" x="160" y="530" style="font-size: 15px"><tspan x="160" dy="0">그 위에 쌓은 검증</tspan></text>
+<g class="l0">
+<rect class="box solid" x="10" y="546" width="300" height="54" rx="8" />
+<text class="label start" x="24" y="569" style="font-size: 14px">런타임 검증</text>
+<text class="small start" x="24" y="589" style="font-size: 12px">에이전트가 실제 앱으로 확인해요</text>
+</g>
+<g class="l1">
+<rect class="box solid" x="10" y="608" width="300" height="54" rx="8" />
+<text class="label start" x="24" y="631" style="font-size: 14px">TLA+ 모델</text>
+<text class="small start" x="24" y="651" style="font-size: 12px">상태 기계의 모든 상태가 처리됐는지</text>
+</g>
+<g class="l2">
+<rect class="box solid" x="10" y="670" width="300" height="54" rx="8" />
+<text class="label start" x="24" y="693" style="font-size: 14px">Lean 증명</text>
+<text class="small start" x="24" y="713" style="font-size: 12px">구현의 버그를 한 단계씩 따져요</text>
+</g>
+<g class="l3">
+<rect class="box solid" x="10" y="732" width="300" height="54" rx="8" />
+<text class="label start" x="24" y="755" style="font-size: 14px">UI 속성 기반 테스트</text>
+<text class="small start" x="24" y="775" style="font-size: 12px">Bombadil이 UI 버그를 몇 개 잡았어요</text>
+</g>
+<text class="small" x="160" y="812" style="font-size: 13px"><tspan x="160" dy="0">에이전트 덕에 쓰기 비쌌던</tspan><tspan x="160" dy="19">도구의 비용이 내려갔어요</tspan></text>
+</svg>
+</DiagramFrame>
+<style>
+svg .mono { font-family: ui-monospace, monospace; }
+svg .cmd { text-anchor: start; fill: var(--accent); }
+svg .start { text-anchor: start; }
+svg .solid { fill: var(--surface); }
+svg .backing { fill: var(--surface); stroke: none; }
+svg .loop { animation-duration: 6s; }
+svg .term { animation: term 18s ease-in-out infinite; }
+@keyframes term { 0%, 13%, 100% { opacity: .65; } 15%, 98% { opacity: 1; } }
+svg .n0 { animation: n0 18s ease-in-out infinite; }
+@keyframes n0 {0%, 2.00%, 14.00%, 100% { opacity: 0.55; } 3.25%, 12.75% { opacity: 1; }}
+svg .n1 { animation: n1 18s ease-in-out infinite; }
+@keyframes n1 {0%, 14.00%, 26.00%, 100% { opacity: 0.55; } 15.25%, 24.75% { opacity: 1; }}
+svg .n2 { animation: n2 18s ease-in-out infinite; }
+@keyframes n2 {0%, 26.00%, 38.00%, 100% { opacity: 0.55; } 27.25%, 36.75% { opacity: 1; }}
+svg .n3 { animation: n3 18s ease-in-out infinite; }
+@keyframes n3 {0%, 38.00%, 50.00%, 100% { opacity: 0.55; } 39.25%, 48.75% { opacity: 1; }}
+svg .c0 { animation: c0 18s ease-in-out infinite; }
+@keyframes c0 {0%, 15.00%, 98.75%, 100% { opacity: 0; } 16.25%, 97.50% { opacity: 1; }}
+svg .c1 { animation: c1 18s ease-in-out infinite; }
+@keyframes c1 {0%, 18.00%, 98.75%, 100% { opacity: 0; } 19.25%, 97.50% { opacity: 1; }}
+svg .c2 { animation: c2 18s ease-in-out infinite; }
+@keyframes c2 {0%, 21.00%, 98.75%, 100% { opacity: 0; } 22.25%, 97.50% { opacity: 1; }}
+svg .l0 { animation: l0 18s ease-in-out infinite; }
+@keyframes l0 {0%, 52.00%, 63.00%, 100% { opacity: 0.55; } 53.25%, 61.75% { opacity: 1; }}
+svg .l1 { animation: l1 18s ease-in-out infinite; }
+@keyframes l1 {0%, 63.00%, 74.00%, 100% { opacity: 0.55; } 64.25%, 72.75% { opacity: 1; }}
+svg .l2 { animation: l2 18s ease-in-out infinite; }
+@keyframes l2 {0%, 74.00%, 85.00%, 100% { opacity: 0.55; } 75.25%, 83.75% { opacity: 1; }}
+svg .l3 { animation: l3 18s ease-in-out infinite; }
+@keyframes l3 {0%, 85.00%, 96.00%, 100% { opacity: 0.55; } 86.25%, 94.75% { opacity: 1; }}
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg .pulse, svg .flow { animation: none !important; transition: none !important; opacity: 1; }
+ svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+}
+</style>

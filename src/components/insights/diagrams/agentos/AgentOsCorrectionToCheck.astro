@@ -1,0 +1,198 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "에이전트를 교정할 때 갈 수 있는 두 길. 위는 주석이나 규칙 파일에 적는 길이고 아래는 린트 같은 결정적 검사나 설계로 옮기는 길이다. 아래 계단 그래프의 숫자(7에서 167)는 슬라이드 'whenever you correct your agent' 그대로이고, 축 이름이 따로 없어서 무엇을 센 값인지는 적지 않았다." } = Astro.props;
+const description = "에이전트를 교정한 뒤 주석이나 규칙 파일에 한 줄 적으면 금방 낡고 강제할 수 없어 땜질의 핑계가 되고, 결정적인 검사로 바꾸거나 더 나은 API와 아키텍처로 문제를 없애면 7월 7에서 11월 직전 167까지 계단처럼 쌓이며 리뷰할 것이 줄어 PR 대부분을 에이전트가 스스로 병합하게 된다는 흐름을 보여 주는 다이어그램입니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 620" role="img" aria-label={description}>
+<g class="fix">
+<rect class="accent-box" x="20" y="135" width="190" height="100" rx="8" />
+<text class="label" x="115" y="175" style="font-size: 15px"><tspan x="115" dy="0">에이전트를 교정했어요</tspan></text>
+<text class="small" x="115" y="200" style="font-size: 12px"><tspan x="115" dy="0">같은 실수를 또 고쳐 줬다</tspan></text>
+</g>
+<path class="route" d="M210 170 H235 V90 H260" />
+<path class="flow up" d="M210 170 H235 V90 H260" />
+<path class="arrow" d="M260 90 m-5 -4 5 4 -5 4" />
+<g class="upA">
+<rect class="box weak" x="260" y="40" width="300" height="100" rx="8" />
+<text class="label" x="410" y="72" style="font-size: 15px"><tspan x="410" dy="0">주석이나 규칙 파일에 한 줄</tspan></text>
+<text class="small" x="410" y="97" style="font-size: 13px"><tspan x="410" dy="0">금방 낡고 사람은 잘 안 읽어요</tspan><tspan x="410" dy="20">무엇보다 강제할 수 없어요</tspan></text>
+</g>
+<path class="route" d="M560 90 H600" />
+<path class="arrow" d="M600 90 m-5 -4 5 4 -5 4" />
+<g class="upB">
+<rect class="box weak" x="600" y="40" width="300" height="100" rx="8" />
+<text class="label" x="750" y="72" style="font-size: 15px"><tspan x="750" dy="0">✕ 땜질의 핑계가 돼요</tspan></text>
+<text class="small" x="750" y="97" style="font-size: 13px"><tspan x="750" dy="0">제대로 고치지 않아도 되는</tspan><tspan x="750" dy="20">빠져나갈 구멍이 남아요</tspan></text>
+</g>
+<path class="route" d="M210 200 H235 V300 H260" />
+<path class="flow down" d="M210 200 H235 V300 H260" />
+<path class="arrow" d="M260 300 m-5 -4 5 4 -5 4" />
+<g class="lowA">
+<rect class="accent-box" x="260" y="250" width="300" height="100" rx="8" />
+<text class="label" x="410" y="282" style="font-size: 15px"><tspan x="410" dy="0">결정적인 검사로 바꾸기</tspan></text>
+<text class="small" x="410" y="307" style="font-size: 13px"><tspan x="410" dy="0">린트 규칙의 에러 메시지가</tspan><tspan x="410" dy="20">근본 원인을 고치라고 알려 줘요</tspan></text>
+</g>
+<text class="small" x="580" y="305" style="font-size: 12px"><tspan x="580" dy="0">또는</tspan></text>
+<g class="lowB">
+<rect class="accent-box" x="600" y="250" width="300" height="100" rx="8" />
+<text class="label" x="750" y="282" style="font-size: 15px"><tspan x="750" dy="0">더 나은 API · 아키텍처</tspan></text>
+<text class="small" x="750" y="307" style="font-size: 13px"><tspan x="750" dy="0">그 문제가 아예</tspan><tspan x="750" dy="20">생길 수 없게 만들어요</tspan></text>
+</g>
+<text class="label" x="560" y="400" style="font-size: 15px"><tspan x="560" dy="0">이걸 반복하면 계단이 쌓여요</tspan></text>
+<path class="route" d="M300 560 H888" />
+<path class="route" d="M300 560 V424" />
+<path class="step-line" d="M300 560 H372.5 V555.0 H445.0 V547.8 H517.5 V532.7 H582.8 V495.3 H662.5 V460.1 H735.0 V452.9 H807.5 V447.2 H872.8 V440.0 H880" pathLength="1" />
+<text class="small mono" x="300.0" y="578" style="font-size: 11px"><tspan x="300.0" dy="0">jul 1</tspan></text>
+<text class="small mono" x="445.0" y="578" style="font-size: 11px"><tspan x="445.0" dy="0">aug 1</tspan></text>
+<text class="small mono" x="590.0" y="578" style="font-size: 11px"><tspan x="590.0" dy="0">sep 1</tspan></text>
+<text class="small mono" x="735.0" y="578" style="font-size: 11px"><tspan x="735.0" dy="0">oct 1</tspan></text>
+<text class="small mono" x="880.0" y="578" style="font-size: 11px"><tspan x="880.0" dy="0">nov 1</tspan></text>
+<g class="v0">
+<text class="small val" x="374.5" y="546.9700598802395" style="font-size: 12px"><tspan x="374.5" dy="0">7</tspan></text>
+</g>
+<g class="v1">
+<text class="small val" x="447.0" y="539.7844311377246" style="font-size: 12px"><tspan x="447.0" dy="0">17</tspan></text>
+</g>
+<g class="v2">
+<text class="small val" x="519.5" y="524.6946107784431" style="font-size: 12px"><tspan x="519.5" dy="0">38</tspan></text>
+</g>
+<g class="v3">
+<text class="small val" x="584.75" y="487.3293413173653" style="font-size: 12px"><tspan x="584.75" dy="0">90</tspan></text>
+</g>
+<g class="v4">
+<text class="small val" x="664.5" y="452.11976047904193" style="font-size: 12px"><tspan x="664.5" dy="0">139</tspan></text>
+</g>
+<g class="v5">
+<text class="small val" x="737.0" y="444.934131736527" style="font-size: 12px"><tspan x="737.0" dy="0">149</tspan></text>
+</g>
+<g class="v6">
+<text class="small val" x="809.5" y="439.18562874251495" style="font-size: 12px"><tspan x="809.5" dy="0">157</tspan></text>
+</g>
+<g class="v7">
+<text class="small val" x="874.75" y="432.0" style="font-size: 12px"><tspan x="874.75" dy="0">167</tspan></text>
+</g>
+<text class="small mono" x="590" y="600" style="font-size: 12px"><tspan x="590" dy="0">lint against it or categorically eliminate the problem</tspan></text>
+<g class="result">
+<rect class="accent-box" x="20" y="440" width="220" height="120" rx="8" />
+<text class="label" x="130" y="478" style="font-size: 15px"><tspan x="130" dy="0">리뷰할 게 줄어요</tspan></text>
+<text class="small" x="130" y="503" style="font-size: 12px"><tspan x="130" dy="0">어느 순간 리뷰할 게 남지 않으면</tspan><tspan x="130" dy="18">PR 대부분을 에이전트가</tspan><tspan x="130" dy="18">스스로 병합해요</tspan></text>
+</g>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 730" role="img" aria-label={description}>
+<g class="fix">
+<rect class="accent-box" x="60" y="20" width="200" height="70" rx="8" />
+<text class="label" x="160" y="50" style="font-size: 15px"><tspan x="160" dy="0">에이전트를 교정했어요</tspan></text>
+<text class="small" x="160" y="72" style="font-size: 12px"><tspan x="160" dy="0">같은 실수를 또 고쳐 줬다</tspan></text>
+</g>
+<path class="route" d="M110 90 V125" />
+<path class="flow up" d="M110 90 V125" />
+<path class="arrow" d="M110 127 m-4 -5 4 5 4 -5" />
+<path class="route" d="M210 90 V125" />
+<path class="flow down" d="M210 90 V125" />
+<path class="arrow" d="M210 127 m-4 -5 4 5 4 -5" />
+<g class="upA">
+<rect class="box weak" x="10" y="132" width="145" height="120" rx="8" />
+<text class="label" x="82.5" y="160" style="font-size: 13px"><tspan x="82.5" dy="0">주석이나</tspan><tspan x="82.5" dy="18">규칙 파일에 한 줄</tspan></text>
+<text class="small" x="82.5" y="207" style="font-size: 11px"><tspan x="82.5" dy="0">낡고, 안 읽히고,</tspan><tspan x="82.5" dy="16">강제할 수 없어요</tspan></text>
+</g>
+<g class="lowA">
+<rect class="accent-box" x="165" y="132" width="145" height="120" rx="8" />
+<text class="label" x="237.5" y="160" style="font-size: 13px"><tspan x="237.5" dy="0">결정적인</tspan><tspan x="237.5" dy="18">검사로 바꾸기</tspan></text>
+<text class="small" x="237.5" y="207" style="font-size: 11px"><tspan x="237.5" dy="0">에러 메시지가</tspan><tspan x="237.5" dy="16">근본 원인을 가리켜요</tspan></text>
+</g>
+<g class="upB">
+<rect class="box weak" x="10" y="262" width="145" height="76" rx="8" />
+<text class="label" x="82.5" y="290" style="font-size: 13px"><tspan x="82.5" dy="0">✕ 땜질의 핑계</tspan></text>
+<text class="small" x="82.5" y="312" style="font-size: 11px"><tspan x="82.5" dy="0">빠져나갈 구멍이 남아요</tspan></text>
+</g>
+<g class="lowB">
+<rect class="accent-box" x="165" y="262" width="145" height="76" rx="8" />
+<text class="label" x="237.5" y="290" style="font-size: 13px"><tspan x="237.5" dy="0">또는 더 나은 설계</tspan></text>
+<text class="small" x="237.5" y="312" style="font-size: 11px"><tspan x="237.5" dy="0">API · 아키텍처로</tspan><tspan x="237.5" dy="15">문제를 없애요</tspan></text>
+</g>
+<text class="label" x="160" y="380" style="font-size: 15px"><tspan x="160" dy="0">이걸 반복하면 계단이 쌓여요</tspan></text>
+<path class="route" d="M30 540 H308" />
+<path class="route" d="M30 540 V404" />
+<path class="step-line" d="M30 540 H63.8 V535.0 H97.5 V527.8 H131.2 V512.7 H161.6 V475.3 H198.8 V440.1 H232.5 V432.9 H266.2 V427.2 H296.6 V420.0 H300" pathLength="1" />
+<text class="small mono" x="30.0" y="558" style="font-size: 11px"><tspan x="30.0" dy="0">jul 1</tspan></text>
+<text class="small mono" x="97.5" y="558" style="font-size: 11px"><tspan x="97.5" dy="0">aug 1</tspan></text>
+<text class="small mono" x="165.0" y="558" style="font-size: 11px"><tspan x="165.0" dy="0">sep 1</tspan></text>
+<text class="small mono" x="232.5" y="558" style="font-size: 11px"><tspan x="232.5" dy="0">oct 1</tspan></text>
+<text class="small mono" x="300.0" y="558" style="font-size: 11px"><tspan x="300.0" dy="0">nov 1</tspan></text>
+<g class="v0">
+<text class="small val" x="65.75" y="526.9700598802395" style="font-size: 11px"><tspan x="65.75" dy="0">7</tspan></text>
+</g>
+<g class="v1">
+<text class="small val" x="99.5" y="519.7844311377246" style="font-size: 11px"><tspan x="99.5" dy="0">17</tspan></text>
+</g>
+<g class="v2">
+<text class="small val" x="133.25" y="504.6946107784431" style="font-size: 11px"><tspan x="133.25" dy="0">38</tspan></text>
+</g>
+<g class="v3">
+<text class="small val" x="163.625" y="467.3293413173653" style="font-size: 11px"><tspan x="163.625" dy="0">90</tspan></text>
+</g>
+<g class="v4">
+<text class="small val" x="200.75" y="432.11976047904193" style="font-size: 11px"><tspan x="200.75" dy="0">139</tspan></text>
+</g>
+<g class="v5">
+<text class="small val" x="234.5" y="424.934131736527" style="font-size: 11px"><tspan x="234.5" dy="0">149</tspan></text>
+</g>
+<g class="v6">
+<text class="small val" x="268.25" y="419.18562874251495" style="font-size: 11px"><tspan x="268.25" dy="0">157</tspan></text>
+</g>
+<g class="v7">
+<text class="small val" x="298.625" y="412.0" style="font-size: 11px"><tspan x="298.625" dy="0">167</tspan></text>
+</g>
+<text class="small mono" x="160" y="580" style="font-size: 11px"><tspan x="160" dy="0">lint against it or</tspan><tspan x="160" dy="16">categorically eliminate the problem</tspan></text>
+<g class="result">
+<rect class="accent-box" x="30" y="620" width="260" height="90" rx="8" />
+<text class="label" x="160" y="652" style="font-size: 15px"><tspan x="160" dy="0">리뷰할 게 줄어요</tspan></text>
+<text class="small" x="160" y="676" style="font-size: 12px"><tspan x="160" dy="0">PR 대부분을 에이전트가</tspan><tspan x="160" dy="18">스스로 병합해요</tspan></text>
+</g>
+</svg>
+</DiagramFrame>
+<style>
+svg .mono { font-family: ui-monospace, monospace; }
+svg .weak { stroke-dasharray: 5 5; }
+svg .step-line { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 16s ease-in-out infinite; }
+@keyframes draw { 0%, 52% { stroke-dashoffset: 1; } 80%, 97% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 1; } }
+svg .fix { animation: fix 16s ease-in-out infinite; }
+@keyframes fix {0%, 1.00%, 14.00%, 100% { opacity: 0.65; } 2.25%, 12.75% { opacity: 1; }}
+svg .up { animation: up 16s ease-in-out infinite; }
+@keyframes up {0%, 10.00%, 31.25%, 100% { opacity: 0; } 11.25%, 30.00% { opacity: 1; }}
+svg .upA { animation: upA 16s ease-in-out infinite; }
+@keyframes upA {0%, 12.00%, 30.00%, 100% { opacity: 0.5; } 13.25%, 28.75% { opacity: 1; }}
+svg .upB { animation: upB 16s ease-in-out infinite; }
+@keyframes upB {0%, 20.00%, 32.00%, 100% { opacity: 0.5; } 21.25%, 30.75% { opacity: 1; }}
+svg .down { animation: down 16s ease-in-out infinite; }
+@keyframes down {0%, 32.00%, 53.25%, 100% { opacity: 0; } 33.25%, 52.00% { opacity: 1; }}
+svg .lowA { animation: lowA 16s ease-in-out infinite; }
+@keyframes lowA {0%, 34.00%, 98.00%, 100% { opacity: 0.6; } 35.25%, 96.75% { opacity: 1; }}
+svg .lowB { animation: lowB 16s ease-in-out infinite; }
+@keyframes lowB {0%, 40.00%, 98.00%, 100% { opacity: 0.6; } 41.25%, 96.75% { opacity: 1; }}
+svg .result { animation: result 16s ease-in-out infinite; }
+@keyframes result {0%, 82.00%, 98.00%, 100% { opacity: 0.5; } 83.25%, 96.75% { opacity: 1; }}
+svg .v0 { animation: v0 16s ease-in-out infinite; }
+@keyframes v0 {0%, 54.00%, 98.75%, 100% { opacity: 0; } 55.25%, 97.50% { opacity: 1; }}
+svg .v1 { animation: v1 16s ease-in-out infinite; }
+@keyframes v1 {0%, 57.30%, 98.75%, 100% { opacity: 0; } 58.55%, 97.50% { opacity: 1; }}
+svg .v2 { animation: v2 16s ease-in-out infinite; }
+@keyframes v2 {0%, 60.60%, 98.75%, 100% { opacity: 0; } 61.85%, 97.50% { opacity: 1; }}
+svg .v3 { animation: v3 16s ease-in-out infinite; }
+@keyframes v3 {0%, 63.90%, 98.75%, 100% { opacity: 0; } 65.15%, 97.50% { opacity: 1; }}
+svg .v4 { animation: v4 16s ease-in-out infinite; }
+@keyframes v4 {0%, 67.20%, 98.75%, 100% { opacity: 0; } 68.45%, 97.50% { opacity: 1; }}
+svg .v5 { animation: v5 16s ease-in-out infinite; }
+@keyframes v5 {0%, 70.50%, 98.75%, 100% { opacity: 0; } 71.75%, 97.50% { opacity: 1; }}
+svg .v6 { animation: v6 16s ease-in-out infinite; }
+@keyframes v6 {0%, 73.80%, 98.75%, 100% { opacity: 0; } 75.05%, 97.50% { opacity: 1; }}
+svg .v7 { animation: v7 16s ease-in-out infinite; }
+@keyframes v7 {0%, 77.10%, 98.75%, 100% { opacity: 0; } 78.35%, 97.50% { opacity: 1; }}
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg .pulse, svg .flow { animation: none !important; transition: none !important; opacity: 1; }
+ svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+ svg .step-line { stroke-dashoffset: 0; }
+}
+</style>

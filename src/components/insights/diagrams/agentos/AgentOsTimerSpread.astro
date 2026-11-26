@@ -1,0 +1,280 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "슬라이드 'quick fixes considered harmful'의 날짜 세 개를 옮겼다. 9월 9일 한 줄이던 setTimeout이 10월 3일 공유 모듈로 복사되고 10월 17일에는 타이머 183개가 된다. 점 개수는 183개를 그대로 세지 않고 많아졌다는 것만 나타냈다." } = Astro.props;
+const description = "9월 9일 화면 깜빡임을 고치려고 넣은 setTimeout 한 줄과 그것을 정당화하는 주석, 10월 3일 그 코드가 공유 모듈로 복사된 모습, 10월 17일 타이머가 183개로 늘어 클라이언트와 에이전트 성능이 나빠진 모습을 왼쪽에서 오른쪽으로 보여 주는 다이어그램입니다. 마지막에 땜질 하나가 복사를 거쳐 패턴이 된다는 문장이 강조됩니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 340" role="img" aria-label={description}>
+<text class="label" x="150" y="56" style="font-size: 16px"><tspan x="150" dy="0">9월 9일</tspan></text>
+<g class="c1">
+<rect class="accent-box" x="15.0" y="70" width="270" height="120" rx="8" />
+<text class="small mono" x="150" y="104" style="font-size: 10px"><tspan x="150" dy="0">// release later, in case it comes back</tspan></text>
+<text class="mono" x="150" y="128" style="font-size: 12px"><tspan x="150" dy="0">setTimeout(() =&gt; release(id), 0)</tspan></text>
+<text class="small" x="150" y="162" style="font-size: 13px"><tspan x="150" dy="0">화면 깜빡임을 고치려고 넣은 한 줄</tspan></text>
+</g>
+<g class="c1note">
+<text class="small" x="150" y="235" style="font-size: 13px"><tspan x="150" dy="0">위에 붙은 주석이</tspan><tspan x="150" dy="19">이 땜질을 정당화했어요</tspan></text>
+</g>
+<path class="route" d="M290 130 H315" />
+<path class="flow w1" d="M290 130 H315" />
+<path class="arrow" d="M315 130 m-5 -4 5 4 -5 4" />
+<text class="label" x="455" y="56" style="font-size: 16px"><tspan x="455" dy="0">10월 3일</tspan></text>
+<g class="copy0">
+<rect class="box copy-box" x="350.0" y="84" width="180" height="40" rx="8" />
+<text class="mono" x="440.0" y="109" style="font-size: 12px"><tspan x="440.0" dy="0">setTimeout(…, 0)</tspan></text>
+</g>
+<g class="copy1">
+<rect class="box copy-box" x="362.0" y="96" width="180" height="40" rx="8" />
+<text class="mono" x="452.0" y="121" style="font-size: 12px"><tspan x="452.0" dy="0">setTimeout(…, 0)</tspan></text>
+</g>
+<g class="copy2">
+<rect class="box copy-box" x="374.0" y="108" width="180" height="40" rx="8" />
+<text class="mono" x="464.0" y="133" style="font-size: 12px"><tspan x="464.0" dy="0">setTimeout(…, 0)</tspan></text>
+</g>
+<g class="c2note">
+<text class="small" x="455" y="180" style="font-size: 13px"><tspan x="455" dy="0">공유 모듈로 복사됐어요</tspan></text>
+</g>
+<g class="c2note">
+<text class="small" x="455" y="235" style="font-size: 13px"><tspan x="455" dy="0">다음 에이전트에게는</tspan><tspan x="455" dy="19">이미 있는 패턴으로 보여요</tspan></text>
+</g>
+<path class="route" d="M590 130 H615" />
+<path class="flow w2" d="M590 130 H615" />
+<path class="arrow" d="M615 130 m-5 -4 5 4 -5 4" />
+<text class="label" x="765" y="56" style="font-size: 16px"><tspan x="765" dy="0">10월 17일</tspan></text>
+<circle class="timer" cx="671.5" cy="84" r="5" style="animation-delay: 0.00s" />
+<circle class="timer" cx="688.5" cy="84" r="5" style="animation-delay: 1.30s" />
+<circle class="timer" cx="705.5" cy="84" r="5" style="animation-delay: 0.07s" />
+<circle class="timer" cx="722.5" cy="84" r="5" style="animation-delay: 1.37s" />
+<circle class="timer" cx="739.5" cy="84" r="5" style="animation-delay: 0.14s" />
+<circle class="timer" cx="756.5" cy="84" r="5" style="animation-delay: 1.44s" />
+<circle class="timer" cx="773.5" cy="84" r="5" style="animation-delay: 0.21s" />
+<circle class="timer" cx="790.5" cy="84" r="5" style="animation-delay: 1.51s" />
+<circle class="timer" cx="807.5" cy="84" r="5" style="animation-delay: 0.28s" />
+<circle class="timer" cx="824.5" cy="84" r="5" style="animation-delay: 1.58s" />
+<circle class="timer" cx="841.5" cy="84" r="5" style="animation-delay: 0.35s" />
+<circle class="timer" cx="858.5" cy="84" r="5" style="animation-delay: 1.65s" />
+<circle class="timer" cx="671.5" cy="101" r="5" style="animation-delay: 0.42s" />
+<circle class="timer" cx="688.5" cy="101" r="5" style="animation-delay: 1.72s" />
+<circle class="timer" cx="705.5" cy="101" r="5" style="animation-delay: 0.49s" />
+<circle class="timer" cx="722.5" cy="101" r="5" style="animation-delay: 1.79s" />
+<circle class="timer" cx="739.5" cy="101" r="5" style="animation-delay: 0.56s" />
+<circle class="timer" cx="756.5" cy="101" r="5" style="animation-delay: 1.86s" />
+<circle class="timer" cx="773.5" cy="101" r="5" style="animation-delay: 0.63s" />
+<circle class="timer" cx="790.5" cy="101" r="5" style="animation-delay: 1.93s" />
+<circle class="timer" cx="807.5" cy="101" r="5" style="animation-delay: 0.70s" />
+<circle class="timer" cx="824.5" cy="101" r="5" style="animation-delay: 2.00s" />
+<circle class="timer" cx="841.5" cy="101" r="5" style="animation-delay: 0.77s" />
+<circle class="timer" cx="858.5" cy="101" r="5" style="animation-delay: 2.07s" />
+<circle class="timer" cx="671.5" cy="118" r="5" style="animation-delay: 0.84s" />
+<circle class="timer" cx="688.5" cy="118" r="5" style="animation-delay: 2.14s" />
+<circle class="timer" cx="705.5" cy="118" r="5" style="animation-delay: 0.91s" />
+<circle class="timer" cx="722.5" cy="118" r="5" style="animation-delay: 2.21s" />
+<circle class="timer" cx="739.5" cy="118" r="5" style="animation-delay: 0.98s" />
+<circle class="timer" cx="756.5" cy="118" r="5" style="animation-delay: 2.28s" />
+<circle class="timer" cx="773.5" cy="118" r="5" style="animation-delay: 1.05s" />
+<circle class="timer" cx="790.5" cy="118" r="5" style="animation-delay: 2.35s" />
+<circle class="timer" cx="807.5" cy="118" r="5" style="animation-delay: 1.12s" />
+<circle class="timer" cx="824.5" cy="118" r="5" style="animation-delay: 2.42s" />
+<circle class="timer" cx="841.5" cy="118" r="5" style="animation-delay: 1.19s" />
+<circle class="timer" cx="858.5" cy="118" r="5" style="animation-delay: 2.49s" />
+<circle class="timer" cx="671.5" cy="135" r="5" style="animation-delay: 1.26s" />
+<circle class="timer" cx="688.5" cy="135" r="5" style="animation-delay: 0.04s" />
+<circle class="timer" cx="705.5" cy="135" r="5" style="animation-delay: 1.33s" />
+<circle class="timer" cx="722.5" cy="135" r="5" style="animation-delay: 0.11s" />
+<circle class="timer" cx="739.5" cy="135" r="5" style="animation-delay: 1.40s" />
+<circle class="timer" cx="756.5" cy="135" r="5" style="animation-delay: 0.18s" />
+<circle class="timer" cx="773.5" cy="135" r="5" style="animation-delay: 1.47s" />
+<circle class="timer" cx="790.5" cy="135" r="5" style="animation-delay: 0.25s" />
+<circle class="timer" cx="807.5" cy="135" r="5" style="animation-delay: 1.54s" />
+<circle class="timer" cx="824.5" cy="135" r="5" style="animation-delay: 0.32s" />
+<circle class="timer" cx="841.5" cy="135" r="5" style="animation-delay: 1.61s" />
+<circle class="timer" cx="858.5" cy="135" r="5" style="animation-delay: 0.39s" />
+<circle class="timer" cx="671.5" cy="152" r="5" style="animation-delay: 1.68s" />
+<circle class="timer" cx="688.5" cy="152" r="5" style="animation-delay: 0.46s" />
+<circle class="timer" cx="705.5" cy="152" r="5" style="animation-delay: 1.75s" />
+<circle class="timer" cx="722.5" cy="152" r="5" style="animation-delay: 0.53s" />
+<circle class="timer" cx="739.5" cy="152" r="5" style="animation-delay: 1.82s" />
+<circle class="timer" cx="756.5" cy="152" r="5" style="animation-delay: 0.60s" />
+<circle class="timer" cx="773.5" cy="152" r="5" style="animation-delay: 1.89s" />
+<circle class="timer" cx="790.5" cy="152" r="5" style="animation-delay: 0.67s" />
+<circle class="timer" cx="807.5" cy="152" r="5" style="animation-delay: 1.96s" />
+<circle class="timer" cx="824.5" cy="152" r="5" style="animation-delay: 0.74s" />
+<circle class="timer" cx="841.5" cy="152" r="5" style="animation-delay: 2.03s" />
+<circle class="timer" cx="858.5" cy="152" r="5" style="animation-delay: 0.81s" />
+<circle class="timer" cx="671.5" cy="169" r="5" style="animation-delay: 2.10s" />
+<circle class="timer" cx="688.5" cy="169" r="5" style="animation-delay: 0.88s" />
+<circle class="timer" cx="705.5" cy="169" r="5" style="animation-delay: 2.17s" />
+<circle class="timer" cx="722.5" cy="169" r="5" style="animation-delay: 0.95s" />
+<circle class="timer" cx="739.5" cy="169" r="5" style="animation-delay: 2.24s" />
+<circle class="timer" cx="756.5" cy="169" r="5" style="animation-delay: 1.02s" />
+<circle class="timer" cx="773.5" cy="169" r="5" style="animation-delay: 2.31s" />
+<circle class="timer" cx="790.5" cy="169" r="5" style="animation-delay: 1.09s" />
+<circle class="timer" cx="807.5" cy="169" r="5" style="animation-delay: 2.38s" />
+<circle class="timer" cx="824.5" cy="169" r="5" style="animation-delay: 1.16s" />
+<circle class="timer" cx="841.5" cy="169" r="5" style="animation-delay: 2.45s" />
+<circle class="timer" cx="858.5" cy="169" r="5" style="animation-delay: 1.23s" />
+<g class="big">
+<text class="label accent-text" x="765" y="203" style="font-size: 22px"><tspan x="765" dy="0">타이머 183개</tspan></text>
+</g>
+<g class="c3note">
+<text class="small" x="765" y="239" style="font-size: 13px"><tspan x="765" dy="0">클라이언트와 에이전트</tspan><tspan x="765" dy="19">성능이 크게 나빠졌어요</tspan></text>
+</g>
+<g class="moral">
+<text class="label" x="460" y="300" style="font-size: 16px"><tspan x="460" dy="0">땜질 하나 → 복사 → 패턴</tspan></text>
+</g>
+<text class="small" x="460" y="325" style="font-size: 13px"><tspan x="460" dy="0">에이전트는 코드베이스에 이미 있는 것을 따라 써요</tspan></text>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 825" role="img" aria-label={description}>
+<text class="label" x="160" y="26" style="font-size: 16px"><tspan x="160" dy="0">9월 9일</tspan></text>
+<g class="c1">
+<rect class="accent-box" x="15.0" y="40" width="290" height="120" rx="8" />
+<text class="small mono" x="160" y="74" style="font-size: 10px"><tspan x="160" dy="0">// release later, in case it comes back</tspan></text>
+<text class="mono" x="160" y="98" style="font-size: 12px"><tspan x="160" dy="0">setTimeout(() =&gt; release(id), 0)</tspan></text>
+<text class="small" x="160" y="132" style="font-size: 13px"><tspan x="160" dy="0">화면 깜빡임을 고치려고 넣은 한 줄</tspan></text>
+</g>
+<g class="c1note">
+<text class="small" x="160" y="205" style="font-size: 13px"><tspan x="160" dy="0">위에 붙은 주석이</tspan><tspan x="160" dy="19">이 땜질을 정당화했어요</tspan></text>
+</g>
+<path class="route" d="M160 236 V262" />
+<path class="flow w1" d="M160 236 V262" />
+<path class="arrow" d="M160 264 m-4 -5 4 5 4 -5" />
+<text class="label" x="160" y="286" style="font-size: 16px"><tspan x="160" dy="0">10월 3일</tspan></text>
+<g class="copy0">
+<rect class="box copy-box" x="50.0" y="314" width="190" height="40" rx="8" />
+<text class="mono" x="145.0" y="339" style="font-size: 12px"><tspan x="145.0" dy="0">setTimeout(…, 0)</tspan></text>
+</g>
+<g class="copy1">
+<rect class="box copy-box" x="62.0" y="326" width="190" height="40" rx="8" />
+<text class="mono" x="157.0" y="351" style="font-size: 12px"><tspan x="157.0" dy="0">setTimeout(…, 0)</tspan></text>
+</g>
+<g class="copy2">
+<rect class="box copy-box" x="74.0" y="338" width="190" height="40" rx="8" />
+<text class="mono" x="169.0" y="363" style="font-size: 12px"><tspan x="169.0" dy="0">setTimeout(…, 0)</tspan></text>
+</g>
+<g class="c2note">
+<text class="small" x="160" y="410" style="font-size: 13px"><tspan x="160" dy="0">공유 모듈로 복사됐어요</tspan></text>
+</g>
+<g class="c2note">
+<text class="small" x="160" y="465" style="font-size: 13px"><tspan x="160" dy="0">다음 에이전트에게는</tspan><tspan x="160" dy="19">이미 있는 패턴으로 보여요</tspan></text>
+</g>
+<path class="route" d="M160 496 V522" />
+<path class="flow w2" d="M160 496 V522" />
+<path class="arrow" d="M160 524 m-4 -5 4 5 4 -5" />
+<text class="label" x="160" y="546" style="font-size: 16px"><tspan x="160" dy="0">10월 17일</tspan></text>
+<circle class="timer" cx="50.0" cy="574" r="5" style="animation-delay: 0.00s" />
+<circle class="timer" cx="70.0" cy="574" r="5" style="animation-delay: 1.30s" />
+<circle class="timer" cx="90.0" cy="574" r="5" style="animation-delay: 0.07s" />
+<circle class="timer" cx="110.0" cy="574" r="5" style="animation-delay: 1.37s" />
+<circle class="timer" cx="130.0" cy="574" r="5" style="animation-delay: 0.14s" />
+<circle class="timer" cx="150.0" cy="574" r="5" style="animation-delay: 1.44s" />
+<circle class="timer" cx="170.0" cy="574" r="5" style="animation-delay: 0.21s" />
+<circle class="timer" cx="190.0" cy="574" r="5" style="animation-delay: 1.51s" />
+<circle class="timer" cx="210.0" cy="574" r="5" style="animation-delay: 0.28s" />
+<circle class="timer" cx="230.0" cy="574" r="5" style="animation-delay: 1.58s" />
+<circle class="timer" cx="250.0" cy="574" r="5" style="animation-delay: 0.35s" />
+<circle class="timer" cx="270.0" cy="574" r="5" style="animation-delay: 1.65s" />
+<circle class="timer" cx="50.0" cy="594" r="5" style="animation-delay: 0.42s" />
+<circle class="timer" cx="70.0" cy="594" r="5" style="animation-delay: 1.72s" />
+<circle class="timer" cx="90.0" cy="594" r="5" style="animation-delay: 0.49s" />
+<circle class="timer" cx="110.0" cy="594" r="5" style="animation-delay: 1.79s" />
+<circle class="timer" cx="130.0" cy="594" r="5" style="animation-delay: 0.56s" />
+<circle class="timer" cx="150.0" cy="594" r="5" style="animation-delay: 1.86s" />
+<circle class="timer" cx="170.0" cy="594" r="5" style="animation-delay: 0.63s" />
+<circle class="timer" cx="190.0" cy="594" r="5" style="animation-delay: 1.93s" />
+<circle class="timer" cx="210.0" cy="594" r="5" style="animation-delay: 0.70s" />
+<circle class="timer" cx="230.0" cy="594" r="5" style="animation-delay: 2.00s" />
+<circle class="timer" cx="250.0" cy="594" r="5" style="animation-delay: 0.77s" />
+<circle class="timer" cx="270.0" cy="594" r="5" style="animation-delay: 2.07s" />
+<circle class="timer" cx="50.0" cy="614" r="5" style="animation-delay: 0.84s" />
+<circle class="timer" cx="70.0" cy="614" r="5" style="animation-delay: 2.14s" />
+<circle class="timer" cx="90.0" cy="614" r="5" style="animation-delay: 0.91s" />
+<circle class="timer" cx="110.0" cy="614" r="5" style="animation-delay: 2.21s" />
+<circle class="timer" cx="130.0" cy="614" r="5" style="animation-delay: 0.98s" />
+<circle class="timer" cx="150.0" cy="614" r="5" style="animation-delay: 2.28s" />
+<circle class="timer" cx="170.0" cy="614" r="5" style="animation-delay: 1.05s" />
+<circle class="timer" cx="190.0" cy="614" r="5" style="animation-delay: 2.35s" />
+<circle class="timer" cx="210.0" cy="614" r="5" style="animation-delay: 1.12s" />
+<circle class="timer" cx="230.0" cy="614" r="5" style="animation-delay: 2.42s" />
+<circle class="timer" cx="250.0" cy="614" r="5" style="animation-delay: 1.19s" />
+<circle class="timer" cx="270.0" cy="614" r="5" style="animation-delay: 2.49s" />
+<circle class="timer" cx="50.0" cy="634" r="5" style="animation-delay: 1.26s" />
+<circle class="timer" cx="70.0" cy="634" r="5" style="animation-delay: 0.04s" />
+<circle class="timer" cx="90.0" cy="634" r="5" style="animation-delay: 1.33s" />
+<circle class="timer" cx="110.0" cy="634" r="5" style="animation-delay: 0.11s" />
+<circle class="timer" cx="130.0" cy="634" r="5" style="animation-delay: 1.40s" />
+<circle class="timer" cx="150.0" cy="634" r="5" style="animation-delay: 0.18s" />
+<circle class="timer" cx="170.0" cy="634" r="5" style="animation-delay: 1.47s" />
+<circle class="timer" cx="190.0" cy="634" r="5" style="animation-delay: 0.25s" />
+<circle class="timer" cx="210.0" cy="634" r="5" style="animation-delay: 1.54s" />
+<circle class="timer" cx="230.0" cy="634" r="5" style="animation-delay: 0.32s" />
+<circle class="timer" cx="250.0" cy="634" r="5" style="animation-delay: 1.61s" />
+<circle class="timer" cx="270.0" cy="634" r="5" style="animation-delay: 0.39s" />
+<circle class="timer" cx="50.0" cy="654" r="5" style="animation-delay: 1.68s" />
+<circle class="timer" cx="70.0" cy="654" r="5" style="animation-delay: 0.46s" />
+<circle class="timer" cx="90.0" cy="654" r="5" style="animation-delay: 1.75s" />
+<circle class="timer" cx="110.0" cy="654" r="5" style="animation-delay: 0.53s" />
+<circle class="timer" cx="130.0" cy="654" r="5" style="animation-delay: 1.82s" />
+<circle class="timer" cx="150.0" cy="654" r="5" style="animation-delay: 0.60s" />
+<circle class="timer" cx="170.0" cy="654" r="5" style="animation-delay: 1.89s" />
+<circle class="timer" cx="190.0" cy="654" r="5" style="animation-delay: 0.67s" />
+<circle class="timer" cx="210.0" cy="654" r="5" style="animation-delay: 1.96s" />
+<circle class="timer" cx="230.0" cy="654" r="5" style="animation-delay: 0.74s" />
+<circle class="timer" cx="250.0" cy="654" r="5" style="animation-delay: 2.03s" />
+<circle class="timer" cx="270.0" cy="654" r="5" style="animation-delay: 0.81s" />
+<circle class="timer" cx="50.0" cy="674" r="5" style="animation-delay: 2.10s" />
+<circle class="timer" cx="70.0" cy="674" r="5" style="animation-delay: 0.88s" />
+<circle class="timer" cx="90.0" cy="674" r="5" style="animation-delay: 2.17s" />
+<circle class="timer" cx="110.0" cy="674" r="5" style="animation-delay: 0.95s" />
+<circle class="timer" cx="130.0" cy="674" r="5" style="animation-delay: 2.24s" />
+<circle class="timer" cx="150.0" cy="674" r="5" style="animation-delay: 1.02s" />
+<circle class="timer" cx="170.0" cy="674" r="5" style="animation-delay: 2.31s" />
+<circle class="timer" cx="190.0" cy="674" r="5" style="animation-delay: 1.09s" />
+<circle class="timer" cx="210.0" cy="674" r="5" style="animation-delay: 2.38s" />
+<circle class="timer" cx="230.0" cy="674" r="5" style="animation-delay: 1.16s" />
+<circle class="timer" cx="250.0" cy="674" r="5" style="animation-delay: 2.45s" />
+<circle class="timer" cx="270.0" cy="674" r="5" style="animation-delay: 1.23s" />
+<g class="big">
+<text class="label accent-text" x="160" y="708" style="font-size: 22px"><tspan x="160" dy="0">타이머 183개</tspan></text>
+</g>
+<g class="c3note">
+<text class="small" x="160" y="744" style="font-size: 13px"><tspan x="160" dy="0">클라이언트와 에이전트</tspan><tspan x="160" dy="19">성능이 크게 나빠졌어요</tspan></text>
+</g>
+<g class="moral">
+<text class="label" x="160" y="800" style="font-size: 16px"><tspan x="160" dy="0">땜질 하나 → 복사 → 패턴</tspan></text>
+</g>
+</svg>
+</DiagramFrame>
+<style>
+svg .mono { font-family: ui-monospace, monospace; }
+svg .copy-box { fill: var(--surface); }
+svg .timer { fill: var(--accent); opacity: 0; animation: timer 14s ease-in-out infinite both; }
+@keyframes timer { 0%, 52% { opacity: 0; } 55%, 96% { opacity: .85; } 99%, 100% { opacity: 0; } }
+svg .c1 { animation: c1 14s ease-in-out infinite; }
+@keyframes c1 {0%, 1.00%, 24.00%, 100% { opacity: 0.65; } 2.25%, 22.75% { opacity: 1; }}
+svg .c1note { animation: c1note 14s ease-in-out infinite; }
+@keyframes c1note {0%, 6.00%, 24.00%, 100% { opacity: 0.45; } 7.25%, 22.75% { opacity: 1; }}
+svg .w1 { animation: w1 14s ease-in-out infinite; }
+@keyframes w1 {0%, 22.00%, 33.25%, 100% { opacity: 0; } 23.25%, 32.00% { opacity: 1; }}
+svg .copy0 { animation: copy0 14s ease-in-out infinite; }
+@keyframes copy0 {0%, 28.00%, 98.75%, 100% { opacity: 0; } 29.25%, 97.50% { opacity: 1; }}
+svg .copy1 { animation: copy1 14s ease-in-out infinite; }
+@keyframes copy1 {0%, 33.00%, 98.75%, 100% { opacity: 0; } 34.25%, 97.50% { opacity: 1; }}
+svg .copy2 { animation: copy2 14s ease-in-out infinite; }
+@keyframes copy2 {0%, 38.00%, 98.75%, 100% { opacity: 0; } 39.25%, 97.50% { opacity: 1; }}
+svg .c2note { animation: c2note 14s ease-in-out infinite; }
+@keyframes c2note {0%, 34.00%, 52.00%, 100% { opacity: 0.45; } 35.25%, 50.75% { opacity: 1; }}
+svg .w2 { animation: w2 14s ease-in-out infinite; }
+@keyframes w2 {0%, 46.00%, 57.25%, 100% { opacity: 0; } 47.25%, 56.00% { opacity: 1; }}
+svg .big { animation: big 14s ease-in-out infinite; }
+@keyframes big {0%, 68.00%, 98.00%, 100% { opacity: 0.35; } 69.25%, 96.75% { opacity: 1; }}
+svg .c3note { animation: c3note 14s ease-in-out infinite; }
+@keyframes c3note {0%, 70.00%, 98.00%, 100% { opacity: 0.45; } 71.25%, 96.75% { opacity: 1; }}
+svg .moral { animation: moral 14s ease-in-out infinite; }
+@keyframes moral {0%, 82.00%, 98.00%, 100% { opacity: 0.55; } 83.25%, 96.75% { opacity: 1; }}
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg .pulse, svg .flow { animation: none !important; transition: none !important; opacity: 1; }
+ svg .timer { opacity: .85; }
+ svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+}
+</style>

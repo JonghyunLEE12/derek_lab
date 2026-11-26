@@ -1,0 +1,110 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "신디 스리다란이 6개월 간격으로 쓴 트윗 두 장. 아래 막대는 11월 트윗에 적힌 비율을 옮긴 것이다. 생성 쪽은 트윗에 20~30%로 적혀 있어서 30%까지를 점선으로 그렸다." } = Astro.props;
+const description = "2026년 5월 15일 트윗에는 AI가 만든 PR 여러 개에 미묘한 버그가 있어 고치느라 며칠이 더 들고 수작업 검증이 많이 필요했다고 적혀 있고, 6개월 뒤 2026년 11월 5일 트윗에는 빠져 있던 것이 검증 과정이었고 하루 토큰의 70%를 패치 검증에, 20에서 30%를 생성에 쓴다고 적혀 있습니다. 아래 막대가 검증 70%까지 차오르고 생성 20에서 30% 구간이 이어서 표시됩니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 340" role="img" aria-label={description}>
+<g class="may">
+<rect class="box weak" x="20" y="30" width="410" height="140" rx="8" />
+<text class="label start" x="38" y="60" style="font-size: 15px">2026년 5월 15일</text>
+<text class="small start" x="412" y="60" style="font-size: 12px; text-anchor: end">신디 스리다란</text>
+<text class="small start" x="38" y="92" style="font-size: 13px">AI가 만든 PR 여러 개에 미묘한 버그가 있었고</text>
+<text class="small start" x="38" y="114" style="font-size: 13px">병합된 뒤 고치느라 며칠이 더 들었어요</text>
+<text class="small start" x="38" y="136" style="font-size: 13px">수작업 검증도 많이 필요했어요</text>
+</g>
+<path class="route" d="M440 100 H480" />
+<path class="flow mid" d="M440 100 H480" />
+<path class="arrow" d="M482 100 m-5 -4 5 4 -5 4" />
+<text class="small" x="460" y="88" style="font-size: 12px"><tspan x="460" dy="0">6개월</tspan></text>
+<g class="nov">
+<rect class="accent-box" x="490" y="30" width="410" height="140" rx="8" />
+<text class="label start" x="508" y="60" style="font-size: 15px">2026년 11월 5일</text>
+<text class="small start" x="882" y="60" style="font-size: 12px; text-anchor: end">신디 스리다란</text>
+<text class="small start" x="508" y="92" style="font-size: 13px">6개월 전 설정에 빠져 있던 건</text>
+<text class="small start" x="508" y="114" style="font-size: 13px">지금 쓰는 검증 과정이었어요</text>
+<text class="small start" x="508" y="136" style="font-size: 13px">하루 토큰의 70%를 패치 검증에 써요</text>
+</g>
+<text class="label" x="460" y="225" style="font-size: 16px"><tspan x="460" dy="0">11월 트윗: 하루 토큰을 어디에 쓰나</tspan></text>
+<rect class="box" x="80" y="260" width="760" height="44" rx="6" />
+<rect class="seg-verify" x="80" y="260" width="532.0" height="44" rx="6" />
+<g class="seg-make">
+<rect class="seg-create" x="612.0" y="260" width="152.0" height="44" />
+<rect class="seg-range" x="764.0" y="260" width="76.0" height="44" />
+</g>
+<g class="lab-v">
+<text class="label on-accent" x="346.0" y="288.0" style="font-size: 16px"><tspan x="346.0" dy="0">검증 70%</tspan></text>
+</g>
+<g class="lab-c">
+<text class="label" x="726.0" y="248" style="font-size: 14px"><tspan x="726.0" dy="0">생성 20~30%</tspan></text>
+</g>
+<text class="small" x="80.0" y="324" style="font-size: 12px"><tspan x="80.0" dy="0">0%</tspan></text>
+<text class="small" x="460.0" y="324" style="font-size: 12px"><tspan x="460.0" dy="0">50%</tspan></text>
+<text class="small" x="840.0" y="324" style="font-size: 12px"><tspan x="840.0" dy="0">100%</tspan></text>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 530" role="img" aria-label={description}>
+<g class="may">
+<rect class="box weak" x="10" y="20" width="300" height="140" rx="8" />
+<text class="label start" x="28" y="50" style="font-size: 15px">2026년 5월 15일</text>
+<text class="small start" x="292" y="50" style="font-size: 12px; text-anchor: end">신디 스리다란</text>
+<text class="small start" x="28" y="82" style="font-size: 12px">AI가 만든 PR 여러 개의 미묘한 버그</text>
+<text class="small start" x="28" y="104" style="font-size: 12px">고치느라 며칠이 더 들었어요</text>
+<text class="small start" x="28" y="126" style="font-size: 12px">수작업 검증도 많이 필요했어요</text>
+</g>
+<path class="route" d="M160 160 V188" />
+<path class="flow mid" d="M160 160 V188" />
+<path class="arrow" d="M160 190 m-4 -5 4 5 4 -5" />
+<text class="small" x="190" y="180" style="font-size: 12px"><tspan x="190" dy="0">6개월</tspan></text>
+<g class="nov">
+<rect class="accent-box" x="10" y="198" width="300" height="140" rx="8" />
+<text class="label start" x="28" y="228" style="font-size: 15px">2026년 11월 5일</text>
+<text class="small start" x="292" y="228" style="font-size: 12px; text-anchor: end">신디 스리다란</text>
+<text class="small start" x="28" y="260" style="font-size: 12px">6개월 전에 빠져 있던 건 검증 과정</text>
+<text class="small start" x="28" y="282" style="font-size: 12px">하루 토큰의 70%를 패치 검증에</text>
+<text class="small start" x="28" y="304" style="font-size: 12px">생성에는 20~30%만 써요</text>
+</g>
+<text class="label" x="160" y="384" style="font-size: 15px"><tspan x="160" dy="0">11월 트윗: 하루 토큰을</tspan><tspan x="160" dy="20">어디에 쓰나</tspan></text>
+<rect class="box" x="20" y="450" width="280" height="40" rx="6" />
+<rect class="seg-verify" x="20" y="450" width="196.0" height="40" rx="6" />
+<g class="seg-make">
+<rect class="seg-create" x="216.0" y="450" width="56.0" height="40" />
+<rect class="seg-range" x="272.0" y="450" width="28.0" height="40" />
+</g>
+<g class="lab-v">
+<text class="label on-accent" x="118.0" y="476.0" style="font-size: 14px"><tspan x="118.0" dy="0">검증 70%</tspan></text>
+</g>
+<g class="lab-c">
+<text class="label" x="258.0" y="438" style="font-size: 12px"><tspan x="258.0" dy="0">생성 20~30%</tspan></text>
+</g>
+<text class="small" x="20.0" y="510" style="font-size: 12px"><tspan x="20.0" dy="0">0%</tspan></text>
+<text class="small" x="160.0" y="510" style="font-size: 12px"><tspan x="160.0" dy="0">50%</tspan></text>
+<text class="small" x="300.0" y="510" style="font-size: 12px"><tspan x="300.0" dy="0">100%</tspan></text>
+</svg>
+</DiagramFrame>
+<style>
+svg .start { text-anchor: start; }
+svg .weak { stroke-dasharray: 5 5; }
+svg .seg-verify { fill: var(--accent); transform-box: fill-box; transform-origin: left center; animation: grow 14s ease-in-out infinite; }
+@keyframes grow { 0%, 44% { transform: scaleX(0); } 62%, 97% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+svg .seg-create { fill: var(--accent); fill-opacity: .35; }
+svg .seg-range { fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 4 4; }
+svg .on-accent { fill: var(--surface); }
+svg .may { animation: may 14s ease-in-out infinite; }
+@keyframes may {0%, 1.00%, 30.00%, 100% { opacity: 0.55; } 2.25%, 28.75% { opacity: 1; }}
+svg .mid { animation: mid 14s ease-in-out infinite; }
+@keyframes mid {0%, 28.00%, 41.25%, 100% { opacity: 0; } 29.25%, 40.00% { opacity: 1; }}
+svg .nov { animation: nov 14s ease-in-out infinite; }
+@keyframes nov {0%, 36.00%, 98.00%, 100% { opacity: 0.55; } 37.25%, 96.75% { opacity: 1; }}
+svg .lab-v { animation: lab-v 14s ease-in-out infinite; }
+@keyframes lab-v {0%, 60.00%, 98.75%, 100% { opacity: 0; } 61.25%, 97.50% { opacity: 1; }}
+svg .seg-make { animation: seg-make 14s ease-in-out infinite; }
+@keyframes seg-make {0%, 66.00%, 98.75%, 100% { opacity: 0; } 67.25%, 97.50% { opacity: 1; }}
+svg .lab-c { animation: lab-c 14s ease-in-out infinite; }
+@keyframes lab-c {0%, 70.00%, 98.75%, 100% { opacity: 0; } 71.25%, 97.50% { opacity: 1; }}
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg .pulse, svg .flow { animation: none !important; transition: none !important; opacity: 1; }
+ svg .flow { stroke-dasharray: none; stroke-width: 1.5; }
+ svg .seg-verify { transform: scaleX(1); }
+}
+</style>

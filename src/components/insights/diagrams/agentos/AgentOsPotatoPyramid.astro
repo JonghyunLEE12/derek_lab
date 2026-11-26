@@ -1,0 +1,160 @@
+---
+import DiagramFrame from '../DiagramFrame.astro';
+interface Props { caption?: string; }
+const { caption = "발표의 포테이토 피라미드를 옮겼다. 위 칸부터 차례로 불이 들어온다. 칸 이름은 슬라이드 그대로이고 오른쪽 설명은 발표 자막과 해설자 설명에서 가져왔다." } = Astro.props;
+const description = "거꾸로 선 삼각형을 위에서부터 코드베이스, 정적 분석, 검증, 산문, 사람 리뷰 다섯 칸으로 나눈 포테이토 피라미드입니다. 왼쪽에는 위에서 아래로 내려가는 cost 화살표가 있고, 칸마다 좋은 API 설계와 아키텍처, 린트 규칙과 의존성 그래프 분석, 런타임 검증과 형식 검증, 규칙과 스킬과 AGENTS.md, 가장 좁은 사람 리뷰라는 설명이 차례로 강조됩니다.";
+---
+<DiagramFrame caption={caption}>
+<svg class="desktop-diagram" viewBox="0 0 920 490" role="img" aria-label={description}>
+<text class="label" x="460" y="28" style="font-size: 17px"><tspan x="460" dy="0">포테이토 피라미드: 위 칸부터 시간을 써요</tspan></text>
+<path class="route" d="M60 70 V405" />
+<path class="arrow" d="M60 410 m-4 -5 4 5 4 -5" />
+<text class="small" x="38" y="245" style="font-size: 13px"><tspan x="38" dy="0">cost</tspan></text>
+<polygon class="band" points="80.0,60.0 640.0,60.0 584.0,132.0 136.0,132.0" />
+<g class="on0">
+<polygon class="band-on" points="80.0,60.0 640.0,60.0 584.0,132.0 136.0,132.0" />
+</g>
+<text class="label" x="360" y="94.0" style="font-size: 16px"><tspan x="360" dy="0">코드베이스</tspan></text>
+<text class="small mono" x="360" y="114.0" style="font-size: 12px"><tspan x="360" dy="0">codebase</tspan></text>
+<path class="route leader" d="M618.0 96.0 H640" />
+<g class="n0">
+<text class="label note" x="650" y="92.0" style="font-size: 14px">좋은 API 설계 · 아키텍처 · 리팩토링</text>
+<text class="small note" x="650" y="113.0" style="font-size: 13px">에이전트는 있는 코드를 따라 써요</text>
+</g>
+<polygon class="band" points="136.0,132.0 584.0,132.0 528.0,204.0 192.0,204.0" />
+<g class="on1">
+<polygon class="band-on" points="136.0,132.0 584.0,132.0 528.0,204.0 192.0,204.0" />
+</g>
+<text class="label" x="360" y="166.0" style="font-size: 16px"><tspan x="360" dy="0">정적 분석</tspan></text>
+<text class="small mono" x="360" y="186.0" style="font-size: 12px"><tspan x="360" dy="0">static analysis</tspan></text>
+<path class="route leader" d="M562.0 168.0 H640" />
+<g class="n1">
+<text class="label note" x="650" y="164.0" style="font-size: 14px">린트 규칙 · 의존성 그래프 분석</text>
+<text class="small note" x="650" y="185.0" style="font-size: 13px">교정을 결정적인 검사로 바꿔요</text>
+</g>
+<polygon class="band" points="192.0,204.0 528.0,204.0 472.0,276.0 248.0,276.0" />
+<g class="on2">
+<polygon class="band-on" points="192.0,204.0 528.0,204.0 472.0,276.0 248.0,276.0" />
+</g>
+<text class="label" x="360" y="238.0" style="font-size: 16px"><tspan x="360" dy="0">검증</tspan></text>
+<text class="small mono" x="360" y="258.0" style="font-size: 12px"><tspan x="360" dy="0">verification</tspan></text>
+<path class="route leader" d="M506.0 240.0 H640" />
+<g class="n2">
+<text class="label note" x="650" y="236.0" style="font-size: 14px">런타임 검증 · 형식 검증</text>
+<text class="small note" x="650" y="257.0" style="font-size: 13px">발표자가 가장 중요하다고 한 칸</text>
+</g>
+<polygon class="band" points="248.0,276.0 472.0,276.0 416.0,348.0 304.0,348.0" />
+<g class="on3">
+<polygon class="band-on" points="248.0,276.0 472.0,276.0 416.0,348.0 304.0,348.0" />
+</g>
+<text class="label" x="360" y="317.0" style="font-size: 16px"><tspan x="360" dy="0">산문</tspan></text>
+<path class="route leader" d="M450.0 312.0 H640" />
+<g class="n3">
+<text class="label note" x="650" y="308.0" style="font-size: 14px">규칙 · 스킬 · AGENTS.md</text>
+<text class="small note" x="650" y="329.0" style="font-size: 13px">판단이 필요한 것만 조금 적어요</text>
+</g>
+<polygon class="band" points="304.0,348.0 416.0,348.0 360.0,420.0 360.0,420.0" />
+<g class="on4">
+<polygon class="band-on" points="304.0,348.0 416.0,348.0 360.0,420.0 360.0,420.0" />
+</g>
+<text class="label" x="360" y="444" style="font-size: 15px"><tspan x="360" dy="0">사람 리뷰</tspan></text>
+<path class="route leader" d="M394.0 384.0 H640" />
+<g class="n4">
+<text class="label note" x="650" y="380.0" style="font-size: 14px">가장 좁은 칸</text>
+<text class="small note" x="650" y="401.0" style="font-size: 13px">피라미드의 맨 아래 자리</text>
+</g>
+<text class="small" x="360" y="470" style="font-size: 14px"><tspan x="360" dy="0">위가 넓고 아래가 좁아요. 규칙 파일 같은 글은 아래쪽 산문 칸에 들어가요</tspan></text>
+</svg>
+<svg class="mobile-diagram" viewBox="0 0 320 802" role="img" aria-label={description}>
+<text class="label" x="160" y="26" style="font-size: 17px"><tspan x="160" dy="0">포테이토 피라미드</tspan></text>
+<path class="route" d="M12 66 V300" />
+<path class="arrow" d="M12 305 m-4 -5 4 5 4 -5" />
+<polygon class="band" points="20.0,56.0 300.0,56.0 272.0,108.0 48.0,108.0" />
+<g class="on0">
+<polygon class="band-on" points="20.0,56.0 300.0,56.0 272.0,108.0 48.0,108.0" />
+</g>
+<text class="label" x="160" y="87.0" style="font-size: 14px"><tspan x="160" dy="0">코드베이스</tspan></text>
+<polygon class="band" points="48.0,108.0 272.0,108.0 244.0,160.0 76.0,160.0" />
+<g class="on1">
+<polygon class="band-on" points="48.0,108.0 272.0,108.0 244.0,160.0 76.0,160.0" />
+</g>
+<text class="label" x="160" y="139.0" style="font-size: 14px"><tspan x="160" dy="0">정적 분석</tspan></text>
+<polygon class="band" points="76.0,160.0 244.0,160.0 216.0,212.0 104.0,212.0" />
+<g class="on2">
+<polygon class="band-on" points="76.0,160.0 244.0,160.0 216.0,212.0 104.0,212.0" />
+</g>
+<text class="label" x="160" y="191.0" style="font-size: 14px"><tspan x="160" dy="0">검증</tspan></text>
+<polygon class="band" points="104.0,212.0 216.0,212.0 188.0,264.0 132.0,264.0" />
+<g class="on3">
+<polygon class="band-on" points="104.0,212.0 216.0,212.0 188.0,264.0 132.0,264.0" />
+</g>
+<text class="label" x="160" y="243.0" style="font-size: 14px"><tspan x="160" dy="0">산문</tspan></text>
+<polygon class="band" points="132.0,264.0 188.0,264.0 160.0,316.0 160.0,316.0" />
+<g class="on4">
+<polygon class="band-on" points="132.0,264.0 188.0,264.0 160.0,316.0 160.0,316.0" />
+</g>
+<text class="label" x="160" y="338" style="font-size: 14px"><tspan x="160" dy="0">사람 리뷰</tspan></text>
+<g class="n0">
+<rect class="box" x="20" y="372" width="280" height="66" rx="8" />
+<text class="label note" x="34" y="397" style="font-size: 14px">코드베이스</text>
+<text class="small note" x="34" y="418" style="font-size: 12px">좋은 API 설계 · 아키텍처 · 리팩토링</text>
+<text class="small note" x="34" y="433" style="font-size: 11px">에이전트는 있는 코드를 따라 써요</text>
+</g>
+<g class="n1">
+<rect class="box" x="20" y="448" width="280" height="66" rx="8" />
+<text class="label note" x="34" y="473" style="font-size: 14px">정적 분석</text>
+<text class="small note" x="34" y="494" style="font-size: 12px">린트 규칙 · 의존성 그래프 분석</text>
+<text class="small note" x="34" y="509" style="font-size: 11px">교정을 결정적인 검사로 바꿔요</text>
+</g>
+<g class="n2">
+<rect class="box" x="20" y="524" width="280" height="66" rx="8" />
+<text class="label note" x="34" y="549" style="font-size: 14px">검증</text>
+<text class="small note" x="34" y="570" style="font-size: 12px">런타임 검증 · 형식 검증</text>
+<text class="small note" x="34" y="585" style="font-size: 11px">발표자가 가장 중요하다고 한 칸</text>
+</g>
+<g class="n3">
+<rect class="box" x="20" y="600" width="280" height="66" rx="8" />
+<text class="label note" x="34" y="625" style="font-size: 14px">산문</text>
+<text class="small note" x="34" y="646" style="font-size: 12px">규칙 · 스킬 · AGENTS.md</text>
+<text class="small note" x="34" y="661" style="font-size: 11px">판단이 필요한 것만 조금 적어요</text>
+</g>
+<g class="n4">
+<rect class="box" x="20" y="676" width="280" height="66" rx="8" />
+<text class="label note" x="34" y="701" style="font-size: 14px">사람 리뷰</text>
+<text class="small note" x="34" y="722" style="font-size: 12px">가장 좁은 칸</text>
+<text class="small note" x="34" y="737" style="font-size: 11px">피라미드의 맨 아래 자리</text>
+</g>
+<text class="small" x="160" y="768" style="font-size: 13px"><tspan x="160" dy="0">위가 넓고 아래가 좁아요.</tspan><tspan x="160" dy="19">규칙 파일은 아래쪽 산문 칸이에요</tspan></text>
+</svg>
+</DiagramFrame>
+<style>
+svg .band { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+svg .band-on { fill: var(--accent); fill-opacity: .14; stroke: var(--accent); stroke-width: 2; }
+svg .mono { font-family: ui-monospace, monospace; }
+svg .note { text-anchor: start; }
+svg .leader { stroke-dasharray: 3 4; }
+svg .on0 { animation: on0 15s ease-in-out infinite; }
+@keyframes on0 {0%, 2.00%, 20.25%, 100% { opacity: 0; } 3.25%, 19.00% { opacity: 1; }}
+svg .n0 { animation: n0 15s ease-in-out infinite; }
+@keyframes n0 {0%, 2.00%, 19.00%, 100% { opacity: 0.5; } 3.25%, 17.75% { opacity: 1; }}
+svg .on1 { animation: on1 15s ease-in-out infinite; }
+@keyframes on1 {0%, 21.00%, 39.25%, 100% { opacity: 0; } 22.25%, 38.00% { opacity: 1; }}
+svg .n1 { animation: n1 15s ease-in-out infinite; }
+@keyframes n1 {0%, 21.00%, 38.00%, 100% { opacity: 0.5; } 22.25%, 36.75% { opacity: 1; }}
+svg .on2 { animation: on2 15s ease-in-out infinite; }
+@keyframes on2 {0%, 40.00%, 58.25%, 100% { opacity: 0; } 41.25%, 57.00% { opacity: 1; }}
+svg .n2 { animation: n2 15s ease-in-out infinite; }
+@keyframes n2 {0%, 40.00%, 57.00%, 100% { opacity: 0.5; } 41.25%, 55.75% { opacity: 1; }}
+svg .on3 { animation: on3 15s ease-in-out infinite; }
+@keyframes on3 {0%, 59.00%, 77.25%, 100% { opacity: 0; } 60.25%, 76.00% { opacity: 1; }}
+svg .n3 { animation: n3 15s ease-in-out infinite; }
+@keyframes n3 {0%, 59.00%, 76.00%, 100% { opacity: 0.5; } 60.25%, 74.75% { opacity: 1; }}
+svg .on4 { animation: on4 15s ease-in-out infinite; }
+@keyframes on4 {0%, 78.00%, 96.25%, 100% { opacity: 0; } 79.25%, 95.00% { opacity: 1; }}
+svg .n4 { animation: n4 15s ease-in-out infinite; }
+@keyframes n4 {0%, 78.00%, 95.00%, 100% { opacity: 0.5; } 79.25%, 93.75% { opacity: 1; }}
+@media (prefers-reduced-motion: reduce) {
+ svg *, svg .pulse, svg .flow { animation: none !important; transition: none !important; opacity: 1; }
+ svg [class^="on"] { opacity: 0 !important; }
+}
+</style>
